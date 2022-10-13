@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
 
@@ -16,10 +17,12 @@ public class CoordinatesMenuController {
             getClass().getResource("coordinatesMenu.fxml"));
     */
     @FXML
-    ComboBox comboBoxLocation;
+    ComboBox comboBoxSetLocation;
+    @FXML
+    Button buttonSetCoordinates;
     
     public void initialize() throws IOException {
-        comboBoxLocation.getStylesheets().add(getClass()
+        comboBoxSetLocation.getStylesheets().add(getClass()
                 .getResource("comboBoxTextStyle.css").toExternalForm());
         
              // Weekdays
@@ -27,6 +30,6 @@ public class CoordinatesMenuController {
                    { "Hervanta", "Keskusta", "Kaleva",
                                     "Kauppi", "Leinola", "Lielahti" };
         
-        comboBoxLocation.getItems().addAll(FXCollections.observableArrayList(week_days).sorted());
+        comboBoxSetLocation.getItems().addAll(FXCollections.observableArrayList(week_days).sorted());
     }
 }
