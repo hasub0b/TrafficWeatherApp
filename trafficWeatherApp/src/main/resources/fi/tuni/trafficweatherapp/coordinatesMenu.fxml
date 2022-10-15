@@ -15,7 +15,7 @@
          <rotationAxis>
             <Point3D />
          </rotationAxis></Rectangle>
-      <Label alignment="CENTER" contentDisplay="CENTER" style="-fx-stroke: black; -fx-stroke-width: 0.5;" text="Coordinates" textAlignment="JUSTIFY" textFill="#c8b6e2" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="5.0">
+      <Label fx:id="labelCoordinatesTitle" alignment="CENTER" contentDisplay="CENTER" text="Coordinates" textAlignment="JUSTIFY" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="5.0">
          <font>
             <Font name="Arial" size="20.0" />
          </font>
