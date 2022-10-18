@@ -7,7 +7,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="923.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle id="Header" arcHeight="5.0" arcWidth="5.0" fill="#2c21ff99" height="53.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.5" width="923.0" />
@@ -17,12 +16,12 @@
             <Font name="Arial Black" size="21.0" />
          </font>
       </TextField>
-      <RadioButton layoutX="594.0" layoutY="13.0" mnemonicParsing="false" text="Settings">
+      <RadioButton fx:id="GraphViewButton" layoutX="724.0" layoutY="13.0" mnemonicParsing="false" text="Graph View">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="GraphViewButton" layoutX="724.0" layoutY="13.0" mnemonicParsing="false" text="Graph View">
+      <RadioButton layoutX="594.0" layoutY="13.0" mnemonicParsing="false" text="Settings">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
