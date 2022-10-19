@@ -24,6 +24,7 @@ public class PrimaryController {
     Rectangle menuBar;
     @FXML
     Rectangle shapeMainBackground;
+    // For displaying the menu content
     @FXML
     AnchorPane anchorMenu;
     @FXML
@@ -38,6 +39,8 @@ public class PrimaryController {
     RadioButton buttonGraphView;
     @FXML
     RadioButton buttonSettings;
+    @FXML
+    Rectangle shapeAppTitle;
 
     @FXML
     public void setContentArea() throws IOException {
@@ -52,16 +55,19 @@ public class PrimaryController {
         buttonSettings.getStylesheets().add(getClass()
                 .getResource("radioButtonStyle.css").toExternalForm());
         
+        //shapeAppTitle.setX( anchorMain.getWidth() - (shapeAppTitle.getWidth() / 2));
+        shapeAppTitle.widthProperty().bind(anchorMain.widthProperty().subtract(570));
+        
         labelAppTitle.getStyleClass().add("outline");
         labelAppTitle.getStylesheets().add(getClass()
                 .getResource("appTitleStyle.css").toExternalForm());
-        //anchorMenubar.autosize();
-        //anchorContentArea.autosize();
+        anchorMenubar.autosize();
+        anchorContentArea.autosize();
         //anchorMenubar.widthProperty().bind(anchorMain.widthProperty());
-        //menuBar.widthProperty().bind(anchorMenubar.widthProperty());
+        menuBar.widthProperty().bind(anchorMain.widthProperty());
         //menuBar.heightProperty().bind(anchorMain.heightProperty());
-        //shapeMainBackground.widthProperty().bind(anchorContentArea.widthProperty());
-        //shapeMainBackground.heightProperty().bind(anchorContentArea.heightProperty());
+        shapeMainBackground.widthProperty().bind(anchorMain.widthProperty());
+        shapeMainBackground.heightProperty().bind(anchorMain.heightProperty());
 
     }
 }

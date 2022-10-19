@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +13,10 @@
         <AnchorPane fx:id="anchorMenubar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
             <children>
                 <Rectangle fx:id="menuBar" fill="#495c83" height="60.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.5" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#7a86b6" height="60.0" layoutX="255.0" stroke="#7a86b6" strokeType="INSIDE" strokeWidth="0.0" width="223.0" />
+            <Rectangle fx:id="shapeAppTitle" arcHeight="15.0" arcWidth="15.0" fill="#7a86b6" height="60.0" layoutX="286.0" stroke="#7a86b6" strokeType="INSIDE" strokeWidth="0.0" width="225.0" x="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <rotationAxis>
+                  <Point3D />
+               </rotationAxis></Rectangle>
                 <RadioButton fx:id="buttonSettings" layoutX="587.0" layoutY="12.0" mnemonicParsing="false" text="Settings" textFill="#c8b6e2" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="12.0">
                     <font>
                         <Font name="Arial" size="20.0" />
@@ -23,7 +27,7 @@
                         <Font name="Arial" size="20.0" />
                     </font>
                 </RadioButton>
-            <Label fx:id="labelAppTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="255.0" layoutY="1.0" prefHeight="58.0" prefWidth="223.0" text="Traffic App" textFill="#c8b6e2" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label fx:id="labelAppTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="255.0" layoutY="1.0" prefHeight="58.0" prefWidth="223.0" text="Traffic App" textFill="#c8b6e2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="40.0" />
                </font>
@@ -33,7 +37,7 @@
         <AnchorPane fx:id="anchorContentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
             <children>
                 <Rectangle id="Header" fx:id="shapeMainBackground" fill="#a8a4ce" height="550.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.5" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                <AnchorPane fx:id="anchorMenu" prefHeight="300.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                <AnchorPane fx:id="anchorMenu" prefHeight="300.0" prefWidth="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
             </children>
         </AnchorPane>
     </children>
