@@ -27,7 +27,7 @@ public class PrimaryController {
     Rectangle shapeMainBackground;
     // For displaying the menu content
     @FXML
-    AnchorPane anchorMenu;
+    AnchorPane anchorContentView;
     @FXML
     VBox anchorMain;
     @FXML
@@ -44,6 +44,9 @@ public class PrimaryController {
     Rectangle shapeAppTitle;
     @FXML
     GridPane gridMenubar;
+    @FXML
+    FXMLLoader loaderCoordinatesMenu = new FXMLLoader(
+            getClass().getResource("graphView.fxml"));
 
     @FXML
     public void setContentArea() throws IOException {
@@ -51,25 +54,33 @@ public class PrimaryController {
         //AnchorPane anchorContentArea = fxmlLoader.load();
         //anchorMain.getChildren().setAll(anchorContentArea);
     }
+
     @FXML
     public void initialize() {
         buttonGraphView.getStylesheets().add(getClass()
                 .getResource("radioButtonStyle.css").toExternalForm());
         buttonSettings.getStylesheets().add(getClass()
                 .getResource("radioButtonStyle.css").toExternalForm());
-        
-        //gridMenubar.widthProperty().bind(anchorMain.widthProperty());
-        //shapeAppTitle.setX( anchorMain.getWidth() - (shapeAppTitle.getWidth() / 2));
-        //shapeAppTitle.widthProperty().bind(anchorMain.widthProperty().subtract(570));
-        
         labelAppTitle.getStyleClass().add("outline");
         labelAppTitle.getStylesheets().add(getClass()
                 .getResource("appTitleStyle.css").toExternalForm());
+
+        try {
+            AnchorPane anchorCoordinatesMenu = loaderCoordinatesMenu.load();
+
+            AnchorPane.setLeftAnchor(anchorCoordinatesMenu, 0.0);
+            AnchorPane.setRightAnchor(anchorCoordinatesMenu, 0.0);
+            anchorContentArea.getChildren().set(1,anchorCoordinatesMenu);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
         anchorMenubar.autosize();
         anchorContentArea.autosize();
-        //anchorMenubar.widthProperty().bind(anchorMain.widthProperty());
+
         menuBar.widthProperty().bind(anchorMain.widthProperty());
-        //menuBar.heightProperty().bind(anchorMain.heightProperty());
+
         shapeMainBackground.widthProperty().bind(anchorMain.widthProperty());
         shapeMainBackground.heightProperty().bind(anchorMain.heightProperty());
 
