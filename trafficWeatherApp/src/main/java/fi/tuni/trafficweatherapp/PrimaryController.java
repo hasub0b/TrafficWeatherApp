@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -41,6 +42,8 @@ public class PrimaryController {
     RadioButton buttonSettings;
     @FXML
     Rectangle shapeAppTitle;
+    @FXML
+    GridPane gridMenubar;
 
     @FXML
     public void setContentArea() throws IOException {
@@ -55,8 +58,9 @@ public class PrimaryController {
         buttonSettings.getStylesheets().add(getClass()
                 .getResource("radioButtonStyle.css").toExternalForm());
         
+        //gridMenubar.widthProperty().bind(anchorMain.widthProperty());
         //shapeAppTitle.setX( anchorMain.getWidth() - (shapeAppTitle.getWidth() / 2));
-        shapeAppTitle.widthProperty().bind(anchorMain.widthProperty().subtract(570));
+        //shapeAppTitle.widthProperty().bind(anchorMain.widthProperty().subtract(570));
         
         labelAppTitle.getStyleClass().add("outline");
         labelAppTitle.getStylesheets().add(getClass()

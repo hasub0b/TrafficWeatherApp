@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -12,26 +15,41 @@
     <children>
         <AnchorPane fx:id="anchorMenubar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
             <children>
-                <Rectangle fx:id="menuBar" fill="#495c83" height="60.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.5" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <Rectangle fx:id="shapeAppTitle" arcHeight="15.0" arcWidth="15.0" fill="#7a86b6" height="60.0" layoutX="286.0" stroke="#7a86b6" strokeType="INSIDE" strokeWidth="0.0" width="225.0" x="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <rotationAxis>
-                  <Point3D />
-               </rotationAxis></Rectangle>
-                <RadioButton fx:id="buttonSettings" layoutX="587.0" layoutY="12.0" mnemonicParsing="false" text="Settings" textFill="#c8b6e2" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="12.0">
-                    <font>
-                        <Font name="Arial" size="20.0" />
-                    </font>
-                </RadioButton>
-                <RadioButton fx:id="buttonGraphView" layoutX="743.0" layoutY="13.0" mnemonicParsing="false" text="Graph View" textFill="#c8b6e2" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="12.0">
-                    <font>
-                        <Font name="Arial" size="20.0" />
-                    </font>
-                </RadioButton>
-            <Label fx:id="labelAppTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="255.0" layoutY="1.0" prefHeight="58.0" prefWidth="223.0" text="Traffic App" textFill="#c8b6e2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
+                <Rectangle fx:id="menuBar" fill="#495c83" height="60.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.5" width="800.0" />
+            <HBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <GridPane fx:id="gridMenubar" hgap="10.0" maxHeight="60.0" minHeight="60.0" prefHeight="60.0" HBox.hgrow="ALWAYS">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="15.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="15.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="30.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="20.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="20.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Rectangle fx:id="shapeAppTitle" arcHeight="15.0" arcWidth="15.0" fill="#7a86b6" height="60.0" stroke="#7a86b6" strokeType="INSIDE" strokeWidth="0.0" width="220.0" x="2.0" GridPane.columnIndex="2" />
+                            <RadioButton fx:id="buttonSettings" mnemonicParsing="false" text="Settings" textFill="#c8b6e2" GridPane.columnIndex="4">
+                                <font>
+                                    <Font name="Arial" size="20.0" />
+                                </font>
+                            </RadioButton>
+                            <RadioButton fx:id="buttonGraphView" mnemonicParsing="false" text="Graph View" textFill="#c8b6e2" GridPane.columnIndex="3">
+                                <font>
+                                    <Font name="Arial" size="20.0" />
+                                </font>
+                            </RadioButton>
+                        <Label fx:id="labelAppTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="223.0" text="Traffic App" textFill="#c8b6e2" GridPane.columnIndex="2">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </GridPane>
+               </children>
+            </HBox>
             </children>
         </AnchorPane>
         <AnchorPane fx:id="anchorContentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
