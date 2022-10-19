@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane fx:id="anchorContentArea" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle id="Header" fx:id="shapeMainBackground" fill="#a8a4ce" height="600.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.5" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane layoutY="200.0" prefHeight="300.0" prefWidth="250.0" AnchorPane.rightAnchor="0.0" />
+   </children>
+</AnchorPane>

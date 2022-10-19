@@ -4,9 +4,14 @@
  */
 package fi.tuni.trafficweatherapp;
 
+import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -14,20 +19,49 @@ import javafx.scene.shape.Rectangle;
  * @author mikko
  */
 public class PrimaryController {
+
     @FXML
     Rectangle menuBar;
-    @FXML
-    AnchorPane painPane;
     @FXML
     Rectangle shapeMainBackground;
     @FXML
     AnchorPane anchorMenu;
-    
-    public void init() {
-        menuBar.widthProperty().bind(painPane.widthProperty());
-        menuBar.heightProperty().bind(painPane.heightProperty());
-        shapeMainBackground.widthProperty().bind(painPane.widthProperty());
-        shapeMainBackground.heightProperty().bind(painPane.heightProperty());
+    @FXML
+    VBox anchorMain;
+    @FXML
+    AnchorPane anchorContentArea;
+    @FXML
+    AnchorPane anchorMenubar;
+    @FXML
+    Label labelAppTitle;
+    @FXML
+    RadioButton buttonGraphView;
+    @FXML
+    RadioButton buttonSettings;
+
+    @FXML
+    public void setContentArea() throws IOException {
+        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("contentArea.fxml"));
+        //AnchorPane anchorContentArea = fxmlLoader.load();
+        //anchorMain.getChildren().setAll(anchorContentArea);
+    }
+    @FXML
+    public void initialize() {
+        buttonGraphView.getStylesheets().add(getClass()
+                .getResource("radioButtonStyle.css").toExternalForm());
+        buttonSettings.getStylesheets().add(getClass()
+                .getResource("radioButtonStyle.css").toExternalForm());
         
+        labelAppTitle.getStyleClass().add("outline");
+        labelAppTitle.getStylesheets().add(getClass()
+                .getResource("appTitleStyle.css").toExternalForm());
+        //anchorMenubar.autosize();
+        //anchorContentArea.autosize();
+        //anchorMenubar.widthProperty().bind(anchorMain.widthProperty());
+        //menuBar.widthProperty().bind(anchorMenubar.widthProperty());
+        //menuBar.heightProperty().bind(anchorMain.heightProperty());
+        //shapeMainBackground.widthProperty().bind(anchorContentArea.widthProperty());
+        //shapeMainBackground.heightProperty().bind(anchorContentArea.heightProperty());
+
     }
 }
