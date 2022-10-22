@@ -9,7 +9,7 @@
    <children>
       <StackPane fx:id="stackPaneGraph" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane fx:id="anchorSideMenu" prefHeight="190.0" prefWidth="215.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="160.0" />
-      <ImageView fx:id="sideMenu" fitHeight="250.0" fitWidth="400.0" layoutX="400.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true" smooth="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
+      <ImageView fx:id="sideMenu" fitHeight="250.0" fitWidth="60.0" layoutX="60.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true" smooth="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
          <image>
             <Image url="@Sidebar.png" />
          </image>
