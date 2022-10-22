@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 
 public class CoordinatesMenuController {
 
@@ -31,6 +33,10 @@ public class CoordinatesMenuController {
     TextField fieldMaxX;
     @FXML
     Label labelCoordinatesTitle;
+    @FXML
+    Rectangle backgroundShape;
+    @FXML
+    AnchorPane anchorCoordinatesMenu;
         
     // TODO: 
     // update coordinates to Model
@@ -48,6 +54,9 @@ public class CoordinatesMenuController {
                     "Kauppi", "Leinola", "Lielahti"};
 
         comboBoxSetLocation.getItems().addAll(FXCollections.observableArrayList(week_days).sorted());
+        
+        backgroundShape.widthProperty().bind(anchorCoordinatesMenu.widthProperty());
+        backgroundShape.heightProperty().bind(anchorCoordinatesMenu.heightProperty());
 
         buttonSetCoordinates.setOnAction((setCoordinates) -> { 
             

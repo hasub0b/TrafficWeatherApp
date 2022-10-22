@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane fx:id="anchorGraphView" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle id="Header" fx:id="shapeMainBackground" fill="#a8a4ce" height="550.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="586.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
+         <image>
+            <Image url="@Sidebar.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

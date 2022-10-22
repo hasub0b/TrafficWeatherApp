@@ -1,35 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="923.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Rectangle id="Header" arcHeight="5.0" arcWidth="5.0" fill="#2c21ff99" height="53.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.5" width="923.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#481fff69" height="564.0" layoutY="53.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.5" width="923.0" />
-      <TextField alignment="CENTER" layoutX="385.0" opacity="0.8" prefHeight="53.0" prefWidth="153.0" promptText="Traffic App" text="Traffic App">
-         <font>
-            <Font name="Arial Black" size="21.0" />
-         </font>
-      </TextField>
-      <RadioButton fx:id="GraphViewButton" layoutX="724.0" layoutY="13.0" mnemonicParsing="false" text="Graph View">
-         <font>
-            <Font name="Arial" size="18.0" />
-         </font>
-      </RadioButton>
-      <RadioButton layoutX="594.0" layoutY="13.0" mnemonicParsing="false" text="Settings">
-         <font>
-            <Font name="Arial" size="18.0" />
-         </font>
-      </RadioButton>
-      <Pane id="GraphViewPane" layoutY="53.0" prefHeight="564.0" prefWidth="923.0">
-         <children>
-            <Polygon fill="#5461e369" layoutX="874.0" layoutY="214.0" points="13.0, 51.0, 49.0, -41.0, 49.0, 149.0" stroke="BLACK" strokeType="OUTSIDE" />
-         </children>
-      </Pane>
-   </children>
-</Pane>
+<VBox fx:id="anchorMain" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.trafficweatherapp.PrimaryController">
+    <children>
+        <AnchorPane fx:id="anchorMenubar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
+            <children>
+                <Rectangle fx:id="menuBar" fill="#495c83" height="60.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.5" width="800.0" />
+            <HBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <GridPane fx:id="gridMenubar" hgap="10.0" maxHeight="60.0" minHeight="60.0" prefHeight="60.0" HBox.hgrow="ALWAYS">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="15.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="15.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="30.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="20.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="20.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Rectangle fx:id="shapeAppTitle" arcHeight="15.0" arcWidth="15.0" fill="#7a86b6" height="60.0" stroke="#7a86b6" strokeType="INSIDE" strokeWidth="0.0" width="220.0" x="2.0" GridPane.columnIndex="2" />
+                            <RadioButton fx:id="buttonSettings" mnemonicParsing="false" text="Settings" textFill="#c8b6e2" GridPane.columnIndex="4">
+                                <font>
+                                    <Font name="Arial" size="20.0" />
+                                </font>
+                            </RadioButton>
+                            <RadioButton fx:id="buttonGraphView" mnemonicParsing="false" text="Graph View" textFill="#c8b6e2" GridPane.columnIndex="3">
+                                <font>
+                                    <Font name="Arial" size="20.0" />
+                                </font>
+                            </RadioButton>
+                        <Label fx:id="labelAppTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="223.0" text="Traffic App" textFill="#c8b6e2" GridPane.columnIndex="2">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </GridPane>
+               </children>
+            </HBox>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="anchorContentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
+            <children>
+                <Rectangle id="Header" fx:id="shapeMainBackground" fill="#a8a4ce" height="550.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.5" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <right>
+                      <AnchorPane fx:id="anchorContentView" BorderPane.alignment="CENTER" />
+               </right>
+            </BorderPane>
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>
+>>>>>>> mikko-branch
