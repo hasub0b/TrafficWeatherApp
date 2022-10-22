@@ -5,13 +5,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane fx:id="anchorGraphView" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorGraphView" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.trafficweatherapp.GraphViewController">
    <children>
-      <ImageView fx:id="sideMenu" fitHeight="150.0" fitWidth="200.0" layoutX="586.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
+      <StackPane fx:id="stackPaneGraph" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="anchorSideMenu" prefHeight="190.0" prefWidth="215.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="160.0" />
+      <ImageView fx:id="sideMenu" fitHeight="250.0" fitWidth="400.0" layoutX="400.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true" smooth="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
          <image>
             <Image url="@Sidebar.png" />
          </image>
       </ImageView>
-      <StackPane fx:id="stackPaneGraph" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>
