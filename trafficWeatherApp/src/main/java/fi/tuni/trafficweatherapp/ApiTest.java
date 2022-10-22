@@ -21,35 +21,76 @@ import java.net.HttpURLConnection;
  */
 public class ApiTest {
 
-    static String trafficData = "https://tie.digitraffic.fi/api/maintenance/v1/"
-            + "tracking/routes?endFrom=2022-01-19T09%3A00%3A00Z&endBefore="
-            + "2022-01-19T14%3A00%3A00Z&xMin=21&yMin=61&xMax=22&yMax=62&taskId="
-            + "&domain=state-roads";
-    static String messagesUrl = "https://tie.digitraffic.fi/api/traffic-message/v1/messages?inactiveHours=0&includeAreaGeometry=true&xMin=22&yMin=62&xMax=23&yMax=63&taskId=&domain=state-roads&endFrom=2022-01-19&endBefore=2022-01-19";
+    static String urlRoadMaintenanceTasks
+            = "https://tie.digitraffic.fi/api/maintenance/v1/tracking/tasks";
+    
+    String urlRoadConditions = "https://tie.digitraffic.fi/api/v3/data/"
+            + "road-conditions/<X_MIN>/<Y_MIN>/<X_MAX>/<Y_MAX>";
+    
+    String urlRoadMaintenanceData = "https://tie.digitraffic.fi/api/maintenance/v1/"
+            + "tracking/routes?endFrom=<START_TIME>&endBefore=<END_TIME>&"
+            + "xMin=<X_MIN>&yMin=<Y_MIN>&xMax=<X_MAX>&yMax=<Y_MAX>&"
+            + "taskId=<TASK_NAME>&domain=state-roads";
+    
+    // SITUATION_TYPE is a traffic message type 
+    // (TRAFFIC_ANNOUNCEMENT, EXEMPTED_TRANSPORT, WEIGHT_RESTRICTION or ROAD_WORK)
+    // !! This method returns only the most recent data (today) 
+    // !! meaning that this query will not always return the same data as previously
+    String urlLatestTrafficMessages = "https://tie.digitraffic.fi/api/"
+            + "traffic-message/v1/messages?inactiveHours=0&"
+            + "includeAreaGeometry=false&situationType=<SITUATION_TYPE>";
+    
 
     public ApiTest() {
 
     }
 
     public static void main(String[] args) throws IOException {
-        JsonObject js = getData();
-        System.out.println(js.get("features"));
+        JsonObject js = getRoadMaintenanceTasks();
+        System.out.println(js);
     }
+    
+    public static JsonObject getRoadMaintenanceTasks() throws MalformedURLException,
+                                                        IOException 
+    {
+        HttpURLConnection urlConnection = getConnection(
+                                            urlRoadMaintenanceTasks);
 
-    public static JsonObject getData() throws MalformedURLException,
+        String content = new String(urlConnection.getInputStream().readAllBytes());
+        
+        // Fixing the wrong json format
+        char quote = '"';
+        content = "{" + quote + "features" + quote + " : " + content + "}";
+
+        JsonObject jsonObject = JsonParser.parseString​(content).getAsJsonObject();
+        
+        return jsonObject;
+    }
+    
+    private static HttpURLConnection getConnection(String urlString) throws 
+            MalformedURLException, 
             IOException 
     {
-        var url = (new URL(messagesUrl));
-        HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
-        
-        //myURLConnection.setRequestProperty("content-type", "application/json;charset=UTF-8");
+        var url = (new URL(urlString));
+        HttpURLConnection urlConnection = 
+                                    (HttpURLConnection) url.openConnection();
+
+        urlConnection.setRequestProperty("content-type", "application/json;charset=UTF-8");
         urlConnection.setRequestProperty("Accept-Encoding", "gzip header");
         urlConnection.connect();
-        System.out.println(urlConnection.getResponseCode());
         
+        return urlConnection;
+        
+    }
+
+    public JsonObject getRoadConditions () throws MalformedURLException,
+            IOException {
+        HttpURLConnection urlConnection = getConnection(urlRoadConditions);
+        System.out.println(urlConnection.getResponseCode());
+
         JsonReader reader = new JsonReader(new InputStreamReader(urlConnection.getInputStream()));
         JsonObject jsonObject = JsonParser.parseReader​(reader).getAsJsonObject();
-        
+
         return jsonObject;
     }
 
