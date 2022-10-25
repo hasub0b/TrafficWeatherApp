@@ -6,4 +6,5 @@ module fi.tuni.trafficweatherapp {
     exports fi.tuni.trafficweatherapp;
     requires com.google.gson;
     requires org.json;
+    requires java.xml;
 }

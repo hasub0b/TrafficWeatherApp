@@ -37,19 +37,19 @@ public class ApiTest {
     }
 
     public static JsonObject getData() throws MalformedURLException,
-            IOException 
+            IOException
     {
         var url = (new URL(messagesUrl));
         HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
-        
+
         //myURLConnection.setRequestProperty("content-type", "application/json;charset=UTF-8");
         urlConnection.setRequestProperty("Accept-Encoding", "gzip header");
         urlConnection.connect();
         System.out.println(urlConnection.getResponseCode());
-        
+
         JsonReader reader = new JsonReader(new InputStreamReader(urlConnection.getInputStream()));
         JsonObject jsonObject = JsonParser.parseReader​(reader).getAsJsonObject();
-        
+
         return jsonObject;
     }
 
