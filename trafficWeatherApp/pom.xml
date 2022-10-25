@@ -91,5 +91,4 @@
             </plugin>
         </plugins>
     </build>
-    <name>trafficweatherapp</name>
 </project>
