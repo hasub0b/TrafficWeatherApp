@@ -24,10 +24,29 @@ import org.json.JSONArray;
 
 public class WeatherApiTest {  
     
+    /*
+    *   Variables from controllers:
+    *   - Coordinates
+    *   - Date
+    *   - Timestep/report frequency
+    *   - Wanted parameter(s) (wind/cloud/temp)
+    *   - ...TBA...
+    */
+    
+    
+    
+    // Query
+    /*
+    *   (Query) Parameters explained:
+    *   - t2m = temp
+    *   - ws = windspeed
+    *   n_man = cloud cover
+    */
     static String weatherData = "https://opendata.fmi.fi/wfs?request"
             + "=getFeature&version=2.0.0&storedquery_id"
             + "=fmi::observations::weather::simple&bbox=23,61,24,62&timestep"
             + "=30&parameters=t2m,ws_10min,n_man";
+    
     
     public WeatherApiTest() {
 
@@ -63,7 +82,7 @@ public class WeatherApiTest {
         HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
         urlConnection.connect();
         
-        System.out.println(urlConnection.getResponseCode());
+        //System.out.println(urlConnection.getResponseCode());
         
         // Read the inputstream (XML)
         InputStream inputstream = urlConnection.getInputStream();
