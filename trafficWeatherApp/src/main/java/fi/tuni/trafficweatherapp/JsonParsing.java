@@ -1,9 +1,6 @@
 package fi.tuni.trafficweatherapp;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import org.json.JSONObject;
 import org.json.XML;
 import org.json.JSONException;
@@ -14,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Objects;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -97,35 +95,57 @@ public class JsonParsing {
 
     }
 
-    public JsonObject xmlToJson(String xmlString){
-        try {
+    public JsonObject parseXml(String xmlString) throws ParserConfigurationException, IOException, SAXException {
 
-
-            JSONObject xmlJSONObj = XML.toJSONObject(xmlString);
-            System.out.println(xmlJSONObj);
-            JsonObject jsonObject = new JsonParser().parse(xmlJSONObj.toString()).getAsJsonObject();
-            return jsonObject;
-        } catch (JSONException je) {
-            System.out.println(je.toString());
-
-        }
-        return null;
-    }
-    public void parseXml(String xmlString) throws ParserConfigurationException, IOException, SAXException {
-
-        // Convert xml string to gson JsonObject
+        // Convert xml string to Json.JSONObject
         JSONObject json = XML.toJSONObject(xmlString);
+
+        //pretty print for testing purposes only
         String jsonString = json.toString(4);
-        System.out.println(jsonString);
+        //System.out.println(jsonString);
+
+        // Convert json.JSONObject to gson.JsonObject
         JsonObject xmlJson = new JsonParser().parse(json.toString()).getAsJsonObject();
 
+        // Remove unnecessary info
         xmlJson.getAsJsonObject("wfs:FeatureCollection").keySet().removeIf(k -> !k.equals("wfs:member"));
-        System.out.println(xmlJson);
 
+        // combine elements with same id under one object and add them to new JsonObject
+        JsonArray members = xmlJson.getAsJsonObject("wfs:FeatureCollection").getAsJsonArray("wfs:member");
+        String[] previousId = {"", "", "", ""};
+        JsonArray memberArray = new JsonArray();
+        JsonObject newele = new JsonObject();
+        for (JsonElement member:members) {
+            String name = member.getAsJsonObject().getAsJsonObject("BsWfs:BsWfsElement").getAsJsonPrimitive("BsWfs:ParameterName").toString().split("\"")[1];
+            float value = member.getAsJsonObject().getAsJsonObject("BsWfs:BsWfsElement").getAsJsonPrimitive("BsWfs:ParameterValue").getAsFloat();
 
+            String[] id = member.getAsJsonObject().getAsJsonObject("BsWfs:BsWfsElement").getAsJsonPrimitive("gml:id").toString().split("\\.");
+            if (Objects.equals(id[1], previousId[1]) && Objects.equals(id[2], previousId[2])) {
+                newele.addProperty(name,value);
+            } else {
+                newele = new JsonObject();
+                previousId = id;
+
+                // get the location and time for new id
+                String time = member.getAsJsonObject().getAsJsonObject("BsWfs:BsWfsElement").get("BsWfs:Time").toString().split("\"")[1];
+                JsonObject location = member.getAsJsonObject().getAsJsonObject("BsWfs:BsWfsElement").getAsJsonObject("BsWfs:Location");
+
+                newele.addProperty("Time",time);
+                newele.add("Location",location);
+                newele.addProperty(name, value);
+
+            }
+            memberArray.add(newele);
+        }
+
+        JsonObject finalJson = new JsonObject();
+        finalJson.add("data",memberArray);
+
+        return finalJson;
 
     }
 
+    // Only here to get test data for parseXML
     public String getXml() throws IOException {
         URL url = new URL("https://opendata.fmi.fi/wfs?request=getFeature&version=2.0.0&storedquery_id=fmi::observations::weather::simple&bbox=23,61,24,62&timestep=30&parameters=t2m,ws_10min,n_man");
 
