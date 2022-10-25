@@ -32,8 +32,7 @@ public class WeatherApiTest {
     *   - Wanted parameter(s) (wind/cloud/temp)
     *   - ...TBA...
     */
-    
-    
+  
     
     // Query
     /*
@@ -46,15 +45,28 @@ public class WeatherApiTest {
             + "=getFeature&version=2.0.0&storedquery_id"
             + "=fmi::observations::weather::simple&bbox=23,61,24,62&timestep"
             + "=30&parameters=t2m,ws_10min,n_man";
-    
-    
-    public WeatherApiTest() {
 
+    // JSONObject -variable & accessors
+    // var
+    private JSONObject jso = null;
+    // get
+    public JSONObject getJso() {
+        return jso;
     }
-
-    public static void main(String[] args) throws IOException {
-        JSONObject jso = getData();
-        String jsos = jso.toString();
+    // set
+    public void setJso(JSONObject newJso) {
+        jso = newJso;
+    }
+    
+    private void update(JSONObject a) {
+        setJso(a);
+    }
+    
+    public void main(String[] args) throws IOException {
+        JSONObject jsobj = getData();
+        update(jsobj);
+        String jsos = jsobj.toString();
+        
         //System.out.println("jso: " + jsos);
         
         /*
@@ -95,6 +107,7 @@ public class WeatherApiTest {
    
         // Disconnect the connection
         urlConnection.disconnect();
+        
         return jso;
     }
 
