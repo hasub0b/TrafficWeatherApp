@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>fi.tuni</groupId>
-    <artifactId>trafficWeatherApp</artifactId>
+    <artifactId>weathermenuapp</artifactId>
     <version>1.0</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -91,5 +91,4 @@
             </plugin>
         </plugins>
     </build>
-    <name>trafficweatherapp</name>
 </project>
