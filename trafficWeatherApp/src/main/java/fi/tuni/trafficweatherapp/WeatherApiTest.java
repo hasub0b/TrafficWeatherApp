@@ -46,9 +46,7 @@ public class WeatherApiTest {
         */
         
         System.out.println("Entire JSON object: \n" + jso.getJSONObject("wfs:FeatureCollection"));
-        String queryKey = "timeStamp";
-        //System.out.println("Specific query with '" + queryKey + "':\n" + jso.getJSONObject("wfs:FeatureCollection").getString("timeStamp"));
-        System.out.println("Specific query with: " + jso.getJSONObject("wfs:FeatureCollection").getString("timeStamp"));
+        System.out.println("Specific query: \n" + jso.getJSONObject("wfs:FeatureCollection").getString("timeStamp"));
         
         //JSONArray array = jso.getJSONArray(weatherData);
         //System.out.println(jso.get("features"));
