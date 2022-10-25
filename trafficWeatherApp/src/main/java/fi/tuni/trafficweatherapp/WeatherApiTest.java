@@ -4,6 +4,8 @@
  */
 package fi.tuni.trafficweatherapp;
 
+
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +24,6 @@ import org.json.JSONArray;
 
 public class WeatherApiTest {  
     
-    // Haku
     static String weatherData = "https://opendata.fmi.fi/wfs?request"
             + "=getFeature&version=2.0.0&storedquery_id"
             + "=fmi::observations::weather::simple&bbox=23,61,24,62&timestep"
@@ -41,18 +42,16 @@ public class WeatherApiTest {
         *   Utilize:
         *   - Temperature (+forecast)
         *   - Wind (+forecast)
-        *   - Cloudiness
+        *   - Cloud
         */
         
-        
-        /*
         System.out.println("Entire JSON object: \n" + jso.getJSONObject("wfs:FeatureCollection"));
         String queryKey = "timeStamp";
-        System.out.println("Specific query with '" + queryKey + "':\n" + jso.getJSONObject("wfs:FeatureCollection").getString(queryKey));
+        //System.out.println("Specific query with '" + queryKey + "':\n" + jso.getJSONObject("wfs:FeatureCollection").getString("timeStamp"));
+        System.out.println("Specific query with: " + jso.getJSONObject("wfs:FeatureCollection").getString("timeStamp"));
         
-        System.out.println("Query2: \n" + jso.getJSONObject("wfs:FeatureCollection").getJSONArray("wfs:member"));
-        JSONArray array = jso.getJSONObject("wfs:FeatureCollection").getJSONArray("wfs:member");
-        */
+        //JSONArray array = jso.getJSONArray(weatherData);
+        //System.out.println(jso.get("features"));
     }
 
     public static JSONObject getData() throws MalformedURLException,
