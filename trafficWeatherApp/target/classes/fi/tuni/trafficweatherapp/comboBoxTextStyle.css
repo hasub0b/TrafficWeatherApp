@@ -1,8 +1,0 @@
-.combo-box .cell{
-    -fx-text-fill: #666666;
-    -fx-alignment: center;
-    -fx-font: 16px "Consolas";
-}
-.combo-box {
-     -fx-background-color: white;
-}
