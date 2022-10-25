@@ -5,4 +5,6 @@ module fi.tuni.trafficweatherapp {
     opens fi.tuni.trafficweatherapp to javafx.fxml;
     exports fi.tuni.trafficweatherapp;
     requires com.google.gson;
+    requires org.json;
+    requires java.xml;
 }

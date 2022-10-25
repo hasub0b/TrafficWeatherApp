@@ -3,6 +3,21 @@ package fi.tuni.trafficweatherapp;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.json.JSONObject;
+import org.json.XML;
+import org.json.JSONException;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
 
 
 /**
@@ -81,6 +96,53 @@ public class JsonParsing {
         return parsedJsonObj;
 
     }
+
+    public JsonObject xmlToJson(String xmlString){
+        try {
+
+
+            JSONObject xmlJSONObj = XML.toJSONObject(xmlString);
+            System.out.println(xmlJSONObj);
+            JsonObject jsonObject = new JsonParser().parse(xmlJSONObj.toString()).getAsJsonObject();
+            return jsonObject;
+        } catch (JSONException je) {
+            System.out.println(je.toString());
+
+        }
+        return null;
+    }
+    public void parseXml(String xmlString) throws ParserConfigurationException, IOException, SAXException {
+
+        // Convert xml string to gson JsonObject
+        JSONObject json = XML.toJSONObject(xmlString);
+        String jsonString = json.toString(4);
+        System.out.println(jsonString);
+        JsonObject xmlJson = new JsonParser().parse(json.toString()).getAsJsonObject();
+
+        xmlJson.getAsJsonObject("wfs:FeatureCollection").keySet().removeIf(k -> !k.equals("wfs:member"));
+        System.out.println(xmlJson);
+
+
+
+    }
+
+    public String getXml() throws IOException {
+        URL url = new URL("https://opendata.fmi.fi/wfs?request=getFeature&version=2.0.0&storedquery_id=fmi::observations::weather::simple&bbox=23,61,24,62&timestep=30&parameters=t2m,ws_10min,n_man");
+
+        HttpURLConnection request1 = (HttpURLConnection) url.openConnection();
+        request1.setRequestMethod("GET");
+        InputStream is = request1.getInputStream();
+
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            sb.append(line);
+            //System.out.println(line);
+        }
+        return sb.toString();
+    }
+
 
 
 }
