@@ -37,23 +37,39 @@ public class SideMenuTitleBoxesController {
     @FXML
     FXMLLoader loaderCoordinatesMenu = new FXMLLoader(
             getClass().getResource("coordinatesMenu.fxml"));
+    @FXML
+    FXMLLoader loaderTrafficMenu = new FXMLLoader(
+            getClass().getResource("trafficMenu.fxml"));
+    @FXML
+    FXMLLoader loaderWeatherMenu = new FXMLLoader(
+            getClass().getResource("weatherMenu.fxml"));
 
     AnchorPane anchorCoordinatesMenu;
+    //AnchorPane anchorTrafficMenu;
+    AnchorPane anchorWeatherMenu;
 
     public void initialize() {
 
         try {
             anchorCoordinatesMenu = loaderCoordinatesMenu.load();
+            //anchorTrafficMenu = loaderTrafficMenu.load();
+            anchorWeatherMenu = loaderWeatherMenu.load();
+            
 
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         buttonTrafficData.setOnAction((ActionEvent e) -> {
+            anchorChildSideMenu.getChildren().clear();
+            //anchorChildSideMenu.getChildren().addAll(anchorTrafficMenu);
         });
         buttonCoordinates.setOnAction((ActionEvent e) -> {
-            anchorChildSideMenu.getChildren().add(anchorCoordinatesMenu);
+            anchorChildSideMenu.getChildren().clear();
+            anchorChildSideMenu.getChildren().addAll(anchorCoordinatesMenu);
         });
         buttonWeatherConditions.setOnAction((ActionEvent e) -> {
+            anchorChildSideMenu.getChildren().clear();
+            anchorChildSideMenu.getChildren().addAll(anchorWeatherMenu);
         });
     }
 }

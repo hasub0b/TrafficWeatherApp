@@ -26,7 +26,7 @@ public class GraphViewController {
     AnchorPane anchorGraphView;
     @FXML
     AnchorPane anchorSideMenu;
-
+    @FXML
     AnchorPane anchorSideMenuBoxes;
 
     @FXML

@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.prog3.trafficDataApp.TrafficMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.trafficweatherapp.TrafficMenuController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#495c83" height="300.0" stroke="BLACK" strokeType="INSIDE" width="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" text="Traffic Menu" textAlignment="JUSTIFY" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="5.0">
@@ -27,7 +27,7 @@
                   <Font name="Arial" size="14.0" />
                </font>
                <toggleGroup>
-                  <ToggleGroup fx:id="traffic"/>
+                  <ToggleGroup fx:id="traffic" />
                </toggleGroup>
             </RadioButton>
             <RadioButton fx:id="radioButtonRoadCondForecast" mnemonicParsing="false" onAction="#handleRadioButtonEvent" text="Road condition forecast" textFill="WHITE" toggleGroup="$traffic">
