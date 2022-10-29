@@ -1,6 +1,8 @@
 package fi.tuni.trafficweatherapp;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -16,11 +18,22 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
 public class CoordinatesMenuController {
-    public Double[] coordinates;
+    private Double[] coordinates;
     private Double minX;
     private Double maxX;
     private Double minY;
     private Double maxY;
+    static String LOCATIONS[]
+                = {"Hervanta", "Keskusta", "Kaleva",
+                    "Kauppi", "Leinola", "Lielahti"};
+    private static Map<String, Double[]> LOCATIONS1 = new HashMap<>() {{
+    put("Hervanta", new Double[]{22.0,23.0,24.0,25.0});
+    put("Keskusta", new Double[]{22.0,23.0,24.0,25.0});
+    put("Kaleva", new Double[]{22.0,23.0,24.0,25.0});
+    put("HKauppi", new Double[]{22.0,23.0,24.0,25.0});
+    put("Leinola", new Double[]{22.0,23.0,24.0,25.0});
+    put("Lielahti", new Double[]{22.0,23.0,24.0,25.0});
+}};
 
     @FXML
     ComboBox comboBoxSetLocation;
@@ -50,12 +63,9 @@ public class CoordinatesMenuController {
         labelCoordinatesTitle.getStylesheets().add(getClass()
                 .getResource("titleLabelsTextStyle.css").toExternalForm());
 
-        // Places
-        String week_days[]
-                = {"Hervanta", "Keskusta", "Kaleva",
-                    "Kauppi", "Leinola", "Lielahti"};
 
-        comboBoxSetLocation.getItems().addAll(FXCollections.observableArrayList(week_days).sorted());
+        comboBoxSetLocation.getItems().addAll(FXCollections.observableArrayList(
+                                                        LOCATIONS).sorted());
 
         backgroundShape.widthProperty().bind(anchorCoordinatesMenu.widthProperty());
         backgroundShape.heightProperty().bind(anchorCoordinatesMenu.heightProperty());
