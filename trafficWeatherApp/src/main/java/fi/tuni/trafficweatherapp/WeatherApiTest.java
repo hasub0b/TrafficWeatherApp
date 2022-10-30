@@ -24,28 +24,43 @@ import org.json.JSONArray;
 
 public class WeatherApiTest {  
     
-    /*
-    *   Variables from controllers:
-    *   - Coordinates
-    *   - Date
-    *   - Timestep/report frequency
-    *   - Wanted parameter(s) (wind/cloud/temp)
-    *   - ...TBA...
-    */
-  
-    
-    // Query
-    /*
-    *   (Query) Parameters explained:
-    *   - t2m = temp
-    *   - ws = windspeed
-    *   n_man = cloud cover
-    */
     static String weatherData = "https://opendata.fmi.fi/wfs?request"
             + "=getFeature&version=2.0.0&storedquery_id"
             + "=fmi::observations::weather::simple&bbox=23,61,24,62&timestep"
             + "=30&parameters=t2m,ws_10min,n_man";
-
+    
+    /* 
+    * We want to fetch: 
+    *   - observed temperatures (t2m)
+    *   - observed windspeeds (ws_10min)
+    *   - observed cloudcover (n_man)
+    */
+    static String dynamicWeatherObservationDataString = "https://opendata.fmi.fi/wfs?request"
+            + "=getFeature&version=2.0.0&storedquery_id"
+            + "=fmi::observations::weather::simple&bbox=<X1>,<Y1>,<X2>,<Y2>&timestep"
+            + "=<TS>&parameters=t2m,ws_10min,n_man";
+    
+    
+    /* 
+    * We want to fetch: 
+    *   - temperatures (temperature)
+    *   - predicted windspeeds (windspeedms)
+    */
+    static String dynamicWeatherForecastDataString = "https://opendata.fmi.fi/wfs?request"
+            + "=getFeature&version=2.0.0&storedquery_id=fmi::forecast::harmonie::surface::point::simple&latlon"
+            + "=<Y>,<X>&timestep=<TS>&starttime=2022-08-23T06:00:00Z&endtime=2022-08-24T06:00:00Z&parameters"
+            + "=temperature,windspeedms";
+    
+    /* ! Forecast by default 24h  ! */
+    // observations vs. forecast - <OFT>
+    // co-ordinates - <X1><X2>, <Y1><Y2>
+    // forecast co-ordinates - <X>, <Y>
+    // timestep (minutes) - <TS>
+    // parameters 
+    
+    // https://opendata.fmi.fi/wfs?request=getFeature&version=2.0.0&storedquery_id=fmi::observations::weather::simple&bbox=23,61,24,62&timestep=30&parameters=t2m,ws_10min,n_man
+    // https://opendata.fmi.fi/wfs?request=getFeature&version=2.0.0&storedquery_id=fmi::observations::weather::hourly::simple&bbox=23,61,24,62&starttime=2021-01-19T09:00:00Z&endtime=2021-01-19T14:00:00Z&parameters=TA_PT1H_AVG,TA_PT1H_MAX,TA_PT1H_MIN
+    
     // JSONObject -variable & accessors
     // var
     private JSONObject jso = null;
