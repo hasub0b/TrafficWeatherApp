@@ -62,41 +62,41 @@ public class WeatherDataApiFetcher {
     // https://opendata.fmi.fi/wfs?request=getFeature&version=2.0.0&storedquery_id=fmi::observations::weather::hourly::simple&bbox=23,61,24,62&starttime=2021-01-19T09:00:00Z&endtime=2021-01-19T14:00:00Z&parameters=TA_PT1H_AVG,TA_PT1H_MAX,TA_PT1H_MIN
     
     // JSONObject -variable & accessors
-    // var
-    private JSONObject jso = null;
-    // get
-    public JSONObject getJso() {
-        return jso;
+    private JSONObject forecastObject = null;
+    private JSONObject observationsObject = null;
+    
+    public JSONObject getFCO() {
+        return forecastObject;
     }
-    // set
-    public void setJso(JSONObject newJso) {
-        jso = newJso;
+    public void setFCO(JSONObject newFCO) {
+        forecastObject = newFCO;
+    }
+    
+    public JSONObject getOO() {
+        return observationsObject;
+    }
+    public void setOO(JSONObject newOO) {
+        observationsObject = newOO;
     }
     
     public static void main(String[] args) throws IOException {
-        JSONObject jsobj = getData();
-        //setJso(jsobj);
-        String jsos = jsobj.toString();
         
-        //System.out.println("jso: " + jsos);
+        JSONObject forecastResults = getForecastData();
         
-        /*
-        *   Utilize:
-        *   - Temperature (+forecast)
-        *   - Wind (+forecast)
-        *   - Cloud
-        */
-        
-        /* 
-        System.out.println("Entire JSON object: \n" + jso.getJSONObject("wfs:FeatureCollection"));
-        String queryKey = "timeStamp";
-        //System.out.println("Specific query with '" + queryKey + "':\n" + jso.getJSONObject("wfs:FeatureCollection").getString("timeStamp"));
-        System.out.println("Specific query with: " + jso.getJSONObject("wfs:FeatureCollection").getString("timeStamp"));
-        */
         
     }
+    
+    private static HttpURLConnection connect(String urlParameter) throws MalformedURLException, 
+            IOException {
+        var url = (new URL(urlParameter));
+        HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
+        urlConnection.connect();
+        
+        return urlConnection;
+    }
+    
 
-    public static JSONObject getData() throws MalformedURLException,
+    public static JSONObject getForecastData() throws MalformedURLException,
             IOException 
     {
         
@@ -121,5 +121,32 @@ public class WeatherDataApiFetcher {
         
         return jso;
     }
+    
+    public static JSONObject getObservationData() throws MalformedURLException,
+            IOException 
+    {
+        
+        // Connect to the API
+        var url = (new URL(weatherData));
+        HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
+        urlConnection.connect();
+        
+        //System.out.println(urlConnection.getResponseCode());
+        
+        // Read the inputstream (XML)
+        InputStream inputstream = urlConnection.getInputStream();
+        InputStreamReader inputStreamReader = new InputStreamReader(inputstream);
+        // Into a string
+        BufferedReader bufferedreader = new BufferedReader(inputStreamReader);
+        
+        // Convert XML to JSON (duty of parser)
+        JSONObject jso = XML.toJSONObject(bufferedreader);
+   
+        // Disconnect the connection
+        urlConnection.disconnect();
+        
+        return jso;
+    }
+
 
 }
