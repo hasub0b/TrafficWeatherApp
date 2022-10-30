@@ -6,6 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.stage.Stage;
 
+/**
+ * @author Aleksi
+ */
 public class itemsOfInterestMenuController {
 
     @FXML
@@ -33,14 +36,11 @@ public class itemsOfInterestMenuController {
 
     public void checkBoxPressed(ActionEvent actionEvent) {
 
+        // Set boolean
         setVisibility(checkBoxVisibility.isSelected());
-
         setFriction(checkBoxFriction.isSelected());
-
         setPrecipitation(checkBoxPrecipitation.isSelected());
-
         setSlipperiness(checkBoxSlipperiness.isSelected());
-
         setCondition(checkBoxCondition.isSelected());
     }
 

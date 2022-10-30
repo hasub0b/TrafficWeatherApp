@@ -19,6 +19,9 @@ import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
+/**
+ * @author Aleksi
+ */
 public class TrafficMenuController {
     @FXML
     private ToggleGroup traffic;
@@ -29,7 +32,7 @@ public class TrafficMenuController {
     boolean init = false;
     private Stage stage = new Stage();
 
-
+    // Open correct menu from corresponding radiobutton
     public void handleRadioButtonEvent(ActionEvent actionEvent) throws IOException {
 
         RadioButton toggle = (RadioButton) traffic.getSelectedToggle();

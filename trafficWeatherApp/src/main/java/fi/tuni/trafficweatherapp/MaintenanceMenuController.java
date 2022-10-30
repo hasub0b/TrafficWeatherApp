@@ -6,7 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
-
+/**
+ * @author Aleksi
+ */
 public class MaintenanceMenuController {
 
     @FXML
@@ -15,6 +17,7 @@ public class MaintenanceMenuController {
     private Button closeButton;
 
     private String selectedTask;
+    private boolean allSelected;
 
     public void handleCloseButton(ActionEvent actionEvent) {
 
@@ -28,9 +31,12 @@ public class MaintenanceMenuController {
     }
 
     public void allSelected(ActionEvent actionEvent) {
+        setAllSelected(!allSelected);
     }
 
     public String getSelectedTask() {return selectedTask;}
-
     public void setSelectedTask(String selectedTask) {this.selectedTask = selectedTask;}
+
+    public boolean isAllSelected() {return allSelected;}
+    public void setAllSelected(boolean allSelected) {this.allSelected = allSelected;}
 }
