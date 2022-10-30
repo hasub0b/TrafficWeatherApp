@@ -1,7 +1,11 @@
 package fi.tuni.trafficweatherapp;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -17,23 +21,25 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
+// TODO: CHANGE LOCATIONS COORDINATES to match their intended locations.
 public class CoordinatesMenuController {
+
     private Double[] coordinates;
-    private Double minX;
-    private Double maxX;
-    private Double minY;
-    private Double maxY;
-    static String LOCATIONS[]
-                = {"Hervanta", "Keskusta", "Kaleva",
-                    "Kauppi", "Leinola", "Lielahti"};
-    private static Map<String, Double[]> LOCATIONS1 = new HashMap<>() {{
-    put("Hervanta", new Double[]{22.0,23.0,24.0,25.0});
-    put("Keskusta", new Double[]{22.0,23.0,24.0,25.0});
-    put("Kaleva", new Double[]{22.0,23.0,24.0,25.0});
-    put("HKauppi", new Double[]{22.0,23.0,24.0,25.0});
-    put("Leinola", new Double[]{22.0,23.0,24.0,25.0});
-    put("Lielahti", new Double[]{22.0,23.0,24.0,25.0});
-}};
+    private Double minX = null;
+    private Double maxX = null;
+    private Double minY = null;
+    private Double maxY = null;
+
+    private static Map<String, Double[]> LOCATIONS = new HashMap<>() {
+        {
+            put("Hervanta", new Double[]{22.0, 23.0, 24.0, 25.0});
+            put("Keskusta", new Double[]{22.0, 23.0, 24.0, 25.0});
+            put("Kaleva", new Double[]{22.0, 23.0, 24.0, 25.0});
+            put("Kauppi", new Double[]{22.0, 23.0, 24.0, 25.0});
+            put("Leinola", new Double[]{22.0, 23.0, 24.0, 25.0});
+            put("Lielahti", new Double[]{22.0, 23.0, 24.0, 25.0});
+        }
+    };
 
     @FXML
     ComboBox comboBoxSetLocation;
@@ -63,28 +69,41 @@ public class CoordinatesMenuController {
         labelCoordinatesTitle.getStylesheets().add(getClass()
                 .getResource("titleLabelsTextStyle.css").toExternalForm());
 
+        // Makes background scalable
+        backgroundShape.widthProperty().bind(anchorCoordinatesMenu
+                .widthProperty());
+        backgroundShape.heightProperty().bind(anchorCoordinatesMenu
+                .heightProperty());
 
         comboBoxSetLocation.getItems().addAll(FXCollections.observableArrayList(
-                                                        LOCATIONS).sorted());
+                LOCATIONS.keySet()).sorted());
 
-        backgroundShape.widthProperty().bind(anchorCoordinatesMenu.widthProperty());
-        backgroundShape.heightProperty().bind(anchorCoordinatesMenu.heightProperty());
-
+        // TextField events
         fieldMinX.setOnKeyTyped(event -> this.typingInField(fieldMinX, event));
         fieldMaxX.setOnKeyTyped(event -> this.typingInField(fieldMaxX, event));
         fieldMinY.setOnKeyTyped(event -> this.typingInField(fieldMinY, event));
         fieldMaxY.setOnKeyTyped(event -> this.typingInField(fieldMaxY, event));
 
+        buttonSetCoordinates.setDisable(true);
         buttonSetCoordinates.setOnAction(eh -> {
             coordinates = new Double[]{minX, maxX, minY, maxY};
+            System.out.println("custom coordinates set!");
         });
-
+        comboBoxSetLocation.setOnAction(eh -> {
+               if (comboBoxSetLocation.getValue() != null) {
+                    String locationName = (String) comboBoxSetLocation.getValue();
+                    coordinates = LOCATIONS.get(locationName);
+                    System.out.println("preset coordinates set!");
+               }
+        });
+        
     }
 
     private void typingInField(TextField field, KeyEvent event) {
         if (!isLegalInput(field.getText())) {
             field.setText("not valid!");
             field.selectAll();
+            buttonSetCoordinates.setDisable(true);
         } else {
             setCoordinate(field);
         }
@@ -101,6 +120,10 @@ public class CoordinatesMenuController {
         } else if (field.equals(fieldMaxY)) {
             maxY = value;
         }
+        if (Arrays.stream(new TextField[]{fieldMinX, fieldMaxX, fieldMinY,
+            fieldMaxY}).allMatch(field1 -> isLegalInput(field1.getText()))) {
+            buttonSetCoordinates.setDisable(false);
+        }
     }
 
     /*
@@ -116,10 +139,10 @@ public class CoordinatesMenuController {
         } catch (NumberFormatException error) {
 
         }
-        
+
         return false;
     }
-    
+
     public Double[] getCoordinates() {
         if (coordinates != null) {
             return coordinates;
