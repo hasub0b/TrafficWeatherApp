@@ -22,7 +22,7 @@ import org.json.JSONArray;
  * @author Arttu
  */
 
-public class WeatherApiTest {  
+public class WeatherDataApiFetcher {  
     
     /*
     *   Variables from controllers:
