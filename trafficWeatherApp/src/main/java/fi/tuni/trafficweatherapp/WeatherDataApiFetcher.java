@@ -22,7 +22,7 @@ import org.json.JSONArray;
  * @author Arttu
  */
 
-public class WeatherApiTest {  
+public class WeatherDataApiFetcher {  
     
     static String weatherData = "https://opendata.fmi.fi/wfs?request"
             + "=getFeature&version=2.0.0&storedquery_id"
