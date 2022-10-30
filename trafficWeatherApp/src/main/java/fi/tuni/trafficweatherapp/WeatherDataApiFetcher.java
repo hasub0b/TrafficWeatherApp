@@ -48,7 +48,7 @@ public class WeatherDataApiFetcher {
     */
     static String dynamicWeatherForecastDataString = "https://opendata.fmi.fi/wfs?request"
             + "=getFeature&version=2.0.0&storedquery_id=fmi::forecast::harmonie::surface::point::simple&latlon"
-            + "=<Y>,<X>&timestep=<TS>&starttime=2022-08-23T06:00:00Z&endtime=2022-08-24T06:00:00Z&parameters"
+            + "=<Y>,<X>&timestep=<TS>&parameters"
             + "=temperature,windspeedms";
     
     /* ! Forecast by default 24h  ! */
@@ -58,8 +58,8 @@ public class WeatherDataApiFetcher {
     // timestep (minutes) - <TS>
     // parameters 
     
-    // https://opendata.fmi.fi/wfs?request=getFeature&version=2.0.0&storedquery_id=fmi::observations::weather::simple&bbox=23,61,24,62&timestep=30&parameters=t2m,ws_10min,n_man
-    // https://opendata.fmi.fi/wfs?request=getFeature&version=2.0.0&storedquery_id=fmi::observations::weather::hourly::simple&bbox=23,61,24,62&starttime=2021-01-19T09:00:00Z&endtime=2021-01-19T14:00:00Z&parameters=TA_PT1H_AVG,TA_PT1H_MAX,TA_PT1H_MIN
+    // OBS: https://opendata.fmi.fi/wfs?request=getFeature&version=2.0.0&storedquery_id=fmi::observations::weather::simple&bbox=23,61,24,62&timestep=30&parameters=t2m,ws_10min,n_man
+    // FC: https://opendata.fmi.fi/wfs?request=getFeature&version=2.0.0&storedquery_id=fmi::observations::weather::hourly::simple&bbox=23,61,24,62&starttime=2021-01-19T09:00:00Z&endtime=2021-01-19T14:00:00Z&parameters=TA_PT1H_AVG,TA_PT1H_MAX,TA_PT1H_MIN
     
     // JSONObject -variable & accessors
     private JSONObject forecastObject = null;
@@ -81,32 +81,33 @@ public class WeatherDataApiFetcher {
     
     public static void main(String[] args) throws IOException {
         
-        JSONObject forecastResults = getForecastData();
-        
+        JSONObject forecastResults = getForecastData("23.78712", "61.49911", "30");
+        System.out.println("Forecast: " + forecastResults);
         
     }
     
-    private static HttpURLConnection connect(String urlParameter) throws MalformedURLException, 
+    private static HttpURLConnection connectToApi(String urlParameter) throws MalformedURLException, 
             IOException {
         var url = (new URL(urlParameter));
         HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
         urlConnection.connect();
+        //System.out.println(urlConnection.getResponseCode());
         
         return urlConnection;
     }
     
 
-    public static JSONObject getForecastData() throws MalformedURLException,
+    public static JSONObject getForecastData(String x, String y, String timestep) throws MalformedURLException,
             IOException 
     {
         
-        // Connect to the API
-        var url = (new URL(weatherData));
-        HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
-        urlConnection.connect();
+        String urlString = dynamicWeatherForecastDataString
+                    .replace("<Y>", y)
+                    .replace("<X>", x)
+                    .replace("<TS>", timestep);
         
-        //System.out.println(urlConnection.getResponseCode());
-        
+        HttpURLConnection urlConnection = connectToApi(urlString);
+   
         // Read the inputstream (XML)
         InputStream inputstream = urlConnection.getInputStream();
         InputStreamReader inputStreamReader = new InputStreamReader(inputstream);
