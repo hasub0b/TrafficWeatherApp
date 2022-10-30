@@ -4,6 +4,10 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 
+/**
+* @author Arttu
+*/
+
 public class WeatherMenuController {
 
     // Checkbox objects
