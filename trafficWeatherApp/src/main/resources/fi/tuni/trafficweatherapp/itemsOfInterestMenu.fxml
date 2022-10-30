@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-size: 428 355; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-color: #495c83;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.trafficweatherapp.itemsOfInterestMenuController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-size: 428 355; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-color: #495c83;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.trafficweatherapp.itemsOfInterestMenuController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="0.0" prefWidth="25.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="378.0" />
@@ -34,27 +30,27 @@
          </font>
       </Label>
       <Button fx:id="buttonClose" mnemonicParsing="false" onAction="#handleCloseButton" text="X" GridPane.columnIndex="2" />
-      <CheckBox mnemonicParsing="false" text="Visiblility" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <CheckBox fx:id="checkBoxVisibility" mnemonicParsing="false" onAction="#checkBoxPressed" text="Visiblility" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <font>
             <Font size="24.0" />
          </font>
       </CheckBox>
-      <CheckBox mnemonicParsing="false" text="Friction" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <CheckBox fx:id="checkBoxFriction" mnemonicParsing="false" onAction="#checkBoxPressed" text="Friction" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <font>
             <Font size="24.0" />
          </font>
       </CheckBox>
-      <CheckBox mnemonicParsing="false" text="Precipitation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <CheckBox fx:id="checkBoxPrecipitation" mnemonicParsing="false" onAction="#checkBoxPressed" text="Precipitation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <font>
             <Font size="24.0" />
          </font>
       </CheckBox>
-      <CheckBox mnemonicParsing="false" text="Winter slipperiness" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <CheckBox fx:id="checkBoxSlipperiness" mnemonicParsing="false" onAction="#checkBoxPressed" text="Winter slipperiness" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <font>
             <Font size="24.0" />
          </font>
       </CheckBox>
-      <CheckBox mnemonicParsing="false" text="Overall road condition" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <CheckBox fx:id="checkBoxCondition" mnemonicParsing="false" onAction="#checkBoxPressed" text="Overall road condition" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
          <font>
             <Font size="24.0" />
          </font>
