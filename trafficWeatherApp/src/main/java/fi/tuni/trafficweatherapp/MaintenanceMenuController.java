@@ -14,6 +14,8 @@ public class MaintenanceMenuController {
     @FXML
     private Button closeButton;
 
+    private String selectedTask;
+
     public void handleCloseButton(ActionEvent actionEvent) {
 
         Stage stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
@@ -21,5 +23,14 @@ public class MaintenanceMenuController {
     }
 
 
+    public void maintenanceSelected(ActionEvent actionEvent) {
+        selectedTask = comboBoxSetMaintenance.getValue().toString();
+    }
 
+    public void allSelected(ActionEvent actionEvent) {
+    }
+
+    public String getSelectedTask() {return selectedTask;}
+
+    public void setSelectedTask(String selectedTask) {this.selectedTask = selectedTask;}
 }

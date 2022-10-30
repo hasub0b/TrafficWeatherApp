@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-size: 428 355; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-color: #495c83;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.trafficweatherapp.MaintenanceMenuController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-size: 428 355; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-color: #495c83;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.trafficweatherapp.MaintenanceMenuController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="0.0" prefWidth="25.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="378.0" minWidth="10.0" prefWidth="378.0" />
@@ -32,8 +28,8 @@
             <Font name="Arial" size="28.0" />
          </font>
       </Label>
-      <ComboBox fx:id="comboBoxSetMaintenance" prefWidth="150.0" promptText="Select Maintenance" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <Button fx:id="buttonSetAll" mnemonicParsing="false" text="Select all" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+      <ComboBox fx:id="comboBoxSetMaintenance" onAction="#maintenanceSelected" prefWidth="150.0" promptText="Select Maintenance" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+      <Button fx:id="buttonSetAll" mnemonicParsing="false" onAction="#allSelected" text="Select all" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
          <padding>
             <Insets bottom="5.0" left="50.0" right="50.0" top="5.0" />
          </padding>
