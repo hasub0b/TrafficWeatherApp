@@ -51,7 +51,8 @@ public class WeatherDataApiFetcher {
             + "=<Y>,<X>&timestep=<TS>&parameters"
             + "=temperature,windspeedms";
     
-    /* ! Forecast by default 24h  ! */
+    /* ! Forecast by default for the next 24h  ! */
+    /* ! Observations by default from the last 12h  ! */
     // observations vs. forecast - <OFT>
     // co-ordinates - <X1><X2>, <Y1><Y2>
     // forecast co-ordinates - <X>, <Y>
