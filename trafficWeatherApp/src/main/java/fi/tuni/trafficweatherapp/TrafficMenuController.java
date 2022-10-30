@@ -1,4 +1,4 @@
-package fi.tuni.trafficWeatherApp;
+package fi.tuni.trafficweatherapp;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

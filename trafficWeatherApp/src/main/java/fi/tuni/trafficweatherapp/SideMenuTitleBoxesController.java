@@ -45,14 +45,14 @@ public class SideMenuTitleBoxesController {
             getClass().getResource("weatherMenu.fxml"));
 
     AnchorPane anchorCoordinatesMenu;
-    //AnchorPane anchorTrafficMenu;
+    AnchorPane anchorTrafficMenu;
     AnchorPane anchorWeatherMenu;
 
     public void initialize() {
 
         try {
             anchorCoordinatesMenu = loaderCoordinatesMenu.load();
-            //anchorTrafficMenu = loaderTrafficMenu.load();
+            anchorTrafficMenu = loaderTrafficMenu.load();
             anchorWeatherMenu = loaderWeatherMenu.load();
             
 
@@ -61,7 +61,7 @@ public class SideMenuTitleBoxesController {
         }
         buttonTrafficData.setOnAction((ActionEvent e) -> {
             anchorChildSideMenu.getChildren().clear();
-            //anchorChildSideMenu.getChildren().addAll(anchorTrafficMenu);
+            anchorChildSideMenu.getChildren().addAll(anchorTrafficMenu);
         });
         buttonCoordinates.setOnAction((ActionEvent e) -> {
             anchorChildSideMenu.getChildren().clear();
