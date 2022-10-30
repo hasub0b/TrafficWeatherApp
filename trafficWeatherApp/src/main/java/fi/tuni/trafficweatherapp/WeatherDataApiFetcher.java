@@ -84,6 +84,8 @@ public class WeatherDataApiFetcher {
         JSONObject forecastResults = getForecastData("23.78712", "61.49911", "30");
         System.out.println("Forecast: " + forecastResults);
         
+        JSONObject observationResults = getObservationData("23", "61", "24", "62", "30");
+        System.out.println("Observation: " + observationResults);
     }
     
     private static HttpURLConnection connectToApi(String urlParameter) throws MalformedURLException, 
@@ -123,17 +125,20 @@ public class WeatherDataApiFetcher {
         return jso;
     }
     
-    public static JSONObject getObservationData() throws MalformedURLException,
+    public static JSONObject getObservationData(String x1, String y1, String x2, 
+            String y2, String timestep) throws MalformedURLException,
             IOException 
     {
         
-        // Connect to the API
-        var url = (new URL(weatherData));
-        HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
-        urlConnection.connect();
+        String urlString = dynamicWeatherObservationDataString
+                    .replace("<Y1>", y1)
+                    .replace("<X1>", x1)
+                    .replace("<Y2>", y2)
+                    .replace("<X2>", x2)
+                    .replace("<TS>", timestep);
         
-        //System.out.println(urlConnection.getResponseCode());
-        
+        HttpURLConnection urlConnection = connectToApi(urlString);
+   
         // Read the inputstream (XML)
         InputStream inputstream = urlConnection.getInputStream();
         InputStreamReader inputStreamReader = new InputStreamReader(inputstream);
