@@ -43,7 +43,7 @@ public class WeatherDataApiFetcher {
     
     /* 
     * We want to fetch: 
-    *   - temperatures (temperature)
+    *   - predicted temperatures (temperature)
     *   - predicted windspeeds (windspeedms)
     */
     static String dynamicWeatherForecastDataString = "https://opendata.fmi.fi/wfs?request"
