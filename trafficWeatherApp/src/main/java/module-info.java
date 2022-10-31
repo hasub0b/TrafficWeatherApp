@@ -8,4 +8,5 @@ module fi.tuni.trafficweatherapp {
     requires org.json;
     requires javafx.base;
     requires javafx.graphics;
+    requires java.xml;
 }
