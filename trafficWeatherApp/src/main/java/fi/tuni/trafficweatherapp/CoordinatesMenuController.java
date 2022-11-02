@@ -13,16 +13,22 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
 // TODO: CHANGE LOCATIONS COORDINATES to match their intended locations.
 public class CoordinatesMenuController {
+
+    static int MAX_COORDINATE_LENGHT = 8;
 
     private Double[] coordinates;
     private Double minX = null;
@@ -60,6 +66,8 @@ public class CoordinatesMenuController {
     @FXML
     AnchorPane anchorCoordinatesMenu;
 
+    ContextMenu menuErrorMessage = new ContextMenu();
+
     // TODO: 
     // update coordinates to Model
     public void initialize() throws IOException {
@@ -90,22 +98,30 @@ public class CoordinatesMenuController {
             System.out.println("custom coordinates set!");
         });
         comboBoxSetLocation.setOnAction(eh -> {
-               if (comboBoxSetLocation.getValue() != null) {
-                    String locationName = (String) comboBoxSetLocation.getValue();
-                    coordinates = LOCATIONS.get(locationName);
-                    System.out.println("preset coordinates set!");
-               }
+            if (comboBoxSetLocation.getValue() != null) {
+                String locationName = (String) comboBoxSetLocation.getValue();
+                coordinates = LOCATIONS.get(locationName);
+                System.out.println("preset coordinates set!");
+            }
         });
-        
+
     }
 
     private void typingInField(TextField field, KeyEvent event) {
-        if (!isLegalInput(field.getText())) {
-            field.setText("not valid!");
+        menuErrorMessage.getItems().clear();
+        menuErrorMessage.hide();
+        if (field.getText().length() > MAX_COORDINATE_LENGHT) {
+            String input = field.getText().substring(0, MAX_COORDINATE_LENGHT);
+            field.setText(input);
+            field.selectEnd();
+            field.deselect();
+        }
+        if (!isLegalInput(field)) {
             field.selectAll();
             buttonSetCoordinates.setDisable(true);
         } else {
             setCoordinate(field);
+            //field.selectForward();
         }
     }
 
@@ -121,25 +137,51 @@ public class CoordinatesMenuController {
             maxY = value;
         }
         if (Arrays.stream(new TextField[]{fieldMinX, fieldMaxX, fieldMinY,
-            fieldMaxY}).allMatch(field1 -> isLegalInput(field1.getText()))) {
+            fieldMaxY}).allMatch(field1 -> isLegalInput(field1))) {
             buttonSetCoordinates.setDisable(false);
         }
+    }
+    private void setErrorMessage(TextField field, String message) {
+        
+        menuErrorMessage.setStyle("-fx-background-color: red;");
+
+        MenuItem errorMessage = new MenuItem(message);
+        //errorMessage.setDisable(true);
+        
+        menuErrorMessage.getItems().add(errorMessage);
+        
+        field.setContextMenu(menuErrorMessage);
+        menuErrorMessage.show(field, Side.BOTTOM, 0, 0);
+        
     }
 
     /*
     Checks if given coordinate input is legal.
+    xMin=19, yMin=59, xMax=32, yMax=72
      */
-    private boolean isLegalInput(String input) {
-        try {
-            double coordinate = Double.valueOf(input);
-            /*if (input.split(",")[1].length() > 12) {
-                return false;
-            }*/
-            return true;
-        } catch (NumberFormatException error) {
+    private boolean isLegalInput(TextField field) {
+        String input = field.getText();
+        if (input.length() > 0) {
+            try {
+                double coordinate = Double.valueOf(input);
+                String text = Double.toString(coordinate);
+                int integers = text.indexOf('.');
+                int decimals = text.length() -  integers;
 
+                if (decimals > 6) {
+                    setErrorMessage(field, "Max 6 decimals!");
+                    return false;
+                }
+                else if (integers > 2) {
+                    setErrorMessage(field, "Max 2 integers!");
+                    return false;
+                }
+
+                return true;
+            } catch (NumberFormatException error) {
+                setErrorMessage(field, "Not a number!");
+            }
         }
-
         return false;
     }
 
