@@ -16,8 +16,9 @@ import com.google.gson.stream.JsonReader;
 import java.net.HttpURLConnection;
 
 /**
+ * Fetches data as JsonObject from Digitraffic API.
  *
- * @author mikko
+ * @author Mikko Moisio
  */
 public class RoadDataApiFetcher {
 
@@ -29,8 +30,8 @@ public class RoadDataApiFetcher {
 
     static String urlRoadMaintenanceData = "https://tie.digitraffic.fi/api/maintenance/v1/"
             + "tracking/routes?endFrom=<START_TIME>&endBefore=<END_TIME>&"
-            + "xMin=<X_MIN>&yMin=<Y_MIN>&xMax=<X_MAX>&yMax=<Y_MAX>";
-            //"&taskId=<TASK_NAME>&domain=state-roads";
+            + "xMin=<X_MIN>&yMin=<Y_MIN>&xMax=<X_MAX>&yMax=<Y_MAX>"
+            + "&taskId=<TASK_NAME>&domain=state-roads";
 
     // SITUATION_TYPE is a traffic message type 
     // (TRAFFIC_ANNOUNCEMENT, EXEMPTED_TRANSPORT, WEIGHT_RESTRICTION or ROAD_WORK)
@@ -40,6 +41,9 @@ public class RoadDataApiFetcher {
             + "traffic-message/v1/messages?inactiveHours=0&"
             + "includeAreaGeometry=false&situationType=<SITUATION_TYPE>";
 
+    /**
+     * The empty constructor.
+     */
     public RoadDataApiFetcher() {
 
     }
@@ -50,17 +54,24 @@ public class RoadDataApiFetcher {
         //System.out.println(roadMaintenanceTasks);
 
         JsonObject roadConditions = getRoadConditions("21", "60", "23", "62");
-        //System.out.println(roadConditions);
-        
+        System.out.println(roadConditions);
+
         JsonObject roadMaintenanceData = getRoadMaintenanceData(
-                "2022-01-19T09%3A00%3A00Z", "2022-01-19T14%3A00%3A00Z", 
+                "2022-01-19T09%3A00%3A00Z", "2022-01-19T14%3A00%3A00Z",
                 "21", "61", "22", "62", "LINE_SANDING");
-        System.out.println(roadMaintenanceData);
-        
+        //System.out.println(roadMaintenanceData);
+
         JsonObject messages = getLatestTrafficMessages("ROAD_WORK");
         //System.out.println(messages);
     }
 
+    /**
+     * Gets the road maintenance tasks from the api.
+     *
+     * @return JsonObeject of the road maintenance tasks
+     * @throws MalformedURLException if the url is illegal.
+     * @throws IOException if the url doesn't return content.
+     */
     public static JsonObject getRoadMaintenanceTasks() throws MalformedURLException,
             IOException {
         HttpURLConnection urlConnection = getConnection(
@@ -77,6 +88,13 @@ public class RoadDataApiFetcher {
         return jsonObject;
     }
 
+    /**
+     * Gets the HttpURLConnection connection to given url.
+     *
+     * @param urlString the url
+     * @return HttpURLConnection the connection
+     * @hidden
+     */
     private static HttpURLConnection getConnection(String urlString)
             throws MalformedURLException, IOException {
         System.out.println(urlString);
@@ -92,6 +110,18 @@ public class RoadDataApiFetcher {
 
     }
 
+    /**
+     * Fetches road conditions data from Digitraffic API as JsonObject
+     *
+     * @param xMin minimum x coordinate of the query
+     * @param yMin minimum y coordinate of the query
+     * @param xMax maximum x coordinate of the query
+     * @param yMax maximum y coordinate of the query
+     * @return JsonObject of the road conditions data. Includes Current
+     * situation and forecast for 2h, 4h, 6h and 12h.
+     * @throws MalformedURLException if url is wrong.
+     * @throws IOException if url doesn't return content.
+     */
     public static JsonObject getRoadConditions(String xMin, String yMin,
             String xMax, String yMax) throws MalformedURLException, IOException {
         String urlString = urlRoadConditions
@@ -112,6 +142,21 @@ public class RoadDataApiFetcher {
         return jsonObject;
     }
 
+    /**
+     * Fetches road conditions data from Digitraffic API as JsonObject
+     *
+     * @param startTime the start time of the query
+     * @param endTime the end time of the query
+     * @param xMin minimum x coordinate of the query
+     * @param yMin minimum y coordinate of the query
+     * @param xMax maximum x coordinate of the query
+     * @param yMax maximum y coordinate of the query
+     * @param taskName the task name of the query
+     * @return JsonObject of the road conditions data. Includes Current
+     * situation and forecast for 2h, 4h, 6h and 12h.
+     * @throws MalformedURLException if url is wrong.
+     * @throws IOException if url doesn't return content.
+     */
     public static JsonObject getRoadMaintenanceData(String startTime,
             String endTime, String xMin, String yMin, String xMax, String yMax,
             String taskName) throws MalformedURLException, IOException {
@@ -121,8 +166,8 @@ public class RoadDataApiFetcher {
                 .replace("<X_MIN>", xMin)
                 .replace("<Y_MIN>", yMin)
                 .replace("<X_MAX>", xMax)
-                .replace("<Y_MAX>", yMax);
-                //.replace("<TASK_NAME>", taskName);
+                .replace("<Y_MAX>", yMax)
+                .replace("<TASK_NAME>", taskName);
 
         HttpURLConnection urlConnection = getConnection(urlString);
 
@@ -136,9 +181,16 @@ public class RoadDataApiFetcher {
         return jsonObject;
     }
 
-    public static JsonObject getLatestTrafficMessages(String situationType) 
-            throws MalformedURLException, IOException 
-    {
+    /**
+     * Gets the latest traffic messages from the api.
+     * @param situationType the situation type for this query. 
+     * TRAFFIC_ANNOUNCEMENT, EXEMPTED_TRANSPORT, WEIGHT_RESTRICTION or ROAD_WORK.
+     * @return JsonObject of the latest traffic messages.
+     * @throws MalformedURLException if the url is illegal
+     * @throws IOException if the url doesn't return content.
+     */
+    public static JsonObject getLatestTrafficMessages(String situationType)
+            throws MalformedURLException, IOException {
         String urlString = urlLatestTrafficMessages
                 .replace("<SITUATION_TYPE>", situationType);
 

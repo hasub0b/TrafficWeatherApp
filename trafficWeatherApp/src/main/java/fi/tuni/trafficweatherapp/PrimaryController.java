@@ -17,7 +17,7 @@ import javafx.scene.shape.Rectangle;
 
 /**
  *
- * @author mikko
+ * @author Mikko Moisio
  */
 public class PrimaryController {
 

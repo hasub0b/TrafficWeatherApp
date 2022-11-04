@@ -26,6 +26,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
 // TODO: CHANGE LOCATIONS COORDINATES to match their intended locations.
+/**
+ * 
+ * @author Mikko Moisio
+ */
 public class CoordinatesMenuController {
 
     static int MAX_COORDINATE_LENGHT = 9;
@@ -40,9 +44,9 @@ public class CoordinatesMenuController {
     private static Map<String, Double[]> LOCATIONS = new HashMap<>() {
         {
             put("Hervanta", new Double[]{23.823851106, 23.883117728, 61.439102891, 61.461094956});
-            put("Keskusta", new Double[]{23.755090615, 23.791861827, 61.491086559, 61.509263332});
+            put("The city center of Tampere", new Double[]{23.755090615, 23.791861827, 61.491086559, 61.509263332});
             put("Kaleva", new Double[]{23.791861827, 23.829465010, 61.491643025, 61.502932821});
-            put("Tampereen seutu", new Double[]{23.427829283, 24.200473208, 61.284686787, 61.603632612});
+            put("Tampere region", new Double[]{23.427829283, 24.200473208, 61.284686787, 61.603632612});
             put("Lielahti", new Double[]{23.650701132, 23.693609775, 61.511433333, 61.524749936});
         }
     };
