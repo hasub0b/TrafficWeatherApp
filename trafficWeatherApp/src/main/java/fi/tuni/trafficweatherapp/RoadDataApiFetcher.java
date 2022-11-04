@@ -29,8 +29,8 @@ public class RoadDataApiFetcher {
 
     static String urlRoadMaintenanceData = "https://tie.digitraffic.fi/api/maintenance/v1/"
             + "tracking/routes?endFrom=<START_TIME>&endBefore=<END_TIME>&"
-            + "xMin=<X_MIN>&yMin=<Y_MIN>&xMax=<X_MAX>&yMax=<Y_MAX>&"
-            + "taskId=<TASK_NAME>&domain=state-roads";
+            + "xMin=<X_MIN>&yMin=<Y_MIN>&xMax=<X_MAX>&yMax=<Y_MAX>";
+            //"&taskId=<TASK_NAME>&domain=state-roads";
 
     // SITUATION_TYPE is a traffic message type 
     // (TRAFFIC_ANNOUNCEMENT, EXEMPTED_TRANSPORT, WEIGHT_RESTRICTION or ROAD_WORK)
@@ -55,7 +55,7 @@ public class RoadDataApiFetcher {
         JsonObject roadMaintenanceData = getRoadMaintenanceData(
                 "2022-01-19T09%3A00%3A00Z", "2022-01-19T14%3A00%3A00Z", 
                 "21", "61", "22", "62", "LINE_SANDING");
-        //System.out.println(roadMaintenanceData);
+        System.out.println(roadMaintenanceData);
         
         JsonObject messages = getLatestTrafficMessages("ROAD_WORK");
         //System.out.println(messages);
@@ -79,6 +79,7 @@ public class RoadDataApiFetcher {
 
     private static HttpURLConnection getConnection(String urlString)
             throws MalformedURLException, IOException {
+        System.out.println(urlString);
         var url = (new URL(urlString));
         HttpURLConnection urlConnection
                 = (HttpURLConnection) url.openConnection();
@@ -100,6 +101,7 @@ public class RoadDataApiFetcher {
                 .replace("<Y_MAX>", yMax);
 
         HttpURLConnection urlConnection = getConnection(urlString);
+
         System.out.println(urlConnection.getResponseCode());
 
         JsonReader reader = new JsonReader(new InputStreamReader(urlConnection
@@ -119,10 +121,11 @@ public class RoadDataApiFetcher {
                 .replace("<X_MIN>", xMin)
                 .replace("<Y_MIN>", yMin)
                 .replace("<X_MAX>", xMax)
-                .replace("<Y_MAX>", yMax)
-                .replace("<TASK_NAME>", taskName);
+                .replace("<Y_MAX>", yMax);
+                //.replace("<TASK_NAME>", taskName);
 
         HttpURLConnection urlConnection = getConnection(urlString);
+
         System.out.println(urlConnection.getResponseCode());
 
         JsonReader reader = new JsonReader(new InputStreamReader(urlConnection

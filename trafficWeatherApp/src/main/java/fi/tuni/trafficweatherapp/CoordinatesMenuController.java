@@ -28,22 +28,22 @@ import javafx.scene.shape.Rectangle;
 // TODO: CHANGE LOCATIONS COORDINATES to match their intended locations.
 public class CoordinatesMenuController {
 
-    static int MAX_COORDINATE_LENGHT = 8;
+    static int MAX_COORDINATE_LENGHT = 9;
 
     private Double[] coordinates;
     private Double minX = null;
     private Double maxX = null;
     private Double minY = null;
     private Double maxY = null;
-
+    
+    // [minX, maxX, minY, maxY]
     private static Map<String, Double[]> LOCATIONS = new HashMap<>() {
         {
-            put("Hervanta", new Double[]{22.0, 23.0, 24.0, 25.0});
-            put("Keskusta", new Double[]{22.0, 23.0, 24.0, 25.0});
-            put("Kaleva", new Double[]{22.0, 23.0, 24.0, 25.0});
-            put("Kauppi", new Double[]{22.0, 23.0, 24.0, 25.0});
-            put("Leinola", new Double[]{22.0, 23.0, 24.0, 25.0});
-            put("Lielahti", new Double[]{22.0, 23.0, 24.0, 25.0});
+            put("Hervanta", new Double[]{23.823851106, 23.883117728, 61.439102891, 61.461094956});
+            put("Keskusta", new Double[]{23.755090615, 23.791861827, 61.491086559, 61.509263332});
+            put("Kaleva", new Double[]{23.791861827, 23.829465010, 61.491643025, 61.502932821});
+            put("Tampereen seutu", new Double[]{23.427829283, 24.200473208, 61.284686787, 61.603632612});
+            put("Lielahti", new Double[]{23.650701132, 23.693609775, 61.511433333, 61.524749936});
         }
     };
 
@@ -143,10 +143,11 @@ public class CoordinatesMenuController {
     }
     private void setErrorMessage(TextField field, String message) {
         
-        menuErrorMessage.setStyle("-fx-background-color: red;");
+        //menuErrorMessage.setStyle("-fx-background-color: red;");
 
         MenuItem errorMessage = new MenuItem(message);
         //errorMessage.setDisable(true);
+        //errorMessage.setStyle("-fx-background-color: red;");
         
         menuErrorMessage.getItems().add(errorMessage);
         
@@ -166,7 +167,7 @@ public class CoordinatesMenuController {
                 double coordinate = Double.valueOf(input);
                 String text = Double.toString(coordinate);
                 int integers = text.indexOf('.');
-                int decimals = text.length() -  integers;
+                int decimals = text.length() -  integers - 1;
 
                 if (decimals > 6) {
                     setErrorMessage(field, "Max 6 decimals!");
