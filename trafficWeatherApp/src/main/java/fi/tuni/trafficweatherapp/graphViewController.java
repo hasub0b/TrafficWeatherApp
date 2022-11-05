@@ -7,6 +7,7 @@ package fi.tuni.trafficweatherapp;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.chart.LineChart;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -28,6 +29,8 @@ public class GraphViewController {
     AnchorPane anchorSideMenu;
     @FXML
     AnchorPane anchorSideMenuBoxes;
+    
+    GraphDrawerFactory graphFactory = new GraphDrawerFactory();
 
     @FXML
     FXMLLoader loaderSideMenuTitleBoxes = new FXMLLoader(
@@ -49,5 +52,8 @@ public class GraphViewController {
         anchorSideMenuBoxes.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
             anchorSideMenu.getChildren().clear();
         });
+
+        LineChart chart = graphFactory.createPlot();
+        anchorGraphView.getChildren().add(chart);
     }
 }
