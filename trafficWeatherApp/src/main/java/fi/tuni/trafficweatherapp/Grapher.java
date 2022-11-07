@@ -5,15 +5,16 @@
 package fi.tuni.trafficweatherapp;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +31,7 @@ import org.json.JSONArray;
  * @author Arttu
  */
 public class Grapher extends Application {
+    
     
     @Override 
     public void start(Stage primaryStage) {
@@ -65,34 +67,17 @@ public class Grapher extends Application {
        
         primaryStage.setScene(scene);
         primaryStage.show();
-        
-        /*Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();*/
+         
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         //beginnings of temp graph implementation
         launch(args);
+        
+        // errors running javafx through maven ide
     }
     
 }
