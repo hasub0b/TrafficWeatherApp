@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -56,11 +55,6 @@
         <AnchorPane fx:id="anchorContentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
             <children>
                 <Rectangle id="Header" fx:id="shapeMainBackground" fill="#a8a4ce" height="550.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.5" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <right>
-                      <AnchorPane fx:id="anchorContentView" BorderPane.alignment="CENTER" />
-               </right>
-            </BorderPane>
             </children>
         </AnchorPane>
     </children>

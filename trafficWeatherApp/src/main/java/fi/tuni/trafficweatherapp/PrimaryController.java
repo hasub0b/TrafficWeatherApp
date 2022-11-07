@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -26,8 +27,8 @@ public class PrimaryController {
     @FXML
     Rectangle shapeMainBackground;
     // For displaying the menu content
-    @FXML
-    AnchorPane anchorContentView;
+    //@FXML
+    //AnchorPane anchorContentView;
     @FXML
     VBox anchorMain;
     @FXML
@@ -45,8 +46,14 @@ public class PrimaryController {
     @FXML
     GridPane gridMenubar;
     @FXML
-    FXMLLoader loaderCoordinatesMenu = new FXMLLoader(
+    FXMLLoader loaderGraphView = new FXMLLoader(
             getClass().getResource("graphView.fxml"));
+    @FXML
+    FXMLLoader loaderSettings = new FXMLLoader(
+            getClass().getResource("settings.fxml"));
+
+    AnchorPane anchorGraphView = new AnchorPane();
+    AnchorPane anchorSettings = new AnchorPane();
 
     @FXML
     public void setContentArea() throws IOException {
@@ -66,23 +73,39 @@ public class PrimaryController {
                 .getResource("appTitleStyle.css").toExternalForm());
 
         try {
-            AnchorPane anchorCoordinatesMenu = loaderCoordinatesMenu.load();
+            //AnchorPane anchorCoordinatesMenu = loaderCoordinatesMenu.load();
+            anchorGraphView = loaderGraphView.load();
+            anchorSettings = loaderSettings.load();
 
-            AnchorPane.setLeftAnchor(anchorCoordinatesMenu, 0.0);
-            AnchorPane.setRightAnchor(anchorCoordinatesMenu, 0.0);
-            anchorContentArea.getChildren().set(1,anchorCoordinatesMenu);
+            AnchorPane.setLeftAnchor(anchorGraphView, 0.0);
+            AnchorPane.setRightAnchor(anchorGraphView, 0.0);
+            
+            AnchorPane.setLeftAnchor(anchorSettings, 0.0);
+            AnchorPane.setRightAnchor(anchorSettings, 0.0);
+            
+            // Set GraphView as default page.
+            anchorContentArea.getChildren().add(anchorGraphView);
 
         } catch (IOException ex) {
             ex.printStackTrace();
         }
 
-        anchorMenubar.autosize();
-        anchorContentArea.autosize();
+        buttonGraphView.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
+            buttonSettings.setSelected(false);
+            anchorContentArea.getChildren().remove(1);
+            anchorContentArea.getChildren().add(anchorGraphView);
+        });
+        buttonSettings.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
+            buttonGraphView.setSelected(false);
+            anchorContentArea.getChildren().remove(1);
+            anchorContentArea.getChildren().add(anchorSettings);
+        });
 
+        //anchorMenubar.autosize();
+        //anchorContentArea.autosize();
         menuBar.widthProperty().bind(anchorMain.widthProperty());
 
         shapeMainBackground.widthProperty().bind(anchorMain.widthProperty());
         shapeMainBackground.heightProperty().bind(anchorMain.heightProperty());
-
     }
 }

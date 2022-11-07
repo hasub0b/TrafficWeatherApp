@@ -11,7 +11,10 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -29,7 +32,12 @@ public class GraphViewController {
     AnchorPane anchorSideMenu;
     @FXML
     AnchorPane anchorSideMenuBoxes;
+    @FXML
+    VBox vbox;
+    @FXML
+    HBox hbox;
     
+
     GraphDrawerFactory graphFactory = new GraphDrawerFactory();
 
     @FXML
@@ -44,7 +52,7 @@ public class GraphViewController {
         }
 
         // Action Events
-        sideMenu.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+        sideMenu.addEventHandler(MouseEvent.MOUSE_RELEASED, event -> {
             if (anchorSideMenu.getChildren().isEmpty()) {
                 anchorSideMenu.getChildren().add(anchorSideMenuBoxes);
             }
@@ -54,6 +62,6 @@ public class GraphViewController {
         });
 
         LineChart chart = graphFactory.createPlot();
-        anchorGraphView.getChildren().add(chart);
+        stackPaneGraph.getChildren().add(chart);
     }
 }

@@ -23,7 +23,7 @@ public class PlotDrawer {
     public PlotDrawer(Double[] temperature, int timeInterval) {
         
         yAxis.setLabel("Temperature (C\u00B0)");
-        xAxis.setLabel("Time");
+        xAxis.setLabel("Time (h)");
         yAxis.setSide(Side.RIGHT);
 
         XYChart.Series series = new XYChart.Series();
@@ -43,6 +43,9 @@ public class PlotDrawer {
         chart.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
         chart.lookup(".chart-vertical-grid-lines").setStyle("-fx-stroke: transparent;");
         chart.lookup(".chart-horizontal-grid-lines").setStyle("-fx-stroke: transparent;");
+        chart.setLegendVisible(false);
+
+        
     }
     public LineChart getChart() {
         return chart;
