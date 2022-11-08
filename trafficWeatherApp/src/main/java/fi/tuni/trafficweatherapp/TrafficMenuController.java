@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -26,6 +28,10 @@ import java.io.IOException;
  */
 public class TrafficMenuController {
     public AnchorPane childAnchorPane;
+
+    @FXML
+    private RadioButton radioButtonItemsOfInterest;
+
     @FXML
     private GridPane childGridPane;
 
@@ -35,8 +41,6 @@ public class TrafficMenuController {
     @FXML
     private RadioButton radioButtonMaintenance;
 
-    boolean init = false;
-    private Stage stage = new Stage();
     @FXML
     FXMLLoader loaderMaintenanceMenu = new FXMLLoader(
             getClass().getResource("maintenanceMenu.fxml"));
@@ -50,17 +54,39 @@ public class TrafficMenuController {
     FXMLLoader loaderIoiMenu = new FXMLLoader(
             getClass().getResource("itemsOfInterestMenu.fxml"));
 
+
+
     AnchorPane gridMaintenance;
     AnchorPane gridCondition;
     AnchorPane gridMessage;
     AnchorPane gridIoi;
 
+
+
     public void initialize() {
         try {
+
             gridMaintenance = loaderMaintenanceMenu.load();
             gridCondition = loaderConditionMenu.load();
             gridMessage = loaderMessageMenu.load();
             gridIoi = loaderIoiMenu.load();
+
+            RoadConditionForecastController rcController = loaderConditionMenu.getController();
+            itemsOfInterestMenuController ioiController = loaderIoiMenu.getController();
+
+            radioButtonItemsOfInterest.setDisable(true);
+
+            childAnchorPane.addEventHandler(MouseEvent.MOUSE_MOVED, (mouseEvent) -> {
+                        if (rcController.isForecastSelected()) {
+                            radioButtonItemsOfInterest.setDisable(false);
+                        } else {
+                            radioButtonItemsOfInterest.setDisable(true);
+                            ioiController.setCondition(false);
+                            ioiController.setSlipperiness(false);
+                            ioiController.setPrecipitation(false);
+                        }
+            });
+
         } catch (IOException e) {
             e.printStackTrace();
         }

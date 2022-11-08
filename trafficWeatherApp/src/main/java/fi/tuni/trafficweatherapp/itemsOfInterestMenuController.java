@@ -39,12 +39,21 @@ public class itemsOfInterestMenuController {
     }
 
     public boolean isPrecipitation() {return Precipitation;}
-    public void setPrecipitation(boolean precipitation) {Precipitation = precipitation;}
+    public void setPrecipitation(boolean precipitation) {
+        Precipitation = precipitation;
+        checkBoxPrecipitation.setSelected(precipitation);
+    }
 
     public boolean isSlipperiness() {return Slipperiness;}
-    public void setSlipperiness(boolean slipperiness) {Slipperiness = slipperiness;}
+    public void setSlipperiness(boolean slipperiness) {
+        Slipperiness = slipperiness;
+        checkBoxSlipperiness.setSelected(slipperiness);
+    }
 
     public boolean isCondition() {return Condition;}
-    public void setCondition(boolean condition) {Condition = condition;}
+    public void setCondition(boolean condition) {
+        Condition = condition;
+        checkBoxCondition.setSelected(condition);
+    }
 
 }
