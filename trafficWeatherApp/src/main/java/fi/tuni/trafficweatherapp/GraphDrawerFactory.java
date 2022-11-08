@@ -10,18 +10,10 @@ import javafx.scene.control.TextArea;
 
 /**
  *
- * @author mikko
+ * @author Arttu
  */
 public class GraphDrawerFactory {
     
-    String type;
-    
-    public GraphDrawerFactory(String type) {
-        this.type = type;
-    }
-    public GraphDrawerFactory() {
-        
-    }
     
     public LineChart createPlot() {
         PlotDrawer plotter = new PlotDrawer(new Double[] 
@@ -37,6 +29,11 @@ public class GraphDrawerFactory {
     
     /*
     public TextArea createMessages() {
-        
+    
+    }*/
+    
+    /*
+    TBA: icons
+    
     }*/
 }
