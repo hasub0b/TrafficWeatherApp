@@ -81,7 +81,7 @@ public class Grapher extends Application {
            add(26.1);
         }};
         for (int i = 0; i < dummySet.size(); i++) {
-            //series.getData().add(new XYChart.Data(i+1, dummySet.get(i)));
+            series.getData().add(new XYChart.Data(i+1, dummySet.get(i)));
             
             System.out.println("i: " + i + " dummySetVal: " + dummySet.get(i));
         }
