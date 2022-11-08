@@ -11,10 +11,7 @@ import javafx.stage.Stage;
  */
 public class itemsOfInterestMenuController {
 
-    @FXML
-    private CheckBox checkBoxVisibility;
-    @FXML
-    private CheckBox checkBoxFriction;
+
     @FXML
     private CheckBox checkBoxPrecipitation;
     @FXML
@@ -22,8 +19,6 @@ public class itemsOfInterestMenuController {
     @FXML
     private CheckBox checkBoxCondition;
 
-    private boolean Visibility;
-    private boolean Friction;
     private boolean Precipitation;
     private boolean Slipperiness;
     private boolean Condition;
@@ -37,26 +32,28 @@ public class itemsOfInterestMenuController {
     public void checkBoxPressed(ActionEvent actionEvent) {
 
         // Set boolean
-        setVisibility(checkBoxVisibility.isSelected());
-        setFriction(checkBoxFriction.isSelected());
+
         setPrecipitation(checkBoxPrecipitation.isSelected());
         setSlipperiness(checkBoxSlipperiness.isSelected());
         setCondition(checkBoxCondition.isSelected());
     }
 
-    public boolean isVisibility() {return Visibility;}
-    public void setVisibility(boolean visibility) {Visibility = visibility;}
-
-    public boolean isFriction() {return Friction;}
-    public void setFriction(boolean friction) {Friction = friction;}
-
     public boolean isPrecipitation() {return Precipitation;}
-    public void setPrecipitation(boolean precipitation) {Precipitation = precipitation;}
+    public void setPrecipitation(boolean precipitation) {
+        Precipitation = precipitation;
+        checkBoxPrecipitation.setSelected(precipitation);
+    }
 
     public boolean isSlipperiness() {return Slipperiness;}
-    public void setSlipperiness(boolean slipperiness) {Slipperiness = slipperiness;}
+    public void setSlipperiness(boolean slipperiness) {
+        Slipperiness = slipperiness;
+        checkBoxSlipperiness.setSelected(slipperiness);
+    }
 
     public boolean isCondition() {return Condition;}
-    public void setCondition(boolean condition) {Condition = condition;}
+    public void setCondition(boolean condition) {
+        Condition = condition;
+        checkBoxCondition.setSelected(condition);
+    }
 
 }
