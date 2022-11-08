@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane fx:id="anchorGraphView" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.trafficweatherapp.GraphViewController">
    <children>
-      <StackPane fx:id="stackPaneGraph" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <AnchorPane fx:id="anchorSideMenu" prefHeight="190.0" prefWidth="215.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="160.0" />
-      <ImageView fx:id="sideMenu" fitHeight="250.0" fitWidth="60.0" layoutX="60.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true" smooth="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
+      <HBox fx:id="hbox" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox fx:id="vbox" alignment="CENTER" HBox.hgrow="ALWAYS">
+               <children>
+                  <StackPane fx:id="stackPaneGraph" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets left="50.0" right="50.0" />
+                     </VBox.margin>
+                  </StackPane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <AnchorPane fx:id="anchorSideMenu" prefHeight="190.0" prefWidth="215.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="120.0" />
+      <ImageView fx:id="sideMenu" fitHeight="250.0" fitWidth="60.0" layoutX="60.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true" smooth="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
          <image>
-            <Image url="@Sidebar.png" />
+            <Image url="@sidebar.png" />
          </image>
       </ImageView>
    </children>

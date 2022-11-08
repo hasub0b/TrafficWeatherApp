@@ -4,6 +4,7 @@
  */
 package fi.tuni.trafficweatherapp;
 
+import static fi.tuni.trafficweatherapp.WeatherDataApiFetcher.getForecastData;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.*;
@@ -17,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import org.json.JSONObject;
 
 
 /**
@@ -52,9 +54,11 @@ public class Grapher extends Application {
         series.setName("Weather datapoints");
         
         // populate series with weather data
-        
         // access DataInterface.java (forecast for now)
-        //List<Float> dataSet = DataInterface.getForecastTemperature();
+        JSONObject results = WeatherDataApiFetcher.getForecastData("23.78712", "61.49911", "30");
+        JsonParsing.parseXml(results);
+        //System.out.println("datainterfacetest: " + DataInterface.getForecastTemperature());
+        List<Float> dataSet = DataInterface.getForecastTemperature();
         
         // !-- testset --!
         List<Float> dummySet = new ArrayList() {{
@@ -64,15 +68,15 @@ public class Grapher extends Application {
            add(20.3);
            add(26.1);
         }};
-        for (int i = 0; i < dummySet.size(); i++) {
+        for (int i = 0; i < dataSet.size(); i++) {
             int j = i+1;
-            series.getData().add(new XYChart.Data(j*.5, dummySet.get(i)));
+            series.getData().add(new XYChart.Data(j*.5, dataSet.get(i)));
             
-            System.out.println("i: " + i + " dummySetVal: " + dummySet.get(i));
+            System.out.println("i: " + i + " dummySetVal: " + dataSet.get(i));
         }
         
-        // prepare scene & show
         
+        // prepare scene & show
         Scene scene  = new Scene(lineChart,800,600);
         lineChart.getData().add(series);
        
@@ -85,6 +89,9 @@ public class Grapher extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
+        /*JSONObject results = WeatherDataApiFetcher.getForecastData("23.78712", "61.49911", "30");
+        JsonParsing.parseXml(results);
+        System.out.println("datainterfacetest: " + DataInterface.getForecastTemperature());*/
         //beginnings of temp graph implementation
         launch(args);
         
