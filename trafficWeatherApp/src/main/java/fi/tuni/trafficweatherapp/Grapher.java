@@ -17,16 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.HttpURLConnection;
-import org.json.XML;
-import org.json.JSONObject;
-import org.json.JSONArray;
+
 
 /**
  *
