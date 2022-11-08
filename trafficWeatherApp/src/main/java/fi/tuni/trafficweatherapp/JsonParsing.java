@@ -189,12 +189,12 @@ public class JsonParsing {
 
             //TODO: remove if loop when api calls have r_1h
             if (memberArray.get(memberArray.size()-1).getAsJsonObject().has("r_1h")){
-                DataInterface.setRain(memberArray.get(memberArray.size()-1).getAsJsonObject().get("r_1h").getAsDouble());
+                DataInterface.setRain(memberArray.get(memberArray.size()-1).getAsJsonObject().get("r_1h").getAsFloat());
             }
 
-            DataInterface.setTemperature(memberArray.get(memberArray.size()-1).getAsJsonObject().get("t2m").getAsDouble());
+            DataInterface.setTemperature(memberArray.get(memberArray.size()-1).getAsJsonObject().get("t2m").getAsFloat());
             DataInterface.setWind(memberArray.get(memberArray.size()-1).getAsJsonObject().get("ws_10min").toString());
-            DataInterface.setCloud(memberArray.get(memberArray.size()-1).getAsJsonObject().get("n_man").getAsDouble());
+            DataInterface.setCloud(memberArray.get(memberArray.size()-1).getAsJsonObject().get("n_man").getAsFloat());
             //dataInterface.setRain(memberArray.get(memberArray.size()-1).getAsJsonObject().get("r_1h").getAsDouble());
 
         } else {
