@@ -18,8 +18,6 @@
             <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
@@ -31,30 +29,17 @@
                   <Font name="Arial" size="17.0" />
                </font>
             </Label>
-            <CheckBox fx:id="checkBoxVisibility" alignment="CENTER" mnemonicParsing="false" onAction="#checkBoxPressed" text="Visiblility" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </CheckBox>
-            <CheckBox fx:id="checkBoxFriction" alignment="CENTER" mnemonicParsing="false" onAction="#checkBoxPressed" text="Friction" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <CheckBox fx:id="checkBoxPrecipitation" alignment="CENTER" mnemonicParsing="false" onAction="#checkBoxPressed" text="Precipitation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="checkBoxPrecipitation" alignment="CENTER" mnemonicParsing="false" onAction="#checkBoxPressed" text="Precipitation" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <CheckBox fx:id="checkBoxSlipperiness" alignment="CENTER" mnemonicParsing="false" onAction="#checkBoxPressed" text="Winter slipperiness" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="checkBoxSlipperiness" alignment="CENTER" mnemonicParsing="false" onAction="#checkBoxPressed" text="Winter slipperiness" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="checkBoxCondition" alignment="CENTER" mnemonicParsing="false" onAction="#checkBoxPressed" text="Overall road condition" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <CheckBox fx:id="checkBoxCondition" alignment="CENTER" mnemonicParsing="false" onAction="#checkBoxPressed" text="Overall road condition" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
