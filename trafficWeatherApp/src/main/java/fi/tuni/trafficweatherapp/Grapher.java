@@ -49,16 +49,9 @@ public class Grapher extends Application {
         lineChart.setTitle("Weather graph");
         
         XYChart.Series series = new XYChart.Series();
-        series.setName("Weather data items");
+        series.setName("Weather datapoints");
         
         // populate series with weather data
-        /*
-        series.getData().add(new XYChart.Data(1, 23));
-        series.getData().add(new XYChart.Data(2, 20));
-        series.getData().add(new XYChart.Data(3, 15));
-        series.getData().add(new XYChart.Data(4, 20));
-        series.getData().add(new XYChart.Data(5, 26));
-        */
         
         // access DataInterface.java (forecast for now)
         //List<Float> dataSet = DataInterface.getForecastTemperature();
@@ -72,7 +65,8 @@ public class Grapher extends Application {
            add(26.1);
         }};
         for (int i = 0; i < dummySet.size(); i++) {
-            series.getData().add(new XYChart.Data(i+1, dummySet.get(i)));
+            int j = i+1;
+            series.getData().add(new XYChart.Data(j*.5, dummySet.get(i)));
             
             System.out.println("i: " + i + " dummySetVal: " + dummySet.get(i));
         }
