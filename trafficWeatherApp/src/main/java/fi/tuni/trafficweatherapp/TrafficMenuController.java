@@ -1,25 +1,15 @@
 package fi.tuni.trafficweatherapp;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
+
 
 import java.io.IOException;
 
@@ -28,6 +18,9 @@ import java.io.IOException;
  */
 public class TrafficMenuController {
     public AnchorPane childAnchorPane;
+
+    @FXML
+    private Label errorLabel;
 
     @FXML
     private RadioButton radioButtonItemsOfInterest;
@@ -75,12 +68,16 @@ public class TrafficMenuController {
             itemsOfInterestMenuController ioiController = loaderIoiMenu.getController();
 
             radioButtonItemsOfInterest.setDisable(true);
+            String error = "To select items of interests\n please select a forecast";
+            errorLabel.setText(error);
 
             childAnchorPane.addEventHandler(MouseEvent.MOUSE_MOVED, (mouseEvent) -> {
                         if (rcController.isForecastSelected()) {
                             radioButtonItemsOfInterest.setDisable(false);
+                            errorLabel.setText("");
                         } else {
                             radioButtonItemsOfInterest.setDisable(true);
+                            errorLabel.setText(error);
                             ioiController.setCondition(false);
                             ioiController.setSlipperiness(false);
                             ioiController.setPrecipitation(false);

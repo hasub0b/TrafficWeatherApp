@@ -43,7 +43,7 @@
                   <Insets bottom="15.0" />
                </VBox.margin>
             </RadioButton>
-            <RadioButton fx:id="radioButtonItemsOfInterest" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleRadioButtonEvent" text="Items of interest (forecast)" textFill="WHITE" toggleGroup="$traffic">
+            <RadioButton fx:id="radioButtonItemsOfInterest" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleRadioButtonEvent" text="Items of interest" textFill="WHITE" toggleGroup="$traffic">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
@@ -54,5 +54,6 @@
          </children>
       </VBox>
       <AnchorPane fx:id="childAnchorPane" layoutX="-250.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="250.0" />
+      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="223.0" opacity="0.32" prefHeight="45.0" prefWidth="214.0" textAlignment="CENTER" textFill="RED" />
    </children>
 </AnchorPane>
