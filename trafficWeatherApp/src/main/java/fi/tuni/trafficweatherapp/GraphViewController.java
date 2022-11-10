@@ -52,13 +52,13 @@ public class GraphViewController {
         }
 
         // Action Events
-        sideMenu.addEventHandler(MouseEvent.MOUSE_RELEASED, event -> {
-            if (anchorSideMenu.getChildren().isEmpty()) {
+        sideMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            if (!anchorSideMenu.getChildren().isEmpty()) {
+                anchorSideMenu.getChildren().clear();
+            }
+            else {
                 anchorSideMenu.getChildren().add(anchorSideMenuBoxes);
             }
-        });
-        anchorSideMenuBoxes.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
-            anchorSideMenu.getChildren().clear();
         });
 
         LineChart chart = graphFactory.createPlot();
