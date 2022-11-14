@@ -125,8 +125,8 @@ public class WeatherMenuController {
         System.out.println("ObsCloudVis: " + ObsCloudVis);
         System.out.println("PredWindVis: " + PredWindVis);
         System.out.println("PredTempVis: " + PredTempVis);
-        System.out.println("Forecast Radio: " + forecastRadio);
-        System.out.println("Observation Radio: " + observationRadio);
+        System.out.println("Forecast Radio: " + forecastRadio.isSelected());
+        System.out.println("Observation Radio: " + observationRadio.isSelected());
     }
     
     // Accessors for checkbox values
