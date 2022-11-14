@@ -36,6 +36,8 @@ public class WeatherMenuController {
     private boolean ObsCloudVis;
     private boolean PredWindVis;
     private boolean PredTempVis;
+    private boolean observation;
+    private boolean forecast;
     
     @FXML
     private void radioButtonPressed() throws IOException {
@@ -52,6 +54,7 @@ public class WeatherMenuController {
             tempbox.setSelected(false);
             
             // Update Booleans
+            setForecast(true);
             setTempVis(false);
             setObsWindVis(false);
             setObsCloudVis(false);
@@ -69,6 +72,7 @@ public class WeatherMenuController {
             tempbox.setSelected(true);
             
             // Update Booleans
+            setObservation(true);
             setTempVis(true);
             setObsWindVis(true);
             setObsCloudVis(true);
@@ -127,6 +131,20 @@ public class WeatherMenuController {
         System.out.println("PredTempVis: " + PredTempVis);
         System.out.println("Forecast Radio: " + forecastRadio.isSelected());
         System.out.println("Observation Radio: " + observationRadio.isSelected());
+    }
+    // Accessors for radiobutton values
+    public boolean getObservation() {
+        return observation;
+    }
+    public void setObservation(boolean newObservation) {
+        observation = newObservation;
+    }
+    
+    public boolean getForecast() {
+        return forecast;
+    }
+    public void setForecast(boolean newForecast) {
+        forecast = newForecast;
     }
     
     // Accessors for checkbox values
