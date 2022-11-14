@@ -16,6 +16,11 @@ import org.json.JSONObject;
  */
 public class GraphDrawerFactory {
     
+    // Can be called for refactoring
+    public void update() throws Exception {
+        //createPlot();
+    }
+    
     public void fetchWeatherData(String type) throws Exception {
         
         try {
@@ -55,6 +60,10 @@ public class GraphDrawerFactory {
         //return dataSet;
     }
     
+    public void fetchTrafficData() throws Exception {
+    
+    }
+    
     public static Double[] listFloatToDoubleArray(List<Float> input) {
         if (input == null) {
             return null;
@@ -71,23 +80,25 @@ public class GraphDrawerFactory {
         return output;
     }
     
+    // Linechart
     public LineChart createPlot() throws Exception {
         fetchWeatherData("fore");
         Double[] dataset = listFloatToDoubleArray(DataInterface.getForecastTemperature());
         PlotDrawer plotterTest = new PlotDrawer(dataset,1);
-        System.out.println("test");
+        //System.out.println("test");
         return plotterTest.getChart();
     }
     
-    /* HistogramDrawer / IconsDrawer
+    
+    // HistogramDrawer / IconsDrawer
     public BarChart createHistogram() {
-        
-    }*/
+        return null;
+    }
     
-    /*
+    // Road / traffic msgs
     public TextArea createMessages() {
-    
-    }*/
+        return null;
+    }
     
     /*
     TBA: icons
