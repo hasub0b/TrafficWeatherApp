@@ -191,11 +191,9 @@ public class CoordinatesMenuController {
     }
 
    
-    public static Double[] getCoordinates() {
-        CoordinatesMenuController classObject = new CoordinatesMenuController();
-    
-        if (classObject.coordinates != null) {
-            return classObject.coordinates;
+    public Double[] getCoordinates() {
+        if (coordinates != null) {
+            return coordinates;
         }
         return null;
     }
