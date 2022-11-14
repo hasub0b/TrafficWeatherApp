@@ -16,52 +16,82 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="anchorGridPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="243.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.trafficweatherapp.WeatherMenuController">
+<AnchorPane id="anchorGridPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="257.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.trafficweatherapp.WeatherMenuController">
    <children>
-      <Rectangle fx:id="backgroundShape" arcHeight="15.0" arcWidth="15.0" fill="#495c83" height="243.0" stroke="BLACK" strokeType="INSIDE" width="250.0" />
-      <Label fx:id="labelWC" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="209.0" text="Weather Conditions" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
+      <Rectangle fx:id="backgroundShape" arcHeight="15.0" arcWidth="15.0" fill="#495c83" height="257.0" stroke="BLACK" strokeType="INSIDE" width="250.0" />
+      <Label fx:id="labelForecast" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="209.0" text="Weather Conditions" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font name="Arial" size="20.0" />
          </font>
       </Label>
-      <GridPane fx:id="boxGrid" alignment="CENTER" layoutX="16.0" layoutY="59.0" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="59.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints vgrow="SOMETIMES" />
-            <RowConstraints vgrow="SOMETIMES" />
-            <RowConstraints vgrow="SOMETIMES" />
-            <RowConstraints vgrow="SOMETIMES" />
-            <RowConstraints vgrow="SOMETIMES" />
-         </rowConstraints>
+      <Group fx:id="obsGroup" layoutX="-41.0" layoutY="-100.0">
          <children>
-            <CheckBox fx:id="predwindbox" layoutX="-72.0" layoutY="257.0" mnemonicParsing="false" onAction="#buttonPressed" text="Predicted Wind" textFill="WHITE" GridPane.rowIndex="3">
+            <RadioButton fx:id="observationRadio" layoutX="57.0" layoutY="150.0" mnemonicParsing="false" onAction="#radioButtonPressed" text="Observation" textFill="WHITE">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>
-            </CheckBox>
-            <CheckBox fx:id="predtempbox" layoutX="-66.0" layoutY="290.0" mnemonicParsing="false" onAction="#buttonPressed" text="Predicted Temperature" textFill="WHITE" GridPane.rowIndex="4">
-               <font>
-                  <Font name="Arial" size="18.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="tempbox" mnemonicParsing="false" onAction="#buttonPressed" text="Temperature" textFill="WHITE">
-               <font>
-                  <Font name="Arial" size="18.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="obswindbox" mnemonicParsing="false" onAction="#buttonPressed" text="Observed Wind" textFill="WHITE" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Arial" size="18.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="obscloudbox" mnemonicParsing="false" onAction="#buttonPressed" text="Observed Cloudiness" textFill="WHITE" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Arial" size="18.0" />
-               </font>
-            </CheckBox>
+               <toggleGroup>
+                  <ToggleGroup fx:id="tgw" />
+               </toggleGroup>
+            </RadioButton>
+            <GridPane fx:id="boxGrid1" alignment="CENTER" layoutX="68.0" layoutY="183.0">
+               <children>
+                  <CheckBox fx:id="tempbox" mnemonicParsing="false" onAction="#buttonPressed" text="Temperature" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="obswindbox" mnemonicParsing="false" onAction="#buttonPressed" text="Windiness" textFill="WHITE" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="obscloudbox" mnemonicParsing="false" onAction="#buttonPressed" text="Cloudiness" textFill="WHITE" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
          </children>
-      </GridPane>
+      </Group>
+      <Group fx:id="liveGroup" layoutX="16.0" layoutY="158.0">
+         <children>
+            <RadioButton fx:id="forecastRadio" mnemonicParsing="false" onAction="#radioButtonPressed" selected="true" text="Forecast" textFill="WHITE" toggleGroup="$tgw">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </RadioButton>
+            <GridPane fx:id="boxGrid2" alignment="CENTER" layoutX="9.0" layoutY="32.0" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="32.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <CheckBox fx:id="predtempbox" mnemonicParsing="false" onAction="#buttonPressed" selected="true" text="Predicted Temperature" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="predwindbox" mnemonicParsing="false" onAction="#buttonPressed" text="Predicted Windiness" textFill="WHITE" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+            </GridPane>
+         </children>
+      </Group>
    </children>
 </AnchorPane>

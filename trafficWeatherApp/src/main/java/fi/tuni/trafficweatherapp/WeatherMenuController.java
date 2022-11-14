@@ -4,6 +4,7 @@ import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.RadioButton;
 
 /**
 * @author Arttu
@@ -22,6 +23,12 @@ public class WeatherMenuController {
     private CheckBox obswindbox;
     @FXML
     private CheckBox tempbox;
+    @FXML
+    private RadioButton forecastRadio;
+    @FXML
+    private RadioButton observationRadio;
+    
+    
     
     // Boolean variables
     private boolean TempVis;
@@ -29,6 +36,47 @@ public class WeatherMenuController {
     private boolean ObsCloudVis;
     private boolean PredWindVis;
     private boolean PredTempVis;
+    
+    @FXML
+    private void radioButtonPressed() throws IOException {
+        // If RadioButton is pressed, 
+        // then update values to reflect the new state
+        if (forecastRadio.isSelected()) {
+            // Update GUI
+            // Negation
+            predwindbox.setSelected(true);
+            predtempbox.setSelected(true);
+            // Local
+            obscloudbox.setSelected(false);
+            obswindbox.setSelected(false);
+            tempbox.setSelected(false);
+            
+            // Update Booleans
+            setTempVis(false);
+            setObsWindVis(false);
+            setObsCloudVis(false);
+            setPredWindVis(true);
+            setPredTempVis(true);
+        }
+        else if (observationRadio.isSelected()) {
+            // Update GUI
+            // Negation
+            predwindbox.setSelected(false);
+            predtempbox.setSelected(false);
+            // Local
+            obscloudbox.setSelected(true);
+            obswindbox.setSelected(true);
+            tempbox.setSelected(true);
+            
+            // Update Booleans
+            setTempVis(true);
+            setObsWindVis(true);
+            setObsCloudVis(true);
+            setPredWindVis(false);
+            setPredTempVis(false);
+        }
+        status();
+    }
     
     @FXML
     private void buttonPressed() throws IOException {
@@ -67,14 +115,18 @@ public class WeatherMenuController {
         else {
             setPredTempVis(false);
         }
-        
+        status();
+    }
+    
+    public void status() {       
         System.out.println("---Status---");
         System.out.println("TempVis: " + TempVis);
         System.out.println("ObsWindVis: " + ObsWindVis);
         System.out.println("ObsCloudVis: " + ObsCloudVis);
         System.out.println("PredWindVis: " + PredWindVis);
         System.out.println("PredTempVis: " + PredTempVis);
-        
+        System.out.println("Forecast Radio: " + forecastRadio);
+        System.out.println("Observation Radio: " + observationRadio);
     }
     
     // Accessors for checkbox values
