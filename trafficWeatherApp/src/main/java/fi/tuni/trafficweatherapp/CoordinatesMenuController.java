@@ -190,9 +190,12 @@ public class CoordinatesMenuController {
         return false;
     }
 
-    public Double[] getCoordinates() {
-        if (coordinates != null) {
-            return coordinates;
+   
+    public static Double[] getCoordinates() {
+        CoordinatesMenuController classObject = new CoordinatesMenuController();
+    
+        if (classObject.coordinates != null) {
+            return classObject.coordinates;
         }
         return null;
     }
