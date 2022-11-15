@@ -61,7 +61,12 @@ public class GraphViewController {
             anchorSideMenu.getChildren().clear();
         });
 
-        LineChart chart = graphFactory.createPlot();
-        stackPaneGraph.getChildren().add(chart);
+        try {
+            LineChart chart = graphFactory.createPlot();
+            stackPaneGraph.getChildren().add(chart);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
     }
 }
