@@ -39,11 +39,12 @@ public class PlotDrawer {
         
         //C8B6E2
         
-        chart.lookup(".chart-plot-background").setStyle("-fx-background-color: transparent;");
-        chart.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
-        chart.lookup(".chart-vertical-grid-lines").setStyle("-fx-stroke: transparent;");
-        chart.lookup(".chart-horizontal-grid-lines").setStyle("-fx-stroke: transparent;");
-        chart.setLegendVisible(false);
+        //chart.lookup(".chart-plot-background").setStyle("-fx-background-color: transparent;");
+        //chart.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
+        //chart.lookup(".chart-vertical-grid-lines").setStyle("-fx-stroke: transparent;");
+        //chart.lookup(".chart-horizontal-grid-lines").setStyle("-fx-stroke: transparent;");
+        chart.getStylesheets().addAll(getClass().getResource("chartStackedStyle.css").toExternalForm());
+        //chart.setLegendVisible(false);
 
         
     }

@@ -94,11 +94,13 @@ public class PrimaryController {
             buttonSettings.setSelected(false);
             anchorContentArea.getChildren().remove(1);
             anchorContentArea.getChildren().add(anchorGraphView);
+            anchorGraphView.prefHeightProperty().bind(anchorContentArea.heightProperty().subtract(60));
         });
         buttonSettings.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
             buttonGraphView.setSelected(false);
             anchorContentArea.getChildren().remove(1);
             anchorContentArea.getChildren().add(anchorSettings);
+            anchorSettings.prefHeightProperty().bind(anchorContentArea.heightProperty().subtract(60));
         });
 
         //anchorMenubar.autosize();
