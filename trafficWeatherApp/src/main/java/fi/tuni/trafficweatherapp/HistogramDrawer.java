@@ -1,5 +1,6 @@
 package fi.tuni.trafficweatherapp;
 
+import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -18,9 +19,10 @@ public class HistogramDrawer {
 
     public HistogramDrawer(List<Float> rain, int timeInterval) throws Exception {
 
-        xAxis.setLabel("Time (h)");
+        xAxis.setLabel("Time (hh:mm)");
         yAxis.setLabel("Precipitation (mm)");
         barChart.setTitle("Precipitation");
+        barChart.setBarGap(-4);
 
         XYChart.Series series = new XYChart.Series();
 
@@ -29,6 +31,18 @@ public class HistogramDrawer {
         for (int i = 0; i < rain.size(); i++) {
             series.getData().add(new XYChart.Data(now.truncatedTo(ChronoUnit.HOURS).plusMinutes((long) timeInterval * i).toString(), rain.get(i)));
         }
+
+        // Change bar color to blue
+        for(Node n:barChart.lookupAll(".default-color0.chart-bar")) {
+            n.setStyle("-fx-bar-fill: #0077FF;");
+        }
+
+        // Uniform look with PlotDrawer
+        barChart.lookup(".chart-plot-background").setStyle("-fx-background-color: transparent;");
+        barChart.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
+        barChart.lookup(".chart-vertical-grid-lines").setStyle("-fx-stroke: transparent;");
+        barChart.lookup(".chart-horizontal-grid-lines").setStyle("-fx-stroke: transparent;");
+        barChart.setLegendVisible(false);
 
 
     }
