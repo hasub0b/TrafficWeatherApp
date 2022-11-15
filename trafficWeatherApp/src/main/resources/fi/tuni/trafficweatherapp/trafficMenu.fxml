@@ -27,7 +27,7 @@
                   <ToggleGroup fx:id="traffic" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="radioButtonRoadCondForecast" mnemonicParsing="false" onAction="#handleRadioButtonEvent" text="Road condition forecast" textFill="WHITE" toggleGroup="$traffic">
+            <RadioButton fx:id="radioButtonRoadCondForecast" mnemonicParsing="false" onAction="#handleRadioButtonEvent" text="Road condition" textFill="WHITE" toggleGroup="$traffic">
                <VBox.margin>
                   <Insets bottom="15.0" />
                </VBox.margin>
@@ -43,7 +43,7 @@
                   <Insets bottom="15.0" />
                </VBox.margin>
             </RadioButton>
-            <RadioButton fx:id="radioButtonItemsOfInterest" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleRadioButtonEvent" text="Items of interest" textFill="WHITE" toggleGroup="$traffic">
+            <RadioButton fx:id="radioButtonItemsOfInterest" layoutX="10.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleRadioButtonEvent" text="Items of interest (forecast)" textFill="WHITE" toggleGroup="$traffic">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>

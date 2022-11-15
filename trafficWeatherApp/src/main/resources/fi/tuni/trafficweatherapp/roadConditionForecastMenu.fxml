@@ -16,49 +16,21 @@
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label prefHeight="39.0" prefWidth="372.0" text="Select the road conditon forecast" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <CheckBox fx:id="checkBoxRoadCond" mnemonicParsing="false" prefHeight="62.0" prefWidth="210.0" text="Road condition" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="Arial" size="22.0" />
+               </font></CheckBox>
+            <Label alignment="CENTER" prefHeight="39.0" prefWidth="372.0" text="The road condition" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
                <font>
-                  <Font name="Arial" size="14.0" />
+                  <Font name="Arial" size="21.0" />
                </font>
             </Label>
-            <RadioButton fx:id="TwoH" mnemonicParsing="false" onAction="#handleRadioButtonEvent" text="2h" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Arial" size="24.0" />
-               </font>
-               <toggleGroup>
-                  <ToggleGroup fx:id="forecast" />
-               </toggleGroup>
-            </RadioButton>
-            <RadioButton fx:id="FourH" mnemonicParsing="false" onAction="#handleRadioButtonEvent" text="4h" textFill="WHITE" toggleGroup="$forecast" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Arial" size="24.0" />
-               </font>
-            </RadioButton>
-            <RadioButton fx:id="SixH" mnemonicParsing="false" onAction="#handleRadioButtonEvent" text="6h" textFill="WHITE" toggleGroup="$forecast" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Arial" size="24.0" />
-               </font>
-            </RadioButton>
-            <RadioButton fx:id="TwelveH" mnemonicParsing="false" onAction="#handleRadioButtonEvent" text="12h" textFill="WHITE" toggleGroup="$forecast" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <font>
-                  <Font name="Arial" size="24.0" />
-               </font>
-            </RadioButton>
-            <RadioButton fx:id="NoForecast" mnemonicParsing="false" onAction="#handleRadioButtonEvent" selected="true" text="No forecast" textFill="WHITE" toggleGroup="$forecast" GridPane.columnIndex="1" GridPane.rowIndex="5">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </RadioButton>
          </children>
       </GridPane>
    </children>

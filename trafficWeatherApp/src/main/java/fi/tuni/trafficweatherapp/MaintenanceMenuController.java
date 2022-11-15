@@ -44,7 +44,13 @@ public class MaintenanceMenuController implements Initializable {
         setAllSelected(!allSelected);
     }
 
-    public String getSelectedTask() {return selectedTask;}
+    public String getSelectedTask() {
+        if (isAllSelected()){
+            return "ALL";
+        } else {
+            return selectedTask;
+        }
+    }
     public void setSelectedTask(String selectedTask) {this.selectedTask = selectedTask;}
 
     public boolean isAllSelected() {return allSelected;}

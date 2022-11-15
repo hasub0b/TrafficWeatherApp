@@ -64,24 +64,28 @@ public class TrafficMenuController {
             gridMessage = loaderMessageMenu.load();
             gridIoi = loaderIoiMenu.load();
 
+            MaintenanceMenuController mmController = loaderMaintenanceMenu.getController();
             RoadConditionForecastController rcController = loaderConditionMenu.getController();
+            MessagesMenuController msgController = loaderMessageMenu.getController();
             itemsOfInterestMenuController ioiController = loaderIoiMenu.getController();
 
-            radioButtonItemsOfInterest.setDisable(true);
-            String error = "To select items of interests\n please select a forecast";
-            errorLabel.setText(error);
 
-            childAnchorPane.addEventHandler(MouseEvent.MOUSE_MOVED, (mouseEvent) -> {
-                        if (rcController.isForecastSelected()) {
-                            radioButtonItemsOfInterest.setDisable(false);
-                            errorLabel.setText("");
-                        } else {
-                            radioButtonItemsOfInterest.setDisable(true);
-                            errorLabel.setText(error);
-                            ioiController.setCondition(false);
-                            ioiController.setSlipperiness(false);
-                            ioiController.setPrecipitation(false);
-                        }
+            childAnchorPane.addEventHandler(ActionEvent.ACTION, event -> {
+
+                System.out.println("------------------Traffic Menu Status------------------");
+
+                System.out.println("Selected Maintenance: " + mmController.getSelectedTask());
+
+                System.out.println("Road Condition Selected: " + rcController.getRoadConditionSelected());
+
+                System.out.println("Messages Selected:\n" + "Announcement: " + msgController.isAnnouncement() +" / Transport: " + msgController.isTransport()
+                + " / Weight res: " + msgController.isWeightRes() + " / Road Work: " + msgController.isRoadWork());
+
+                System.out.println("Selected Items of Interest:\n" + "Precipitation: " + ioiController.isPrecipitation() + " / Slipperiness: " + ioiController.isSlipperiness()
+                + " / Condition: " + ioiController.isCondition());
+
+                System.out.println("------------------------------------------------------");
+
             });
 
         } catch (IOException e) {
@@ -101,7 +105,7 @@ public class TrafficMenuController {
                 childAnchorPane.getChildren().addAll(gridMaintenance);
                 toggle.setSelected(false);
                 break;
-            case "Road condition forecast":
+            case "Road condition":
                 childAnchorPane.getChildren().clear();
                 childAnchorPane.getChildren().addAll(gridCondition);
                 toggle.setSelected(false);
@@ -111,7 +115,7 @@ public class TrafficMenuController {
                 childAnchorPane.getChildren().addAll(gridMessage);
                 toggle.setSelected(false);
                 break;
-            case "Items of interest":
+            case "Items of interest (forecast)":
                 childAnchorPane.getChildren().clear();
                 childAnchorPane.getChildren().addAll(gridIoi);
                 toggle.setSelected(false);
