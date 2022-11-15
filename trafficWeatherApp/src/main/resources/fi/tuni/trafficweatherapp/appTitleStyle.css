@@ -1,11 +1,27 @@
-.label {
+.root {
     -fx-font-family: Inter;
+}
+
+.mainTitle.label {
     -fx-font-size: 40px;
     -fx-font-weight: bold;
 }
+.title.label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+.button.label {
+    
+}
 
-.outline.label .text {
+.outlineMainTitle.label .text {
     -fx-fill: #c8b6e2;
     -fx-stroke: black;
     -fx-stroke-width: 1px;
+}
+
+.outlineTitle.label .text {
+    -fx-fill: #c8b6e2;
+    -fx-stroke: black;
+    -fx-stroke-width: 0.5px;
 }

@@ -99,6 +99,7 @@ public class GraphViewController {
         LineChart chart = graphFactory.createPlot();
         stackPaneGraph.getChildren().add(chart);
     }
+    
     private void radioButtonEvent(ActionEvent event) {
             if (buttonForecast.isSelected()) {
                 button2h.setDisable(false);
