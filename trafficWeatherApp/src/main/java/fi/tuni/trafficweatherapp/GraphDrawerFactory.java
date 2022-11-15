@@ -30,6 +30,13 @@ public class GraphDrawerFactory {
         return plotter.getChart();
     }
     
+    public BarChart createIconsChart() {
+        IconsDrawer iconsChart = new IconsDrawer(new Double[] 
+        {2.0, 15.0, 26.0, 37.0, 47.0, 57.5, 66.0, 71.1, 80.1, 91.0, 100.0}, 1);
+        
+        return iconsChart.getChart();
+    }
+    
     /* HistogramDrawer / IconsDrawer
     public BarChart createHistogram() {
         
