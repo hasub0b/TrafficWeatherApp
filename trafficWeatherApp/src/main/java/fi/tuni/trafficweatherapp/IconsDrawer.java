@@ -23,9 +23,9 @@ public class IconsDrawer {
     private final NumberAxis xAxis = new NumberAxis();
     private final NumberAxis yAxis = new NumberAxis();
     private final BarChart<Number, Number> iconChart = new BarChart<>(xAxis, yAxis);
-    private final Image sunny = new Image("sunny.png");
-    private final Image halfCloudy = new Image("halfCloudy.png");
-    private final Image cloudy = new Image("cloudy.png");
+    private final ImageView sunny       = new ImageView(new Image("sunny.png"));
+    private final ImageView halfCloudy  = new ImageView(new Image("halfCloudy.png"));
+    private final ImageView cloudy      = new ImageView(new Image("cloudy.png"));
     
     public IconsDrawer(Double[] cloudiness, int timeInterval) {
         
@@ -43,6 +43,8 @@ public class IconsDrawer {
             }
         }
         iconChart.getData().add(series);
+        
+        iconChart.lookup(".chart-plot-background").setStyle("-fx-background-color: transparent;");
     }
     
     public BarChart getChart() {
