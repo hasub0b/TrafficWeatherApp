@@ -93,25 +93,11 @@ public class GraphViewController {
                 anchorSideMenu.getChildren().add(anchorSideMenuBoxes);
             }
         });
-
-        anchorSideMenuBoxes.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
-            anchorSideMenu.getChildren().clear();
-        });
-
-        try {
-            LineChart chart = graphFactory.createPlot();
-            stackPaneGraph.getChildren().add(chart);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        
-
         buttonForecast.setOnAction(event -> this.radioButtonEvent(event));
         buttonObservation.setOnAction(event -> this.radioButtonEvent(event));
         
         LineChart chart = graphFactory.createPlot();
         stackPaneGraph.getChildren().add(chart);
-
     }
     
     private void radioButtonEvent(ActionEvent event) {
