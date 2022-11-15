@@ -113,6 +113,7 @@ public class GraphViewController {
         stackPaneGraph.getChildren().add(chart);
 
     }
+    
     private void radioButtonEvent(ActionEvent event) {
             if (buttonForecast.isSelected()) {
                 button2h.setDisable(false);
