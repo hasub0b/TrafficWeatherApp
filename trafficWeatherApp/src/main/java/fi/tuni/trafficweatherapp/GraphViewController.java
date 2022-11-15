@@ -23,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 /**
@@ -57,6 +58,7 @@ public class GraphViewController {
     RadioButton buttonForecast;
     @FXML
     RadioButton buttonObservation;
+    //@FXML Rectangle shapeChartBackground;
 
     Tooltip tipSideMenu = new Tooltip("Graph settings");
 
@@ -106,6 +108,9 @@ public class GraphViewController {
 
         LineChart chart = graphFactory.createPlot();
         stackPaneGraph.getChildren().add(chart);
+        
+        //shapeChartBackground.widthProperty().bind(chart.widthProperty().subtract(20));
+        //shapeChartBackground.heightProperty().bind(chart.heightProperty().subtract(60));
     }
 
     private void radioButtonEvent(ActionEvent event) {
