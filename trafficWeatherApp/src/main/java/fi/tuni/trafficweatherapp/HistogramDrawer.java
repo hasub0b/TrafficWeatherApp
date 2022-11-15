@@ -17,11 +17,17 @@ public class HistogramDrawer {
     private final NumberAxis yAxis = new NumberAxis();
     private final BarChart barChart = new BarChart(xAxis, yAxis);
 
+
+    /**
+     * @param rain getForecastRain list from DataInterface
+     * @param timeInterval time interval in minutes, default 30
+     * @throws Exception
+     */
     public HistogramDrawer(List<Float> rain, int timeInterval) throws Exception {
 
         xAxis.setLabel("Time (hh:mm)");
         yAxis.setLabel("Precipitation (mm)");
-        barChart.setTitle("Precipitation");
+        barChart.setTitle("Precipitation amount");
         barChart.setBarGap(-4);
 
         XYChart.Series series = new XYChart.Series();
