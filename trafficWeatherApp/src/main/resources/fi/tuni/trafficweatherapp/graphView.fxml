@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -29,5 +30,11 @@
             <Image url="@sidebar.png" />
          </image>
       </ImageView>
+      <RadioButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="137.0" layoutY="319.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="Forecast" textAlignment="RIGHT" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="10.0" />
+      <RadioButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="147.0" layoutY="329.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="Observation" textAlignment="RIGHT" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="10.0" />
+      <RadioButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutY="17.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="2h" textAlignment="RIGHT" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="160.0" />
+      <RadioButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="27.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="4h" textAlignment="RIGHT" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="110.0" />
+      <RadioButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="27.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="6h" textAlignment="RIGHT" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="60.0" />
+      <RadioButton alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="27.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="12h" textAlignment="RIGHT" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="10.0" />
    </children>
 </AnchorPane>
