@@ -93,26 +93,33 @@ public class GraphViewController {
                 anchorSideMenu.getChildren().add(anchorSideMenuBoxes);
             }
         });
+
+        try {
+            LineChart chart = graphFactory.createPlot();
+            stackPaneGraph.getChildren().add(chart);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
         buttonForecast.setOnAction(event -> this.radioButtonEvent(event));
         buttonObservation.setOnAction(event -> this.radioButtonEvent(event));
-        
+
         LineChart chart = graphFactory.createPlot();
         stackPaneGraph.getChildren().add(chart);
     }
-    
+
     private void radioButtonEvent(ActionEvent event) {
-            if (buttonForecast.isSelected()) {
-                button2h.setDisable(false);
-                button4h.setDisable(false);
-                button6h.setDisable(false);
-                button12h.setDisable(false);
-            }
-            else {
-                button2h.setDisable(true);
-                button4h.setDisable(true);
-                button6h.setDisable(true);
-                button12h.setDisable(true);
-            }
+        if (buttonForecast.isSelected()) {
+            button2h.setDisable(false);
+            button4h.setDisable(false);
+            button6h.setDisable(false);
+            button12h.setDisable(false);
+        } else {
+            button2h.setDisable(true);
+            button4h.setDisable(true);
+            button6h.setDisable(true);
+            button12h.setDisable(true);
         }
+    }
 
 }
