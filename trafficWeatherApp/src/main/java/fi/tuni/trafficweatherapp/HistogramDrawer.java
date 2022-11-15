@@ -1,10 +1,8 @@
 package fi.tuni.trafficweatherapp;
 
 import javafx.scene.Node;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
+
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -51,5 +49,9 @@ public class HistogramDrawer {
         barChart.setLegendVisible(false);
 
 
+    }
+
+    public BarChart getChart() {
+        return barChart;
     }
 }
