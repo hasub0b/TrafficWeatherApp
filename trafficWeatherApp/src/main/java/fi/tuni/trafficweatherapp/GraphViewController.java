@@ -44,7 +44,7 @@ public class GraphViewController {
     FXMLLoader loaderSideMenuTitleBoxes = new FXMLLoader(
             getClass().getResource("sideMenuTitleBoxes.fxml"));
 
-    public void initialize() {
+    public void initialize() throws Exception {
         try {
             anchorSideMenuBoxes = loaderSideMenuTitleBoxes.load();
         } catch (IOException e) {
