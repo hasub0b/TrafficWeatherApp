@@ -8,6 +8,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.LineChart;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -15,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  *
@@ -37,6 +39,8 @@ public class GraphViewController {
     @FXML
     HBox hbox;
     
+    Tooltip tipSideMenu = new Tooltip("Graph settings");
+    
 
     GraphDrawerFactory graphFactory = new GraphDrawerFactory();
 
@@ -50,7 +54,8 @@ public class GraphViewController {
         } catch (IOException e) {
             System.out.println(e);
         }
-
+        tipSideMenu.setShowDelay(Duration.seconds(0.3));
+        Tooltip.install(sideMenu, tipSideMenu);
         // Action Events
         sideMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             if (!anchorSideMenu.getChildren().isEmpty()) {
