@@ -190,6 +190,7 @@ public class CoordinatesMenuController {
         return false;
     }
 
+   
     public Double[] getCoordinates() {
         if (coordinates != null) {
             return coordinates;

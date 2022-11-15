@@ -26,10 +26,10 @@ public final class DataInterface {
     private static List<Float> forecastRain = new ArrayList<>();
     private static List<Float> forecastWind = new ArrayList<>();
     // Observed data
-    private static Float temperature;
+    private static Double temperature;
     private static String wind;
-    private static Float rain;
-    private static Float cloud;
+    private static Double rain;
+    private static Double cloud;
 
     // Accessors
 
@@ -60,8 +60,8 @@ public final class DataInterface {
     public static void setForecastTemperature(List<Float> newForecastTemperature) {forecastTemperature = newForecastTemperature;}
     public static void addForecastTemperature(Float newForecastTemperature) {forecastTemperature.add(newForecastTemperature);}
 
-    public static Float getTemperature() {return temperature;}
-    public static void setTemperature(Float newTemperature) {temperature = newTemperature;}
+    public static Double getTemperature() {return temperature;}
+    public static void setTemperature(Double newTemperature) {temperature = newTemperature;}
 
     public static List<Float> getForecastWind() {return forecastWind;}
     public static void setForecastWind(List<Float> newForecastWind) {forecastWind = newForecastWind;}
@@ -74,11 +74,11 @@ public final class DataInterface {
     public static void setForecastRain(List<Float> newForecastRain) {forecastRain = newForecastRain;}
     public static void addForecastRain(Float newForecastRain) {forecastRain.add(newForecastRain);}
 
-    public static Float getRain() {return rain;}
-    public static void setRain(Float newRain) {rain = newRain;}
+    public static Double getRain() {return rain;}
+    public static void setRain(Double newRain) {rain = newRain;}
 
-    public static Float getCloud() {return cloud;}
-    public static void setCloud(Float newCloud) {cloud = newCloud;}
+    public static Double getCloud() {return cloud;}
+    public static void setCloud(Double newCloud) {cloud = newCloud;}
 
 
     public static List<String> getAllTaskTypes() {return allTaskTypes;}

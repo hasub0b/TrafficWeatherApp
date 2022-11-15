@@ -38,7 +38,7 @@ public class WeatherDataApiFetcher {
     static String dynamicWeatherObservationDataString = "https://opendata.fmi.fi/wfs?request"
             + "=getFeature&version=2.0.0&storedquery_id"
             + "=fmi::observations::weather::simple&bbox=<X1>,<Y1>,<X2>,<Y2>&timestep"
-            + "=<TS>&parameters=t2m,ws_10min,n_man";
+            + "=<TS>&parameters=t2m,ws_10min,n_man,r_1h";
     
     
     /* 
@@ -49,7 +49,7 @@ public class WeatherDataApiFetcher {
     static String dynamicWeatherForecastDataString = "https://opendata.fmi.fi/wfs?request"
             + "=getFeature&version=2.0.0&storedquery_id=fmi::forecast::harmonie::surface::point::simple&latlon"
             + "=<Y>,<X>&timestep=<TS>&parameters"
-            + "=temperature,windspeedms";
+            + "=temperature,windspeedms,precipitationamount";
     
     /* ! Forecast by default 24h  ! */
     // observations vs. forecast - <OFT>

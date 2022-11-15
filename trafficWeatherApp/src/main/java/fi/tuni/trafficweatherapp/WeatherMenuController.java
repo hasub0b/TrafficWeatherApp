@@ -1,8 +1,10 @@
 package fi.tuni.trafficweatherapp;
 
 import java.io.IOException;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.RadioButton;
 
 /**
 * @author Arttu
@@ -21,6 +23,12 @@ public class WeatherMenuController {
     private CheckBox obswindbox;
     @FXML
     private CheckBox tempbox;
+    @FXML
+    private RadioButton forecastRadio;
+    @FXML
+    private RadioButton observationRadio;
+    
+    
     
     // Boolean variables
     private boolean TempVis;
@@ -28,6 +36,51 @@ public class WeatherMenuController {
     private boolean ObsCloudVis;
     private boolean PredWindVis;
     private boolean PredTempVis;
+    private boolean observation;
+    private boolean forecast;
+    
+    @FXML
+    private void radioButtonPressed() throws IOException {
+        // If RadioButton is pressed, 
+        // then update values to reflect the new state
+        if (forecastRadio.isSelected()) {
+            // Update GUI
+            // Negation
+            predwindbox.setSelected(true);
+            predtempbox.setSelected(true);
+            // Local
+            obscloudbox.setSelected(false);
+            obswindbox.setSelected(false);
+            tempbox.setSelected(false);
+            
+            // Update Booleans
+            setForecast(true);
+            setTempVis(false);
+            setObsWindVis(false);
+            setObsCloudVis(false);
+            setPredWindVis(true);
+            setPredTempVis(true);
+        }
+        else if (observationRadio.isSelected()) {
+            // Update GUI
+            // Negation
+            predwindbox.setSelected(false);
+            predtempbox.setSelected(false);
+            // Local
+            obscloudbox.setSelected(true);
+            obswindbox.setSelected(true);
+            tempbox.setSelected(true);
+            
+            // Update Booleans
+            setObservation(true);
+            setTempVis(true);
+            setObsWindVis(true);
+            setObsCloudVis(true);
+            setPredWindVis(false);
+            setPredTempVis(false);
+        }
+        status();
+    }
     
     @FXML
     private void buttonPressed() throws IOException {
@@ -66,114 +119,33 @@ public class WeatherMenuController {
         else {
             setPredTempVis(false);
         }
-        System.out.println("---Status---");
-        System.out.println("TempVis: " + TempVis);
-        System.out.println("ObsWindVis: " + ObsWindVis);
-        System.out.println("ObsCloudVis: " + ObsCloudVis);
-        System.out.println("PredWindVis: " + PredWindVis);
-        System.out.println("PredTempVis: " + PredTempVis);
+        status();
     }
     
-    /*
-    @FXML
-    private void tempButtonPressed() throws IOException {
-        if (tempbox.isSelected()) {
-            setTempVis(true);
-            //System.out.println("It's value is true");
-            //System.out.println("System reflects: " + TempVis);
-        }
-        else {
-            setTempVis(false);
-            //System.out.println("It's value is false");
-            //System.out.println("System reflects: " + TempVis);
-        }
+    public void status() {       
         System.out.println("---Status---");
         System.out.println("TempVis: " + TempVis);
         System.out.println("ObsWindVis: " + ObsWindVis);
         System.out.println("ObsCloudVis: " + ObsCloudVis);
         System.out.println("PredWindVis: " + PredWindVis);
         System.out.println("PredTempVis: " + PredTempVis);
-        
-        //System.out.println("Temperature checkbox has been (un)checked");
-        //System.out.println("It's value is: " + TempVis);
-        // Update checkbox value
-        //setTempVis(!(getTempVis()));
+        System.out.println("Forecast Radio: " + forecastRadio.isSelected());
+        System.out.println("Observation Radio: " + observationRadio.isSelected());
+    }
+    // Accessors for radiobutton values
+    public boolean getObservation() {
+        return observation;
+    }
+    public void setObservation(boolean newObservation) {
+        observation = newObservation;
     }
     
-    
-    public void obsWindButtonPressed() {
-        if (obswindbox.isSelected()) {
-            setObsWindVis(true);
-            //System.out.println("It's value is true");
-            //System.out.println("System reflects: " + ObsWindVis);
-        }
-        else {
-            setObsWindVis(false);
-            //System.out.println("It's value is false");
-            //System.out.println("System reflects: " + ObsWindVis);
-        }
-        System.out.println("---Status---");
-        System.out.println("TempVis: " + TempVis);
-        System.out.println("ObsWindVis: " + ObsWindVis);
-        System.out.println("ObsCloudVis: " + ObsCloudVis);
-        System.out.println("PredWindVis: " + PredWindVis);
-        System.out.println("PredTempVis: " + PredTempVis);
+    public boolean getForecast() {
+        return forecast;
     }
-    public void obsCloudButtonPressed() {
-        if (obscloudbox.isSelected()) {
-            setObsCloudVis(true);
-            //System.out.println("It's value is true");
-            //System.out.println("System reflects: " + ObsCloudVis);
-        }
-        else {
-            setObsCloudVis(false);
-            //System.out.println("It's value is false");
-            //System.out.println("System reflects: " + ObsCloudVis);
-        }
-        System.out.println("---Status---");
-        System.out.println("TempVis: " + TempVis);
-        System.out.println("ObsWindVis: " + ObsWindVis);
-        System.out.println("ObsCloudVis: " + ObsCloudVis);
-        System.out.println("PredWindVis: " + PredWindVis);
-        System.out.println("PredTempVis: " + PredTempVis);
+    public void setForecast(boolean newForecast) {
+        forecast = newForecast;
     }
-    public void predWindButtonPressed() {
-        if (predwindbox.isSelected()) {
-            setPredWindVis(true);
-            //System.out.println("It's value is true");
-            //System.out.println("System reflects: " + PredWindVis);
-        }
-        else {
-            setPredWindVis(false);
-            //System.out.println("It's value is false");
-            //System.out.println("System reflects: " + PredWindVis);
-        }
-        System.out.println("---Status---");
-        System.out.println("TempVis: " + TempVis);
-        System.out.println("ObsWindVis: " + ObsWindVis);
-        System.out.println("ObsCloudVis: " + ObsCloudVis);
-        System.out.println("PredWindVis: " + PredWindVis);
-        System.out.println("PredTempVis: " + PredTempVis);
-    }
-    public void predTempButtonPressed() {
-        if (predtempbox.isSelected()) {
-            setPredTempVis(true);
-            //System.out.println("It's value is true");
-            //System.out.println("System reflects: " + PredTempVis);
-        }
-        else {
-            setPredTempVis(false);
-            //System.out.println("It's value is false");
-            //System.out.println("System reflects: " + PredTempVis);
-        }
-        System.out.println("---Status---");
-        System.out.println("TempVis: " + TempVis);
-        System.out.println("ObsWindVis: " + ObsWindVis);
-        System.out.println("ObsCloudVis: " + ObsCloudVis);
-        System.out.println("PredWindVis: " + PredWindVis);
-        System.out.println("PredTempVis: " + PredTempVis);
-    }
-    */
     
     // Accessors for checkbox values
     public boolean getTempVis() {
