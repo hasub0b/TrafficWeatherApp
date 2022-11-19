@@ -27,7 +27,7 @@ import javafx.scene.shape.Rectangle;
 
 // TODO: CHANGE LOCATIONS COORDINATES to match their intended locations.
 /**
- * 
+ *
  * @author Mikko Moisio
  */
 public class CoordinatesMenuController {
@@ -39,7 +39,7 @@ public class CoordinatesMenuController {
     private Double maxX = null;
     private Double minY = null;
     private Double maxY = null;
-    
+
     // [minX, maxX, minY, maxY]
     private static Map<String, Double[]> LOCATIONS = new HashMap<>() {
         {
@@ -80,7 +80,7 @@ public class CoordinatesMenuController {
         labelCoordinatesTitle.getStyleClass().add("title");
         labelCoordinatesTitle.getStyleClass().add("outlineTitle");
         //labelCoordinatesTitle.getStylesheets().add(getClass()
-                //.getResource("titleLabelsTextStyle.css").toExternalForm());
+        //.getResource("titleLabelsTextStyle.css").toExternalForm());
 
         // Makes background scalable
         backgroundShape.widthProperty().bind(anchorCoordinatesMenu
@@ -122,7 +122,7 @@ public class CoordinatesMenuController {
             field.deselect();
         }
         if (!isLegalInput(field)) {
-            field.selectAll();
+            //field.selectAll();
             buttonSetCoordinates.setDisable(true);
         } else {
             setCoordinate(field);
@@ -143,22 +143,29 @@ public class CoordinatesMenuController {
         }
         if (Arrays.stream(new TextField[]{fieldMinX, fieldMaxX, fieldMinY,
             fieldMaxY}).allMatch(field1 -> isLegalInput(field1))) {
-            buttonSetCoordinates.setDisable(false);
+            if (minX > maxX) {
+                setErrorMessage(field, "Min x needs to be lower than Max x!");
+            } else if (minY > maxY) {
+                setErrorMessage(field, "Min y needs to be lower than Max y!");
+            } else {
+                buttonSetCoordinates.setDisable(false);
+            }
+
         }
     }
-    private void setErrorMessage(TextField field, String message) {
-        
-        //menuErrorMessage.setStyle("-fx-background-color: red;");
 
+    private void setErrorMessage(TextField field, String message) {
+
+        //menuErrorMessage.setStyle("-fx-background-color: red;");
         MenuItem errorMessage = new MenuItem(message);
         //errorMessage.setDisable(true);
         //errorMessage.setStyle("-fx-background-color: red;");
-        
+
         menuErrorMessage.getItems().add(errorMessage);
-        
+
         field.setContextMenu(menuErrorMessage);
         menuErrorMessage.show(field, Side.BOTTOM, 0, 0);
-        
+
     }
 
     /*
@@ -172,14 +179,25 @@ public class CoordinatesMenuController {
                 double coordinate = Double.valueOf(input);
                 String text = Double.toString(coordinate);
                 int integers = text.indexOf('.');
-                int decimals = text.length() -  integers - 1;
+                int decimals = text.length() - integers - 1;
 
                 if (decimals > 6) {
                     setErrorMessage(field, "Max 6 decimals!");
                     return false;
-                }
-                else if (integers > 2) {
+                } else if (integers > 2) {
                     setErrorMessage(field, "Max 2 integers!");
+                    return false;
+                } else if (field.equals(fieldMinX) && coordinate < 19) {
+                    setErrorMessage(field, "Min 19!");
+                    return false;
+                } else if (field.equals(fieldMaxX) && coordinate > 32) {
+                    setErrorMessage(field, "Max 32!");
+                    return false;
+                } else if (field.equals(fieldMinY) && coordinate < 59) {
+                    setErrorMessage(field, "Min 59!");
+                    return false;
+                } else if (field.equals(fieldMaxY) && coordinate > 72) {
+                    setErrorMessage(field, "Max 72!");
                     return false;
                 }
 
@@ -191,7 +209,6 @@ public class CoordinatesMenuController {
         return false;
     }
 
-   
     public Double[] getCoordinates() {
         if (coordinates != null) {
             return coordinates;
