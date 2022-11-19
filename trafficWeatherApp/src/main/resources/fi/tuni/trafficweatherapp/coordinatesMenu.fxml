@@ -11,7 +11,7 @@
 
 <AnchorPane fx:id="anchorCoordinatesMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.trafficweatherapp.CoordinatesMenuController">
    <children>
-      <Rectangle fx:id="backgroundShape" arcHeight="15.0" arcWidth="15.0" fill="#495c83" height="300.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" width="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Rectangle fx:id="backgroundShape" arcHeight="15.0" arcWidth="15.0" fill="#495c83" height="300.0" scaleZ="0.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <rotationAxis>
             <Point3D />
          </rotationAxis></Rectangle>
