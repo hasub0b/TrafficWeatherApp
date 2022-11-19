@@ -60,6 +60,8 @@ public class CoordinatesMenuController {
     Rectangle backgroundShape;
     @FXML
     AnchorPane anchorCoordinatesMenu;
+    @FXML
+    Button buttonSetLocation;
 
     ContextMenu menuErrorMessage = new ContextMenu();
 
@@ -90,12 +92,19 @@ public class CoordinatesMenuController {
         buttonSetCoordinates.setOnAction(eh -> {
             coordinates = new Double[]{minX, maxX, minY, maxY};
             System.out.println("custom coordinates set!");
+            buttonSetCoordinates.setDisable(true);
         });
         comboBoxSetLocation.setOnAction(eh -> {
+            if (comboBoxSetLocation.getValue() != null) {
+               buttonSetLocation.setDisable(false);
+            }
+        });
+        buttonSetLocation.setOnAction(eh -> {
             if (comboBoxSetLocation.getValue() != null) {
                 String locationName = (String) comboBoxSetLocation.getValue();
                 coordinates = LOCATIONS.get(locationName);
                 System.out.println("preset coordinates set!");
+                buttonSetLocation.setDisable(true);
             }
         });
 

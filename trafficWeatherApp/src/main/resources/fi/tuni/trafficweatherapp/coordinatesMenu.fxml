@@ -49,18 +49,23 @@
             <Font name="Consolas" size="16.0" />
          </font>
       </TextField>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="109.0" layoutY="157.0" text="-OR-" textAlignment="JUSTIFY" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="170.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="109.0" layoutY="157.0" text="-OR-" textAlignment="JUSTIFY" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="170.0">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="179.0" style="-fx-stroke: black; -fx-stroke-width: 0.5;" text="Select a location:" textAlignment="JUSTIFY" textFill="WHITE" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="110.0">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="179.0" style="-fx-stroke: black; -fx-stroke-width: 0.5;" text="Select a location:" textAlignment="JUSTIFY" textFill="WHITE" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="110.0">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
       </Label>
-      <ComboBox fx:id="comboBoxSetLocation" layoutX="-11.0" layoutY="186.0" prefHeight="30.0" prefWidth="259.0" promptText="Location" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
-      <Button fx:id="buttonSetCoordinates" layoutX="99.0" layoutY="137.0" mnemonicParsing="false" text="Confirm coordinates" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="145.0">
+      <ComboBox fx:id="comboBoxSetLocation" layoutX="-11.0" layoutY="186.0" prefHeight="30.0" prefWidth="259.0" promptText="Location" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+      <Button fx:id="buttonSetCoordinates" disable="true" layoutX="99.0" layoutY="137.0" mnemonicParsing="false" text="Confirm coordinates" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="145.0">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonSetLocation" disable="true" layoutX="62.0" layoutY="273.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Use location" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="65.0">
          <font>
             <Font name="Arial" size="14.0" />
          </font>
