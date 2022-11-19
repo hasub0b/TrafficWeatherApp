@@ -10,3 +10,8 @@
     -fx-background-color: black;
     -fx-background-insets: -3;
 }
+.radio-button .text {
+    -fx-fill: #c8b6e2;
+    -fx-stroke: black;
+    -fx-stroke-width: 0.3px;
+}

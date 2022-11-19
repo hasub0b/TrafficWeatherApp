@@ -1,5 +1,6 @@
 .root {
     -fx-font-family: Inter;
+    -fx-font-size: 14px;
 }
 
 .mainTitle.label {
@@ -10,9 +11,10 @@
     -fx-font-size: 20px;
     -fx-font-weight: bold;
 }
+/*
 .button.label {
     
-}
+}*/
 
 .outlineMainTitle.label .text {
     -fx-fill: #c8b6e2;

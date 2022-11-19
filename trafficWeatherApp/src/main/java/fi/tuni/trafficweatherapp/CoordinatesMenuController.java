@@ -77,9 +77,10 @@ public class CoordinatesMenuController {
     public void initialize() throws IOException {
         comboBoxSetLocation.getStylesheets().add(getClass()
                 .getResource("comboBoxTextStyle.css").toExternalForm());
-        labelCoordinatesTitle.getStyleClass().add("outline");
-        labelCoordinatesTitle.getStylesheets().add(getClass()
-                .getResource("titleLabelsTextStyle.css").toExternalForm());
+        labelCoordinatesTitle.getStyleClass().add("title");
+        labelCoordinatesTitle.getStyleClass().add("outlineTitle");
+        //labelCoordinatesTitle.getStylesheets().add(getClass()
+                //.getResource("titleLabelsTextStyle.css").toExternalForm());
 
         // Makes background scalable
         backgroundShape.widthProperty().bind(anchorCoordinatesMenu
