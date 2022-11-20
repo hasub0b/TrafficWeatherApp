@@ -25,10 +25,6 @@ public class PlotDrawer {
 
     public PlotDrawer(Double[] temperature, int timeInterval) {
 
-        xAxis.getStylesheets().add(getClass()
-                .getResource("chartStackedStyle.css").toExternalForm());
-        yAxis.getStylesheets().add(getClass()
-                .getResource("chartStackedStyle.css").toExternalForm());
 
         yAxis.setLabel("Temperature (C\u00B0)");
         xAxis.setLabel("Local time");
@@ -49,7 +45,7 @@ public class PlotDrawer {
         chart.getData().add(series);
 
         //chart.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
-        chart.getStylesheets().addAll(getClass().getResource("chartStackedStyle.css").toExternalForm());
+        //chart.getStylesheets().addAll(getClass().getResource("chartStackedStyle.css").toExternalForm());
     }
 
     public LineChart getChart() {

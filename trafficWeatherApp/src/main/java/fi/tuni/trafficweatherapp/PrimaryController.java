@@ -60,10 +60,6 @@ public class PrimaryController {
         buttonGraphView.setToggleGroup(groupMenu);
         buttonSettings.setToggleGroup(groupMenu);
         
-        buttonGraphView.getStylesheets().add(getClass()
-                .getResource("radioButtonStyle.css").toExternalForm());
-        buttonSettings.getStylesheets().add(getClass()
-                .getResource("radioButtonStyle.css").toExternalForm());
         labelAppTitle.getStyleClass().add("outlineMainTitle");
         labelAppTitle.getStyleClass().add("mainTitle");
 

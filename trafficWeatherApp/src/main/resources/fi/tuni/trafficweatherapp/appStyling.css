@@ -1,0 +1,97 @@
+.root {
+    -fx-font-family: Inter;
+    -fx-font-size: 14px;
+}
+
+/* Label styles */
+.mainTitle.label {
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+}
+.title.label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.outlineMainTitle.label .text {
+    -fx-fill: #c8b6e2;
+    -fx-stroke: black;
+    -fx-stroke-width: 1px;
+}
+
+.outlineTitle.label .text {
+    -fx-fill: #c8b6e2;
+    -fx-stroke: black;
+    -fx-stroke-width: 0.5px;
+}
+
+/* ComboBox styles */
+.combo-box .cell{
+    -fx-text-fill: #666666;
+    -fx-alignment: center;
+    -fx-font: 16px "Consolas";
+}
+.combo-box {
+     -fx-background-color: white;
+}
+
+/* RadioButton styles */
+.radio-button .radio {
+    -fx-background-color: #A8A4CE;
+    -fx-border-width: 0.5px;
+    -fx-border-color: black;
+    -fx-border-radius: 20px;
+    -fx-padding: 3px;
+}
+
+.radio-button:selected .radio .dot {
+    -fx-background-color: black;
+    -fx-background-insets: -3;
+}
+.radio-button .text {
+    -fx-fill: #c8b6e2;
+    -fx-stroke: black;
+    -fx-stroke-width: 0.5px;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+}
+
+/* Chart styles */
+.axis:right {-fx-border-color: transparent transparent transparent black;}
+.axis:left {-fx-border-color: transparent black transparent transparent;}
+.axis:bottom{-fx-border-color: black transparent transparent;}
+.axis-tick-mark {-fx-stroke: black}
+
+.chart {
+    -fx-padding: 5px;
+}
+.chart-content {
+    -fx-padding: 10px;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: lightgrey;
+    -fx-opacity: 0.25;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: lightgrey;
+    -fx-opacity: 0.25;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+.chart-series-line {
+    -fx-stroke: red;
+    -fx-stroke-width: 5px;
+    -fx-effect: null;
+}
+.chart-line-symbol {
+    -fx-background-color: black, red;
+}
+
+.chart-legend {
+    -fx-pref-width: 0;
+    -fx-opacity: 0;
+    -fx-cell-size: 0;
+}
+

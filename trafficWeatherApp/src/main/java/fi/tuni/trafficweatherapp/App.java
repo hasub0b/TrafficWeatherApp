@@ -19,7 +19,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException 
     {
         scene = new Scene(loadFXML("uiTemplate"), 800, 600);
-        scene.getStylesheets().add(getClass().getResource(("appTitleStyle.css")).toExternalForm());
+        scene.getStylesheets().add(getClass().getResource(("appStyling.css")).toExternalForm());
         stage.setMinWidth(800);
         stage.setMinHeight(500);
         stage.setScene(scene);

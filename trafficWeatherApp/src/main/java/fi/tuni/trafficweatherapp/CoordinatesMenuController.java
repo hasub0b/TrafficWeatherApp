@@ -68,8 +68,7 @@ public class CoordinatesMenuController {
     // TODO: 
     // update coordinates to Model
     public void initialize() throws IOException {
-        comboBoxSetLocation.getStylesheets().add(getClass()
-                .getResource("comboBoxTextStyle.css").toExternalForm());
+
         labelCoordinatesTitle.getStyleClass().add("title");
         labelCoordinatesTitle.getStyleClass().add("outlineTitle");
 
