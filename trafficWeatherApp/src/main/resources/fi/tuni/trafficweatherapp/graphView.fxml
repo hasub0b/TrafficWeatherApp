@@ -17,7 +17,7 @@
                <children>
                   <StackPane fx:id="stackPaneGraph" VBox.vgrow="ALWAYS">
                      <VBox.margin>
-                        <Insets bottom="80.0" left="60.0" right="60.0" />
+                        <Insets left="50.0" right="50.0" />
                      </VBox.margin>
                   </StackPane>
                </children>

@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -27,6 +26,9 @@ public class PrimaryController {
     Rectangle menuBar;
     @FXML
     Rectangle shapeMainBackground;
+    // For displaying the menu content
+    //@FXML
+    //AnchorPane anchorContentView;
     @FXML
     VBox anchorMain;
     @FXML
@@ -54,16 +56,24 @@ public class PrimaryController {
     AnchorPane anchorSettings = new AnchorPane();
 
     @FXML
+    public void setContentArea() throws IOException {
+        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("contentArea.fxml"));
+        //AnchorPane anchorContentArea = fxmlLoader.load();
+        //anchorMain.getChildren().setAll(anchorContentArea);
+    }
+
+    @FXML
     public void initialize() {
-        ToggleGroup groupMenu = new ToggleGroup();
-        
-        buttonGraphView.setToggleGroup(groupMenu);
-        buttonSettings.setToggleGroup(groupMenu);
-        
-        labelAppTitle.getStyleClass().add("outlineMainTitle");
-        labelAppTitle.getStyleClass().add("mainTitle");
+        buttonGraphView.getStylesheets().add(getClass()
+                .getResource("radioButtonStyle.css").toExternalForm());
+        buttonSettings.getStylesheets().add(getClass()
+                .getResource("radioButtonStyle.css").toExternalForm());
+        labelAppTitle.getStyleClass().add("outline");
+        labelAppTitle.getStylesheets().add(getClass()
+                .getResource("appTitleStyle.css").toExternalForm());
 
         try {
+            //AnchorPane anchorCoordinatesMenu = loaderCoordinatesMenu.load();
             anchorGraphView = loaderGraphView.load();
             anchorSettings = loaderSettings.load();
 
@@ -75,20 +85,19 @@ public class PrimaryController {
             
             // Set GraphView as default page.
             anchorContentArea.getChildren().add(anchorGraphView);
-            buttonGraphView.setSelected(true);
 
         } catch (IOException ex) {
             ex.printStackTrace();
         }
 
         buttonGraphView.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
-            //buttonSettings.setSelected(false);
+            buttonSettings.setSelected(false);
             anchorContentArea.getChildren().remove(1);
             anchorContentArea.getChildren().add(anchorGraphView);
             anchorGraphView.prefHeightProperty().bind(anchorContentArea.heightProperty().subtract(60));
         });
         buttonSettings.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
-            //buttonGraphView.setSelected(false);
+            buttonGraphView.setSelected(false);
             anchorContentArea.getChildren().remove(1);
             anchorContentArea.getChildren().add(anchorSettings);
             anchorSettings.prefHeightProperty().bind(anchorContentArea.heightProperty().subtract(60));
@@ -100,8 +109,5 @@ public class PrimaryController {
 
         shapeMainBackground.widthProperty().bind(anchorMain.widthProperty());
         shapeMainBackground.heightProperty().bind(anchorMain.heightProperty());
-        
-        anchorGraphView.prefHeightProperty().bind(anchorContentArea.heightProperty().subtract(60));
-        anchorSettings.prefHeightProperty().bind(anchorContentArea.heightProperty().subtract(60));
     }
 }
