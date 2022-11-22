@@ -10,8 +10,12 @@ import java.util.Map;
 
 public class PreferenceSaver {
 
-    public void save( GraphViewController gc, WeatherMenuController wc, CoordinatesMenuController cc, TrafficMenuController tc) throws IOException {
+    public void save( GraphViewController gc) throws IOException {
         Map<String, Object> map = new HashMap<>();
+        SideMenuTitleBoxesController sc = gc.loaderSideMenuTitleBoxes.getController();
+        WeatherMenuController wc = sc.loaderWeatherMenu.getController();
+        CoordinatesMenuController cc = sc.loaderCoordinatesMenu.getController();
+        TrafficMenuController tc = sc.loaderTrafficMenu.getController();
 
         // First get forecast/observation parameter from GraphViewController
         // put it to {"timeline", 0/2/6/12}, where value 0 == observation
