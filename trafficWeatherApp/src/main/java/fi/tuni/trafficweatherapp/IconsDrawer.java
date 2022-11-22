@@ -4,9 +4,9 @@
  */
 package fi.tuni.trafficweatherapp;
 
+import java.io.File;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 /**
  *
  * @author Vilma
@@ -17,9 +17,9 @@ public class IconsDrawer {
     // cloudy.png <a href="https://www.flaticon.com/free-icons/clouds" title="clouds icons">Clouds icons created by Freepik - Flaticon</a>
     // sun.png <a href="https://www.flaticon.com/free-icons/sun" title="sun icons">Sun icons created by Freepik - Flaticon</a>
     
-    private final ImageView sunny       = new ImageView(new Image("sunny.png"));
-    private final ImageView halfCloudy  = new ImageView(new Image("halfCloudy.png"));
-    private final ImageView cloudy      = new ImageView(new Image("cloudy.png"));
+    private final ImageView sunny       = new ImageView(new Image(new File("sunny.png").toURI().toString()));
+    private final ImageView halfCloudy  = new ImageView(new Image(new File("halfCloudy.png").toURI().toString()));
+    private final ImageView cloudy      = new ImageView(new Image(new File("cloudy.png").toURI().toString()));
     private ImageView image;
     
     public IconsDrawer(double cloudiness) {

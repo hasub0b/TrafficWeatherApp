@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,10 +19,38 @@
          <children>
             <VBox fx:id="vbox" alignment="CENTER" HBox.hgrow="ALWAYS">
                <children>
-                  <StackPane fx:id="stackPaneGraph" VBox.vgrow="ALWAYS">
+                  <StackPane fx:id="stackPaneGraph" alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="NEVER">
                      <VBox.margin>
-                        <Insets bottom="80.0" left="60.0" right="60.0" />
+                        <Insets bottom="80.0" left="60.0" right="60.0" top="20.0" />
                      </VBox.margin>
+                     <children>
+                        <BarChart fx:id="chartHistogram" alternativeRowFillVisible="false" animated="false" barGap="10.0" categoryGap="35.0" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false" StackPane.alignment="CENTER_LEFT">
+                          <xAxis>
+                            <CategoryAxis animated="false" opacity="0.0">
+                                 <opaqueInsets>
+                                    <Insets right="50.0" />
+                                 </opaqueInsets>
+                              </CategoryAxis>
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis animated="false" lowerBound="5.0" minorTickCount="0" side="LEFT" />
+                          </yAxis>
+                           <StackPane.margin>
+                              <Insets right="27.0" />
+                           </StackPane.margin>
+                        </BarChart>
+                        <LineChart fx:id="chartLine" animated="false" axisSortingPolicy="NONE" legendVisible="false" StackPane.alignment="CENTER_LEFT">
+                          <xAxis>
+                            <CategoryAxis animated="false" side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis animated="false" side="LEFT" />
+                          </yAxis>
+                           <StackPane.margin>
+                              <Insets />
+                           </StackPane.margin>
+                        </LineChart>
+                     </children>
                   </StackPane>
                </children>
             </VBox>

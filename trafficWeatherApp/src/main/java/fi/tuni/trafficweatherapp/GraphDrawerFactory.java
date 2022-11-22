@@ -5,9 +5,11 @@
 package fi.tuni.trafficweatherapp;
 
 import com.google.gson.JsonObject;
+import java.util.Arrays;
 import java.util.List;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextArea;
 import org.json.JSONObject;
 
@@ -201,7 +203,7 @@ public class GraphDrawerFactory {
     
     // Linechart
     // * returns linechart
-    public LineChart createPlot() throws Exception {
+    public XYChart.Series createPlot() throws Exception {
         try {
             if (isForecast()) {
                 fetchWeatherData("forecast");
@@ -212,6 +214,7 @@ public class GraphDrawerFactory {
 
             Double[] dataset = listFloatToDoubleArray(DataInterface.getForecastTemperature());
             PlotDrawer plotterTest = new PlotDrawer(dataset,1);
+            //PlotDrawer plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
             //System.out.println("test");
             return plotterTest.getChart();
             
@@ -225,8 +228,9 @@ public class GraphDrawerFactory {
     
     // HistogramDrawer / IconsDrawer
     // * returns histogram
-    public BarChart createHistogram() {
-        return null;
+    public XYChart.Series  createHistogram() throws Exception {
+        HistogramDrawer hd = new HistogramDrawer(Arrays.asList(20f,40f,50f,60f), Arrays.asList(20f,40f,10f,20f), 1);
+        return hd.getChart();
     }
     
     // Road / traffic msgs

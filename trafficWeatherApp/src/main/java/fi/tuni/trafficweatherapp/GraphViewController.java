@@ -9,6 +9,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.geometry.Side;
+import javafx.scene.Node;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -20,6 +24,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -59,10 +64,17 @@ public class GraphViewController {
     @FXML
     RadioButton buttonObservation;
     //@FXML Rectangle shapeChartBackground;
+    @FXML
+    LineChart chartLine;
+    @FXML
+    BarChart chartHistogram;
 
     Tooltip tipSideMenu = new Tooltip("Graph settings");
 
     GraphDrawerFactory graphFactory = new GraphDrawerFactory();
+
+    ToggleGroup groupTimeline = new ToggleGroup();
+    ToggleGroup groupForecastOptions = new ToggleGroup();
 
     @FXML
     FXMLLoader loaderSideMenuTitleBoxes = new FXMLLoader(
@@ -70,11 +82,9 @@ public class GraphViewController {
 
     public void initialize() throws Exception {
 
-        ToggleGroup groupTimeline = new ToggleGroup();
         buttonForecast.setToggleGroup(groupTimeline);
         buttonObservation.setToggleGroup(groupTimeline);
 
-        ToggleGroup groupForecastOptions = new ToggleGroup();
         button2h.setToggleGroup(groupForecastOptions);
         button4h.setToggleGroup(groupForecastOptions);
         button6h.setToggleGroup(groupForecastOptions);
@@ -97,23 +107,28 @@ public class GraphViewController {
         });
 
         try {
-            LineChart chart = graphFactory.createPlot();
-            stackPaneGraph.getChildren().add(chart);
+            //LineChart chart = graphFactory.createPlot();
+            //stackPaneGraph.getChildren().add(chart);
         } catch (Exception e) {
             System.out.println(e);
         }
 
-        buttonForecast.setOnAction(event -> this.radioButtonEvent(event));
-        buttonObservation.setOnAction(event -> this.radioButtonEvent(event));
+        buttonForecast.setOnAction(event -> this.timelineRadioButtonEvent(event));
+        buttonObservation.setOnAction(event -> this.timelineRadioButtonEvent(event));
+        button2h.setOnAction(event -> this.forecastRadioButtonEvent(event));
+        button4h.setOnAction(event -> this.forecastRadioButtonEvent(event));
+        button6h.setOnAction(event -> this.forecastRadioButtonEvent(event));
+        button12h.setOnAction(event -> this.forecastRadioButtonEvent(event));
 
-        LineChart chart = graphFactory.createPlot();
-        stackPaneGraph.getChildren().add(chart);
-        
-        //shapeChartBackground.widthProperty().bind(chart.widthProperty().subtract(20));
-        //shapeChartBackground.heightProperty().bind(chart.heightProperty().subtract(60));
+        chartHistogram.getData().add(graphFactory.createHistogram());
+        chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
+        //chartHistogram.set
+        chartLine.getData().add(graphFactory.createPlot());
+        chartLine.getYAxis().setSide(Side.RIGHT);
+
     }
 
-    private void radioButtonEvent(ActionEvent event) {
+    private void timelineRadioButtonEvent(ActionEvent event) {
         if (buttonForecast.isSelected()) {
             button2h.setDisable(false);
             button4h.setDisable(false);
@@ -126,5 +141,27 @@ public class GraphViewController {
             button12h.setDisable(true);
         }
     }
+    private void forecastRadioButtonEvent(ActionEvent event) {
+        System.out.println(getForecastStatus());
+    }
 
+    /**
+     * Gets the timeline observation status
+     *
+     * @return Is data observed or forecast.
+     */
+    public boolean getTimelineStatus() {
+        return groupTimeline.getSelectedToggle() == buttonObservation;
+    }
+
+    public String getForecastStatus() {
+        if (getTimelineStatus()) {
+            return null;
+        }
+        else {
+            RadioButton selectedRadioButton = 
+                    (RadioButton) groupForecastOptions.getSelectedToggle();
+            return selectedRadioButton.getText();
+        }
+    }
 }
