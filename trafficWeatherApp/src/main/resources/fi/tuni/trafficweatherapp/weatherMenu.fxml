@@ -1,54 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.shape.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="anchorGridPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="257.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.trafficweatherapp.WeatherMenuController">
+<AnchorPane id="anchorGridPane" fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.trafficweatherapp.WeatherMenuController">
    <children>
-      <Rectangle fx:id="backgroundShape" arcHeight="15.0" arcWidth="15.0" fill="#495c83" height="257.0" stroke="BLACK" strokeType="INSIDE" width="250.0" />
+      <Rectangle fx:id="backgroundShape" arcHeight="15.0" arcWidth="15.0" fill="#495c83" height="250.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Label fx:id="labelForecast" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="209.0" text="Weather Conditions" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font name="Arial" size="20.0" />
          </font>
       </Label>
-      <Group fx:id="obsGroup" layoutX="-41.0" layoutY="-100.0">
+      <Group fx:id="obsGroup" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
          <children>
-            <RadioButton fx:id="observationRadio" layoutX="57.0" layoutY="150.0" mnemonicParsing="false" onAction="#radioButtonPressed" text="Observation" textFill="WHITE">
-               <font>
-                  <Font name="Arial" size="18.0" />
-               </font>
-               <toggleGroup>
-                  <ToggleGroup fx:id="tgw" />
-               </toggleGroup>
-            </RadioButton>
-            <GridPane fx:id="boxGrid1" alignment="CENTER" layoutX="68.0" layoutY="183.0">
+            <GridPane fx:id="boxGrid1" alignment="CENTER" layoutY="5.0">
                <children>
-                  <CheckBox fx:id="tempbox" mnemonicParsing="false" onAction="#buttonPressed" text="Temperature" textFill="WHITE">
+                  <CheckBox fx:id="tempbox" mnemonicParsing="false" onAction="#buttonPressed" selected="true" text="Temperature" textFill="WHITE">
                      <font>
-                        <Font name="Arial" size="15.0" />
+                        <Font name="Arial" size="19.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox fx:id="obswindbox" mnemonicParsing="false" onAction="#buttonPressed" text="Windiness" textFill="WHITE" GridPane.rowIndex="1">
+                  <CheckBox fx:id="windbox" mnemonicParsing="false" onAction="#buttonPressed" text="Windiness" textFill="WHITE" GridPane.rowIndex="1">
                      <font>
-                        <Font name="Arial" size="15.0" />
+                        <Font name="Arial" size="19.0" />
                      </font>
                   </CheckBox>
-                  <CheckBox fx:id="obscloudbox" mnemonicParsing="false" onAction="#buttonPressed" text="Cloudiness" textFill="WHITE" GridPane.rowIndex="2">
+                  <CheckBox fx:id="cloudbox" mnemonicParsing="false" onAction="#buttonPressed" text="Cloudiness" textFill="WHITE" GridPane.rowIndex="2">
                      <font>
-                        <Font name="Arial" size="15.0" />
+                        <Font name="Arial" size="19.0" />
                      </font>
                   </CheckBox>
                </children>
@@ -60,36 +48,6 @@
                   <RowConstraints vgrow="SOMETIMES" />
                   <RowConstraints vgrow="SOMETIMES" />
                </rowConstraints>
-            </GridPane>
-         </children>
-      </Group>
-      <Group fx:id="liveGroup" layoutX="16.0" layoutY="158.0">
-         <children>
-            <RadioButton fx:id="forecastRadio" mnemonicParsing="false" onAction="#radioButtonPressed" selected="true" text="Forecast" textFill="WHITE" toggleGroup="$tgw">
-               <font>
-                  <Font name="Arial" size="18.0" />
-               </font>
-            </RadioButton>
-            <GridPane fx:id="boxGrid2" alignment="CENTER" layoutX="9.0" layoutY="32.0" AnchorPane.bottomAnchor="-7.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="32.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints vgrow="SOMETIMES" />
-                  <RowConstraints vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <CheckBox fx:id="predtempbox" mnemonicParsing="false" onAction="#buttonPressed" selected="true" text="Predicted Temperature" textFill="WHITE">
-                     <font>
-                        <Font name="Arial" size="15.0" />
-                     </font>
-                  </CheckBox>
-                  <CheckBox fx:id="predwindbox" mnemonicParsing="false" onAction="#buttonPressed" text="Predicted Windiness" textFill="WHITE" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="Arial" size="15.0" />
-                     </font>
-                  </CheckBox>
-               </children>
             </GridPane>
          </children>
       </Group>
