@@ -102,7 +102,7 @@ public class WeatherMenuController {
             }
             
             // Call to update every time button is pressed
-            drawerFactory.update();
+            //drawerFactory.update();
         }
         catch (Error e) {
             System.out.println("Error: " + e);
