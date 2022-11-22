@@ -309,8 +309,8 @@ public class GraphDrawerFactory {
             }
 
             dataset = listFloatToDoubleArray(DataInterface.getForecastTemperature());
-            PlotDrawer plotterTest = new PlotDrawer(dataset,1);
-            //PlotDrawer plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
+            //PlotDrawer plotterTest = new PlotDrawer(dataset,1);
+            PlotDrawer plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
             //System.out.println("test");
             return plotterTest.getChart();
             
