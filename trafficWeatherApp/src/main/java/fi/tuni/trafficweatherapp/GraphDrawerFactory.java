@@ -129,6 +129,67 @@ public class GraphDrawerFactory {
         return observationPressed;
     }
     
+    // Fetches most recent data into (JsonParsing, then) DataInterface 
+    public void fetchData(String para1, String para2) throws Exception {
+        // Objects
+        CoordinatesMenuController coordinatesController = new CoordinatesMenuController();
+        TrafficMenuController trafficController = new TrafficMenuController();
+        WeatherMenuController weatherController = new WeatherMenuController();
+        // Variables
+        Double x1, x2, y1, y2, x1x2, y1y2;
+        Double[] coordinates = coordinatesController.getCoordinates();
+        // Test coordinates
+        //Double[] coordinates = new Double[]{23.755090615, 23.791861827, 61.491086559, 61.509263332};
+        x1 = coordinates[0];
+        x2 = coordinates[1];
+        y1 = coordinates[2];
+        y2 = coordinates[3];
+        x1x2 = (x1 + x2) / 2;
+        y1y2 = (y1 + y2) / 2;
+        String starttime, endtime, taskname;
+        starttime = "";
+        endtime = "";
+        taskname = "";
+        
+        if (para1 == "traffic") {
+            // type: TRAFFIC_ANNOUNCEMENT, EXEMPTED_TRANSPORT, WEIGHT_RESTRICTION or ROAD_WORK.
+            String type = null;
+            RoadDataApiFetcher.getRoadConditions(x1.toString(), 
+                    y1.toString(), x2.toString(), y2.toString());
+            
+            // api --> parser
+            // getRoadConditions() --> parseRoadConditions()
+            JsonObject roadData = RoadDataApiFetcher.getRoadConditions(x1.toString(), 
+                    y1.toString(), x2.toString(), y2.toString());
+            // getRoadMaintenanceData() --> parseTasks()
+            JsonObject maintenanceData = RoadDataApiFetcher.getRoadMaintenanceData(starttime, endtime, x1.toString(), 
+                    y1.toString(), x2.toString(), y2.toString(), taskname);
+            // getLatestTrafficMessages() --> parseTrafficData()
+            // type: TRAFFIC_ANNOUNCEMENT, EXEMPTED_TRANSPORT, WEIGHT_RESTRICTION or ROAD_WORK.
+            JsonObject trafficMessages = RoadDataApiFetcher.getLatestTrafficMessages(type);
+        }
+        // Forecast
+        else if (para1 == "weather" && para2 == "forecast") {
+                WeatherDataApiFetcher.getForecastData(
+                        x1x2.toString(), y1y2.toString(), "30");
+                System.out.println("forecasting");
+        }
+        // Observation
+        else if (para1 == "weather" && para2 == "observation") {
+                WeatherDataApiFetcher.getObservationData(x1.toString(), 
+                                x2.toString(), y1.toString(),
+                                y2.toString(), "30");
+                
+                System.out.println("observing");
+        }
+        else {
+            System.out.println("Error with parameters");
+        }
+        
+        
+        
+    }
+/*
     public void fetchTrafficData() {
         try {
             // Get co-ordinates data
@@ -213,7 +274,7 @@ public class GraphDrawerFactory {
             System.out.println("fetchWeatherData() Error: " + e);
         }
     }
-    
+  */  
     public static Double[] listFloatToDoubleArray(List<Float> input) {
         if (input == null) {
             return null;
@@ -236,11 +297,11 @@ public class GraphDrawerFactory {
         try {
             Double[] dataset = null;
             if (isForecast()) {
-                fetchWeatherData("forecast");
+                fetchData("weather", "forecast");
                 dataset = listFloatToDoubleArray(DataInterface.getForecastTemperature());
             }
             else if (isObservation()) {
-                fetchWeatherData("observation");
+                fetchData("weather", "observation");
                 dataset = new Double[]{DataInterface.getTemperature()};
             }
             else {
@@ -270,11 +331,13 @@ public class GraphDrawerFactory {
             int timeInterval = 30;
             // If it's a forecast
             if (isForecast()) {
-                fetchWeatherData("forecast");
+                // (?) no cloud/rain data in forecast
+                // TBD
+                fetchData("weather", "forecast");
             }
             // If it's an observation
             else if (isObservation()) {
-                fetchWeatherData("observation");
+                fetchData("weather","observation");
                 cloudiness.add(DataInterface.getCloud().floatValue());
             }
             else {
