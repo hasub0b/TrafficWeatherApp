@@ -66,11 +66,15 @@ public class GraphViewController {
     //@FXML Rectangle shapeChartBackground;
     @FXML
     LineChart chartLine;
-    @FXML BarChart chartHistogram;
+    @FXML
+    BarChart chartHistogram;
 
     Tooltip tipSideMenu = new Tooltip("Graph settings");
 
     GraphDrawerFactory graphFactory = new GraphDrawerFactory();
+
+    ToggleGroup groupTimeline = new ToggleGroup();
+    ToggleGroup groupForecastOptions = new ToggleGroup();
 
     @FXML
     FXMLLoader loaderSideMenuTitleBoxes = new FXMLLoader(
@@ -78,11 +82,9 @@ public class GraphViewController {
 
     public void initialize() throws Exception {
 
-        ToggleGroup groupTimeline = new ToggleGroup();
         buttonForecast.setToggleGroup(groupTimeline);
         buttonObservation.setToggleGroup(groupTimeline);
 
-        ToggleGroup groupForecastOptions = new ToggleGroup();
         button2h.setToggleGroup(groupForecastOptions);
         button4h.setToggleGroup(groupForecastOptions);
         button6h.setToggleGroup(groupForecastOptions);
@@ -111,8 +113,12 @@ public class GraphViewController {
             System.out.println(e);
         }
 
-        buttonForecast.setOnAction(event -> this.radioButtonEvent(event));
-        buttonObservation.setOnAction(event -> this.radioButtonEvent(event));
+        buttonForecast.setOnAction(event -> this.timelineRadioButtonEvent(event));
+        buttonObservation.setOnAction(event -> this.timelineRadioButtonEvent(event));
+        button2h.setOnAction(event -> this.forecastRadioButtonEvent(event));
+        button4h.setOnAction(event -> this.forecastRadioButtonEvent(event));
+        button6h.setOnAction(event -> this.forecastRadioButtonEvent(event));
+        button12h.setOnAction(event -> this.forecastRadioButtonEvent(event));
 
         chartHistogram.getData().add(graphFactory.createHistogram());
         chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
@@ -120,26 +126,9 @@ public class GraphViewController {
         chartLine.getData().add(graphFactory.createPlot());
         chartLine.getYAxis().setSide(Side.RIGHT);
 
-        /*Pane filler = new Pane();
-        filler.managedProperty().bind(chart.visibleProperty());
-        filler.visibleProperty().bind(chart.visibleProperty());
-        filler.minWidthProperty().bind(chart.getYAxis().widthProperty());
-        filler.maxWidthProperty().bind(chart.getYAxis().widthProperty());
-        HBox.setHgrow(histo, Priority.ALWAYS);
-        HBox wrapper = new HBox(histo, filler);*/
-
-        //stackPaneGraph.getChildren().addAll(chartHistogram, chartLine);
-        //StackPane.setAlignment(histo, Pos.CENTER);
-        //StackPane.setAlignment(chart, Pos.CENTER);
-        //histo.translateYProperty().bind(chart.translateYProperty());
-        //histo.translateXProperty().bind(chart.translateXProperty());
-        //histo.translateZProperty().bind(chart.translateZProperty());
-
-        //shapeChartBackground.widthProperty().bind(chart.widthProperty().subtract(20));
-        //shapeChartBackground.heightProperty().bind(chart.heightProperty().subtract(60));
     }
 
-    private void radioButtonEvent(ActionEvent event) {
+    private void timelineRadioButtonEvent(ActionEvent event) {
         if (buttonForecast.isSelected()) {
             button2h.setDisable(false);
             button4h.setDisable(false);
@@ -152,5 +141,27 @@ public class GraphViewController {
             button12h.setDisable(true);
         }
     }
+    private void forecastRadioButtonEvent(ActionEvent event) {
+        System.out.println(getForecastStatus());
+    }
 
+    /**
+     * Gets the timeline observation status
+     *
+     * @return Is data observed or forecast.
+     */
+    public boolean getTimelineStatus() {
+        return groupTimeline.getSelectedToggle() == buttonObservation;
+    }
+
+    public String getForecastStatus() {
+        if (getTimelineStatus()) {
+            return null;
+        }
+        else {
+            RadioButton selectedRadioButton = 
+                    (RadioButton) groupForecastOptions.getSelectedToggle();
+            return selectedRadioButton.getText();
+        }
+    }
 }
