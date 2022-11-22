@@ -10,6 +10,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.TextArea;
 import org.json.JSONObject;
+import javafx.scene.chart.*;
 
 /**
  *
@@ -25,6 +26,8 @@ public class GraphDrawerFactory {
             WeatherMenuController weatherController = new WeatherMenuController();
             CoordinatesMenuController coordinatesController = new CoordinatesMenuController();
             TrafficMenuController trafficController = new TrafficMenuController();
+            
+            System.out.println("Set coordinate right after(1): " + coordinatesController.getCoordinates()[0]);
 
             // Weathermenu booleans
             boolean wind, cloud, temp;
@@ -57,42 +60,50 @@ public class GraphDrawerFactory {
             *   boolean isForecast = weatherController.getForecast();
             *   boolean isObservation = weatherController.getObservation();
             */
-            
+            System.out.println("updating");
+            // --- testing purposes ---
+            forecastPressed = true;
+            // ------------------------
             // Only if coordinates are set (and/or) can be retreived
-            if (coordinatesController.getCoordinates() != null) {
+            //if (coordinatesController.getCoordinates() != null) {
 
                 // If forecast boolean is active
-                if (forecastPressed == true 
-                        && observationPressed == false) {
-                    /*--------------------*/
-                    // Fetch weather data
-                    fetchWeatherData("obs");
-                    //Double[] dataset = new Double[]{DataInterface.getTemperature()};
-                    /*--------------------*/
-                    
-                    /*--------------------*/
-                    // Fetch traffic data
-                    // -
-                    /*--------------------*/
-                    
-                    //
+            if (forecastPressed == true 
+                    && observationPressed == false) {
+                    // Redraw plot
+                createPlot();
+                
+                    // Redraw ...
+                createHistogram();
+                    // Redraw ...
                 }
                 // If observation boolean is active
-                else if (forecastPressed == false 
-                            && observationPressed == true) {
-                    // Fetch weather data
-                    fetchWeatherData("fore");
-
-                    // Fetch traffic data
-                    // -
-                    //Double[] dataset = listFloatToDoubleArray(DataInterface.getForecastTemperature());
-                }
-
-                //createPlot();
+            else if (forecastPressed == false 
+                        && observationPressed == true) {
+                    // Redraw plot
+                createPlot();
+                    
+                    // Redraw ...
+                createHistogram();  
+                    // Redraw ...
             }
+            else {
+                System.out.println("Update(): No unique boolean value.");
+            }
+            if (forecastPressed == false 
+                    && observationPressed == false) {
+                System.out.println("Values of both observation and " +
+                        "forecast are either false or null.");
+            }
+
+            //createPlot();
+            
+            // CALL GraphViewController's initialize() -method 
+            // to account the updated createPlot() value
+            viewController.initialize();
         }
         catch (Error e) {
-            System.out.println("Error @ Update: \n" + e);
+            System.out.println("Error @ Update(): \n" + e);
         }
     }
     
@@ -106,12 +117,23 @@ public class GraphDrawerFactory {
         return forecastPressed;
     }
     
+    public boolean isObservation() {
+        GraphViewController viewController = new GraphViewController();
+        boolean observationPressed = false;
+        if (viewController.buttonObservation != null 
+                && viewController.buttonObservation.isPressed() == true) {
+            observationPressed = true;
+        }
+        return observationPressed;
+    }
+    
     public void fetchTrafficData() {
         try {
             // Get co-ordinates data
             // * x1, x2, y1, y2
             CoordinatesMenuController coordinatesController = new CoordinatesMenuController();
             Double[] coordinates = coordinatesController.getCoordinates();
+            String type = null;
             // Test coordinates
             //Double[] coordinates = new Double[]{23.755090615, 23.791861827, 61.491086559, 61.509263332};
             Double x1, x2, y1, y2, x1x2, y1y2;
@@ -135,12 +157,13 @@ public class GraphDrawerFactory {
             JsonObject maintenanceData = RoadDataApiFetcher.getRoadMaintenanceData(starttime, endtime, x1.toString(), 
                     y1.toString(), x2.toString(), y2.toString(), taskname);
             // getLatestTrafficMessages() --> parseTrafficData()
-            
+            // type: TRAFFIC_ANNOUNCEMENT, EXEMPTED_TRANSPORT, WEIGHT_RESTRICTION or ROAD_WORK.
+            JsonObject trafficMessages = RoadDataApiFetcher.getLatestTrafficMessages(type);
            
             
         }
         catch (Exception e) {
-            System.out.println("Error: " + e);
+            System.out.println("fetchTrafficData() Error: " + e);
         }
     }
     
@@ -150,7 +173,10 @@ public class GraphDrawerFactory {
             // Get co-ordinates data
             // * x1, x2, y1, y2
             CoordinatesMenuController coordinatesController = new CoordinatesMenuController();
+            WeatherMenuController weatherController = new WeatherMenuController();
+            System.out.println("Check for Weather Boolean Temp: " + weatherController.getTemp());
             Double[] coordinates = coordinatesController.getCoordinates();
+            System.out.println("fetchWatherdata(): coordinates: " + coordinates);
             // Test coordinates
             //Double[] coordinates = new Double[]{23.755090615, 23.791861827, 61.491086559, 61.509263332};
             Double x1, x2, y1, y2, x1x2, y1y2;
@@ -161,12 +187,14 @@ public class GraphDrawerFactory {
             x1x2 = (x1 + x2) / 2;
             y1y2 = (y1 + y2) / 2;
         
+            System.out.println("enpasse");
+            
             // Forecast
             if (type == "forecast") {
                 JSONObject results = WeatherDataApiFetcher.getForecastData(x1x2.toString(), 
                         y1y2.toString(), "30");
                 JsonParsing.parseXml(results);
-                //System.out.println(x1x2.toString() +" "+ y1y2.toString());
+                System.out.println("forecasting");
             }
             // Observation
             else if (type == "observation") {
@@ -175,11 +203,12 @@ public class GraphDrawerFactory {
                                 x2.toString(), y1.toString(),
                                 y2.toString(), "30");
                 JsonParsing.parseXml(results);
+                System.out.println("observing");
             }
         }
             catch(Exception e)
         {
-            System.out.println("Error: " + e);
+            System.out.println("fetchWeatherData() Error: " + e);
         }
     }
     
@@ -203,20 +232,27 @@ public class GraphDrawerFactory {
     // * returns linechart
     public LineChart createPlot() throws Exception {
         try {
+            Double[] dataset = null;
             if (isForecast()) {
                 fetchWeatherData("forecast");
+                dataset = listFloatToDoubleArray(DataInterface.getForecastTemperature());
+            }
+            else if (isObservation()) {
+                fetchWeatherData("observation");
+                dataset = new Double[]{DataInterface.getTemperature()};
             }
             else {
-                fetchWeatherData("observation");
+                System.out.println("Error with radio booleans.");
             }
-
-            Double[] dataset = listFloatToDoubleArray(DataInterface.getForecastTemperature());
-            PlotDrawer plotterTest = new PlotDrawer(dataset,1);
-            //System.out.println("test");
+            //System.out.println("Plotting!");
+            // For testing
+            fetchWeatherData("forecast");
+            dataset = listFloatToDoubleArray(DataInterface.getForecastTemperature());
+            PlotDrawer plotterTest = new PlotDrawer(dataset,30);
             return plotterTest.getChart();
             
         }
-        catch (Error e) {
+        catch (Exception e) {
             System.out.println("Error: " + e);
         }
         return null;
@@ -225,7 +261,29 @@ public class GraphDrawerFactory {
     
     // HistogramDrawer / IconsDrawer
     // * returns histogram
-    public BarChart createHistogram() {
+    public BarChart createHistogram() throws Exception {
+        try {
+            List<Float> cloudiness = null;
+            List<Float> rain = null;
+            int timeInterval = 30;
+            // If it's a forecast
+            if (isForecast()) {
+                fetchWeatherData("forecast");
+            }
+            // If it's an observation
+            else if (isObservation()) {
+                fetchWeatherData("observation");
+                cloudiness.add(DataInterface.getCloud().floatValue());
+            }
+            else {
+                System.out.println("Error with radio booleans.");
+            }
+            HistogramDrawer barTest = new HistogramDrawer(rain, cloudiness, timeInterval);
+            return barTest.getChart();
+        }
+        catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
         return null;
     }
     
