@@ -64,18 +64,20 @@
 .axis-tick-mark {-fx-stroke: black}
 
 .chart {
-    -fx-padding: 5px;
+    -fx-padding: 10px;
 }
 .chart-content {
     -fx-padding: 10px;
 }
 .chart-vertical-grid-lines {
-    -fx-stroke: lightgrey;
-    -fx-opacity: 0.25;
+    /*-fx-stroke: lightgrey;
+    -fx-opacity: 0.25;*/
+    -fx-stroke: transparent;
 }
 .chart-horizontal-grid-lines {
-    -fx-stroke: lightgrey;
-    -fx-opacity: 0.25;
+    /*-fx-stroke: lightgrey;
+    -fx-opacity: 0.25;*/
+    -fx-stroke: transparent;
 }
 
 .chart-plot-background {
@@ -94,5 +96,8 @@
     -fx-pref-width: 0;
     -fx-opacity: 0;
     -fx-cell-size: 0;
+}
+.default-color0.chart-bar {
+    -fx-bar-fill: #0077FF;
 }
 

@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import javafx.geometry.Side;
+import javafx.scene.chart.Axis;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -19,18 +20,21 @@ import javafx.scene.chart.XYChart;
  */
 public class PlotDrawer {
 
-    private final CategoryAxis xAxis = new CategoryAxis();
-    private final NumberAxis yAxis = new NumberAxis();
-    private final LineChart<String, Number> chart = new LineChart<>(xAxis, yAxis);
+
+    //private final CategoryAxis xAxis = new CategoryAxis();
+    //private final NumberAxis yAxis = new NumberAxis();
+    //private final LineChart<String, Number> chart = new LineChart<>(xAxis, yAxis);
+    
+    XYChart.Series series = new XYChart.Series();
+
 
     public PlotDrawer(Double[] temperature, int timeInterval) {
 
+        //yAxis.setLabel("Temperature (C\u00B0)");
+        //xAxis.setLabel("Time (hh:mm)");
+        //yAxis.setSide(Side.RIGHT);
 
-        yAxis.setLabel("Temperature (C\u00B0)");
-        xAxis.setLabel("Local time");
-        yAxis.setSide(Side.RIGHT);
-
-        XYChart.Series series = new XYChart.Series();
+        //XYChart.Series series = new XYChart.Series();
         //chart.setTitle("GraphView");
 
         // Get current time for x axis
@@ -42,13 +46,13 @@ public class PlotDrawer {
                             .plusHours((long) timeInterval * i).toString(),
                     temperature[i]));
         }
-        chart.getData().add(series);
+        //chart.getData().add(series);
 
         //chart.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
         //chart.getStylesheets().addAll(getClass().getResource("chartStackedStyle.css").toExternalForm());
     }
 
-    public LineChart getChart() {
-        return chart;
+    public XYChart.Series getChart() {
+        return series;
     }
 }

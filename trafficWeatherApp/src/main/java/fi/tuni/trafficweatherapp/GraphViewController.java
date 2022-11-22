@@ -9,6 +9,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.geometry.Side;
+import javafx.scene.Node;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -20,6 +24,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -59,6 +64,9 @@ public class GraphViewController {
     @FXML
     RadioButton buttonObservation;
     //@FXML Rectangle shapeChartBackground;
+    @FXML
+    LineChart chartLine;
+    @FXML BarChart chartHistogram;
 
     Tooltip tipSideMenu = new Tooltip("Graph settings");
 
@@ -97,8 +105,8 @@ public class GraphViewController {
         });
 
         try {
-            LineChart chart = graphFactory.createPlot();
-            stackPaneGraph.getChildren().add(chart);
+            //LineChart chart = graphFactory.createPlot();
+            //stackPaneGraph.getChildren().add(chart);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -106,9 +114,27 @@ public class GraphViewController {
         buttonForecast.setOnAction(event -> this.radioButtonEvent(event));
         buttonObservation.setOnAction(event -> this.radioButtonEvent(event));
 
-        LineChart chart = graphFactory.createPlot();
-        stackPaneGraph.getChildren().add(chart);
-        
+        chartHistogram.getData().add(graphFactory.createHistogram());
+        chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
+        //chartHistogram.set
+        chartLine.getData().add(graphFactory.createPlot());
+        chartLine.getYAxis().setSide(Side.RIGHT);
+
+        /*Pane filler = new Pane();
+        filler.managedProperty().bind(chart.visibleProperty());
+        filler.visibleProperty().bind(chart.visibleProperty());
+        filler.minWidthProperty().bind(chart.getYAxis().widthProperty());
+        filler.maxWidthProperty().bind(chart.getYAxis().widthProperty());
+        HBox.setHgrow(histo, Priority.ALWAYS);
+        HBox wrapper = new HBox(histo, filler);*/
+
+        //stackPaneGraph.getChildren().addAll(chartHistogram, chartLine);
+        //StackPane.setAlignment(histo, Pos.CENTER);
+        //StackPane.setAlignment(chart, Pos.CENTER);
+        //histo.translateYProperty().bind(chart.translateYProperty());
+        //histo.translateXProperty().bind(chart.translateXProperty());
+        //histo.translateZProperty().bind(chart.translateZProperty());
+
         //shapeChartBackground.widthProperty().bind(chart.widthProperty().subtract(20));
         //shapeChartBackground.heightProperty().bind(chart.heightProperty().subtract(60));
     }
