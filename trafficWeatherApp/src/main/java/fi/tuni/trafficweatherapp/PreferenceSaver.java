@@ -1,14 +1,21 @@
 package fi.tuni.trafficweatherapp;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
 public class PreferenceSaver {
+
+    private static final String DEFAULT_PATH = "saveddata/preferences/";
 
     public void save( GraphViewController gc) throws IOException {
         Map<String, Object> map = new HashMap<>();
@@ -67,15 +74,32 @@ public class PreferenceSaver {
         map.put("slipperiness", ioiController.isSlipperiness());
         map.put("overallCondition", ioiController.isCondition());
 
+
+
+        // Get path and write to that location
+        Path dir = Paths.get(DEFAULT_PATH);
+        Path studentFile = dir.resolve("pref1" + ".json");
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .serializeNulls()
+                .create();
+
+        try ( BufferedWriter bw = Files.newBufferedWriter(studentFile)) {
+            gson.toJson(map, bw);
+        }
+
+        /*
+
         // create a writer
         Writer writer = new FileWriter("preferences.json");
 
         // convert map to JSON File
         new Gson().toJson(map, writer);
-        System.out.println("WROTE!!");
 
         // close the writer
         writer.close();
+
+        */
 
     }
 }
