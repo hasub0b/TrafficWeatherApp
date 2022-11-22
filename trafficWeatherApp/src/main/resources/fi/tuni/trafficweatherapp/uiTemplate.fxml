@@ -20,11 +20,11 @@
                <children>
                   <GridPane fx:id="gridMenubar" hgap="10.0" maxHeight="60.0" minHeight="60.0" prefHeight="60.0" HBox.hgrow="ALWAYS">
                     <columnConstraints>
-                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="15.0" />
-                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="15.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="17.5" />
+                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="17.5" />
                         <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="30.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="20.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="20.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="19.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="17.5" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />

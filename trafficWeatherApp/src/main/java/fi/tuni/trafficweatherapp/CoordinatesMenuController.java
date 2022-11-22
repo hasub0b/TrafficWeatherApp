@@ -2,17 +2,10 @@ package fi.tuni.trafficweatherapp;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -20,14 +13,12 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
-// TODO: CHANGE LOCATIONS COORDINATES to match their intended locations.
 /**
- * 
+ *
  * @author Mikko Moisio
  */
 public class CoordinatesMenuController {
@@ -39,7 +30,7 @@ public class CoordinatesMenuController {
     private Double maxX = null;
     private Double minY = null;
     private Double maxY = null;
-    
+
     // [minX, maxX, minY, maxY]
     private static Map<String, Double[]> LOCATIONS = new HashMap<>() {
         {
@@ -69,17 +60,17 @@ public class CoordinatesMenuController {
     Rectangle backgroundShape;
     @FXML
     AnchorPane anchorCoordinatesMenu;
+    @FXML
+    Button buttonSetLocation;
 
     ContextMenu menuErrorMessage = new ContextMenu();
 
     // TODO: 
     // update coordinates to Model
     public void initialize() throws IOException {
-        comboBoxSetLocation.getStylesheets().add(getClass()
-                .getResource("comboBoxTextStyle.css").toExternalForm());
-        labelCoordinatesTitle.getStyleClass().add("outline");
-        labelCoordinatesTitle.getStylesheets().add(getClass()
-                .getResource("titleLabelsTextStyle.css").toExternalForm());
+
+        labelCoordinatesTitle.getStyleClass().add("title");
+        labelCoordinatesTitle.getStyleClass().add("outlineTitle");
 
         // Makes background scalable
         backgroundShape.widthProperty().bind(anchorCoordinatesMenu
@@ -100,12 +91,19 @@ public class CoordinatesMenuController {
         buttonSetCoordinates.setOnAction(eh -> {
             coordinates = new Double[]{minX, maxX, minY, maxY};
             System.out.println("custom coordinates set!");
+            buttonSetCoordinates.setDisable(true);
         });
         comboBoxSetLocation.setOnAction(eh -> {
+            if (comboBoxSetLocation.getValue() != null) {
+               buttonSetLocation.setDisable(false);
+            }
+        });
+        buttonSetLocation.setOnAction(eh -> {
             if (comboBoxSetLocation.getValue() != null) {
                 String locationName = (String) comboBoxSetLocation.getValue();
                 coordinates = LOCATIONS.get(locationName);
                 System.out.println("preset coordinates set!");
+                buttonSetLocation.setDisable(true);
             }
         });
 
@@ -121,11 +119,9 @@ public class CoordinatesMenuController {
             field.deselect();
         }
         if (!isLegalInput(field)) {
-            field.selectAll();
             buttonSetCoordinates.setDisable(true);
         } else {
             setCoordinate(field);
-            //field.selectForward();
         }
     }
 
@@ -142,22 +138,22 @@ public class CoordinatesMenuController {
         }
         if (Arrays.stream(new TextField[]{fieldMinX, fieldMaxX, fieldMinY,
             fieldMaxY}).allMatch(field1 -> isLegalInput(field1))) {
-            buttonSetCoordinates.setDisable(false);
+            if (minX > maxX) {
+                setErrorMessage(field, "Min x needs to be lower than Max x!");
+            } else if (minY > maxY) {
+                setErrorMessage(field, "Min y needs to be lower than Max y!");
+            } else {
+                buttonSetCoordinates.setDisable(false);
+            }
         }
     }
-    private void setErrorMessage(TextField field, String message) {
-        
-        //menuErrorMessage.setStyle("-fx-background-color: red;");
 
+    private void setErrorMessage(TextField field, String message) {
         MenuItem errorMessage = new MenuItem(message);
-        //errorMessage.setDisable(true);
-        //errorMessage.setStyle("-fx-background-color: red;");
-        
         menuErrorMessage.getItems().add(errorMessage);
-        
+
         field.setContextMenu(menuErrorMessage);
         menuErrorMessage.show(field, Side.BOTTOM, 0, 0);
-        
     }
 
     /*
@@ -171,18 +167,29 @@ public class CoordinatesMenuController {
                 double coordinate = Double.valueOf(input);
                 String text = Double.toString(coordinate);
                 int integers = text.indexOf('.');
-                int decimals = text.length() -  integers - 1;
+                int decimals = text.length() - integers - 1;
 
                 if (decimals > 6) {
                     setErrorMessage(field, "Max 6 decimals!");
                     return false;
-                }
-                else if (integers > 2) {
+                } else if (integers > 2) {
                     setErrorMessage(field, "Max 2 integers!");
                     return false;
+                } else if (field.equals(fieldMinX) && coordinate < 19) {
+                    setErrorMessage(field, "Min 19!");
+                    return false;
+                } else if (field.equals(fieldMaxX) && coordinate > 32) {
+                    setErrorMessage(field, "Max 32!");
+                    return false;
+                } else if (field.equals(fieldMinY) && coordinate < 59) {
+                    setErrorMessage(field, "Min 59!");
+                    return false;
+                } else if (field.equals(fieldMaxY) && coordinate > 72) {
+                    setErrorMessage(field, "Max 72!");
+                    return false;
                 }
-
                 return true;
+                
             } catch (NumberFormatException error) {
                 setErrorMessage(field, "Not a number!");
             }
@@ -190,11 +197,7 @@ public class CoordinatesMenuController {
         return false;
     }
 
-   
     public Double[] getCoordinates() {
-        if (coordinates != null) {
-            return coordinates;
-        }
-        return null;
+        return coordinates;
     }
 }
