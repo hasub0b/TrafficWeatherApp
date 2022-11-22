@@ -5,9 +5,11 @@
 package fi.tuni.trafficweatherapp;
 
 import com.google.gson.JsonObject;
+import java.util.Arrays;
 import java.util.List;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextArea;
 import org.json.JSONObject;
 import javafx.scene.chart.*;
@@ -230,7 +232,7 @@ public class GraphDrawerFactory {
     
     // Linechart
     // * returns linechart
-    public LineChart createPlot() throws Exception {
+    public XYChart.Series createPlot() throws Exception {
         try {
             Double[] dataset = null;
             if (isForecast()) {
@@ -244,11 +246,11 @@ public class GraphDrawerFactory {
             else {
                 System.out.println("Error with radio booleans.");
             }
-            //System.out.println("Plotting!");
-            // For testing
-            fetchWeatherData("forecast");
+
             dataset = listFloatToDoubleArray(DataInterface.getForecastTemperature());
-            PlotDrawer plotterTest = new PlotDrawer(dataset,30);
+            PlotDrawer plotterTest = new PlotDrawer(dataset,1);
+            //PlotDrawer plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
+            //System.out.println("test");
             return plotterTest.getChart();
             
         }
@@ -261,7 +263,7 @@ public class GraphDrawerFactory {
     
     // HistogramDrawer / IconsDrawer
     // * returns histogram
-    public BarChart createHistogram() throws Exception {
+    public XYChart.Series createHistogram() throws Exception {
         try {
             List<Float> cloudiness = null;
             List<Float> rain = null;
@@ -278,8 +280,10 @@ public class GraphDrawerFactory {
             else {
                 System.out.println("Error with radio booleans.");
             }
-            HistogramDrawer barTest = new HistogramDrawer(rain, cloudiness, timeInterval);
-            return barTest.getChart();
+            //HistogramDrawer barTest = new HistogramDrawer(rain, cloudiness, timeInterval);
+            HistogramDrawer hd = new HistogramDrawer(Arrays.asList(20f,40f,50f,60f), Arrays.asList(20f,40f,10f,20f), 1);
+            //return barTest.getChart();
+            return hd.getChart();
         }
         catch (Exception e) {
             System.out.println("Error: " + e);
