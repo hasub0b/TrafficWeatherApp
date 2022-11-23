@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -26,7 +27,14 @@ public class MaintenanceMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            JsonParsing.parseTasks(RoadDataApiFetcher.getRoadMaintenanceTasks());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         comboBoxSetMaintenance.getItems().setAll(DataInterface.getAllTaskTypes());
+        comboBoxSetMaintenance.getItems().add(0,"ALL");
     }
 
     public void handleCloseButton(ActionEvent actionEvent) {
