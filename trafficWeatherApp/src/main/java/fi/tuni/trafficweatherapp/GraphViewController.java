@@ -81,6 +81,7 @@ public class GraphViewController {
             getClass().getResource("sideMenuTitleBoxes.fxml"));
 
     public void initialize() throws Exception {
+        sideMenu.getStyleClass().add("menu");
 
         buttonForecast.setToggleGroup(groupTimeline);
         buttonObservation.setToggleGroup(groupTimeline);
