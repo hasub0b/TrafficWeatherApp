@@ -28,16 +28,10 @@ public class GraphDrawerFactory {
             WeatherMenuController weatherController = new WeatherMenuController();
             CoordinatesMenuController coordinatesController = new CoordinatesMenuController();
             TrafficMenuController trafficController = new TrafficMenuController();
+            DataInterface data = new DataInterface();
             
-            System.out.println("Set coordinate right after(1): " + coordinatesController.getCoordinates()[0]);
-
-            // Weathermenu booleans
-            boolean wind, cloud, temp;
-            wind = weatherController.getWind();
-            cloud = weatherController.getCloud();
-            temp = weatherController.getTemp();
-            // Trafficmenu booleans (TBA)
-            //boolean trafficStatus;
+            System.out.println("After(1): " + data.getTempPressed());
+            //System.out.println("Set coordinate right after(1): " + coordinatesController.getCoordinates()[0]);
 
 
             // Some booleans moved from WeatherMenu to GraphViewController
@@ -57,24 +51,27 @@ public class GraphDrawerFactory {
                 observationPressed = viewController.buttonObservation.isPressed();
             }
 
-            // Old boolean(s)
-            /*
-            *   boolean isForecast = weatherController.getForecast();
-            *   boolean isObservation = weatherController.getObservation();
-            */
             System.out.println("updating");
-            // --- testing purposes ---
+            // -! for testing purposes !-
             forecastPressed = true;
-            // ------------------------
-            // Only if coordinates are set (and/or) can be retreived
-            //if (coordinatesController.getCoordinates() != null) {
-
-                // If forecast boolean is active
+            
+            if (forecastPressed == false 
+                    && observationPressed == false) {
+                System.out.println("Values of both observation and " +
+                        "forecast are either false or null.");
+            }
+            
+            
+            // Redraw diagrams
+            createPlot();
+            createHistogram();
+            
+            /*
             if (forecastPressed == true 
                     && observationPressed == false) {
                     // Redraw plot
-                createPlot();
                 
+                createPlot();
                     // Redraw ...
                 createHistogram();
                     // Redraw ...
@@ -99,6 +96,7 @@ public class GraphDrawerFactory {
             }
 
             //createPlot();
+            */
             
             // CALL GraphViewController's initialize() -method 
             // to account the updated createPlot() value
@@ -362,7 +360,8 @@ public class GraphDrawerFactory {
     
     
     // TBA: icons (method type TBD)
-    public TextArea createIcons() {
+    // Cloudiness
+    public BarChart createIcons() {
         return null;
     }
     
