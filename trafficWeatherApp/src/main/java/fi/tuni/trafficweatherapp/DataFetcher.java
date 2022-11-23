@@ -26,8 +26,8 @@ class DataFetcher {
         y1y2 = (y1 + y2) / 2;
     }
 
-    RoadDataApiFetcher roadDataFetcher = new RoadDataApiFetcher();
-    WeatherDataApiFetcher weatherDataFetcher = new WeatherDataApiFetcher();
+    //RoadDataApiFetcher roadDataFetcher = new RoadDataApiFetcher();
+    //WeatherDataApiFetcher weatherDataFetcher = new WeatherDataApiFetcher();
 
     public void fetchWeatherData() throws IOException, ParserConfigurationException, SAXException {
 
@@ -38,7 +38,7 @@ class DataFetcher {
     public void fetchRoadData() throws IOException {
         RoadDataApiFetcher.getRoadConditions(x1.toString(), y1.toString(), x2.toString(), y2.toString());
         RoadDataApiFetcher.getLatestTrafficMessages();
-        //RoadDataApiFetcher.getRoadMaintenanceData(startTime, endTime, xMin, yMin, xMax, yMax, taskName)
+        //RoadDataApiFetcher.getRoadMaintenanceData(startTime, endTime, x1, y1, x2, y2, taskName);
         
     }
 }
