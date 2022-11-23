@@ -15,6 +15,8 @@ public final class DataInterface {
     private static Map<String, List<String>> itemsOfInterest = new HashMap<>();
     private static List<String> maintenance = new ArrayList<String>();
     private static List<String> messages = new ArrayList<String>();
+    // Key "TRAFFIC_ANNOUNCEMENT", "EXEMPTED_TRANSPORT", "WEIGHT_RESTRICTION", "ROAD_WORK"
+    private static Map<String, List<String>> messagesMap = new HashMap<>();
 
     // List containing all possible maintenance types, should currently only be used MaintenanceMenuController
     private static List<String> allTaskTypes = new ArrayList<>();
@@ -53,6 +55,9 @@ public final class DataInterface {
         if (!itemsOfInterest.containsKey(key)){itemsOfInterest.put(key, new ArrayList<>());}
         itemsOfInterest.get(key).add(value);
     }
+
+    public static Map<String, List<String>> getMessagesMap() {return messagesMap;}
+    public static void setMessagesMap(Map<String, List<String>> messagesMap) {DataInterface.messagesMap = messagesMap;}
 
     // FMI
 

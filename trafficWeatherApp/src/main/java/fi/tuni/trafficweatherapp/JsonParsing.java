@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.function.DoubleToIntFunction;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -28,6 +29,8 @@ public class JsonParsing {
 
         JsonArray features = obj.getAsJsonArray("features");
         List<String> data = new ArrayList<>();
+        Map<String, List<String>> messageMap = new HashMap<>();
+
         boolean isMessage = false;
         for (JsonElement element:features) {
 
@@ -37,11 +40,19 @@ public class JsonParsing {
 
             // if message
             if (feature.has("announcements")){
-
                 String title = feature.get("announcements").getAsJsonArray().get(0).getAsJsonObject().get("title").toString();
                 String description = feature.get("announcements").getAsJsonArray().get(0).getAsJsonObject().get("location").getAsJsonObject().get("description").toString();
                 String message = title + description;
-                data.add(message);
+                String trimmedMessage = message.replaceAll("\\\\n"," ").replaceAll("\"","");
+                String type = feature.get("situationType").toString();
+                if (messageMap.containsKey(type)){
+                    messageMap.get(type).add(trimmedMessage);
+                } else {
+                    messageMap.put(type, new ArrayList<>());
+                    messageMap.get(type).add(trimmedMessage);
+                }
+
+                data.add(trimmedMessage);
                 isMessage = true;
             }
 
@@ -54,6 +65,7 @@ public class JsonParsing {
         }
         if (isMessage){
             DataInterface.setMessages(data);
+            DataInterface.setMessagesMap(messageMap);
         } else {
             DataInterface.setMaintenance(data);
         }
