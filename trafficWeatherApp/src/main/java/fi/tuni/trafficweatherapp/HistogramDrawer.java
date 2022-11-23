@@ -6,9 +6,10 @@ import javafx.scene.chart.*;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
+
 
 /**
  * @author Aleksi
@@ -24,7 +25,8 @@ public class HistogramDrawer {
      * @param timeInterval time interval in minutes, default 30
      * @throws Exception
      */
-    public HistogramDrawer(List<Float> rain, List<Float> cloudiness, int timeInterval) throws Exception {
+    public HistogramDrawer(List<Float> rain, List<Float> cloudiness,
+            List<Float> windSpeed, int timeInterval) throws Exception {
 
         xAxis.setLabel("Time (hh:mm)");
         yAxis.setLabel("Precipitation (mm)");
@@ -43,12 +45,15 @@ public class HistogramDrawer {
             
             // @author Vilma
             double cloudValue = cloudiness.get(i);
+            double windValue = windSpeed.get(i);
+            String windText = windValue + " m/s";
             IconsDrawer icon = new IconsDrawer(cloudValue);
             ImageView cloudImage = icon.getIcon();
             StackPane node = (StackPane) data.getNode();
             cloudImage.fitWidthProperty().bind(node.widthProperty().multiply(.8));
                 cloudImage.setPreserveRatio(true);
                 node.getChildren().add(cloudImage);
+                node.getChildren().add( new Text(windText));
         }
 
         // Change bar color to blue
