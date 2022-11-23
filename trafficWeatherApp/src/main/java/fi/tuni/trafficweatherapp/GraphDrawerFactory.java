@@ -166,7 +166,7 @@ public class GraphDrawerFactory {
                     y1.toString(), x2.toString(), y2.toString(), taskname);
             // getLatestTrafficMessages() --> parseTrafficData()
             // type: TRAFFIC_ANNOUNCEMENT, EXEMPTED_TRANSPORT, WEIGHT_RESTRICTION or ROAD_WORK.
-            JsonObject trafficMessages = RoadDataApiFetcher.getLatestTrafficMessages(type);
+            //JsonObject trafficMessages = RoadDataApiFetcher.getLatestTrafficMessages(type);
         }
         // Forecast
         else if (para1 == "weather" && para2 == "forecast") {

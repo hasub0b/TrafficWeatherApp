@@ -31,11 +31,8 @@ class DataFetcher {
 
     public void fetchWeatherData() throws IOException, ParserConfigurationException, SAXException {
 
-        JSONObject resultsForecast = WeatherDataApiFetcher.getForecastData(x1x2.toString(), y1y2.toString(), "60");
-        JsonParsing.parseXml(resultsForecast);
-
-        JSONObject resultsObservation = WeatherDataApiFetcher.getObservationData(x1.toString(), x2.toString(), y1.toString(), y2.toString(), "60");
-        JsonParsing.parseXml(resultsObservation);
+        WeatherDataApiFetcher.getForecastData(x1x2.toString(), y1y2.toString(), "60");
+        WeatherDataApiFetcher.getObservationData(x1.toString(), x2.toString(), y1.toString(), y2.toString(), "60");
     }
     
     public void fetchRoadData() throws IOException {
