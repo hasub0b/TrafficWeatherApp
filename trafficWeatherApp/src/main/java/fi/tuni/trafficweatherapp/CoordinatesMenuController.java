@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
@@ -16,6 +17,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -64,6 +67,7 @@ public class CoordinatesMenuController {
     Button buttonSetLocation;
 
     ContextMenu menuErrorMessage = new ContextMenu();
+    
 
     // TODO: 
     // update coordinates to Model
@@ -91,6 +95,15 @@ public class CoordinatesMenuController {
         buttonSetCoordinates.setOnAction(eh -> {
             coordinates = new Double[]{minX, maxX, minY, maxY};
             System.out.println("custom coordinates set!");
+            try {
+                setCoordinates();
+            } catch (IOException ex) {
+                //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParserConfigurationException ex) {
+                //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SAXException ex) {
+                //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             buttonSetCoordinates.setDisable(true);
         });
         comboBoxSetLocation.setOnAction(eh -> {
@@ -103,6 +116,15 @@ public class CoordinatesMenuController {
                 String locationName = (String) comboBoxSetLocation.getValue();
                 coordinates = LOCATIONS.get(locationName);
                 System.out.println("preset coordinates set!");
+                try {
+                    setCoordinates();
+                } catch (IOException ex) {
+                    //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParserConfigurationException ex) {
+                    //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SAXException ex) {
+                    //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 buttonSetLocation.setDisable(true);
             }
         });
@@ -199,5 +221,11 @@ public class CoordinatesMenuController {
 
     public Double[] getCoordinates() {
         return coordinates;
+    }
+    public void setCoordinates() throws IOException, ParserConfigurationException, SAXException {
+        // DataFetcher() ->update Datainterface
+        DataFetcher dataFetcher = new DataFetcher(coordinates);
+        dataFetcher.fetchRoadData();
+        dataFetcher.fetchWeatherData();
     }
 }

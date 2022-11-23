@@ -49,7 +49,6 @@ public class SideMenuTitleBoxesController {
     AnchorPane anchorWeatherMenu;
 
     public void initialize() {
-
         try {
             anchorCoordinatesMenu = loaderCoordinatesMenu.load();
             anchorTrafficMenu = loaderTrafficMenu.load();
