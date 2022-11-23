@@ -31,7 +31,7 @@ public class GraphDrawerFactory {
             TrafficMenuController trafficController = new TrafficMenuController();
             DataInterface data = new DataInterface();
             
-            System.out.println("After(1): " + data.getTempPressed());
+            //System.out.println("After(1): " + data.getTempPressed());
             //System.out.println("Set coordinate right after(1): " + coordinatesController.getCoordinates()[0]);
 
 

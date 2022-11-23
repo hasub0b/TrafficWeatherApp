@@ -1,6 +1,8 @@
 package fi.tuni.trafficweatherapp;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -101,7 +103,11 @@ public class CoordinatesMenuController {
                 //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ParserConfigurationException ex) {
                 //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SAXException ex) {
+            }catch (SAXException ex) {
+                //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
+             catch (ParseException ex) {
                 //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
             }
             buttonSetCoordinates.setDisable(true);
@@ -123,6 +129,8 @@ public class CoordinatesMenuController {
                 } catch (ParserConfigurationException ex) {
                     //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SAXException ex) {
+                    //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParseException ex) {
                     //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 buttonSetLocation.setDisable(true);
@@ -222,7 +230,7 @@ public class CoordinatesMenuController {
     public Double[] getCoordinates() {
         return coordinates;
     }
-    public void setCoordinates() throws IOException, ParserConfigurationException, SAXException {
+    public void setCoordinates() throws IOException, ParserConfigurationException, SAXException, MalformedURLException, ParseException {
         // DataFetcher() ->update Datainterface
         DataFetcher dataFetcher = new DataFetcher(coordinates);
         dataFetcher.fetchRoadData();
