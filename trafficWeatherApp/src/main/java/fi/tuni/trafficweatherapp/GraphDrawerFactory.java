@@ -185,11 +185,11 @@ public class GraphDrawerFactory {
         }
         else {
             System.out.println("Error with parameters");
-        }
+        }*/
         
         
         
-    }*/
+    }
 /*
     public void fetchTrafficData() {
         try {
@@ -276,6 +276,7 @@ public class GraphDrawerFactory {
         }
     }
   */  
+
     public static Double[] listFloatToDoubleArray(List<Float> input) {
         if (input == null) {
             return null;
