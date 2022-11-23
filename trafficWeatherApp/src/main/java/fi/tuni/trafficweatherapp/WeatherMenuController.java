@@ -62,6 +62,8 @@ public class WeatherMenuController {
     private void buttonPressed() throws IOException, Exception {
         try {
             GraphViewController viewController = new GraphViewController();
+            GraphDrawerFactory drawerFactory = new GraphDrawerFactory();
+            
             boolean forecastPressed = false;
             if (viewController.buttonForecast != null 
                     && viewController.buttonForecast.isPressed() == true) {
@@ -76,10 +78,7 @@ public class WeatherMenuController {
             else {
                 cloudbox.setDisable(false);
             }
-            // Call to update every time button is pressed
-            GraphDrawerFactory drawerFactory = new GraphDrawerFactory();
-            drawerFactory.update();
-  
+            
             // Temperature (obs&fore)
             if (tempbox.isSelected()) {
                 setTemp(true);
@@ -101,6 +100,9 @@ public class WeatherMenuController {
             else {
                 setCloud(false);
             }
+            
+            // Call to update every time button is pressed
+            //drawerFactory.update();
         }
         catch (Error e) {
             System.out.println("Error: " + e);

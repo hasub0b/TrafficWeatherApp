@@ -55,8 +55,8 @@ public class Grapher extends Application {
         
         // populate series with weather data
         // access DataInterface.java (forecast for now)
-        JSONObject results = WeatherDataApiFetcher.getForecastData("23.78712", "61.49911", "30");
-        JsonParsing.parseXml(results);
+        //JSONObject results = WeatherDataApiFetcher.getForecastData("23.78712", "61.49911", "30");
+        //JsonParsing.parseXml(results);
         //System.out.println("datainterfacetest: " + DataInterface.getForecastTemperature());
         List<Float> dataSet = DataInterface.getForecastTemperature();
         

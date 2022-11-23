@@ -13,9 +13,11 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.HttpURLConnection;
+import javax.xml.parsers.ParserConfigurationException;
 import org.json.XML;
 import org.json.JSONObject;
 import org.json.JSONArray;
+import org.xml.sax.SAXException;
 
 
 /**
@@ -81,11 +83,11 @@ public class WeatherDataApiFetcher {
     
     public static void main(String[] args) throws IOException {
         
-        JSONObject forecastResults = getForecastData("23.78712", "61.49911", "30");
-        System.out.println("Forecast: " + forecastResults);
+        //JSONObject forecastResults = getForecastData("23.78712", "61.49911", "30");
+        //System.out.println("Forecast: " + forecastResults);
         
-        JSONObject observationResults = getObservationData("23", "61", "24", "62", "30");
-        System.out.println("Observation: " + observationResults);
+        //JSONObject observationResults = getObservationData("23", "61", "24", "62", "30");
+        //System.out.println("Observation: " + observationResults);
     }
     
     private static HttpURLConnection connectToApi(String urlParameter) throws MalformedURLException, 
@@ -99,8 +101,10 @@ public class WeatherDataApiFetcher {
     }
     
 
-    public static JSONObject getForecastData(String x, String y, String timestep) throws MalformedURLException,
-            IOException 
+    public static void getForecastData(String x, String y, String timestep) throws MalformedURLException,
+            IOException, 
+            ParserConfigurationException, 
+            SAXException 
     {
         
         String urlString = dynamicWeatherForecastDataString
@@ -122,12 +126,15 @@ public class WeatherDataApiFetcher {
         // Disconnect the connection
         urlConnection.disconnect();
         
-        return jso;
+        JsonParsing.parseXml(jso);
+        //return jso;
     }
     
-    public static JSONObject getObservationData(String x1, String y1, String x2, 
+    public static void getObservationData(String x1, String y1, String x2, 
             String y2, String timestep) throws MalformedURLException,
-            IOException 
+            IOException, 
+            ParserConfigurationException, 
+            SAXException 
     {
         
         String urlString = dynamicWeatherObservationDataString
@@ -151,7 +158,8 @@ public class WeatherDataApiFetcher {
         // Disconnect the connection
         urlConnection.disconnect();
         
-        return jso;
+        JsonParsing.parseXml(jso);
+        
     }
 
 

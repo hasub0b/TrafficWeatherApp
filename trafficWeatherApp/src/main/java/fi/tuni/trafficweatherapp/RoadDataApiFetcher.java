@@ -61,7 +61,7 @@ public class RoadDataApiFetcher {
                 "21", "61", "22", "62", "LINE_SANDING");
         //System.out.println(roadMaintenanceData);
 
-        JsonObject messages = getLatestTrafficMessages("ROAD_WORK");
+        //JsonObject messages = getLatestTrafficMessages("ROAD_WORK");
         //System.out.println(messages);
     }
 
@@ -189,19 +189,23 @@ public class RoadDataApiFetcher {
      * @throws MalformedURLException if the url is illegal
      * @throws IOException if the url doesn't return content.
      */
-    public static JsonObject getLatestTrafficMessages(String situationType)
+    public static void getLatestTrafficMessages()
             throws MalformedURLException, IOException {
-        String urlString = urlLatestTrafficMessages
-                .replace("<SITUATION_TYPE>", situationType);
+        String[] SITUATION_TYPES = new String[]{"TRAFFIC_ANNOUNCEMENT", 
+                        "EXEMPTED_TRANSPORT", "WEIGHT_RESTRICTION","ROAD_WORK"};
+        
+        for (String situationType : SITUATION_TYPES) {
+            String urlString = urlLatestTrafficMessages
+                    .replace("<SITUATION_TYPE>", situationType);
 
-        HttpURLConnection urlConnection = getConnection(urlString);
-        System.out.println(urlConnection.getResponseCode());
+            HttpURLConnection urlConnection = getConnection(urlString);
+            System.out.println(urlConnection.getResponseCode());
 
-        JsonReader reader = new JsonReader(new InputStreamReader(urlConnection
-                .getInputStream()));
-        JsonObject jsonObject = JsonParser.parseReader​(reader)
-                .getAsJsonObject();
-
-        return jsonObject;
+            JsonReader reader = new JsonReader(new InputStreamReader(urlConnection
+                    .getInputStream()));
+            JsonObject jsonObject = JsonParser.parseReader​(reader)
+                    .getAsJsonObject();
+        }
+        
     }
 }

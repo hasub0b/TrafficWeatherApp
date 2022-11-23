@@ -15,10 +15,10 @@ import javafx.scene.text.Text;
  * @author Aleksi
  */
 public class HistogramDrawer {
-    private final CategoryAxis xAxis = new CategoryAxis();
-    private final NumberAxis yAxis = new NumberAxis();
-    private final BarChart barChart = new BarChart(xAxis, yAxis);
-
+    //private final CategoryAxis xAxis = new CategoryAxis();
+    //private final NumberAxis yAxis = new NumberAxis();
+    //private final BarChart barChart = new BarChart(xAxis, yAxis);
+    XYChart.Series series = new XYChart.Series();
 
     /**
      * @param rain getForecastRain list from DataInterface
@@ -28,18 +28,18 @@ public class HistogramDrawer {
     public HistogramDrawer(List<Float> rain, List<Float> cloudiness,
             List<Float> windSpeed, int timeInterval) throws Exception {
 
-        xAxis.setLabel("Time (hh:mm)");
-        yAxis.setLabel("Precipitation (mm)");
-        barChart.setTitle("Precipitation amount");
-        barChart.setBarGap(-4);
+        //xAxis.setLabel("Time (hh:mm)");
+        //yAxis.setLabel("Precipitation (mm)");
+        //barChart.setTitle("Precipitation amount");
+        //barChart.setBarGap(-4);
 
-        XYChart.Series series = new XYChart.Series();
+        //XYChart.Series series = new XYChart.Series();
 
         // Get current time for x axis
         LocalTime now = LocalTime.now();
         for (int i = 0; i < rain.size(); i++) {
             XYChart.Data data = new XYChart.Data(
-                    now.truncatedTo(ChronoUnit.HOURS).plusMinutes(
+                    now.truncatedTo(ChronoUnit.HOURS).plusHours(
                             (long) timeInterval * i).toString(), rain.get(i));
             series.getData().add(data);
             
@@ -54,24 +54,25 @@ public class HistogramDrawer {
                 cloudImage.setPreserveRatio(true);
                 node.getChildren().add(cloudImage);
                 node.getChildren().add( new Text(windText));
+                node.getChildren().add(cloudImage);
         }
 
         // Change bar color to blue
-        for(Node n:barChart.lookupAll(".default-color0.chart-bar")) {
+        /*for(Node n:barChart.lookupAll(".default-color0.chart-bar")) {
             n.setStyle("-fx-bar-fill: #0077FF;");
-        }
+        }*/
 
         // Uniform look with PlotDrawer
-        barChart.lookup(".chart-plot-background").setStyle("-fx-background-color: transparent;");
+        /*barChart.lookup(".chart-plot-background").setStyle("-fx-background-color: transparent;");
         barChart.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
         barChart.lookup(".chart-vertical-grid-lines").setStyle("-fx-stroke: transparent;");
         barChart.lookup(".chart-horizontal-grid-lines").setStyle("-fx-stroke: transparent;");
-        barChart.setLegendVisible(false);
+        barChart.setLegendVisible(false);*/
 
 
     }
 
-    public BarChart getChart() {
-        return barChart;
+    public XYChart.Series getChart() {
+        return series;
     }
 }
