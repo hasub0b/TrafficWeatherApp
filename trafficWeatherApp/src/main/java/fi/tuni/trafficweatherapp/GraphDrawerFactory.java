@@ -20,6 +20,7 @@ import javafx.scene.chart.*;
  */
 public class GraphDrawerFactory {
     
+    
     // Can be called for refactoring
     // Is called upon, when user input is given or changed
     public void update() throws Exception {
@@ -148,7 +149,7 @@ public class GraphDrawerFactory {
         starttime = "";
         endtime = "";
         taskname = "";
-        
+        /*
         if (para1 == "traffic") {
             // type: TRAFFIC_ANNOUNCEMENT, EXEMPTED_TRANSPORT, WEIGHT_RESTRICTION or ROAD_WORK.
             String type = null;
@@ -182,7 +183,7 @@ public class GraphDrawerFactory {
         }
         else {
             System.out.println("Error with parameters");
-        }
+        }*/
         
         
         
@@ -273,6 +274,7 @@ public class GraphDrawerFactory {
         }
     }
   */  
+
     public static Double[] listFloatToDoubleArray(List<Float> input) {
         if (input == null) {
             return null;

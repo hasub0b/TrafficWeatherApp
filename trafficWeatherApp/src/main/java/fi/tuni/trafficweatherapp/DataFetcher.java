@@ -5,6 +5,8 @@
 package fi.tuni.trafficweatherapp;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.text.ParseException;
 import javax.xml.parsers.ParserConfigurationException;
 import org.json.JSONObject;
 import org.xml.sax.SAXException;
@@ -26,19 +28,16 @@ class DataFetcher {
         y1y2 = (y1 + y2) / 2;
     }
 
-    RoadDataApiFetcher roadDataFetcher = new RoadDataApiFetcher();
-    WeatherDataApiFetcher weatherDataFetcher = new WeatherDataApiFetcher();
-
     public void fetchWeatherData() throws IOException, ParserConfigurationException, SAXException {
 
         WeatherDataApiFetcher.getForecastData(x1x2.toString(), y1y2.toString(), "60");
         WeatherDataApiFetcher.getObservationData(x1.toString(), x2.toString(), y1.toString(), y2.toString(), "60");
     }
     
-    public void fetchRoadData() throws IOException {
+    public void fetchRoadData() throws IOException, MalformedURLException, ParseException {
         RoadDataApiFetcher.getRoadConditions(x1.toString(), y1.toString(), x2.toString(), y2.toString());
         RoadDataApiFetcher.getLatestTrafficMessages();
-        //RoadDataApiFetcher.getRoadMaintenanceData(startTime, endTime, xMin, yMin, xMax, yMax, taskName)
+        RoadDataApiFetcher.getRoadMaintenanceData(x1.toString(), y1.toString(), x2.toString(), y2.toString());
         
     }
 }
