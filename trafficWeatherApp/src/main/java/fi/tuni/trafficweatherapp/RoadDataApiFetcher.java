@@ -75,9 +75,9 @@ public class RoadDataApiFetcher {
         System.out.println(roadMaintenanceTasks);
 
         getRoadConditions("21", "60", "23", "62");
-        
+
         getRoadMaintenanceData("21", "61", "23", "63");
-        
+
         getLatestTrafficMessages();
 
     }
@@ -179,37 +179,25 @@ public class RoadDataApiFetcher {
             String xMax, String yMax)
             throws MalformedURLException, IOException, ParseException {
 
-        List<String> tasknames = new ArrayList<>();
+        String urlString = urlRoadMaintenanceData
+                .replace("<START_TIME>", "")
+                .replace("<END_TIME>", localtimeToUrlTime())
+                .replace("<X_MIN>", xMin)
+                .replace("<Y_MIN>", yMin)
+                .replace("<X_MAX>", xMax)
+                .replace("<Y_MAX>", yMax)
+                .replace("<TASK_NAME>", "");
 
-        //getRoadMaintenanceTasks().get("id").getAsString();
-        JsonObject js = getRoadMaintenanceTasks();
+        HttpURLConnection urlConnection = getConnection(urlString);
 
-        JsonArray tasks = js.get("features").getAsJsonArray();
-        for (JsonElement task : tasks) {
-            tasknames.add(task.getAsJsonObject().get("id").toString());
-        }
+        System.out.println(urlConnection.getResponseCode());
 
-        for (String taskName : tasknames) {
-            String urlString = urlRoadMaintenanceData
-                    .replace("<START_TIME>", "")
-                    .replace("<END_TIME>", localtimeToUrlTime())
-                    .replace("<X_MIN>", xMin)
-                    .replace("<Y_MIN>", yMin)
-                    .replace("<X_MAX>", xMax)
-                    .replace("<Y_MAX>", yMax)
-                    .replace("<TASK_NAME>", taskName.substring(1, taskName.length() - 1));
-            
-            HttpURLConnection urlConnection = getConnection(urlString);
+        JsonReader reader = new JsonReader(new InputStreamReader(urlConnection
+                .getInputStream()));
+        JsonObject jsonObject = JsonParser.parseReader​(reader)
+                .getAsJsonObject();
 
-            System.out.println(urlConnection.getResponseCode());
-
-            JsonReader reader = new JsonReader(new InputStreamReader(urlConnection
-                    .getInputStream()));
-            JsonObject jsonObject = JsonParser.parseReader​(reader)
-                    .getAsJsonObject();
-
-            JsonParsing.parseTrafficData(jsonObject);
-        }
+        JsonParsing.parseTrafficData(jsonObject);
     }
 
     /**
