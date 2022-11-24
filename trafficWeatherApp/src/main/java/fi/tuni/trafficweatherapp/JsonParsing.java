@@ -30,13 +30,15 @@ public class JsonParsing {
         JsonArray features = obj.getAsJsonArray("features");
         List<String> data = new ArrayList<>();
         Map<String, List<String>> messageMap = new HashMap<>();
+        String taskType = "";
 
         boolean isMessage = false;
         for (JsonElement element:features) {
 
-            element.getAsJsonObject().keySet().removeIf(k -> !k.equals("properties"));
+            element.getAsJsonObject().keySet().removeIf(k -> !k.equals("properties") && !k.equals("geometry"));
             JsonObject feature = element.getAsJsonObject().get("properties").getAsJsonObject();
-            feature.keySet().removeIf(k -> (!k.equals("id") && !k.equals("tasks") && !k.equals("situationId") && !k.equals("situationType") && !k.equals("announcements")));
+            feature.keySet().removeIf(k -> (!k.equals("id") && !k.equals("tasks") && !k.equals("situationId") && !k.equals("situationType") && !k.equals("announcements")
+            && !k.equals("startTime") && !k.equals("endTime")));
 
             // if message
             if (feature.has("announcements")){
@@ -58,17 +60,51 @@ public class JsonParsing {
 
             // if task
             if (feature.has("tasks")){
-                for (Object task: feature.get("tasks").getAsJsonArray()) {
-                    data.add(task.toString());
+                taskType = feature.get("tasks").getAsJsonArray().get(0).toString();
+
+                // Start and end times
+                String startTime = feature.get("startTime").toString().replace("\"","");
+                String endTime = feature.get("endTime").toString().replace("\"","");
+
+                // Coordinates -- LineString is array of multiple coordinates, Point is single coordinates
+                String coordinates = "";
+                try {
+                    JsonObject geometry = element.getAsJsonObject().get("geometry").getAsJsonObject();
+                    String type = geometry.get("type").toString().replace("\"","");
+                    if (Objects.equals(type, "LineString")){
+                        coordinates = geometry.get("coordinates").getAsJsonArray().toString();
+                    } else {
+                        // Point
+                        coordinates = geometry.get("coordinates").toString();
+                    }
+                } catch (Exception e){
+                    System.out.println("No coordinates for " + feature);
                 }
+
+                String finalString = String.format("Start time: %s, End time: %s, At: %s",startTime,endTime,coordinates);
+                data.add(finalString);
             }
         }
         if (isMessage){
             DataInterface.setMessages(data);
             DataInterface.setMessagesMap(messageMap);
         } else {
-            DataInterface.setMaintenance(data);
+            if (!Objects.equals(taskType, "")){
+                DataInterface.setMaintenanceMapList(taskType,data);
+                DataInterface.setMaintenance(data);
+
+            }
         }
+
+        /*
+        for (String key : DataInterface.getMaintenanceMap().keySet()) {
+            System.out.println(key +" size: " +DataInterface.getMaintenanceMap().get(key).size());
+        }
+
+         */
+
+
+
     }
 
     /**

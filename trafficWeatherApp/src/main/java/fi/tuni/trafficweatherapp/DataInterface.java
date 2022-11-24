@@ -13,12 +13,16 @@ public final class DataInterface {
     private static List<String> conditionForecast = new ArrayList<String>();;
     // Key Precipitation/OverallCondition/(WinterSlipperiness) and Value index 0,1,2,3 is 2h,4h,6h,12h
     private static Map<String, List<String>> itemsOfInterest = new HashMap<>();
+    // maintenance list is replaced by maintenanceMap
     private static List<String> maintenance = new ArrayList<String>();
+    // Key maintenance type
+    private static Map<String, List<String>> maintenanceMap = new HashMap<>();
+    // messages list is replaced by messagesMap
     private static List<String> messages = new ArrayList<String>();
     // Key "TRAFFIC_ANNOUNCEMENT", "EXEMPTED_TRANSPORT", "WEIGHT_RESTRICTION", "ROAD_WORK"
     private static Map<String, List<String>> messagesMap = new HashMap<>();
 
-    // List containing all possible maintenance types, should currently only be used MaintenanceMenuController
+    // List containing all possible maintenance types, should currently only be used by MaintenanceMenuController
     private static List<String> allTaskTypes = new ArrayList<>();
 
     // Values from FMI
@@ -58,6 +62,12 @@ public final class DataInterface {
 
     public static Map<String, List<String>> getMessagesMap() {return messagesMap;}
     public static void setMessagesMap(Map<String, List<String>> messagesMap) {DataInterface.messagesMap = messagesMap;}
+
+    public static Map<String, List<String>> getMaintenanceMap() {return maintenanceMap;}
+    public static void setMaintenanceMap(Map<String, List<String>> maintenanceMap) {DataInterface.maintenanceMap = maintenanceMap;}
+    public static void setMaintenanceMapList(String key, List<String> list) {
+        maintenanceMap.put(key, list);
+    }
 
     // FMI
 
