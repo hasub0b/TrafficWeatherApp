@@ -16,7 +16,7 @@ public final class DataInterface {
     // maintenance list is replaced by maintenanceMap
     private static List<String> maintenance = new ArrayList<String>();
     // Key maintenance type
-    private static Map<String, List<String>> maintenanceMap = new HashMap<>();
+    private static Map<String,Integer> maintenanceMap = new HashMap<>();
     // messages list is replaced by messagesMap
     private static List<String> messages = new ArrayList<String>();
     // Key "TRAFFIC_ANNOUNCEMENT", "EXEMPTED_TRANSPORT", "WEIGHT_RESTRICTION", "ROAD_WORK"
@@ -63,11 +63,8 @@ public final class DataInterface {
     public static Map<String, List<String>> getMessagesMap() {return messagesMap;}
     public static void setMessagesMap(Map<String, List<String>> messagesMap) {DataInterface.messagesMap = messagesMap;}
 
-    public static Map<String, List<String>> getMaintenanceMap() {return maintenanceMap;}
-    public static void setMaintenanceMap(Map<String, List<String>> maintenanceMap) {DataInterface.maintenanceMap = maintenanceMap;}
-    public static void setMaintenanceMapList(String key, List<String> list) {
-        maintenanceMap.put(key, list);
-    }
+    public static Map<String, Integer> getMaintenanceMap() {return maintenanceMap;}
+    public static void setMaintenanceMap(Map<String, Integer> maintenanceMap) {DataInterface.maintenanceMap = maintenanceMap;}
 
     // FMI
 

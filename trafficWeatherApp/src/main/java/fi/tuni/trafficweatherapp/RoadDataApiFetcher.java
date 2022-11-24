@@ -71,14 +71,14 @@ public class RoadDataApiFetcher {
 
     // TODO: remove main
     public static void main(String[] args) throws IOException, ParseException {
-        JsonObject roadMaintenanceTasks = getRoadMaintenanceTasks();
-        System.out.println(roadMaintenanceTasks);
+        //JsonObject roadMaintenanceTasks = getRoadMaintenanceTasks();
+        //System.out.println(roadMaintenanceTasks);
 
-        getRoadConditions("21", "60", "23", "62");
+        //getRoadConditions("21", "60", "23", "62");
 
         getRoadMaintenanceData("21", "61", "23", "63");
 
-        getLatestTrafficMessages();
+        //getLatestTrafficMessages();
 
     }
 
@@ -100,9 +100,9 @@ public class RoadDataApiFetcher {
         char quote = '"';
         content = "{" + quote + "features" + quote + " : " + content + "}";
         System.out.println(content);
-        JsonObject jsonObject = JsonParser.parseString​(content).getAsJsonObject();
+        JsonObject jsonObject = JsonParser.parseString(content).getAsJsonObject();
 
-        //JsonParsing.parseTrafficData(jsonObject);
+        JsonParsing.parseTasks(jsonObject);
         return jsonObject;
     }
 
@@ -154,7 +154,7 @@ public class RoadDataApiFetcher {
 
         JsonReader reader = new JsonReader(new InputStreamReader(urlConnection
                 .getInputStream()));
-        JsonObject jsonObject = JsonParser.parseReader​(reader)
+        JsonObject jsonObject = JsonParser.parseReader(reader)
                 .getAsJsonObject();
 
         JsonParsing.parseRoadConditions(jsonObject);
@@ -194,7 +194,7 @@ public class RoadDataApiFetcher {
 
         JsonReader reader = new JsonReader(new InputStreamReader(urlConnection
                 .getInputStream()));
-        JsonObject jsonObject = JsonParser.parseReader​(reader)
+        JsonObject jsonObject = JsonParser.parseReader(reader)
                 .getAsJsonObject();
 
         JsonParsing.parseTrafficData(jsonObject);
@@ -224,7 +224,7 @@ public class RoadDataApiFetcher {
 
             JsonReader reader = new JsonReader(new InputStreamReader(urlConnection
                     .getInputStream()));
-            JsonObject jsonObject = JsonParser.parseReader​(reader)
+            JsonObject jsonObject = JsonParser.parseReader(reader)
                     .getAsJsonObject();
 
             JsonParsing.parseTrafficData(jsonObject);

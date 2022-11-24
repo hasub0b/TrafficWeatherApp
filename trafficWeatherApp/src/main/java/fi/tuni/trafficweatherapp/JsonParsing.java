@@ -30,7 +30,9 @@ public class JsonParsing {
         JsonArray features = obj.getAsJsonArray("features");
         List<String> data = new ArrayList<>();
         Map<String, List<String>> messageMap = new HashMap<>();
+        Map<String, Integer> maintenanceMap = new HashMap<>();
         String taskType = "";
+        int total = 0;
 
         boolean isMessage = false;
         for (JsonElement element:features) {
@@ -61,6 +63,22 @@ public class JsonParsing {
             // if task
             if (feature.has("tasks")){
                 taskType = feature.get("tasks").getAsJsonArray().get(0).toString();
+                if (maintenanceMap.containsKey(taskType)){
+                    int current = maintenanceMap.get(taskType);
+                    maintenanceMap.put(taskType,current + 1);
+                } else {
+                    maintenanceMap.put(taskType, 1);
+                }
+                //total = features.size();
+            }
+
+            // Previous
+            /*
+
+            if (feature.has("tasks")){
+                
+                
+                taskType = feature.get("tasks").getAsJsonArray().get(0).toString();
 
                 // Start and end times
                 String startTime = feature.get("startTime").toString().replace("\"","");
@@ -84,15 +102,19 @@ public class JsonParsing {
                 String finalString = String.format("Start time: %s, End time: %s, At: %s",startTime,endTime,coordinates);
                 data.add(finalString);
             }
+            
+             */
         }
+        
+                 
         if (isMessage){
             DataInterface.setMessages(data);
             DataInterface.setMessagesMap(messageMap);
         } else {
             if (!Objects.equals(taskType, "")){
-                DataInterface.setMaintenanceMapList(taskType,data);
+                DataInterface.setMaintenanceMap(maintenanceMap);
                 DataInterface.setMaintenance(data);
-
+                System.out.println(DataInterface.getMaintenanceMap());
             }
         }
 
