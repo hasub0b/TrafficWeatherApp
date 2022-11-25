@@ -3,6 +3,7 @@ package fi.tuni.trafficweatherapp;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 
 /**
 * @author Arttu
@@ -21,6 +22,7 @@ public class WeatherMenuController {
     private RadioButton forecastRadio;
     @FXML
     private RadioButton observationRadio;*/
+    @FXML Label labelForecast;
     
     
     
@@ -31,9 +33,12 @@ public class WeatherMenuController {
     //private boolean observation;
     //private boolean forecast;
     
-    /*
+    
     public void initialize() throws Exception {
-       // TBA (call to factory's update if needed)
+        labelForecast.getStyleClass().add("title");
+        labelForecast.getStyleClass().add("outlineTitle");
+        
+       /*// TBA (call to factory's update if needed)
        try {
         GraphViewController viewController = new GraphViewController();
         boolean forecastPressed = false;
@@ -53,9 +58,9 @@ public class WeatherMenuController {
        }
        catch (Error e) {
            System.out.println("Error: " + e);
-       }
+       }  */
     }
-    */
+  
     @FXML
     private void buttonPressed() throws IOException, Exception {
         try {

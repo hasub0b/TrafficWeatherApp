@@ -3,8 +3,6 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -20,9 +18,9 @@
             <Font name="Arial" size="20.0" />
          </font>
       </Label>
-      <Group fx:id="obsGroup" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+      <Group fx:id="obsGroup" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="50.0">
          <children>
-            <GridPane fx:id="boxGrid1" alignment="CENTER" layoutY="5.0">
+            <GridPane fx:id="boxGrid1" alignment="CENTER" layoutY="5.0" prefHeight="141.0" prefWidth="143.0">
                <children>
                   <CheckBox fx:id="tempbox" mnemonicParsing="false" onAction="#buttonPressed" selected="true" text="Temperature" textFill="WHITE">
                      <font>

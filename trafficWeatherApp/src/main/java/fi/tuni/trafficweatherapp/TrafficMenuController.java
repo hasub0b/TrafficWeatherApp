@@ -9,17 +9,20 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
-
 import java.io.IOException;
 
 /**
  * @author Aleksi
  */
 public class TrafficMenuController {
+
     public AnchorPane childAnchorPane;
 
     @FXML
     private Label errorLabel;
+
+    @FXML
+    Label labelTrafficMenu;
 
     @FXML
     private RadioButton radioButtonItemsOfInterest;
@@ -46,16 +49,14 @@ public class TrafficMenuController {
     FXMLLoader loaderIoiMenu = new FXMLLoader(
             getClass().getResource("itemsOfInterestMenu.fxml"));
 
-
-
     AnchorPane gridMaintenance;
     AnchorPane gridCondition;
     AnchorPane gridMessage;
     AnchorPane gridIoi;
 
-
-
     public void initialize() {
+        labelTrafficMenu.getStyleClass().add("title");
+        labelTrafficMenu.getStyleClass().add("outlineTitle");
         try {
 
             gridMaintenance = loaderMaintenanceMenu.load();
@@ -68,7 +69,6 @@ public class TrafficMenuController {
             MessagesMenuController msgController = loaderMessageMenu.getController();
             itemsOfInterestMenuController ioiController = loaderIoiMenu.getController();
 
-
             childAnchorPane.addEventHandler(ActionEvent.ACTION, event -> {
 
                 System.out.println("------------------Traffic Menu Status------------------");
@@ -77,11 +77,11 @@ public class TrafficMenuController {
 
                 System.out.println("Road Condition Selected: " + rcController.getRoadConditionSelected());
 
-                System.out.println("Messages Selected:\n" + "Announcement: " + msgController.isAnnouncement() +" / Transport: " + msgController.isTransport()
-                + " / Weight res: " + msgController.isWeightRes() + " / Road Work: " + msgController.isRoadWork());
+                System.out.println("Messages Selected:\n" + "Announcement: " + msgController.isAnnouncement() + " / Transport: " + msgController.isTransport()
+                        + " / Weight res: " + msgController.isWeightRes() + " / Road Work: " + msgController.isRoadWork());
 
                 System.out.println("Selected Items of Interest:\n" + "Precipitation: " + ioiController.isPrecipitation() + " / Slipperiness: " + ioiController.isSlipperiness()
-                + " / Condition: " + ioiController.isCondition());
+                        + " / Condition: " + ioiController.isCondition());
 
                 System.out.println("------------------------------------------------------");
 

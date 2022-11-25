@@ -4,12 +4,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /**
  * @author Aleksi
  */
 public class MessagesMenuController {
+
     @FXML
     private CheckBox CBAnnouncement;
     @FXML
@@ -18,15 +20,21 @@ public class MessagesMenuController {
     private CheckBox CBWeightRest;
     @FXML
     private CheckBox CBRoadWork;
+    @FXML
+    Label labelMessagesMenu;
 
     private boolean Announcement;
     private boolean Transport;
     private boolean WeightRes;
     private boolean RoadWork;
-
+    
+    public void initialize() {
+        labelMessagesMenu.getStyleClass().add("title");
+        labelMessagesMenu.getStyleClass().add("outlineTitle");
+    }
 
     public void handleCloseButton(ActionEvent actionEvent) {
-        Stage stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }
 
@@ -39,15 +47,35 @@ public class MessagesMenuController {
 
     }
 
-    public boolean isAnnouncement() {return Announcement;}
-    public void setAnnouncement(boolean announcement) {Announcement = announcement;}
+    public boolean isAnnouncement() {
+        return Announcement;
+    }
 
-    public boolean isTransport() {return Transport;}
-    public void setTransport(boolean transport) {Transport = transport;}
+    public void setAnnouncement(boolean announcement) {
+        Announcement = announcement;
+    }
 
-    public boolean isWeightRes() {return WeightRes;}
-    public void setWeightRes(boolean weightRes) {WeightRes = weightRes;}
+    public boolean isTransport() {
+        return Transport;
+    }
 
-    public boolean isRoadWork() {return RoadWork;}
-    public void setRoadWork(boolean roadWork) {RoadWork = roadWork;}
+    public void setTransport(boolean transport) {
+        Transport = transport;
+    }
+
+    public boolean isWeightRes() {
+        return WeightRes;
+    }
+
+    public void setWeightRes(boolean weightRes) {
+        WeightRes = weightRes;
+    }
+
+    public boolean isRoadWork() {
+        return RoadWork;
+    }
+
+    public void setRoadWork(boolean roadWork) {
+        RoadWork = roadWork;
+    }
 }

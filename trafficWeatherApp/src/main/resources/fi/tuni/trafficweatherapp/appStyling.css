@@ -174,3 +174,21 @@
     -fx-display-caret:false;
     -fx-background-color: #C8B6E2;
 }
+
+/* CheckBox */
+.check-box .box {
+    -fx-background-color: white;
+    -fx-padding: 8 8 8 8;
+}
+.check-box .text {
+    -fx-font: inter;
+    -fx-font-size: 16px;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #C8B6E2;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #7A86B6;
+}

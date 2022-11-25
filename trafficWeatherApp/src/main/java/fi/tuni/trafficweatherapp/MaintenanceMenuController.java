@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.control.Label;
 
 /**
  * @author Aleksi
@@ -20,6 +21,7 @@ public class MaintenanceMenuController implements Initializable {
 
     @FXML
     private ComboBox comboBoxSetMaintenance;
+    @FXML Label labelMaintenanceMenu;
 
     private String selectedTask;
 
@@ -30,7 +32,9 @@ public class MaintenanceMenuController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        labelMaintenanceMenu.getStyleClass().add("title");
+        labelMaintenanceMenu.getStyleClass().add("outlineTitle");
+        
         comboBoxSetMaintenance.getItems().setAll(DataInterface.getAllTaskTypes());
         comboBoxSetMaintenance.getItems().add(0,"ALL");
     }
