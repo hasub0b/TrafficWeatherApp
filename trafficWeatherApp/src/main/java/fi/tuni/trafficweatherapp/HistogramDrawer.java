@@ -57,7 +57,7 @@ public class HistogramDrawer {
                     ImageView cloudImage = icon.getIcon();
                     cloudImage.fitWidthProperty().bind(vbox.widthProperty().multiply(.5));
                     cloudImage.setPreserveRatio(true);
-                    Text windText = new Text(windValue + "m/s");
+                    Text windText = new Text(windValue + " m/s");
                     vbox.getChildren().add(windText);
                     node.getChildren().add(cloudImage);
                 });
