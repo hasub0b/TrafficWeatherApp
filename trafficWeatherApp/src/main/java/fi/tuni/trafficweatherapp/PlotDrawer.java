@@ -1,13 +1,7 @@
 package fi.tuni.trafficweatherapp;
 
-import com.google.gson.JsonObject;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import javafx.geometry.Side;
-import javafx.scene.chart.Axis;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
 /*

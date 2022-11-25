@@ -6,29 +6,20 @@ package fi.tuni.trafficweatherapp;
 
 import java.io.IOException;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.geometry.Side;
-import javafx.scene.Node;
-import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
-import javafx.scene.control.Button;
+import javafx.scene.chart.StackedBarChart;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 /**
@@ -67,7 +58,7 @@ public class GraphViewController {
     @FXML
     LineChart chartLine;
     @FXML
-    BarChart chartHistogram;
+    StackedBarChart chartHistogram;
 
     Tooltip tipSideMenu = new Tooltip("Graph settings");
 

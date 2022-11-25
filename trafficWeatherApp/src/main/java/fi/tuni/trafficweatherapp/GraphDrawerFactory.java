@@ -4,15 +4,10 @@
  */
 package fi.tuni.trafficweatherapp;
 
-import com.google.gson.JsonObject;
 import java.util.Arrays;
 import java.util.List;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextArea;
-import org.json.JSONObject;
-import javafx.scene.chart.*;
 
 /**
  *
@@ -358,13 +353,6 @@ public class GraphDrawerFactory {
     // Road / traffic msgs
     // * returns trafi info
     public TextArea createMessages() {
-        return null;
-    }
-    
-    
-    // TBA: icons (method type TBD)
-    // Cloudiness
-    public BarChart createIcons() {
         return null;
     }
     

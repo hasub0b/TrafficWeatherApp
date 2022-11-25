@@ -4,11 +4,7 @@
  */
 package fi.tuni.trafficweatherapp;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,13 +13,8 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import java.net.HttpURLConnection;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Fetches data as JsonObject from Digitraffic API.

@@ -4,21 +4,14 @@
  */
 package fi.tuni.trafficweatherapp;
 
-import static fi.tuni.trafficweatherapp.WeatherDataApiFetcher.getForecastData;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.util.*;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import java.util.*;
 
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import org.json.JSONObject;
 
 
 /**

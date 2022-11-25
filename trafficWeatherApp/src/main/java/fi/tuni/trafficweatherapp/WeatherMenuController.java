@@ -1,10 +1,8 @@
 package fi.tuni.trafficweatherapp;
 
 import java.io.IOException;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.RadioButton;
 
 /**
 * @author Arttu
