@@ -114,9 +114,11 @@ public class GraphViewController {
         button6h.setOnAction(event -> this.forecastRadioButtonEvent(event));
         button12h.setOnAction(event -> this.forecastRadioButtonEvent(event));
 
+
         chartHistogram.getData().add(graphFactory.createHistogram());
         chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
-        
+
+
         //chartHistogram.set
         chartLine.getData().add(graphFactory.createPlot());
         chartLine.getYAxis().setSide(Side.RIGHT);
