@@ -14,8 +14,10 @@ import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
@@ -68,6 +70,14 @@ public class GraphViewController {
     LineChart chartLine;
     @FXML
     BarChart chartHistogram;
+    @FXML
+    TextArea textAreaTrafficMessages;
+    @FXML
+    TextArea textAreaRoadConditionData;
+    @FXML
+    TextArea textAreaAvgMaintenanceTasks;
+    @FXML
+    PieChart pieChartTaskTypes;
 
     Tooltip tipSideMenu = new Tooltip("Graph settings");
 
@@ -142,6 +152,7 @@ public class GraphViewController {
             button12h.setDisable(true);
         }
     }
+
     private void forecastRadioButtonEvent(ActionEvent event) {
         System.out.println(getForecastStatus());
     }
@@ -158,10 +169,9 @@ public class GraphViewController {
     public String getForecastStatus() {
         if (getTimelineStatus()) {
             return null;
-        }
-        else {
-            RadioButton selectedRadioButton = 
-                    (RadioButton) groupForecastOptions.getSelectedToggle();
+        } else {
+            RadioButton selectedRadioButton
+                    = (RadioButton) groupForecastOptions.getSelectedToggle();
             return selectedRadioButton.getText();
         }
     }
