@@ -33,7 +33,7 @@
     -fx-font: 16px "Consolas";
 }
 .combo-box {
-     -fx-background-color: white;
+    -fx-background-color: white;
 }
 
 /* RadioButton styles */
@@ -41,7 +41,7 @@
     -fx-background-color: #A8A4CE;
     -fx-border-width: 0.5px;
     -fx-border-color: black;
-    -fx-border-radius: 20px;
+    -fx-border-radius: 10px;
     -fx-padding: 3px;
 }
 
@@ -54,14 +54,38 @@
     -fx-stroke: black;
     -fx-stroke-width: 0.5px;
     -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+
+.radioButtonMenu.radio-button .radio {
+    -fx-background-color: #A8A4CE;
+    -fx-border-width: 0.5px;
+    -fx-border-color: black;
+    -fx-border-radius: 20px;
+    -fx-padding: 3px;
+}
+
+.radioButtonMenuText.radio-button .text {
+    -fx-fill: #c8b6e2;
+    -fx-stroke: black;
+    -fx-stroke-width: 0.5px;
+    -fx-font-weight: bold;
     -fx-font-size: 20px;
 }
 
 /* Chart styles */
-.axis:right {-fx-border-color: transparent transparent transparent black;}
-.axis:left {-fx-border-color: transparent black transparent transparent;}
-.axis:bottom{-fx-border-color: black transparent transparent;}
-.axis-tick-mark {-fx-stroke: black}
+.axis:right {
+    -fx-border-color: transparent transparent transparent black;
+}
+.axis:left {
+    -fx-border-color: transparent black transparent transparent;
+}
+.axis:bottom{
+    -fx-border-color: black transparent transparent;
+}
+.axis-tick-mark {
+    -fx-stroke: black
+}
 
 .chart {
     -fx-padding: 10px;
@@ -105,9 +129,9 @@
 .button {
     -fx-background-color: #7A86B6;
 
-        /*linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
-        linear-gradient(#20262b, #191d22),
-        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));*/
+    /*linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+    linear-gradient(#20262b, #191d22),
+    radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));*/
     -fx-background-radius: 5,4,3,5;
     -fx-background-insets: 0,1,2,0;
     -fx-text-fill: white;
@@ -137,3 +161,16 @@
     -fx-font-weight: bold;
 }
 
+/* Text Areas */
+.text-area {
+
+    -fx-border-width: 1;
+    -fx-text-fill: black;
+    -fx-font-size: 16;
+    -fx-text-alignment: center;
+    -fx-display-caret:false;
+}
+.text-area .content{
+    -fx-display-caret:false;
+    -fx-background-color: #C8B6E2;
+}
