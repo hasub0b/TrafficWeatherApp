@@ -56,9 +56,14 @@ public class PrimaryController {
     @FXML
     public void initialize() {
         ToggleGroup groupMenu = new ToggleGroup();
-        
+       
         buttonGraphView.setToggleGroup(groupMenu);
         buttonSettings.setToggleGroup(groupMenu);
+        
+        buttonGraphView.getStyleClass().add("radioButtonMenuText");
+        buttonGraphView.getStyleClass().add("radioButtonMenu");
+        buttonSettings.getStyleClass().add("radioButtonMenuText");
+        buttonSettings.getStyleClass().add("radioButtonMenu");
         
         labelAppTitle.getStyleClass().add("outlineMainTitle");
         labelAppTitle.getStyleClass().add("mainTitle");

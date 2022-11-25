@@ -95,6 +95,7 @@ public class GraphViewController {
 
         buttonForecast.setToggleGroup(groupTimeline);
         buttonObservation.setToggleGroup(groupTimeline);
+        
 
         button2h.setToggleGroup(groupForecastOptions);
         button4h.setToggleGroup(groupForecastOptions);
