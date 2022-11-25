@@ -344,8 +344,9 @@ public class GraphDrawerFactory {
                 System.out.println("Error with radio booleans.");
             }
             //HistogramDrawer barTest = new HistogramDrawer(rain, cloudiness, timeInterval);
-            //HistogramDrawer hd = new HistogramDrawer(Arrays.asList(20f,40f,50f,60f), Arrays.asList(20f,40f,10f,20f), 1);
+            HistogramDrawer hd = new HistogramDrawer(Arrays.asList(20f,40f,50f,60f), Arrays.asList(20f,40f,10f,20f), Arrays.asList(20f,40f,10f,20f), 1);
             //return barTest.getChart();
+            System.out.println("barTest");
             return hd.getChart();
         }
         catch (Exception e) {

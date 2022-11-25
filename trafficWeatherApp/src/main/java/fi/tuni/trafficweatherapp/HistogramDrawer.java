@@ -54,7 +54,8 @@ public class HistogramDrawer {
                 cloudImage.setPreserveRatio(true);
                 node.getChildren().add(cloudImage);
                 node.getChildren().add( new Text(windText));
-                node.getChildren().add(cloudImage);
+                
+            System.out.println("test icons");
         }
 
         // Change bar color to blue
