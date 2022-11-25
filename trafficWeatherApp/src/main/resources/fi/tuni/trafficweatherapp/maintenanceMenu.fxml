@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.trafficweatherapp.MaintenanceMenuController">
    <children>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="250.0" style="-fx-background-size: 428 355; -fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: #495c83;">
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="250.0" style="-fx-background-size: 428 355; -fx-border-radius: 30; -fx-background-radius: 30; -fx-background-color: #495c83;">
          <columnConstraints>
             <ColumnConstraints />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="25.0" minWidth="0.0" prefWidth="25.0" />
