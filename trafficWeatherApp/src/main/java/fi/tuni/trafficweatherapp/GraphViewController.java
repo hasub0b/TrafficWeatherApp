@@ -4,16 +4,18 @@
  */
 package fi.tuni.trafficweatherapp;
 
+import java.io.File;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.StackedBarChart;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -58,7 +60,7 @@ public class GraphViewController {
     @FXML
     LineChart chartLine;
     @FXML
-    StackedBarChart chartHistogram;
+    BarChart chartHistogram;
 
     Tooltip tipSideMenu = new Tooltip("Graph settings");
 
@@ -114,6 +116,7 @@ public class GraphViewController {
 
         chartHistogram.getData().add(graphFactory.createHistogram());
         chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
+        
         //chartHistogram.set
         chartLine.getData().add(graphFactory.createPlot());
         chartLine.getYAxis().setSide(Side.RIGHT);

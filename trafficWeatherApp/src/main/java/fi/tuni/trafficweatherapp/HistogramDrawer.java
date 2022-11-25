@@ -1,13 +1,13 @@
 package fi.tuni.trafficweatherapp;
 
-import javafx.scene.Node;
 import javafx.scene.chart.*;
-
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 
@@ -33,7 +33,6 @@ public class HistogramDrawer {
         //barChart.setTitle("Precipitation amount");
         //barChart.setBarGap(-4);
 
-        //XYChart.Series series = new XYChart.Series();
 
         // Get current time for x axis
         LocalTime now = LocalTime.now();
@@ -44,19 +43,28 @@ public class HistogramDrawer {
             series.getData().add(data);
             
             // @author Vilma
+            
             double cloudValue = cloudiness.get(i);
             double windValue = windSpeed.get(i);
-            String windText = windValue + " m/s";
             IconsDrawer icon = new IconsDrawer(cloudValue);
-            ImageView cloudImage = icon.getIcon();
-            StackPane node = (StackPane) data.getNode();
-            cloudImage.fitWidthProperty().bind(node.widthProperty().multiply(.8));
-                cloudImage.setPreserveRatio(true);
-                node.getChildren().add(cloudImage);
-                node.getChildren().add( new Text(windText));
-                
-            System.out.println("test icons");
+            
+            
+            Platform.runLater(() -> {
+                series.getData().forEach(seriesData -> {
+                    StackPane node = (StackPane) data.getNode();
+                    VBox vbox = new VBox();
+                    node.getChildren().add(vbox);
+                    ImageView cloudImage = icon.getIcon();
+                    cloudImage.fitWidthProperty().bind(vbox.widthProperty().multiply(.5));
+                    cloudImage.setPreserveRatio(true);
+                    Text windText = new Text(windValue + "m/s");
+                    vbox.getChildren().add(windText);
+                    node.getChildren().add(cloudImage);
+                });
+            });
         }
+        
+        
 
         // Change bar color to blue
         /*for(Node n:barChart.lookupAll(".default-color0.chart-bar")) {
@@ -69,8 +77,8 @@ public class HistogramDrawer {
         barChart.lookup(".chart-vertical-grid-lines").setStyle("-fx-stroke: transparent;");
         barChart.lookup(".chart-horizontal-grid-lines").setStyle("-fx-stroke: transparent;");
         barChart.setLegendVisible(false);*/
-
-
+        
+        
     }
 
     public XYChart.Series getChart() {
