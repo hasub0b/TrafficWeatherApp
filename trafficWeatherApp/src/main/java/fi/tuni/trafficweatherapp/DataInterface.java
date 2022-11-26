@@ -9,9 +9,7 @@ public final class DataInterface {
 
     // Values from DigiTraffic
     //
-    // Contains all road conditions, index 0 is no forecast and for indexes 1,2,3,4 forecast is 2h,4h,6h,12h
-    private static List<String> conditionForecast = new ArrayList<String>();;
-    // Key Precipitation/OverallCondition/(WinterSlipperiness) and Value index 0,1,2,3 is 2h,4h,6h,12h
+    // Key Precipitation/OverallCondition/(WinterSlipperiness) and Value index 0,1,2,3,4 is Observation,2h,4h,6h,12h
     private static Map<String, List<String>> itemsOfInterest = new HashMap<>();
     // maintenance list is replaced by maintenanceMap
     private static List<String> maintenance = new ArrayList<String>();
@@ -68,10 +66,6 @@ public final class DataInterface {
     public static List<String> getMaintenance() {return maintenance;}
     public static void setMaintenance(List<String> newMaintenance) {maintenance = newMaintenance;}
     public static void addMaintenance(String newMaintenance) {maintenance.add(newMaintenance);}
-
-    public static List<String> getConditionForecast() {return conditionForecast;}
-    public static void setConditionForecast(List<String> newConditionForecast) {conditionForecast = newConditionForecast;}
-    public static void addConditionForecast(String newConditionForecast) {conditionForecast.add(newConditionForecast);}
 
     public static List<String> getMessages() {return messages;}
     public static void setMessages(List<String> newMessages) {messages = newMessages;}

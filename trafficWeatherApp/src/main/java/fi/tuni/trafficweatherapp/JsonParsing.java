@@ -1,6 +1,7 @@
 package fi.tuni.trafficweatherapp;
 
 import com.google.gson.*;
+import javafx.scene.chart.PieChart;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -149,8 +150,7 @@ public class JsonParsing {
      */
     public static void parseRoadConditions(JsonObject obj){
 
-        // reset lists
-        DataInterface.setConditionForecast(new ArrayList<>());
+        // reset map
         DataInterface.setItemsOfInterest(new HashMap<>());
 
         // Array to store every condition object
@@ -158,6 +158,7 @@ public class JsonParsing {
 
         // get JsonObjects and loop through
         JsonArray tasks = obj.get("weatherData").getAsJsonArray();
+
         for (JsonElement task:tasks){
             JsonArray roadConds = task.getAsJsonObject().get("roadConditions").getAsJsonArray();
             for (JsonElement cond:roadConds) {
@@ -168,21 +169,34 @@ public class JsonParsing {
 
         // Get info from first coordinates (first 4 elements in array) , if there are multiple received (array longer than 4)
         for (int i = 0; i <= 4; i++) {
-            String condition = newJsonArray.get(i).getAsJsonObject().get("overallRoadCondition").toString();
 
-            // Get forecast item of interests
+            String condition = newJsonArray.get(i).getAsJsonObject().get("overallRoadCondition").toString().replace("\"","");
+
+            // Set observation values
+            if (i == 0 ){
+                DataInterface.addItemOfInterest("OverallCondition",condition);
+                DataInterface.addItemOfInterest("Precipitation","ONLY AVAILABLE FOR FORECAST");
+                DataInterface.addItemOfInterest("WinterSlipperiness","ONLY AVAILABLE FOR FORECAST");
+            }
+
+            // Get forecast values
             if (i != 0) {
-                String precipitation = newJsonArray.get(i).getAsJsonObject().get("forecastConditionReason").getAsJsonObject().get("precipitationCondition").toString();
+                String forecastConditin = newJsonArray.get(i).getAsJsonObject().get("forecastConditionReason").getAsJsonObject().get("roadCondition").toString().replace("\"","");
+                String roadCondition = condition + ": " + forecastConditin;
+
+                DataInterface.addItemOfInterest("OverallCondition",roadCondition);
+
+                String precipitation = newJsonArray.get(i).getAsJsonObject().get("forecastConditionReason").getAsJsonObject().get("precipitationCondition").toString().replace("\"","");
                 DataInterface.addItemOfInterest("Precipitation",precipitation);
 
                 // Winter slipperiness is not always included
-                if (newJsonArray.get(i).getAsJsonObject().get("forecastConditionReason").getAsJsonObject().has("winterSlipperiness")){
-                    String winterSlipperiness = newJsonArray.get(i).getAsJsonObject().get("forecastConditionReason").getAsJsonObject().get("winterSlipperiness").toString();
+                if (newJsonArray.get(i).getAsJsonObject().get("forecastConditionReason").getAsJsonObject().has("frictionCondition")){
+                    String winterSlipperiness = newJsonArray.get(i).getAsJsonObject().get("forecastConditionReason").getAsJsonObject().get("frictionCondition").toString().replace("\"","");
                     DataInterface.addItemOfInterest("WinterSlipperiness",winterSlipperiness);
+                } else {
+                    DataInterface.addItemOfInterest("WinterSlipperiness","NOT AVAILABLE");
                 }
-                DataInterface.addItemOfInterest("OverallCondition",condition);
             }
-            DataInterface.addConditionForecast(condition);
         }
     }
 
