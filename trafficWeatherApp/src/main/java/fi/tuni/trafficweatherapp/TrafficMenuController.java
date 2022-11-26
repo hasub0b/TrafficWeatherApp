@@ -19,22 +19,10 @@ public class TrafficMenuController {
     public AnchorPane childAnchorPane;
 
     @FXML
-    private Label errorLabel;
-
-    @FXML
     Label labelTrafficMenu;
 
     @FXML
-    private RadioButton radioButtonItemsOfInterest;
-
-    @FXML
-    private GridPane childGridPane;
-
-    @FXML
     private ToggleGroup traffic;
-
-    @FXML
-    private RadioButton radioButtonMaintenance;
 
     @FXML
     FXMLLoader loaderMaintenanceMenu = new FXMLLoader(
@@ -50,7 +38,6 @@ public class TrafficMenuController {
     AnchorPane gridMaintenance;
     AnchorPane gridCondition;
     AnchorPane gridMessage;
-    AnchorPane gridIoi;
 
     public void initialize() {
         labelTrafficMenu.getStyleClass().add("title");
@@ -61,10 +48,6 @@ public class TrafficMenuController {
             gridCondition = loaderConditionMenu.load();
             gridMessage = loaderMessageMenu.load();
 
-            MaintenanceMenuController mmController = loaderMaintenanceMenu.getController();
-            RoadConditionController rcController = loaderConditionMenu.getController();
-            MessagesMenuController msgController = loaderMessageMenu.getController();
-
             childAnchorPane.addEventHandler(ActionEvent.ACTION, event -> {
 
                 System.out.println("------------------Traffic Menu Status------------------");
@@ -74,9 +57,8 @@ public class TrafficMenuController {
                 System.out.println("Road Conditions:\nOverall condition: " + DataInterface.isOverallConditionSelected() +
                         " Precipitation: " + DataInterface.isPrecipitationSelected() +" Slipperiness: " + DataInterface.isSlipperinessSelected());
 
-
-                System.out.println("Messages Selected:\n" + "Announcement: " + msgController.isAnnouncement() + " / Transport: " + msgController.isTransport()
-                        + " / Weight res: " + msgController.isWeightRes() + " / Road Work: " + msgController.isRoadWork());
+                System.out.println("Messages Selected:\n" + "Announcement: " + DataInterface.isAnnouncementSelected() + " / Transport: " + DataInterface.isTransportSelected()
+                        + " / Weight res: " + DataInterface.isWeightSelected() + " / Road Work: " + DataInterface.isRoadworkSelected());
 
                 System.out.println("------------------------------------------------------");
 

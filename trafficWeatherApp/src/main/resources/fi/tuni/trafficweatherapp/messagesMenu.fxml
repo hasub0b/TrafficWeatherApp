@@ -34,22 +34,22 @@
                   <Font name="Arial" size="22.0" />
                </font>
             </Label>
-            <CheckBox fx:id="CBAnnouncement" mnemonicParsing="false" onAction="#checkBoxSelected" text="TRAFFIC_ANNOUNCEMENT" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <CheckBox fx:id="checkBoxAnnouncement" mnemonicParsing="false" onAction="#checkBoxSelected" text="TRAFFIC_ANNOUNCEMENT" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="CBExTransport" mnemonicParsing="false" onAction="#checkBoxSelected" text="EXEMPTED_TRANSPORT" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <CheckBox fx:id="checkBoxExTransport" mnemonicParsing="false" onAction="#checkBoxSelected" text="EXEMPTED_TRANSPORT" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="CBWeightRest" mnemonicParsing="false" onAction="#checkBoxSelected" text="WEIGHT_RESTRICTION" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <CheckBox fx:id="checkBoxWeightRest" mnemonicParsing="false" onAction="#checkBoxSelected" text="WEIGHT_RESTRICTION" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="CBRoadWork" mnemonicParsing="false" onAction="#checkBoxSelected" text="ROAD_WORK" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <CheckBox fx:id="checkBoxRoadWork" mnemonicParsing="false" onAction="#checkBoxSelected" text="ROAD_WORK" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font name="Arial" size="15.0" />
                </font>

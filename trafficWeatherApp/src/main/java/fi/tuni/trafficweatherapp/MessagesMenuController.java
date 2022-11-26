@@ -2,10 +2,8 @@ package fi.tuni.trafficweatherapp;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 /**
  * @author Aleksi
@@ -13,69 +11,68 @@ import javafx.stage.Stage;
 public class MessagesMenuController {
 
     @FXML
-    private CheckBox CBAnnouncement;
+    private CheckBox checkBoxAnnouncement;
     @FXML
-    private CheckBox CBExTransport;
+    private CheckBox checkBoxExTransport;
     @FXML
-    private CheckBox CBWeightRest;
+    private CheckBox checkBoxWeightRest;
     @FXML
-    private CheckBox CBRoadWork;
+    private CheckBox checkBoxRoadWork;
     @FXML
     Label labelMessagesMenu;
 
-    private boolean Announcement;
-    private boolean Transport;
-    private boolean WeightRes;
-    private boolean RoadWork;
+    private boolean announcement;
+    private boolean transport;
+    private boolean weightRes;
+    private boolean roadWork;
     
     public void initialize() {
         labelMessagesMenu.getStyleClass().add("title");
         labelMessagesMenu.getStyleClass().add("outlineTitle");
     }
 
-    public void handleCloseButton(ActionEvent actionEvent) {
-        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        stage.close();
-    }
 
     public void checkBoxSelected(ActionEvent actionEvent) {
-
-        setAnnouncement(CBAnnouncement.isSelected());
-        setTransport(CBExTransport.isSelected());
-        setWeightRes(CBWeightRest.isSelected());
-        setRoadWork(CBRoadWork.isSelected());
+        setAnnouncement(checkBoxAnnouncement.isSelected());
+        DataInterface.setAnnouncementSelected(announcement);
+        setTransport(checkBoxExTransport.isSelected());
+        DataInterface.setTransportSelected(transport);
+        setWeightRes(checkBoxWeightRest.isSelected());
+        DataInterface.setWeightSelected(weightRes);
+        setRoadWork(checkBoxRoadWork.isSelected());
+        DataInterface.setRoadworkSelected(roadWork);
 
     }
 
     public boolean isAnnouncement() {
-        return Announcement;
+        return announcement;
     }
-
     public void setAnnouncement(boolean announcement) {
-        Announcement = announcement;
+        this.announcement = announcement;
+        checkBoxAnnouncement.setSelected(announcement);
     }
 
     public boolean isTransport() {
-        return Transport;
+        return transport;
     }
-
     public void setTransport(boolean transport) {
-        Transport = transport;
+        this.transport = transport;
+        checkBoxExTransport.setSelected(transport);
     }
 
     public boolean isWeightRes() {
-        return WeightRes;
+        return weightRes;
     }
-
     public void setWeightRes(boolean weightRes) {
-        WeightRes = weightRes;
+        this.weightRes = weightRes;
+        checkBoxWeightRest.setSelected(weightRes);
     }
 
     public boolean isRoadWork() {
-        return RoadWork;
+        return roadWork;
     }
-
     public void setRoadWork(boolean roadWork) {
-        RoadWork = roadWork;
+        this.roadWork = roadWork;
+        checkBoxRoadWork.setSelected(roadWork);
     }
 }
