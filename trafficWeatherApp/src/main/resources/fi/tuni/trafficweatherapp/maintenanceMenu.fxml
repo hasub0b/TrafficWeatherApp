@@ -32,7 +32,7 @@
                </font>
             </Label>
             <ComboBox fx:id="comboBoxSetMaintenance" onAction="#maintenanceSelected" prefWidth="150.0" promptText="Select Maintenance" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <CheckBox fx:id="checkBoxShowMaintenance" mnemonicParsing="false" prefHeight="28.0" prefWidth="210.0" text="Show Maintenance" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <CheckBox fx:id="checkBoxShowMaintenance" mnemonicParsing="false" onAction="#checkBoxPressed" prefHeight="28.0" prefWidth="210.0" text="Show Maintenance" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="Arial" size="18.0" />
                </font></CheckBox>
