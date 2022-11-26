@@ -115,6 +115,7 @@ public class WeatherMenuController {
     // Temp
     public void setTemp (boolean newTemp) {
         temp = newTemp;
+        DataInterface.setTemperatureSelected(newTemp);
     }
     public boolean getTemp () {
         return temp;
@@ -122,6 +123,7 @@ public class WeatherMenuController {
     // Wind
     public void setWind (boolean newWind) {
         wind = newWind;
+        DataInterface.setWindSelected(newWind);
     }
     public boolean getWind () {
         return wind;
@@ -129,6 +131,7 @@ public class WeatherMenuController {
     // Cloud
     public void setCloud (boolean newCloud) {
         cloud = newCloud;
+        DataInterface.setCloudSelected(newCloud);
     }
     public boolean getCloud () {
         return cloud;
