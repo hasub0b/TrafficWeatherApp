@@ -38,13 +38,17 @@ public final class DataInterface {
     private static Double cloud;
 
     // parameters for user selections
+
     //GraphView
     static boolean observationSelected = false;
+    // "2h","4h","6h","12h"
     static String selectedForecast = "";
+
     // WeatherMenuController
     static boolean windSelected = false;
     static boolean temperatureSelected = false;
     static boolean cloudSelected = false;
+
     // TrafficMenu
     static boolean maintenanceSelected = false;
     static String selectedMaintenance = "";
@@ -55,10 +59,6 @@ public final class DataInterface {
     static boolean precipitationSelected = false;
     static boolean slipperinessSelected = false;
     static boolean overallConditionSelected = false;
-
-
-
-
 
 
     // Accessors
@@ -165,6 +165,7 @@ public final class DataInterface {
 
 
     // Get all values for testing
+    /*
     public static String getAll() {
         String stringTraffic = "DigiTraffic data: \nconditionForecast: " + getConditionForecast() + "\nitems of interest: " + getItemsOfInterest() + "\nmaintenance: " + getMaintenance()
                 + "\nmessages: " + getMessages();
@@ -173,4 +174,6 @@ public final class DataInterface {
                 + "\n temperature: " + getTemperature() + "\n wind: " + getWind() + "\n rain: " + getRain() + "\n cloud: " +getCloud();
         return stringTraffic + "\n" + stringFmi;
     }
+
+     */
 }
