@@ -1,50 +1,47 @@
 package fi.tuni.trafficweatherapp;
 
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.scene.control.Label;
 
 /**
  * @author Aleksi
  */
 public class MaintenanceMenuController implements Initializable {
 
+    @FXML
+    private CheckBox checkBoxShowMaintenance;
 
     @FXML
     private ComboBox comboBoxSetMaintenance;
-    @FXML Label labelMaintenanceMenu;
 
     private String selectedTask;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            JsonParsing.parseTasks(RoadDataApiFetcher.getRoadMaintenanceTasks());
+            RoadDataApiFetcher.getRoadMaintenanceTasks();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        labelMaintenanceMenu.getStyleClass().add("title");
-        labelMaintenanceMenu.getStyleClass().add("outlineTitle");
-        
+
         comboBoxSetMaintenance.getItems().setAll(DataInterface.getAllTaskTypes());
         comboBoxSetMaintenance.getItems().add(0,"ALL");
     }
 
 
+    public boolean isMaintenanceShow(){return checkBoxShowMaintenance.isSelected();}
+    public void setMaintenanceShow(boolean show){checkBoxShowMaintenance.setSelected(show);}
 
 
     public void maintenanceSelected(ActionEvent actionEvent) {
-        selectedTask = comboBoxSetMaintenance.getValue().toString();
-    }
+        selectedTask = comboBoxSetMaintenance.getValue().toString();}
 
 
     public String getSelectedTask() {return selectedTask;}
