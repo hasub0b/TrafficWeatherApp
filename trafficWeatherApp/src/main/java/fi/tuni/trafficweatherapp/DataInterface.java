@@ -39,23 +39,22 @@ public final class DataInterface {
 
     // parameters for user selections
     //GraphView
-    boolean observationSelected = false;
-    int selectedForecast = 0;
+    static boolean observationSelected = false;
+    static int selectedForecast = 0;
     // WeatherMenuController
-    boolean windSelected = false;
-    boolean temperatureSelected = false;
-    boolean cloudSelected = false;
+    static boolean windSelected = false;
+    static boolean temperatureSelected = false;
+    static boolean cloudSelected = false;
     // TrafficMenu
-    boolean maintenanceSelected = false;
-    String selectedMaintenance = "";
-    boolean conditionSelected = false;
-    boolean announcementSelected = false;
-    boolean transportSelected = false;
-    boolean weightSelected = false;
-    boolean roadworkSelected = false;
-    boolean precipitationSelected = false;
-    boolean slipperinessSelected = false;
-    boolean overallConditionSelected = false;
+    static boolean maintenanceSelected = false;
+    static String selectedMaintenance = "";
+    static boolean announcementSelected = false;
+    static boolean transportSelected = false;
+    static boolean weightSelected = false;
+    static boolean roadworkSelected = false;
+    static boolean precipitationSelected = false;
+    static boolean slipperinessSelected = false;
+    static boolean overallConditionSelected = false;
 
 
 
@@ -122,50 +121,47 @@ public final class DataInterface {
     public static void setAllTaskTypes(List<String> allTaskTypes) {DataInterface.allTaskTypes = allTaskTypes;}
 
 
-    public boolean isObservationSelected() {return observationSelected;}
-    public void setObservationSelected(boolean observationSelected) {this.observationSelected = observationSelected;}
+    public static boolean isObservationSelected() {return observationSelected;}
+    public static void setObservationSelected(boolean selectedd) {observationSelected = selectedd;}
 
-    public int getSelectedForecast() {return selectedForecast;}
-    public void setSelectedForecast(int selectedForecast) {this.selectedForecast = selectedForecast;}
+    public static int getSelectedForecast() {return selectedForecast;}
+    public static void setSelectedForecast(int selected) {selectedForecast = selected;}
 
-    public boolean isWindSelected() {return windSelected;}
-    public void setWindSelected(boolean windSelected) {this.windSelected = windSelected;}
+    public static boolean isWindSelected() {return windSelected;}
+    public static void setWindSelected(boolean selected) {windSelected = selected;}
 
-    public boolean isTemperatureSelected() {return temperatureSelected;}
-    public void setTemperatureSelected(boolean temperatureSelected) {this.temperatureSelected = temperatureSelected;}
+    public static boolean isTemperatureSelected() {return temperatureSelected;}
+    public static void setTemperatureSelected(boolean selected) {temperatureSelected = selected;}
 
-    public boolean isCloudSelected() {return cloudSelected;}
-    public void setCloudSelected(boolean cloudSelected) {this.cloudSelected = cloudSelected;}
+    public static boolean isCloudSelected() {return cloudSelected;}
+    public static void setCloudSelected(boolean selected) {cloudSelected = selected;}
 
-    public boolean isMaintenanceSelected() {return maintenanceSelected;}
-    public void setMaintenanceSelected(boolean maintenanceSelected) {this.maintenanceSelected = maintenanceSelected;}
+    public static boolean isMaintenanceSelected() {return maintenanceSelected;}
+    public static void setMaintenanceSelected(boolean selected) {maintenanceSelected = selected;}
 
-    public String getSelectedMaintenance() {return selectedMaintenance;}
-    public void setSelectedMaintenance(String selectedMaintenance) {this.selectedMaintenance = selectedMaintenance;}
+    public static String getSelectedMaintenance() {return selectedMaintenance;}
+    public static void setSelectedMaintenance(String selected) {selectedMaintenance = selected;}
 
-    public boolean isConditionSelected() {return conditionSelected;}
-    public void setConditionSelected(boolean conditionSelected) {this.conditionSelected = conditionSelected;}
+    public static boolean isAnnouncementSelected() {return announcementSelected;}
+    public static void setAnnouncementSelected(boolean selected) {announcementSelected = selected;}
 
-    public boolean isAnnouncementSelected() {return announcementSelected;}
-    public void setAnnouncementSelected(boolean announcementSelected) {this.announcementSelected = announcementSelected;}
+    public static boolean isTransportSelected() {return transportSelected;}
+    public static void setTransportSelected(boolean selected) {transportSelected = selected;}
 
-    public boolean isTransportSelected() {return transportSelected;}
-    public void setTransportSelected(boolean transportSelected) {this.transportSelected = transportSelected;}
+    public static boolean isWeightSelected() {return weightSelected;}
+    public static void setWeightSelected(boolean selected) {weightSelected = selected;}
 
-    public boolean isWeightSelected() {return weightSelected;}
-    public void setWeightSelected(boolean weightSelected) {this.weightSelected = weightSelected;}
+    public static boolean isRoadworkSelected() {return roadworkSelected;}
+    public static void setRoadworkSelected(boolean selected) {roadworkSelected = selected;}
 
-    public boolean isRoadworkSelected() {return roadworkSelected;}
-    public void setRoadworkSelected(boolean roadworkSelected) {this.roadworkSelected = roadworkSelected;}
+    public static boolean isPrecipitationSelected() {return precipitationSelected;}
+    public static void setPrecipitationSelected(boolean selected) {precipitationSelected = selected;}
 
-    public boolean isPrecipitationSelected() {return precipitationSelected;}
-    public void setPrecipitationSelected(boolean precipitationSelected) {this.precipitationSelected = precipitationSelected;}
+    public static boolean isSlipperinessSelected() {return slipperinessSelected;}
+    public static void setSlipperinessSelected(boolean selected) {slipperinessSelected = selected;}
 
-    public boolean isSlipperinessSelected() {return slipperinessSelected;}
-    public void setSlipperinessSelected(boolean slipperinessSelected) {this.slipperinessSelected = slipperinessSelected;}
-
-    public boolean isOverallConditionSelected() {return overallConditionSelected;}
-    public void setOverallConditionSelected(boolean overallConditionSelected) {this.overallConditionSelected = overallConditionSelected;}
+    public static boolean isOverallConditionSelected() {return overallConditionSelected;}
+    public static void setOverallConditionSelected(boolean selected) {overallConditionSelected = selected;}
 
 
     // Get all values for testing
