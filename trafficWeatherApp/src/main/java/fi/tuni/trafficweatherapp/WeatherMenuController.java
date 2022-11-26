@@ -66,6 +66,7 @@ public class WeatherMenuController {
         try {
             GraphViewController viewController = new GraphViewController();
             GraphDrawerFactory drawerFactory = new GraphDrawerFactory();
+            DataInterface data = new DataInterface();
             
             boolean forecastPressed = false;
             if (viewController.buttonForecast != null 
@@ -85,26 +86,35 @@ public class WeatherMenuController {
             // Temperature (obs&fore)
             if (tempbox.isSelected()) {
                 setTemp(true);
+                data.setTemperatureSelected(true);
+                
             }
             else {
                 setTemp(false);
+                data.setTemperatureSelected(false);
             }
             // Observed Wind (obs&fore)
             if (windbox.isSelected()) {
                 setWind(true);
+                data.setWindSelected(true);
             }
             else {
                 setWind(false);
+                data.setWindSelected(false);
             }
             // Observed Cloudiness (obs)
             if (cloudbox.isSelected()) {
                 setCloud(true);
+                data.setCloudSelected(true);
             }
             else {
                 setCloud(false);
+                data.setCloudSelected(false);
             }
             
             // Call to update every time button is pressed
+            //
+            //System.out.println("Situation in datainterface (temp): " + data.getTempPressed());
             //drawerFactory.update();
         }
         catch (Error e) {
@@ -114,6 +124,7 @@ public class WeatherMenuController {
     
     // Temp
     public void setTemp (boolean newTemp) {
+        //DataInterface.setTempPressed(true);
         temp = newTemp;
         DataInterface.setTemperatureSelected(newTemp);
     }
