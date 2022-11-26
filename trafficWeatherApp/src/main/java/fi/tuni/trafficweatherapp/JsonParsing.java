@@ -35,7 +35,7 @@ public class JsonParsing {
             element.getAsJsonObject().keySet().removeIf(k -> !k.equals("properties") && !k.equals("geometry"));
             JsonObject feature = element.getAsJsonObject().get("properties").getAsJsonObject();
             feature.keySet().removeIf(k -> (!k.equals("id") && !k.equals("tasks") && !k.equals("situationId") && !k.equals("situationType") && !k.equals("announcements")
-            && !k.equals("startTime") && !k.equals("endTime")));
+                    && !k.equals("startTime") && !k.equals("endTime")));
 
             // if message
             if (feature.has("announcements")){
@@ -51,7 +51,7 @@ public class JsonParsing {
 
             // if task
             if (feature.has("tasks")){
-                taskType = feature.get("tasks").getAsJsonArray().get(0).toString();
+                taskType = feature.get("tasks").getAsJsonArray().get(0).toString().replaceAll("\"","");
                 if (maintenanceMap.containsKey(taskType)){
                     int current = maintenanceMap.get(taskType);
                     maintenanceMap.put(taskType,current + 1);
@@ -65,8 +65,8 @@ public class JsonParsing {
             /*
 
             if (feature.has("tasks")){
-                
-                
+
+
                 taskType = feature.get("tasks").getAsJsonArray().get(0).toString();
 
                 // Start and end times
@@ -91,11 +91,11 @@ public class JsonParsing {
                 String finalString = String.format("Start time: %s, End time: %s, At: %s",startTime,endTime,coordinates);
                 data.add(finalString);
             }
-            
+
              */
         }
-        
-                 
+
+
         if (isMessage){
             if (!Objects.equals(taskType, "")){
                 DataInterface.addMessageList(taskType,data);
@@ -117,7 +117,7 @@ public class JsonParsing {
 
         JsonArray tasks = obj.get("features").getAsJsonArray();
         for (JsonElement task:tasks) {
-            data.add(task.getAsJsonObject().get("id").toString());
+            data.add(task.getAsJsonObject().get("id").toString().replaceAll("\"",""));
         }
         DataInterface.setAllTaskTypes(data);
     }
@@ -148,7 +148,7 @@ public class JsonParsing {
         // Get info from first coordinates (first 4 elements in array) , if there are multiple received (array longer than 4)
         for (int i = 0; i <= 4; i++) {
 
-            String condition = newJsonArray.get(i).getAsJsonObject().get("overallRoadCondition").toString().replace("\"","");
+            String condition = newJsonArray.get(i).getAsJsonObject().get("overallRoadCondition").toString().replaceAll("\"","");
 
             // Set observation values
             if (i == 0 ){
@@ -159,17 +159,17 @@ public class JsonParsing {
 
             // Get forecast values
             if (i != 0) {
-                String forecastConditin = newJsonArray.get(i).getAsJsonObject().get("forecastConditionReason").getAsJsonObject().get("roadCondition").toString().replace("\"","");
+                String forecastConditin = newJsonArray.get(i).getAsJsonObject().get("forecastConditionReason").getAsJsonObject().get("roadCondition").toString().replaceAll("\"","");
                 String roadCondition = condition + ": " + forecastConditin;
 
                 DataInterface.addItemOfInterest("OverallCondition",roadCondition);
 
-                String precipitation = newJsonArray.get(i).getAsJsonObject().get("forecastConditionReason").getAsJsonObject().get("precipitationCondition").toString().replace("\"","");
+                String precipitation = newJsonArray.get(i).getAsJsonObject().get("forecastConditionReason").getAsJsonObject().get("precipitationCondition").toString().replaceAll("\"","");
                 DataInterface.addItemOfInterest("Precipitation",precipitation);
 
                 // Winter slipperiness is not always included
                 if (newJsonArray.get(i).getAsJsonObject().get("forecastConditionReason").getAsJsonObject().has("frictionCondition")){
-                    String winterSlipperiness = newJsonArray.get(i).getAsJsonObject().get("forecastConditionReason").getAsJsonObject().get("frictionCondition").toString().replace("\"","");
+                    String winterSlipperiness = newJsonArray.get(i).getAsJsonObject().get("forecastConditionReason").getAsJsonObject().get("frictionCondition").toString().replaceAll("\"","");
                     DataInterface.addItemOfInterest("WinterSlipperiness",winterSlipperiness);
                 } else {
                     DataInterface.addItemOfInterest("WinterSlipperiness","NOT AVAILABLE");
@@ -260,7 +260,7 @@ public class JsonParsing {
             //dataInterface.setRain(memberArray.get(memberArray.size()-1).getAsJsonObject().get("r_1h").getAsDouble());
 
         } else {
-           // forecast
+            // forecast
 
             List<Float> rainList = new ArrayList<>();
             List<Float> temperatureList = new ArrayList<>();
@@ -295,5 +295,4 @@ public class JsonParsing {
         //System.out.println("Cloud: " + DataInterface.getCloud() + "  Wind: " + DataInterface.getWind() + "  Temp: " + DataInterface.getForecastTemperature());
 
     }
-
 }
