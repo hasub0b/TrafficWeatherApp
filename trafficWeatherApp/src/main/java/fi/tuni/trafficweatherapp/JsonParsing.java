@@ -39,11 +39,11 @@ public class JsonParsing {
 
             // if message
             if (feature.has("announcements")){
-                String title = feature.get("announcements").getAsJsonArray().get(0).getAsJsonObject().get("title").toString();
-                String description = feature.get("announcements").getAsJsonArray().get(0).getAsJsonObject().get("location").getAsJsonObject().get("description").toString();
+                String title = feature.get("announcements").getAsJsonArray().get(0).getAsJsonObject().get("title").toString().replaceAll("\"","");
+                String description = feature.get("announcements").getAsJsonArray().get(0).getAsJsonObject().get("location").getAsJsonObject().get("description").toString().replaceAll("\"","");
                 String message = title + description;
                 String trimmedMessage = message.replaceAll("\\\\n"," ").replaceAll("\"","");
-                taskType = feature.get("situationType").toString();
+                taskType = feature.get("situationType").toString().replaceAll("\"","");
 
                 data.add(trimmedMessage);
                 isMessage = true;
