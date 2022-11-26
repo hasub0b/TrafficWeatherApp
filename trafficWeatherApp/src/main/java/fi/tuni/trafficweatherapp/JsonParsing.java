@@ -39,11 +39,11 @@ public class JsonParsing {
 
             // if message
             if (feature.has("announcements")){
-                String title = feature.get("announcements").getAsJsonArray().get(0).getAsJsonObject().get("title").toString();
-                String description = feature.get("announcements").getAsJsonArray().get(0).getAsJsonObject().get("location").getAsJsonObject().get("description").toString();
+                String title = feature.get("announcements").getAsJsonArray().get(0).getAsJsonObject().get("title").toString().replaceAll("\"","");
+                String description = feature.get("announcements").getAsJsonArray().get(0).getAsJsonObject().get("location").getAsJsonObject().get("description").toString().replaceAll("\"","");
                 String message = title + description;
                 String trimmedMessage = message.replaceAll("\\\\n"," ").replaceAll("\"","");
-                taskType = feature.get("situationType").toString();
+                taskType = feature.get("situationType").toString().replaceAll("\"","");
 
                 data.add(trimmedMessage);
                 isMessage = true;
@@ -51,7 +51,7 @@ public class JsonParsing {
 
             // if task
             if (feature.has("tasks")){
-                taskType = feature.get("tasks").getAsJsonArray().get(0).toString();
+                taskType = feature.get("tasks").getAsJsonArray().get(0).toString().replaceAll("\"","");
                 if (maintenanceMap.containsKey(taskType)){
                     int current = maintenanceMap.get(taskType);
                     maintenanceMap.put(taskType,current + 1);
@@ -117,7 +117,7 @@ public class JsonParsing {
 
         JsonArray tasks = obj.get("features").getAsJsonArray();
         for (JsonElement task:tasks) {
-            data.add(task.getAsJsonObject().get("id").toString());
+            data.add(task.getAsJsonObject().get("id").toString().replaceAll("\"",""));
         }
         DataInterface.setAllTaskTypes(data);
     }
