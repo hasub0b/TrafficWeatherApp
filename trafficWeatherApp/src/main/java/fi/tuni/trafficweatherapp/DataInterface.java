@@ -37,6 +37,31 @@ public final class DataInterface {
     private static Double rain;
     private static Double cloud;
 
+    // parameters for user selections
+    //GraphView
+    boolean observationSelected = false;
+    int selectedForecast = 0;
+    // WeatherMenuController
+    boolean windSelected = false;
+    boolean temperatureSelected = false;
+    boolean cloudSelected = false;
+    // TrafficMenu
+    boolean maintenanceSelected = false;
+    String selectedMaintenance = "";
+    boolean conditionSelected = false;
+    boolean announcementSelected = false;
+    boolean transportSelected = false;
+    boolean weightSelected = false;
+    boolean roadworkSelected = false;
+    boolean precipitationSelected = false;
+    boolean slipperinessSelected = false;
+    boolean overallConditionSelected = false;
+
+
+
+
+
+
     // Accessors
 
     // DigiTraffic
@@ -95,6 +120,53 @@ public final class DataInterface {
 
     public static List<String> getAllTaskTypes() {return allTaskTypes;}
     public static void setAllTaskTypes(List<String> allTaskTypes) {DataInterface.allTaskTypes = allTaskTypes;}
+
+
+    public boolean isObservationSelected() {return observationSelected;}
+    public void setObservationSelected(boolean observationSelected) {this.observationSelected = observationSelected;}
+
+    public int getSelectedForecast() {return selectedForecast;}
+    public void setSelectedForecast(int selectedForecast) {this.selectedForecast = selectedForecast;}
+
+    public boolean isWindSelected() {return windSelected;}
+    public void setWindSelected(boolean windSelected) {this.windSelected = windSelected;}
+
+    public boolean isTemperatureSelected() {return temperatureSelected;}
+    public void setTemperatureSelected(boolean temperatureSelected) {this.temperatureSelected = temperatureSelected;}
+
+    public boolean isCloudSelected() {return cloudSelected;}
+    public void setCloudSelected(boolean cloudSelected) {this.cloudSelected = cloudSelected;}
+
+    public boolean isMaintenanceSelected() {return maintenanceSelected;}
+    public void setMaintenanceSelected(boolean maintenanceSelected) {this.maintenanceSelected = maintenanceSelected;}
+
+    public String getSelectedMaintenance() {return selectedMaintenance;}
+    public void setSelectedMaintenance(String selectedMaintenance) {this.selectedMaintenance = selectedMaintenance;}
+
+    public boolean isConditionSelected() {return conditionSelected;}
+    public void setConditionSelected(boolean conditionSelected) {this.conditionSelected = conditionSelected;}
+
+    public boolean isAnnouncementSelected() {return announcementSelected;}
+    public void setAnnouncementSelected(boolean announcementSelected) {this.announcementSelected = announcementSelected;}
+
+    public boolean isTransportSelected() {return transportSelected;}
+    public void setTransportSelected(boolean transportSelected) {this.transportSelected = transportSelected;}
+
+    public boolean isWeightSelected() {return weightSelected;}
+    public void setWeightSelected(boolean weightSelected) {this.weightSelected = weightSelected;}
+
+    public boolean isRoadworkSelected() {return roadworkSelected;}
+    public void setRoadworkSelected(boolean roadworkSelected) {this.roadworkSelected = roadworkSelected;}
+
+    public boolean isPrecipitationSelected() {return precipitationSelected;}
+    public void setPrecipitationSelected(boolean precipitationSelected) {this.precipitationSelected = precipitationSelected;}
+
+    public boolean isSlipperinessSelected() {return slipperinessSelected;}
+    public void setSlipperinessSelected(boolean slipperinessSelected) {this.slipperinessSelected = slipperinessSelected;}
+
+    public boolean isOverallConditionSelected() {return overallConditionSelected;}
+    public void setOverallConditionSelected(boolean overallConditionSelected) {this.overallConditionSelected = overallConditionSelected;}
+
 
     // Get all values for testing
     public static String getAll() {
