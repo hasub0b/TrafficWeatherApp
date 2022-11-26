@@ -11,12 +11,9 @@ public final class DataInterface {
     //
     // Key Precipitation/OverallCondition/(WinterSlipperiness) and Value index 0,1,2,3,4 is Observation,2h,4h,6h,12h
     private static Map<String, List<String>> itemsOfInterest = new HashMap<>();
-    // maintenance list is replaced by maintenanceMap
-    private static List<String> maintenance = new ArrayList<String>();
+
     // Key maintenance type
     private static Map<String,Integer> maintenanceMap = new HashMap<>();
-    // messages list is replaced by messagesMap
-    private static List<String> messages = new ArrayList<String>();
     // Key "TRAFFIC_ANNOUNCEMENT", "EXEMPTED_TRANSPORT", "WEIGHT_RESTRICTION", "ROAD_WORK"
     private static Map<String, List<String>> messagesMap = new HashMap<>();
 
@@ -63,14 +60,6 @@ public final class DataInterface {
 
     // DigiTraffic
 
-    public static List<String> getMaintenance() {return maintenance;}
-    public static void setMaintenance(List<String> newMaintenance) {maintenance = newMaintenance;}
-    public static void addMaintenance(String newMaintenance) {maintenance.add(newMaintenance);}
-
-    public static List<String> getMessages() {return messages;}
-    public static void setMessages(List<String> newMessages) {messages = newMessages;}
-    public static void addMessage(String newMessage) {messages.add(newMessage);}
-
     public static Map<String, List<String>> getItemsOfInterest() {return itemsOfInterest;}
     public static void setItemsOfInterest(Map<String, List<String>> newItemsOfInterest) {itemsOfInterest = newItemsOfInterest;}
     public static void addItemOfInterest(String key, String value) {
@@ -83,6 +72,8 @@ public final class DataInterface {
 
     public static Map<String, Integer> getMaintenanceMap() {return maintenanceMap;}
     public static void setMaintenanceMap(Map<String, Integer> maintenanceMap) {DataInterface.maintenanceMap = maintenanceMap;}
+    public static void addMessageList(String key, List<String> value) {
+        messagesMap.put(key, value);}
 
     // FMI
 

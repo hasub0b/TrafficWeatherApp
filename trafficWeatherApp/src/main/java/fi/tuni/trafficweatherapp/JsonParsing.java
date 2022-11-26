@@ -1,15 +1,10 @@
 package fi.tuni.trafficweatherapp;
 
 import com.google.gson.*;
-import javafx.scene.chart.PieChart;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.*;
-import java.util.function.DoubleToIntFunction;
-
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.xml.sax.SAXException;
 
 
@@ -30,13 +25,12 @@ public class JsonParsing {
 
         JsonArray features = obj.getAsJsonArray("features");
         List<String> data = new ArrayList<>();
-        Map<String, List<String>> messageMap = new HashMap<>();
         Map<String, Integer> maintenanceMap = new HashMap<>();
         String taskType = "";
-        int total = 0;
 
         boolean isMessage = false;
         for (JsonElement element:features) {
+            int i = 0;
 
             element.getAsJsonObject().keySet().removeIf(k -> !k.equals("properties") && !k.equals("geometry"));
             JsonObject feature = element.getAsJsonObject().get("properties").getAsJsonObject();
@@ -49,13 +43,7 @@ public class JsonParsing {
                 String description = feature.get("announcements").getAsJsonArray().get(0).getAsJsonObject().get("location").getAsJsonObject().get("description").toString();
                 String message = title + description;
                 String trimmedMessage = message.replaceAll("\\\\n"," ").replaceAll("\"","");
-                String type = feature.get("situationType").toString();
-                if (messageMap.containsKey(type)){
-                    messageMap.get(type).add(trimmedMessage);
-                } else {
-                    messageMap.put(type, new ArrayList<>());
-                    messageMap.get(type).add(trimmedMessage);
-                }
+                taskType = feature.get("situationType").toString();
 
                 data.add(trimmedMessage);
                 isMessage = true;
@@ -109,24 +97,14 @@ public class JsonParsing {
         
                  
         if (isMessage){
-            DataInterface.setMessages(data);
-            DataInterface.setMessagesMap(messageMap);
+            if (!Objects.equals(taskType, "")){
+                DataInterface.addMessageList(taskType,data);
+            }
         } else {
             if (!Objects.equals(taskType, "")){
                 DataInterface.setMaintenanceMap(maintenanceMap);
-                DataInterface.setMaintenance(data);
-                System.out.println(DataInterface.getMaintenanceMap());
             }
         }
-
-        /*
-        for (String key : DataInterface.getMaintenanceMap().keySet()) {
-            System.out.println(key +" size: " +DataInterface.getMaintenanceMap().get(key).size());
-        }
-
-         */
-
-
 
     }
 
