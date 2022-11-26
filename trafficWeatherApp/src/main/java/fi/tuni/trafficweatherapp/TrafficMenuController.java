@@ -41,13 +41,11 @@ public class TrafficMenuController {
             getClass().getResource("maintenanceMenu.fxml"));
     @FXML
     FXMLLoader loaderConditionMenu = new FXMLLoader(
-            getClass().getResource("roadConditionForecastMenu.fxml"));
+            getClass().getResource("roadConditionMenu.fxml"));
     @FXML
     FXMLLoader loaderMessageMenu = new FXMLLoader(
             getClass().getResource("messagesMenu.fxml"));
-    @FXML
-    FXMLLoader loaderIoiMenu = new FXMLLoader(
-            getClass().getResource("itemsOfInterestMenu.fxml"));
+
 
     AnchorPane gridMaintenance;
     AnchorPane gridCondition;
@@ -62,12 +60,10 @@ public class TrafficMenuController {
             gridMaintenance = loaderMaintenanceMenu.load();
             gridCondition = loaderConditionMenu.load();
             gridMessage = loaderMessageMenu.load();
-            gridIoi = loaderIoiMenu.load();
 
             MaintenanceMenuController mmController = loaderMaintenanceMenu.getController();
-            RoadConditionForecastController rcController = loaderConditionMenu.getController();
+            RoadConditionController rcController = loaderConditionMenu.getController();
             MessagesMenuController msgController = loaderMessageMenu.getController();
-            itemsOfInterestMenuController ioiController = loaderIoiMenu.getController();
 
             childAnchorPane.addEventHandler(ActionEvent.ACTION, event -> {
 
@@ -79,9 +75,6 @@ public class TrafficMenuController {
 
                 System.out.println("Messages Selected:\n" + "Announcement: " + msgController.isAnnouncement() + " / Transport: " + msgController.isTransport()
                         + " / Weight res: " + msgController.isWeightRes() + " / Road Work: " + msgController.isRoadWork());
-
-                System.out.println("Selected Items of Interest:\n" + "Precipitation: " + ioiController.isPrecipitation() + " / Slipperiness: " + ioiController.isSlipperiness()
-                        + " / Condition: " + ioiController.isCondition());
 
                 System.out.println("------------------------------------------------------");
 
@@ -112,11 +105,6 @@ public class TrafficMenuController {
             case "Messages":
                 childAnchorPane.getChildren().clear();
                 childAnchorPane.getChildren().addAll(gridMessage);
-                toggle.setSelected(false);
-                break;
-            case "Items of interest (forecast)":
-                childAnchorPane.getChildren().clear();
-                childAnchorPane.getChildren().addAll(gridIoi);
                 toggle.setSelected(false);
                 break;
         }
