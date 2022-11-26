@@ -40,7 +40,7 @@ public final class DataInterface {
     // parameters for user selections
     //GraphView
     static boolean observationSelected = false;
-    static int selectedForecast = 0;
+    static String selectedForecast = "";
     // WeatherMenuController
     static boolean windSelected = false;
     static boolean temperatureSelected = false;
@@ -124,8 +124,8 @@ public final class DataInterface {
     public static boolean isObservationSelected() {return observationSelected;}
     public static void setObservationSelected(boolean selectedd) {observationSelected = selectedd;}
 
-    public static int getSelectedForecast() {return selectedForecast;}
-    public static void setSelectedForecast(int selected) {selectedForecast = selected;}
+    public static String getSelectedForecast() {return selectedForecast;}
+    public static void setSelectedForecast(String selected) {selectedForecast = selected;}
 
     public static boolean isWindSelected() {return windSelected;}
     public static void setWindSelected(boolean selected) {windSelected = selected;}

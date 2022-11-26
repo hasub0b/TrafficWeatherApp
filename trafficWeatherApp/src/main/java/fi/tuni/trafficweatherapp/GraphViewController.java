@@ -145,16 +145,19 @@ public class GraphViewController {
             button4h.setDisable(false);
             button6h.setDisable(false);
             button12h.setDisable(false);
+            DataInterface.setObservationSelected(false);
         } else {
             button2h.setDisable(true);
             button4h.setDisable(true);
             button6h.setDisable(true);
             button12h.setDisable(true);
+            DataInterface.setObservationSelected(true);
         }
     }
 
     private void forecastRadioButtonEvent(ActionEvent event) {
         System.out.println(getForecastStatus());
+        DataInterface.setSelectedForecast(getForecastStatus());
     }
 
     /**
