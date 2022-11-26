@@ -71,7 +71,9 @@ public class TrafficMenuController {
 
                 System.out.println("Selected Maintenance: " + mmController.getSelectedTask());
 
-                System.out.println("Road Condition Selected: " + rcController.getRoadConditionSelected());
+                System.out.println("Road Conditions:\nOverall condition: " + DataInterface.isOverallConditionSelected() +
+                        " Precipitation: " + DataInterface.isPrecipitationSelected() +" Slipperiness: " + DataInterface.isSlipperinessSelected());
+
 
                 System.out.println("Messages Selected:\n" + "Announcement: " + msgController.isAnnouncement() + " / Transport: " + msgController.isTransport()
                         + " / Weight res: " + msgController.isWeightRes() + " / Road Work: " + msgController.isRoadWork());
