@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.trafficweatherapp.SettingsController">
+<AnchorPane fx:id="settingsAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fi.tuni.trafficweatherapp.SettingsController">
    <children>
       <AnchorPane fx:id="anchorSaveParameters" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="20.0">
          <children>
@@ -22,7 +20,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="buttonPreferencesSave" layoutX="114.0" layoutY="76.0" mnemonicParsing="false" text="Save" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
+            <Button fx:id="buttonPreferencesSave" layoutX="114.0" layoutY="76.0" mnemonicParsing="false" onAction="#savePreference" text="Save" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
             <Button fx:id="buttonPreferencesLoad" layoutX="100.0" layoutY="136.0" mnemonicParsing="false" text="Load" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="135.0" />
             <ComboBox fx:id="comboBoxPreferences" layoutX="90.0" layoutY="162.0" prefHeight="25.0" prefWidth="91.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="165.0" />
             <Label fx:id="labelPreferences" alignment="CENTER" layoutX="78.0" layoutY="25.0" prefHeight="20.0" prefWidth="110.0" text="Preferences" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0">

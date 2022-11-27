@@ -7,6 +7,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,89 +18,84 @@ public class PreferenceSaver {
 
     private static final String DEFAULT_PATH = "saveddata/preferences/";
 
-    public void save( GraphViewController gc) throws IOException {
+    public void save() throws IOException {
         Map<String, Object> map = new HashMap<>();
-        SideMenuTitleBoxesController sc = gc.loaderSideMenuTitleBoxes.getController();
-        WeatherMenuController wc = sc.loaderWeatherMenu.getController();
-        CoordinatesMenuController cc = sc.loaderCoordinatesMenu.getController();
-        TrafficMenuController tc = sc.loaderTrafficMenu.getController();
+
 
         // First get forecast/observation parameter from GraphViewController
-        // put it to {"timeline", 0/2/6/12}, where value 0 == observation
-        if (gc.buttonObservation != null) {
-            //observationPressed = gc.buttonObservation.isPressed();
-            map.put("timeline",0);
+        // put it to {"timeline", 0h/2h/4h/6h/12h}, where value 0 == observation
+        if (DataInterface.isObservationSelected()){
+            map.put("timeline","0h");
         }
         else {
-            if(gc.button2h.isPressed()){
-                map.put("timeline",2);
-            }
-            if(gc.button4h.isPressed()){
-                map.put("timeline",4);
-            }
-            if(gc.button6h.isPressed()){
-                map.put("timeline",6);
-            }
-            if(gc.button12h.isPressed()){
-                map.put("timeline",12);
-            }
+            map.put("timeline",DataInterface.getSelectedForecast());
         }
 
         // Get parameters from WeatherMenuController
         // {"parameter", false/true}
-        map.put("temperature", wc.getTemp());
-        map.put("wind", wc.getWind());
-        map.put("cloud", wc.getCloud());
+        map.put("temperature", DataInterface.isTemperatureSelected());
+        map.put("wind", DataInterface.isWindSelected());
+        map.put("cloud", DataInterface.isCloudSelected());
 
         // Get parameters from CoordinatesMenuController
-        map.put("coordinates", cc.getCoordinates());
+        // map.put("coordinates", cc.getCoordinates());
 
         // Get parameters from TrafficMenuController
-
         // Maintenance
-        MaintenanceMenuController mmController = tc.loaderMaintenanceMenu.getController();
-        map.put("maintenance",mmController.getSelectedTask());
-        // Road condition
-        RoadConditionForecastController rcController = tc.loaderConditionMenu.getController();
-        map.put("condition", rcController.getRoadConditionSelected());
+        map.put("showMaintenance",DataInterface.isMaintenanceSelected());
+        map.put("maintenance",DataInterface.getSelectedMaintenance());
         // Messages
-        MessagesMenuController msgController = tc.loaderMessageMenu.getController();
-        map.put("announcement", msgController.isAnnouncement());
-        map.put("transport", msgController.isTransport());
-        map.put("weight",msgController.isWeightRes());
-        map.put("roadwork",msgController.isRoadWork());
+        map.put("announcement", DataInterface.isAnnouncementSelected());
+        map.put("transport", DataInterface.isTransportSelected());
+        map.put("weight",DataInterface.isWeightSelected());
+        map.put("roadwork",DataInterface.isRoadworkSelected());
         // Items of interest
-        itemsOfInterestMenuController ioiController = tc.loaderIoiMenu.getController();
-        map.put("precipitation", ioiController.isPrecipitation());
-        map.put("slipperiness", ioiController.isSlipperiness());
-        map.put("overallCondition", ioiController.isCondition());
+        map.put("precipitation", DataInterface.isPrecipitationSelected());
+        map.put("slipperiness", DataInterface.isSlipperinessSelected());
+        map.put("overallCondition", DataInterface.isOverallConditionSelected());
 
 
+
+        /*
 
         // Get path and write to that location
         Path dir = Paths.get(DEFAULT_PATH);
-        Path studentFile = dir.resolve("pref1" + ".json");
+        Path file = dir.resolve("pref1" + ".json");
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .serializeNulls()
                 .create();
 
-        try ( BufferedWriter bw = Files.newBufferedWriter(studentFile)) {
+        try ( BufferedWriter bw = Files.newBufferedWriter(dir)) {
             gson.toJson(map, bw);
         }
 
-        /*
+        */
+
+        int prefNumber = 1;
+        Path dir = Paths.get("trafficWeatherApp/savedData/preferences/");
+        try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+            for (Path path : stream) {
+                prefNumber +=1;
+            }
+        }
+
+        String filename = String.format("Pref%d",prefNumber);
 
         // create a writer
-        Writer writer = new FileWriter("preferences.json");
+        Writer writer = new FileWriter("trafficWeatherApp/savedData/preferences/" + filename + ".json");
 
         // convert map to JSON File
-        new Gson().toJson(map, writer);
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .serializeNulls()
+                .create();
+        gson.toJson(map, writer);
 
         // close the writer
         writer.close();
 
-        */
+
 
     }
 }
