@@ -108,4 +108,8 @@ public class PrimaryController {
         anchorGraphView.prefHeightProperty().bind(anchorContentArea.heightProperty().subtract(60));
         anchorSettings.prefHeightProperty().bind(anchorContentArea.heightProperty().subtract(60));
     }
+
+    public FXMLLoader getLoaderGraphView(){
+        return loaderGraphView;
+    }
 }

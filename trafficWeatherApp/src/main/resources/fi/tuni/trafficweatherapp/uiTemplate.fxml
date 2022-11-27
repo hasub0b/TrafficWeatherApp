@@ -58,4 +58,8 @@
             </children>
         </AnchorPane>
     </children>
+    <userData>
+        <fx:reference source="controller" />
+    </userData>
+
 </VBox>

@@ -7,6 +7,7 @@ package fi.tuni.trafficweatherapp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -62,7 +63,7 @@ public class SettingsController {
 
         // save to json
         PreferenceSaver preferenceSaver = new PreferenceSaver();
-        //preferenceSaver.save();
+        preferenceSaver.save();
 
         // update combobox
         updatePreferenceBox();
@@ -80,5 +81,10 @@ public class SettingsController {
         } catch (IOException e){
             System.out.println("ERROR WHILE UPDATING PREFERENCES");
         }
+    }
+
+    public void loadPreferences(ActionEvent actionEvent) throws IOException {
+        PreferenceLoader preferenceLoader = new PreferenceLoader();
+        preferenceLoader.load("comboBoxPreferences.getValue().toString()",settingsAnchor.getScene().getRoot());
     }
 }
