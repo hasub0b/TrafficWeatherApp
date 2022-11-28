@@ -14,6 +14,11 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Save user selections to Json file
+ *
+ * @author Aleksi
+ */
 public class PreferenceSaver {
 
     private static final String DEFAULT_PATH = "saveddata/preferences/";
