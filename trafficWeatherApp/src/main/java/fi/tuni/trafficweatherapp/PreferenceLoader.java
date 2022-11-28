@@ -15,14 +15,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-/**
- * Load saved user selections from json file
- *
- * @author Aleksi
- */
 public class PreferenceLoader {
 
-    public void load(String filename, Node node) throws IOException {
+    public void load(String filename, Node node){
 
         Path dir = Paths.get("trafficWeatherApp/savedData/preferences/");
         String file = "";
@@ -32,11 +27,13 @@ public class PreferenceLoader {
                     file = path.toString();
                 }
             }
-            if (file == ""){
+            if (file.equals("")){
                 System.out.println("FILE NOT FOUND");
             }
             JsonObject jsonObject = convertFileToJSON(file);
             loadToGraphview(jsonObject,node);
+        }catch (IOException e){
+            System.out.println("PATH NOT FOUND");
         }
     }
 
@@ -60,9 +57,10 @@ public class PreferenceLoader {
         RoadConditionController rc = tc.loaderConditionMenu.getController();
 
         // Set values from JsonObject
+
+        // GraphView
+        // timeline
         try{
-            // GraphView
-            // timeline
             String timeline = jsonObject.get("timeline").toString().replaceAll("\"","");
             if (Objects.equals(timeline, "observation")){
                 gc.buttonForecast.setSelected(false);
@@ -150,6 +148,7 @@ public class PreferenceLoader {
         } catch (IOException e) {
             System.out.println("ERROR WHILE CONVERTING");
         }
+
 
         return jsonObject;
     }

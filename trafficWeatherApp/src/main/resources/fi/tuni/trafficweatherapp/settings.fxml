@@ -43,8 +43,8 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="buttonDatasetSave" layoutX="114.0" layoutY="76.0" mnemonicParsing="false" text="Save" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
-            <Button fx:id="buttonDatasetLoad" layoutX="100.0" layoutY="136.0" mnemonicParsing="false" text="Load" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="135.0" />
+            <Button fx:id="buttonDatasetSave" layoutX="114.0" layoutY="76.0" mnemonicParsing="false" onAction="#saveData" text="Save" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
+            <Button fx:id="buttonDatasetLoad" layoutX="100.0" layoutY="136.0" mnemonicParsing="false" onAction="#loadData" text="Load" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="135.0" />
             <ComboBox fx:id="comboBoxDataset" layoutX="90.0" layoutY="162.0" prefHeight="25.0" prefWidth="91.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="165.0" />
             <Label fx:id="labelDatasets" alignment="CENTER" layoutX="78.0" layoutY="25.0" prefHeight="20.0" prefWidth="110.0" text="Datasets" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0">
                <font>
