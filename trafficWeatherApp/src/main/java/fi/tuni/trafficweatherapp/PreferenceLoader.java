@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public class PreferenceLoader {
 
-    public void load(String filename, Node node) throws IOException {
+    public void load(String filename, Node node){
 
         Path dir = Paths.get("trafficWeatherApp/savedData/preferences/");
         String file = "";
@@ -27,19 +27,17 @@ public class PreferenceLoader {
                     file = path.toString();
                 }
             }
-            if (file == ""){
+            if (file.equals("")){
                 System.out.println("FILE NOT FOUND");
             }
             JsonObject jsonObject = convertFileToJSON(file);
             loadToGraphview(jsonObject,node);
-
+        }catch (IOException e){
+            System.out.println("PATH NOT FOUND");
         }
-
     }
 
-
     private void loadToGraphview(JsonObject jsonObject, Node node){
-        // TODO: add values to corresponding controllersAd
         Object controller = null;
         do {
             controller = node.getUserData();
