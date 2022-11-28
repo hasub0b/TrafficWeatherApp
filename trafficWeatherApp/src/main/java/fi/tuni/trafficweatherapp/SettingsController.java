@@ -85,6 +85,9 @@ public class SettingsController {
 
     public void loadPreferences(ActionEvent actionEvent) throws IOException {
         PreferenceLoader preferenceLoader = new PreferenceLoader();
-        preferenceLoader.load("comboBoxPreferences.getValue().toString()",settingsAnchor.getScene().getRoot());
+        if (!comboBoxPreferences.getSelectionModel().isEmpty()){
+            preferenceLoader.load(comboBoxPreferences.getValue().toString(),settingsAnchor.getScene().getRoot());
+        }
+
     }
 }

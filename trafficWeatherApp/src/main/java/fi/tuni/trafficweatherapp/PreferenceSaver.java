@@ -23,13 +23,16 @@ public class PreferenceSaver {
 
 
         // First get forecast/observation parameter from GraphViewController
-        // put it to {"timeline", 0h/2h/4h/6h/12h}, where value 0 == observation
+        // put it to {"timeline", 2h/4h/6h/12h}, where value 0 == observation
         if (DataInterface.isObservationSelected()){
-            map.put("timeline","0h");
+            map.put("timeline","observation");
         }
         else {
-            map.put("timeline",DataInterface.getSelectedForecast());
+            map.put("timeline","forecast");
         }
+
+        // forecast hour
+        map.put("forecastH",DataInterface.getSelectedForecast());
 
         // Get parameters from WeatherMenuController
         // {"parameter", false/true}

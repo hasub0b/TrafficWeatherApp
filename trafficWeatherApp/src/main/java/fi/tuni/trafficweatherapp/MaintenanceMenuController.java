@@ -53,5 +53,8 @@ public class MaintenanceMenuController implements Initializable {
     public void setSelectedTask(String selectedTask) {this.selectedTask = selectedTask;}
 
     public boolean isShow() {return show;}
-    public void setShow(boolean show) {this.show = show;}
+    public void setShow(boolean show) {
+        this.show = show;
+        checkBoxShowMaintenance.setSelected(show);
+    }
 }
