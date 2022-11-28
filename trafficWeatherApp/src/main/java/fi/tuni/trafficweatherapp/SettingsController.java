@@ -57,6 +57,7 @@ public class SettingsController {
         labelPreferences.getStyleClass().add("outlineTitle");
 
         updatePreferenceBox();
+        updateDatasetBox();
     }
 
     public void savePreference(ActionEvent actionEvent) throws IOException {
@@ -115,9 +116,11 @@ public class SettingsController {
     }
 
     public void loadData(ActionEvent actionEvent) {
+        System.out.println(DataInterface.getMaintenanceMap());
         DataLoader dataLoader = new DataLoader();
         if (!comboBoxDataset.getSelectionModel().isEmpty()){
             dataLoader.load(comboBoxDataset.getValue().toString());
         }
+        System.out.println(DataInterface.getMaintenanceMap());
     }
 }

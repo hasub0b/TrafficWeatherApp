@@ -18,10 +18,12 @@ public class DataLoader {
 
     public void load(String filename) {
 
-        Path dir = Paths.get("trafficWeatherApp/savedData/preferences/");
+        Path dir = Paths.get("trafficWeatherApp/savedData/datasets/");
         String file = "";
         try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
             for (Path path : stream) {
+                System.out.println(filename);
+                System.out.println(path.toString());
                 if(Objects.equals(filename, path.getFileName().toString())){
                     file = path.toString();
                 }
@@ -55,13 +57,13 @@ public class DataLoader {
             HashMap<String, Integer> maintenances = new Gson().fromJson(jsonObject.get("MaintenanceMap").getAsJsonObject(), HashMap.class);
             DataInterface.setMaintenanceMap(maintenances);
 
-            List<Float> forecastTemp = new Gson().fromJson(jsonObject.get("ForecastTemp").getAsJsonObject(), List.class);
+            List<Float> forecastTemp = new Gson().fromJson(jsonObject.get("ForecastTemp").getAsJsonArray(), List.class);
             DataInterface.setForecastTemperature(forecastTemp);
 
-            List<Float> forecastWind = new Gson().fromJson(jsonObject.get("ForecastWind").getAsJsonObject(), List.class);
+            List<Float> forecastWind = new Gson().fromJson(jsonObject.get("ForecastWind").getAsJsonArray(), List.class);
             DataInterface.setForecastWind(forecastWind);
 
-            List<Float> forecastRain = new Gson().fromJson(jsonObject.get("ForecastRain").getAsJsonObject(), List.class);
+            List<Float> forecastRain = new Gson().fromJson(jsonObject.get("ForecastRain").getAsJsonArray(), List.class);
             DataInterface.setForecastWind(forecastRain);
 
             DataInterface.setTemperature(jsonObject.get("Temp").getAsDouble());
@@ -71,6 +73,7 @@ public class DataLoader {
 
 
         }catch (Exception e){
+            System.out.println(e);
             System.out.println("JSON FILE DOESN'T HAVE CORRECT FORMATTING");
         }
 
