@@ -65,7 +65,7 @@ public class SettingsController {
         PreferenceSaver preferenceSaver = new PreferenceSaver();
         preferenceSaver.save();
 
-        // update combobox
+        // update comboBox
         updatePreferenceBox();
 
     }
@@ -83,7 +83,20 @@ public class SettingsController {
         }
     }
 
-    public void loadPreferences(ActionEvent actionEvent) throws IOException {
+    private void updateDatasetBox(){
+        comboBoxDataset.getItems().clear();
+        Path dir = Paths.get("trafficWeatherApp/savedData/datasets/");
+        try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+            for (Path path : stream) {
+                comboBoxDataset.getItems().add(path.getFileName().toString());
+            }
+            comboBoxDataset.getSelectionModel().selectFirst();
+        } catch (IOException e){
+            System.out.println("ERROR WHILE UPDATING PREFERENCES");
+        }
+    }
+
+    public void loadPreferences(ActionEvent actionEvent){
         PreferenceLoader preferenceLoader = new PreferenceLoader();
         if (!comboBoxPreferences.getSelectionModel().isEmpty()){
             preferenceLoader.load(comboBoxPreferences.getValue().toString(),settingsAnchor.getScene().getRoot());
@@ -92,7 +105,19 @@ public class SettingsController {
     }
 
     public void saveData(ActionEvent actionEvent) {
+
+        // Save to Json
         DataSaver dataSaver = new DataSaver();
         dataSaver.save();
+
+        // update comboBox
+        updateDatasetBox();
+    }
+
+    public void loadData(ActionEvent actionEvent) {
+        DataLoader dataLoader = new DataLoader();
+        if (!comboBoxDataset.getSelectionModel().isEmpty()){
+            dataLoader.load(comboBoxDataset.getValue().toString());
+        }
     }
 }
