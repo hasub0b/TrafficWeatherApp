@@ -1,9 +1,6 @@
 package fi.tuni.trafficweatherapp;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -66,11 +63,26 @@ public class DataLoader {
             List<Float> forecastRain = new Gson().fromJson(jsonObject.get("ForecastRain").getAsJsonArray(), List.class);
             DataInterface.setForecastWind(forecastRain);
 
-            DataInterface.setTemperature(jsonObject.get("Temp").getAsDouble());
-            DataInterface.setWind(jsonObject.get("Wind").toString());
-            DataInterface.setRain(jsonObject.get("Rain").getAsDouble());
-            DataInterface.setCloud(jsonObject.get("Cloud").getAsDouble());
-
+            if (jsonObject.get("Temp").toString().replaceAll("\"", "").equals("null")){
+                DataInterface.setTemperature(null);
+            } else {
+                DataInterface.setTemperature(jsonObject.get("Temp").getAsDouble());
+            }
+            if (jsonObject.get("Wind").toString().replaceAll("\"", "").equals("null")){
+                DataInterface.setWind(null);
+            } else {
+                DataInterface.setWind(jsonObject.get("Wind").toString());
+            }
+            if (jsonObject.get("Rain").toString().replaceAll("\"", "").equals("null")){
+                DataInterface.setRain(null);
+            } else {
+                DataInterface.setRain(jsonObject.get("Rain").getAsDouble());
+            }
+            if (jsonObject.get("Cloud").toString().replaceAll("\"", "").equals("null")){
+                DataInterface.setCloud(null);
+            } else {
+                DataInterface.setCloud(jsonObject.get("Cloud").getAsDouble());
+            }
 
         }catch (Exception e){
             System.out.println(e);

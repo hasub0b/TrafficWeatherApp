@@ -6,22 +6,16 @@ package fi.tuni.trafficweatherapp;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static javafx.fxml.FXMLLoader.load;
 
 /**
  *
@@ -116,11 +110,9 @@ public class SettingsController {
     }
 
     public void loadData(ActionEvent actionEvent) {
-        System.out.println(DataInterface.getMaintenanceMap());
         DataLoader dataLoader = new DataLoader();
         if (!comboBoxDataset.getSelectionModel().isEmpty()){
             dataLoader.load(comboBoxDataset.getValue().toString());
         }
-        System.out.println(DataInterface.getMaintenanceMap());
     }
 }
