@@ -90,4 +90,9 @@ public class SettingsController {
         }
 
     }
+
+    public void saveData(ActionEvent actionEvent) {
+        DataSaver dataSaver = new DataSaver();
+        dataSaver.save();
+    }
 }
