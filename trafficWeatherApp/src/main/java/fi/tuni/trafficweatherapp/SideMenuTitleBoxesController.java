@@ -13,8 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 /**
- *
- * @author mikko
+ * Controller for the sidemenu fxml javafx elements.
+ * @author Mikko Moisio
  */
 public class SideMenuTitleBoxesController {
 
@@ -46,6 +46,9 @@ public class SideMenuTitleBoxesController {
     AnchorPane anchorTrafficMenu;
     AnchorPane anchorWeatherMenu;
 
+    /**
+     * 
+     */
     public void initialize() {
         try {
             anchorCoordinatesMenu = loaderCoordinatesMenu.load();

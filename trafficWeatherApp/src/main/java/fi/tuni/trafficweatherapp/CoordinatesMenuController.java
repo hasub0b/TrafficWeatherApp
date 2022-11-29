@@ -17,7 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
 /**
- *
+ * Controller for the coordinates menu fxml javafx elements.
  * @author Mikko Moisio
  */
 public class CoordinatesMenuController {
@@ -65,7 +65,7 @@ public class CoordinatesMenuController {
     ContextMenu menuErrorMessage = new ContextMenu();
 
     /**
-     * Initializes coordinates menu elements.
+     * Initializes coordinates menu's elements.
      */
     public void initialize(){
 

@@ -10,7 +10,7 @@ import javafx.scene.chart.XYChart;
  */
 /**
  *
- * @author mikko
+ * @author Mikko Moisio
  */
 public class PlotDrawer {
 

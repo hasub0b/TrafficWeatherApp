@@ -18,8 +18,7 @@ import java.nio.file.Paths;
 
 
 /**
- *
- * @author mikko
+ * Controller for the settings view fxml javafx elements.
  */
 public class SettingsController {
 
@@ -42,7 +41,9 @@ public class SettingsController {
     @FXML
     ComboBox comboBoxDataset;
 
-
+    /**
+     * Initializes settings view's elements.
+     */
     @FXML
     public void initialize() {
         labelDatasets.getStyleClass().add("title");

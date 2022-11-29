@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
 /**
- *
+ * Controller for the main view fxml javafx elements.
  * @author Mikko Moisio
  */
 public class MainViewController {
@@ -53,6 +53,9 @@ public class MainViewController {
     AnchorPane anchorSettings = new AnchorPane();
 
     @FXML
+    /**
+     * Initializes main view's elements.
+     */
     public void initialize() {
         ToggleGroup groupMenu = new ToggleGroup();
        
