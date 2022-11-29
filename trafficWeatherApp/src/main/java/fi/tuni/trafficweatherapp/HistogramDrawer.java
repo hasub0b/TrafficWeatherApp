@@ -70,8 +70,7 @@ public class HistogramDrawer {
                     node.getChildren().clear();
                     HBox hbox = new HBox(5, windPic, windText);
                     hbox.setAlignment(Pos.TOP_CENTER);
-                    node.getChildren().add(hbox);
-                    node.getChildren().add(cloudImage);
+                    node.getChildren().addAll(hbox, cloudImage);
                 });
             });
         }
