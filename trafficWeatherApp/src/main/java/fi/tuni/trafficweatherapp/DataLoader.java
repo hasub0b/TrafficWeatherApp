@@ -55,6 +55,9 @@ public class DataLoader {
         // Set values from JsonObject
         try{
 
+            HashMap<String, Integer> averages = new Gson().fromJson(jsonObject.get("Average").getAsJsonObject(), HashMap.class);
+            DataInterface.setMaintenanceMapAverage(averages);
+
             HashMap<String, List<String>> itemsOfInterest = new Gson().fromJson(jsonObject.get("ItemsOfInterest").getAsJsonObject(), HashMap.class);
             DataInterface.setItemsOfInterest(itemsOfInterest);
 

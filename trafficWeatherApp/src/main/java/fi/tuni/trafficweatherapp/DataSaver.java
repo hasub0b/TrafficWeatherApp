@@ -34,6 +34,7 @@ public class DataSaver {
         map.put("ForecastRain",DataInterface.getForecastRain());
         map.put("Rain",DataInterface.getRain());
         map.put("Cloud",DataInterface.getCloud());
+        map.put("Average",DataInterface.getMaintenanceMapAverage());
 
         int dataNumber = 1;
         Path dir = Paths.get("trafficWeatherApp/savedData/datasets/");
