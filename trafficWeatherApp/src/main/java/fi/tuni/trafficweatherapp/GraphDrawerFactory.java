@@ -15,109 +15,19 @@ import javafx.scene.control.TextArea;
  */
 public class GraphDrawerFactory {
     
-    
-    // Can be called for refactoring
-    // Is called upon, when user input is given or changed
-    public void update() throws Exception {
-        try {
-            // Prepare objects for checking user input booleans (from controllers)
-            WeatherMenuController weatherController = new WeatherMenuController();
-            CoordinatesMenuController coordinatesController = new CoordinatesMenuController();
-            TrafficMenuController trafficController = new TrafficMenuController();
-            DataInterface data = new DataInterface();
-            
-            //System.out.println("After(1): " + data.getTempPressed());
-            //System.out.println("Set coordinate right after(1): " + coordinatesController.getCoordinates()[0]);
-
-
-            // Some booleans moved from WeatherMenu to GraphViewController
-            // Get Forecast / Observation boolean from here
-            GraphViewController viewController = new GraphViewController();
-            //boolean twoPressed = viewController.button2h.isPressed();
-            //boolean fourPressed = viewController.button4h.isPressed();
-            //boolean sixPressed = viewController.button6h.isPressed();
-            //boolean twelvePressed = viewController.button12h.isPressed();
-            
-            boolean forecastPressed = false;
-            boolean observationPressed = false;
-            if (viewController.buttonForecast != null) {
-                forecastPressed = viewController.buttonForecast.isPressed();
-            }
-            if (viewController.buttonObservation != null) {
-                observationPressed = viewController.buttonObservation.isPressed();
-            }
-
-            System.out.println("updating");
-            // -! for testing purposes !-
-            forecastPressed = true;
-            
-            if (forecastPressed == false 
-                    && observationPressed == false) {
-                System.out.println("Values of both observation and " +
-                        "forecast are either false or null.");
-            }
-            
-            
-            // Redraw diagrams
-            createPlot();
-            createHistogram();
-            
-            /*
-            if (forecastPressed == true 
-                    && observationPressed == false) {
-                    // Redraw plot
-                
-                createPlot();
-                    // Redraw ...
-                createHistogram();
-                    // Redraw ...
-                }
-                // If observation boolean is active
-            else if (forecastPressed == false 
-                        && observationPressed == true) {
-                    // Redraw plot
-                createPlot();
-                    
-                    // Redraw ...
-                createHistogram();  
-                    // Redraw ...
-            }
-            else {
-                System.out.println("Update(): No unique boolean value.");
-            }
-            if (forecastPressed == false 
-                    && observationPressed == false) {
-                System.out.println("Values of both observation and " +
-                        "forecast are either false or null.");
-            }
-
-            //createPlot();
-            */
-            
-            // CALL GraphViewController's initialize() -method 
-            // to account the updated createPlot() value
-            viewController.initialize();
-        }
-        catch (Error e) {
-            System.out.println("Error @ Update(): \n" + e);
-        }
-    }
-    
     public boolean isForecast() {
-        GraphViewController viewController = new GraphViewController();
+        DataInterface data = new DataInterface();
         boolean forecastPressed = false;
-        if (viewController.buttonForecast != null 
-                && viewController.buttonForecast.isPressed() == true) {
+        if (!(data.isObservationSelected()) == true) {
             forecastPressed = true;
         }
         return forecastPressed;
     }
     
     public boolean isObservation() {
-        GraphViewController viewController = new GraphViewController();
+        DataInterface data = new DataInterface();
         boolean observationPressed = false;
-        if (viewController.buttonObservation != null 
-                && viewController.buttonObservation.isPressed() == true) {
+        if (data.isObservationSelected() == true) {
             observationPressed = true;
         }
         return observationPressed;
@@ -183,92 +93,6 @@ public class GraphDrawerFactory {
         
         
     }
-/*
-    public void fetchTrafficData() {
-        try {
-            // Get co-ordinates data
-            // * x1, x2, y1, y2
-            CoordinatesMenuController coordinatesController = new CoordinatesMenuController();
-            Double[] coordinates = coordinatesController.getCoordinates();
-            String type = null;
-            // Test coordinates
-            //Double[] coordinates = new Double[]{23.755090615, 23.791861827, 61.491086559, 61.509263332};
-            Double x1, x2, y1, y2, x1x2, y1y2;
-            x1 = coordinates[0];
-            x2 = coordinates[1];
-            y1 = coordinates[2];
-            y2 = coordinates[3];
-            String starttime, endtime, taskname;
-            starttime = "";
-            endtime = "";
-            taskname = "";
-            
-            RoadDataApiFetcher.getRoadConditions(x1.toString(), 
-                    y1.toString(), x2.toString(), y2.toString());
-            
-            // api --> parser
-            // getRoadConditions() --> parseRoadConditions()
-            JsonObject roadData = RoadDataApiFetcher.getRoadConditions(x1.toString(), 
-                    y1.toString(), x2.toString(), y2.toString());
-            // getRoadMaintenanceData() --> parseTasks()
-            JsonObject maintenanceData = RoadDataApiFetcher.getRoadMaintenanceData(starttime, endtime, x1.toString(), 
-                    y1.toString(), x2.toString(), y2.toString(), taskname);
-            // getLatestTrafficMessages() --> parseTrafficData()
-            // type: TRAFFIC_ANNOUNCEMENT, EXEMPTED_TRANSPORT, WEIGHT_RESTRICTION or ROAD_WORK.
-            JsonObject trafficMessages = RoadDataApiFetcher.getLatestTrafficMessages(type);
-           
-            
-        }
-        catch (Exception e) {
-            System.out.println("fetchTrafficData() Error: " + e);
-        }
-    }
-    
-    public void fetchWeatherData(String type) throws Exception {
-        
-        try {
-            // Get co-ordinates data
-            // * x1, x2, y1, y2
-            CoordinatesMenuController coordinatesController = new CoordinatesMenuController();
-            WeatherMenuController weatherController = new WeatherMenuController();
-            System.out.println("Check for Weather Boolean Temp: " + weatherController.getTemp());
-            Double[] coordinates = coordinatesController.getCoordinates();
-            System.out.println("fetchWatherdata(): coordinates: " + coordinates);
-            // Test coordinates
-            //Double[] coordinates = new Double[]{23.755090615, 23.791861827, 61.491086559, 61.509263332};
-            Double x1, x2, y1, y2, x1x2, y1y2;
-            x1 = coordinates[0];
-            x2 = coordinates[1];
-            y1 = coordinates[2];
-            y2 = coordinates[3];
-            x1x2 = (x1 + x2) / 2;
-            y1y2 = (y1 + y2) / 2;
-        
-            System.out.println("enpasse");
-            
-            // Forecast
-            if (type == "forecast") {
-                JSONObject results = WeatherDataApiFetcher.getForecastData(x1x2.toString(), 
-                        y1y2.toString(), "30");
-                JsonParsing.parseXml(results);
-                System.out.println("forecasting");
-            }
-            // Observation
-            else if (type == "observation") {
-                JSONObject results = 
-                        WeatherDataApiFetcher.getObservationData(x1.toString(), 
-                                x2.toString(), y1.toString(),
-                                y2.toString(), "30");
-                JsonParsing.parseXml(results);
-                System.out.println("observing");
-            }
-        }
-            catch(Exception e)
-        {
-            System.out.println("fetchWeatherData() Error: " + e);
-        }
-    }
-  */  
 
     public static Double[] listFloatToDoubleArray(List<Float> input) {
         if (input == null) {
