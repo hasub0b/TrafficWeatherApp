@@ -213,6 +213,7 @@ public class GraphDrawerFactory {
             List<Float> forecastWind = null;
             List<Float> forecastRain = null;
             //int timeInterval = 30;
+            HistogramDrawer hd = null;
             
             
             if (DataInterface.isObservationSelected()) {
@@ -244,8 +245,7 @@ public class GraphDrawerFactory {
             }
             else {
                 // Wind (fore)
-                if (DataInterface.getForecastWind().size() > 0
-                        && DataInterface.windSelected) {
+                if (DataInterface.getForecastWind().size() > 0) {
                     forecastWind = DataInterface.getForecastWind();
                 }
                 else {
@@ -260,10 +260,36 @@ public class GraphDrawerFactory {
                     forecastRain = Arrays.asList(20f,40f,50f,60f);
                 }
             }
+            // Make checks for what data to display and what not to display
+            // Make unselected booleans 0 in value (?)
+            if (!(DataInterface.isWindSelected())) {
+                forecastWind = Arrays.asList(0f);
+                wind = 0f;
+            }
+            if (!(DataInterface.isRainSelected())) {
+                forecastRain = Arrays.asList(0f);
+                rain = 0f;
+            }
+            if (!(DataInterface.isCloudSelected())) {
+                cloud = 0f;
+            }
+
+            // Observation
+            if (DataInterface.isObservationSelected()) {
+                hd = new HistogramDrawer(Arrays.asList(rain), 
+                        Arrays.asList(cloud), Arrays.asList(wind), 1);
+            }
+            // Forecast
+            // (no cloudiness forecast available)
+            else if (!(DataInterface.isObservationSelected())) {
+                hd = new HistogramDrawer(forecastRain, 
+                        Arrays.asList(0f), forecastWind, 1);
+            }
+            
+            // Template for testing purposes
+            //hd = new HistogramDrawer(forecastRain, Arrays.asList(20f,40f,10f,20f), forecastWind, 1);
             
             
-            //HistogramDrawer barTest = new HistogramDrawer(rain, cloudiness, timeInterval);
-            HistogramDrawer hd = new HistogramDrawer(forecastRain, Arrays.asList(20f,40f,10f,20f), forecastWind, 1);
             //return barTest.getChart();
             System.out.println("barTest");
             return hd.getChart();
@@ -276,7 +302,7 @@ public class GraphDrawerFactory {
     
     // Road / traffic msgs
     // * returns trafi info
-    public Text createMessages() {
+    public static Text createMessages() {
         try {
             TrafficMessagesDrawer tmd = new TrafficMessagesDrawer();
             /*
