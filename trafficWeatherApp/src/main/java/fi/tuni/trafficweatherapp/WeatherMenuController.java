@@ -6,9 +6,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 
 /**
-* @author Arttu
-*/
-
+ * @author Arttu
+ */
 public class WeatherMenuController {
 
     // Checkbox objects
@@ -18,30 +17,28 @@ public class WeatherMenuController {
     CheckBox windbox;
     @FXML
     CheckBox tempbox;
-    /*@FXML
-    CheckBox rainbox;*/
-    /*@FXML
+    @FXML
+    CheckBox rainBox;
+ /*@FXML
     private RadioButton forecastRadio;
     @FXML
     private RadioButton observationRadio;*/
-    @FXML Label labelForecast;
-    
-    
-    
+    @FXML
+    Label labelForecast;
+
     // Boolean variables
     private boolean temp;
     private boolean wind;
     private boolean cloud;
-    //private boolean rain;
+    private boolean rain;
     //private boolean observation;
     //private boolean forecast;
-    
-    
+
     public void initialize() throws Exception {
         labelForecast.getStyleClass().add("title");
         labelForecast.getStyleClass().add("outlineTitle");
-        
-       /*// TBA (call to factory's update if needed)
+
+        /*// TBA (call to factory's update if needed)
        try {
         GraphViewController viewController = new GraphViewController();
         boolean forecastPressed = false;
@@ -63,39 +60,36 @@ public class WeatherMenuController {
            System.out.println("Error: " + e);
        }  */
     }
-  
+
     @FXML
     private void buttonPressed() throws IOException, Exception {
         try {
             GraphViewController viewController = new GraphViewController();
             GraphDrawerFactory drawerFactory = new GraphDrawerFactory();
             DataInterface data = new DataInterface();
-            
+
             boolean forecastPressed = false;
-            if (viewController.buttonForecast != null 
+            if (viewController.buttonForecast != null
                     && viewController.buttonForecast.isPressed() == true) {
                 forecastPressed = true;
             }
-
 
             if (forecastPressed) {
                 cloudbox.setDisable(true);
                 cloudbox.setSelected(false);
                 //rainbox.setDisable(true);
                 //rainbox.setSelected(false);
-            }
-            else {
+            } else {
                 cloudbox.setDisable(false);
                 //rainbox.setDisable(false);
             }
-            
+
             // Temperature (obs&fore)
             if (tempbox.isSelected()) {
                 setTemp(true);
                 DataInterface.setTemperatureSelected(true);
-                
-            }
-            else {
+
+            } else {
                 setTemp(false);
                 DataInterface.setTemperatureSelected(false);
             }
@@ -103,8 +97,7 @@ public class WeatherMenuController {
             if (windbox.isSelected()) {
                 setWind(true);
                 DataInterface.setWindSelected(true);
-            }
-            else {
+            } else {
                 setWind(false);
                 DataInterface.setWindSelected(false);
             }
@@ -112,14 +105,13 @@ public class WeatherMenuController {
             if (cloudbox.isSelected()) {
                 setCloud(true);
                 DataInterface.setCloudSelected(true);
-            }
-            else {
+            } else {
                 setCloud(false);
                 DataInterface.setCloudSelected(false);
             }
-            /*
+            
             // Rain (obs)
-            if (rainbox.isSelected()) {
+            if (rainBox.isSelected()) {
                 setRain(true);
                 DataInterface.setRainSelected(true);
             }
@@ -127,55 +119,57 @@ public class WeatherMenuController {
                 setRain(false);
                 DataInterface.setRainSelected(false);
             }
-            */
+
             // Call to update every time button is pressed
             //
             //System.out.println("Situation in datainterface (temp): " + data.getTempPressed());
             //drawerFactory.update();
-        }
-        catch (Error e) {
+        } catch (Error e) {
             System.out.println("Error: " + e);
         }
     }
-    
+
     // Temp
-    public void setTemp (boolean newTemp) {
+    public void setTemp(boolean newTemp) {
         //DataInterface.setTempPressed(true);
         temp = newTemp;
         DataInterface.setTemperatureSelected(newTemp);
     }
-    public boolean getTemp () {
+
+    public boolean getTemp() {
         return temp;
     }
+
     // Wind
-    public void setWind (boolean newWind) {
+    public void setWind(boolean newWind) {
         wind = newWind;
         DataInterface.setWindSelected(newWind);
     }
-    public boolean getWind () {
+
+    public boolean getWind() {
         return wind;
     }
+
     // Cloud
-    public void setCloud (boolean newCloud) {
+    public void setCloud(boolean newCloud) {
         cloud = newCloud;
         DataInterface.setCloudSelected(newCloud);
     }
-    public boolean getCloud () {
+
+    public boolean getCloud() {
         return cloud;
     }
-    /*
+
     // Rain
     public void setRain (boolean newRain) {
         rain = newRain;
-        DataInterface.setCloudSelected(newRain);
+        DataInterface.setRainSelected(rain);
     }
     public boolean getRain () {
-        return cloud;
+        return rain;
     }
-    */
-    
-    
-    public void status() {       
+
+    public void status() {
         System.out.println("---Status---");
         System.out.println("Temp: " + tempbox.isPressed());
         System.out.println("Wind: " + windbox.isPressed());
@@ -183,5 +177,5 @@ public class WeatherMenuController {
         //System.out.println("Forecast Radio: " + forecastRadio.isSelected());
         //System.out.println("Observation Radio: " + observationRadio.isSelected());
     }
-    
+
 }

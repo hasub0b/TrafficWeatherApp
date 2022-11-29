@@ -1,5 +1,7 @@
 package fi.tuni.trafficweatherapp;
 
+import javafx.scene.chart.XYChart;
+
 import java.util.*;
 
 /**
@@ -14,6 +16,8 @@ public final class DataInterface {
 
     // Key maintenance type
     private static Map<String,Integer> maintenanceMap = new HashMap<>();
+    // MUST DIVIDE VALUE BY 7 FOR AVERAGE
+    private static Map<String,Integer> maintenanceMapAverage = new HashMap<>();
     // Key "TRAFFIC_ANNOUNCEMENT", "EXEMPTED_TRANSPORT", "WEIGHT_RESTRICTION", "ROAD_WORK"
     private static Map<String, List<String>> messagesMap = new HashMap<>();
 
@@ -43,6 +47,7 @@ public final class DataInterface {
     static boolean windSelected = false;
     static boolean temperatureSelected = false;
     static boolean cloudSelected = false;
+    static boolean rainSelected = false;
 
     // TrafficMenu
     static boolean maintenanceSelected = false;
@@ -74,11 +79,21 @@ public final class DataInterface {
 
     public static Map<String, List<String>> getMessagesMap() {return messagesMap;}
     public static void setMessagesMap(Map<String, List<String>> messagesMap) {DataInterface.messagesMap = messagesMap;}
+    public static void addMessageList(String key, List<String> value) {
+        messagesMap.put(key, value);}
 
     public static Map<String, Integer> getMaintenanceMap() {return maintenanceMap;}
     public static void setMaintenanceMap(Map<String, Integer> maintenanceMap) {DataInterface.maintenanceMap = maintenanceMap;}
-    public static void addMessageList(String key, List<String> value) {
-        messagesMap.put(key, value);}
+
+    public static Map<String, Integer> getMaintenanceMapAverage() {return maintenanceMapAverage;}
+    public static void setMaintenanceMapAverage(Map<String, Integer> maintenanceMapAverage) {DataInterface.maintenanceMapAverage = maintenanceMapAverage;}
+    public static void addMaintenanceMapAverageValue(String key, Integer value){
+        int total = 0;
+        if (DataInterface.maintenanceMapAverage.containsKey(key)){
+            total = DataInterface.maintenanceMapAverage.get(key);
+        }
+        DataInterface.maintenanceMapAverage.put(key,total+value);
+    }
 
     // FMI
 
@@ -125,6 +140,9 @@ public final class DataInterface {
 
     public static boolean isCloudSelected() {return cloudSelected;}
     public static void setCloudSelected(boolean selected) {cloudSelected = selected;}
+    
+    public static boolean isRainSelected() {return rainSelected;}
+    public static void setRainSelected(boolean selected) {rainSelected = selected;}
 
     public static boolean isMaintenanceSelected() {return maintenanceSelected;}
     public static void setMaintenanceSelected(boolean selected) {maintenanceSelected = selected;}

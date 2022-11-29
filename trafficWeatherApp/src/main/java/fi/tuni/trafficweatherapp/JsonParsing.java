@@ -3,6 +3,7 @@ package fi.tuni.trafficweatherapp;
 import com.google.gson.*;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.security.Key;
 import java.util.*;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
@@ -60,39 +61,6 @@ public class JsonParsing {
                 }
                 //total = features.size();
             }
-
-            // Previous
-            /*
-
-            if (feature.has("tasks")){
-
-
-                taskType = feature.get("tasks").getAsJsonArray().get(0).toString();
-
-                // Start and end times
-                String startTime = feature.get("startTime").toString().replace("\"","");
-                String endTime = feature.get("endTime").toString().replace("\"","");
-
-                // Coordinates -- LineString is array of multiple coordinates, Point is single coordinates
-                String coordinates = "";
-                try {
-                    JsonObject geometry = element.getAsJsonObject().get("geometry").getAsJsonObject();
-                    String type = geometry.get("type").toString().replace("\"","");
-                    if (Objects.equals(type, "LineString")){
-                        coordinates = geometry.get("coordinates").getAsJsonArray().toString();
-                    } else {
-                        // Point
-                        coordinates = geometry.get("coordinates").toString();
-                    }
-                } catch (Exception e){
-                    System.out.println("No coordinates for " + feature);
-                }
-
-                String finalString = String.format("Start time: %s, End time: %s, At: %s",startTime,endTime,coordinates);
-                data.add(finalString);
-            }
-
-             */
         }
 
 
@@ -106,6 +74,38 @@ public class JsonParsing {
             }
         }
 
+    }
+
+    public static void parseAverage(JsonObject obj){
+        JsonArray features = obj.getAsJsonArray("features");
+        Map<String, Integer> maintenanceMap = new HashMap<>();
+        String taskType = "";
+
+        for (JsonElement element:features) {
+
+
+            element.getAsJsonObject().keySet().removeIf(k -> !k.equals("properties") && !k.equals("geometry"));
+            JsonObject feature = element.getAsJsonObject().get("properties").getAsJsonObject();
+            feature.keySet().removeIf(k -> (!k.equals("id") && !k.equals("tasks") && !k.equals("situationId") && !k.equals("situationType") && !k.equals("announcements")
+                    && !k.equals("startTime") && !k.equals("endTime")));
+
+            // if task
+            if (feature.has("tasks")){
+                taskType = feature.get("tasks").getAsJsonArray().get(0).toString().replaceAll("\"","");
+                if (maintenanceMap.containsKey(taskType)){
+                    int current = maintenanceMap.get(taskType);
+                    maintenanceMap.put(taskType,current + 1);
+                } else {
+                    maintenanceMap.put(taskType, 1);
+                }
+                //total = features.size();
+            }
+        }
+        if (!Objects.equals(taskType, "")){
+            for (String key:maintenanceMap.keySet()) {
+                DataInterface.addMaintenanceMapAverageValue(key,maintenanceMap.get(key));
+            }
+        }
     }
 
     /**

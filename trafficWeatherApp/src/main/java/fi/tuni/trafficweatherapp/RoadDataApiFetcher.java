@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 /**
  * Fetches data as JsonObject from Digitraffic API.
@@ -60,6 +61,18 @@ public class RoadDataApiFetcher {
         return formattedDate;
     }
 
+    private static String localtimeToUrlTimeMinusDays(int days) throws ParseException {
+        DateTimeFormatter formatOfUrlTime
+                = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH'%3A'mm'%3A'ss'Z'");
+
+        // Adding max forecast hours (12).
+        LocalDateTime now = LocalDateTime.now().minusDays(days);
+        System.out.println(formatOfUrlTime.format(now));
+        String formattedDate = formatOfUrlTime.format(now);
+        return formattedDate;
+    }
+
+
     // TODO: remove main
     public static void main(String[] args) throws IOException, ParseException {
         //JsonObject roadMaintenanceTasks = getRoadMaintenanceTasks();
@@ -67,8 +80,8 @@ public class RoadDataApiFetcher {
 
         //getRoadConditions("21", "60", "23", "62");
 
-        getRoadMaintenanceData("21", "61", "23", "63");
-
+        //getRoadMaintenanceData("21", "61", "23", "63");
+        getRoadMaintenanceDataAverage("21", "61", "23", "63");
         //getLatestTrafficMessages();
 
     }
@@ -189,6 +202,38 @@ public class RoadDataApiFetcher {
                 .getAsJsonObject();
 
         JsonParsing.parseTrafficData(jsonObject);
+    }
+
+    public static void getRoadMaintenanceDataAverage(String xMin, String yMin, String xMax, String yMax)
+            throws MalformedURLException, IOException, ParseException {
+
+        // clear map of previous values
+        DataInterface.setMaintenanceMapAverage(new HashMap<>());
+
+        // get each day of past week
+        for (int i = 0; i < 7; i++) {
+            System.out.println(i);
+            String urlString = urlRoadMaintenanceData
+                    .replace("<START_TIME>", localtimeToUrlTimeMinusDays(i+1))
+                    .replace("<END_TIME>",localtimeToUrlTimeMinusDays(i) )
+                    .replace("<X_MIN>", xMin)
+                    .replace("<Y_MIN>", yMin)
+                    .replace("<X_MAX>", xMax)
+                    .replace("<Y_MAX>", yMax)
+                    .replace("<TASK_NAME>", "");
+
+            HttpURLConnection urlConnection = getConnection(urlString);
+
+            System.out.println(urlConnection.getResponseCode());
+
+            JsonReader reader = new JsonReader(new InputStreamReader(urlConnection
+                    .getInputStream()));
+            JsonObject jsonObject = JsonParser.parseReader(reader)
+                    .getAsJsonObject();
+
+            JsonParsing.parseAverage(jsonObject);
+            System.out.println(i);
+        }
     }
 
     /**
