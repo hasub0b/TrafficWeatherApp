@@ -56,7 +56,7 @@ public class PreferenceLoader {
         } while (controller == null && node != null);
 
         // Get all the controllers
-        PrimaryController pc = (PrimaryController) controller;
+        MainViewController pc = (MainViewController) controller;
         FXMLLoader graphLoader = pc.getLoaderGraphView();
         GraphViewController gc = graphLoader.getController();
         SideMenuTitleBoxesController sc = gc.loaderSideMenuTitleBoxes.getController();

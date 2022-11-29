@@ -20,7 +20,7 @@ import javafx.scene.shape.Rectangle;
  *
  * @author Mikko Moisio
  */
-public class PrimaryController {
+public class MainViewController {
 
     @FXML
     Rectangle menuBar;
