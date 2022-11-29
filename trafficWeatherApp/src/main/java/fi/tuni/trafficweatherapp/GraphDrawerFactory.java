@@ -6,6 +6,8 @@ package fi.tuni.trafficweatherapp;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextArea;
 
@@ -15,19 +17,27 @@ import javafx.scene.control.TextArea;
  */
 public class GraphDrawerFactory {
     
+    public void update() {
+        try {
+            createPlot();
+            createHistogram();
+        } catch (Exception e) {
+            System.out.println("Error @ Update(): \n" + e);
+        }
+    }
+    
     public boolean isForecast() {
-        DataInterface data = new DataInterface();
         boolean forecastPressed = false;
-        if (!(data.isObservationSelected()) == true) {
+        if (!(DataInterface.isObservationSelected()) == true &&
+                DataInterface.getForecastTemperature() != null) {
             forecastPressed = true;
         }
         return forecastPressed;
     }
     
     public boolean isObservation() {
-        DataInterface data = new DataInterface();
         boolean observationPressed = false;
-        if (data.isObservationSelected() == true) {
+        if (DataInterface.isObservationSelected() == true) {
             observationPressed = true;
         }
         return observationPressed;
@@ -44,7 +54,7 @@ public class GraphDrawerFactory {
         List<Float> dataset = null;
         
         // Object
-        DataInterface data = new DataInterface();
+        //DataInterface data = new DataInterface();
         
         // Variables
         Double x1, x2, y1, y2, x1x2, y1y2;
@@ -61,21 +71,24 @@ public class GraphDrawerFactory {
         y1y2 = (y1 + y2) / 2;
         
         if (para1 == "temp") {
+            
             if (para2 == "obs") {
-                dataset = data.getForecastTemperature();
+                System.out.println("Observing!!");
+                dataset = DataInterface.getForecastTemperature();
             }
             else if (para2 == "fore") {
-                dataset.add(data.getTemperature().floatValue());
+                System.out.println("Forecasting!!");
+                dataset.add(DataInterface.getTemperature().floatValue());
             }
         }
         else if (para1 == "cloud") {
             if (para2 == "obs") {
-                dataset.add(data.getCloud().floatValue());
+                dataset.add(DataInterface.getCloud().floatValue());
             }
         }
         else if (para1 == "rain") {
             if (para2 == "obs") {
-                dataset.add(data.getRain().floatValue());
+                dataset.add(DataInterface.getRain().floatValue());
             }
         }
         
@@ -90,9 +103,10 @@ public class GraphDrawerFactory {
         * para2:
         * >forecast/observation
         */
-        return dataset;
+     
+    return dataset;
     }
-    
+
     public static Double[] listFloatToDoubleArray(List<Float> input) {
         if (input == null) {
             return null;
@@ -116,11 +130,15 @@ public class GraphDrawerFactory {
             Double[] dataset = null;
             List<Float> fetchset = null;
             if (isForecast()) {
-                fetchset = fetchData("weather", "forecast");
-                dataset = listFloatToDoubleArray(fetchset);
+                if (DataInterface.temperatureSelected) {
+                    fetchset = fetchData("temp", "fore");
+                    dataset = listFloatToDoubleArray(fetchset);
+                }
+                
             }
             else if (isObservation()) {
-                fetchset = fetchData("weather", "observation");
+                //DataInterface.getTemperature();
+                fetchset = fetchData("temp", "obs");
                 // Get the first (and only element from List<Float>)
                 Float fetchValue = fetchset.get(0);
                 // Convert and set it as current dataset
@@ -132,8 +150,9 @@ public class GraphDrawerFactory {
 
             //dataset = listFloatToDoubleArray(DataInterface.getForecastTemperature());
             //PlotDrawer plotterTest = new PlotDrawer(dataset,1);
-            //PlotDrawer plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
-            PlotDrawer plotterTest = new PlotDrawer(dataset,1);
+            System.out.println("Plot Dataset: " + dataset);
+            PlotDrawer plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
+            //PlotDrawer plotterTest = new PlotDrawer(dataset,1);
             //System.out.println("test");
             return plotterTest.getChart();
             
@@ -149,15 +168,16 @@ public class GraphDrawerFactory {
     // * returns histogram
     public XYChart.Series createHistogram() throws Exception {
         try {
-            
             List<Float> cloudiness = null;
             List<Float> rain = null;
             List<Float> dataset = null;
             int timeInterval = 30;
+            
             // If it's a forecast
             if (isObservation()) {
                 dataset = fetchData("weather", "forecast");
             }
+            
             // If it's an observation
             else if (isForecast()) {
                 System.out.println("Sadly no forecast values for histogram.");
@@ -165,6 +185,7 @@ public class GraphDrawerFactory {
             else {
                 System.out.println("Error with radio booleans.");
             }
+            
             //HistogramDrawer barTest = new HistogramDrawer(rain, cloudiness, timeInterval);
             HistogramDrawer hd = new HistogramDrawer(Arrays.asList(20f,40f,50f,60f), Arrays.asList(20f,40f,10f,20f), Arrays.asList(20f,40f,10f,20f), 1);
             //return barTest.getChart();
