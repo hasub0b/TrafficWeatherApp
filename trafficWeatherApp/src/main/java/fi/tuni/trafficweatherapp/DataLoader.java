@@ -11,8 +11,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author Aleksi
+ */
 public class DataLoader {
 
+    /**
+     * Load fetched data from Json file to DataInterface
+     * @param filename name of the Json file
+     */
     public void load(String filename) {
 
         Path dir = Paths.get("trafficWeatherApp/savedData/datasets/");
@@ -39,8 +46,11 @@ public class DataLoader {
     }
 
 
+    /**
+     * Add the values from JsonObject to DataInterface
+     * @param jsonObject JsonObject returned by convertFileToJSON()
+     */
     private void loadToDataInterface(JsonObject jsonObject){
-
 
         // Set values from JsonObject
         try{
@@ -88,10 +98,13 @@ public class DataLoader {
             System.out.println(e);
             System.out.println("JSON FILE DOESN'T HAVE CORRECT FORMATTING");
         }
-
-
     }
 
+    /**
+     * Convert JSON file to JsonObject
+     * @param fileName Name of the JSON file
+     * @return JsonObject of the file
+     */
     private JsonObject convertFileToJSON(String fileName){
 
         // Read from File to String
@@ -107,5 +120,4 @@ public class DataLoader {
 
         return jsonObject;
     }
-
 }

@@ -5,8 +5,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -15,8 +13,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+/**
+ * @author Aleksi
+ */
 public class PreferenceLoader {
 
+    /**
+     * Load preference data from file to DataInterface
+     * @param filename name of the JSON file
+     * @param node Node in GraphView to give access to GraphViewController
+     */
     public void load(String filename, Node node){
 
         Path dir = Paths.get("trafficWeatherApp/savedData/preferences/");
@@ -37,6 +43,11 @@ public class PreferenceLoader {
         }
     }
 
+    /**
+     * Place loaded data to controllers
+     * @param jsonObject JsonObject gotten from convertFileToJSON()
+     * @param node Node in GraphView to give access to GraphViewController
+     */
     private void loadToGraphview(JsonObject jsonObject, Node node){
         Object controller = null;
         do {
@@ -132,10 +143,13 @@ public class PreferenceLoader {
         }catch (Exception e){
             System.out.println("JSON FILE DOESN'T HAVE CORRECT FORMATTING");
         }
-
-
     }
 
+    /**
+     * Convert JSON file to JsonObject
+     * @param fileName Name of the JSON file
+     * @return JsonObject of the file
+     */
     private JsonObject convertFileToJSON(String fileName){
 
         // Read from File to String

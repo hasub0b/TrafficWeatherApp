@@ -2,8 +2,6 @@ package fi.tuni.trafficweatherapp;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -21,9 +19,10 @@ import java.util.Map;
  */
 public class PreferenceSaver {
 
-    private static final String DEFAULT_PATH = "saveddata/preferences/";
-
-    public void save() throws IOException {
+    /**
+     * Save the user selections from DataInterface to JSON file
+     */
+    public void save() {
         Map<String, Object> map = new HashMap<>();
 
 
@@ -63,47 +62,31 @@ public class PreferenceSaver {
         map.put("overallCondition", DataInterface.isOverallConditionSelected());
 
 
-
-        /*
-
-        // Get path and write to that location
-        Path dir = Paths.get(DEFAULT_PATH);
-        Path file = dir.resolve("pref1" + ".json");
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .serializeNulls()
-                .create();
-
-        try ( BufferedWriter bw = Files.newBufferedWriter(dir)) {
-            gson.toJson(map, bw);
-        }
-
-        */
-
         int prefNumber = 1;
         Path dir = Paths.get("trafficWeatherApp/savedData/preferences/");
         try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+
             for (Path path : stream) {
                 prefNumber +=1;
             }
+
+            String filename = String.format("Pref%d",prefNumber);
+
+            // create a writer
+            Writer writer = new FileWriter("trafficWeatherApp/savedData/preferences/" + filename + ".json");
+
+            // convert map to JSON File
+            Gson gson = new GsonBuilder()
+                    .setPrettyPrinting()
+                    .serializeNulls()
+                    .create();
+            gson.toJson(map, writer);
+
+            // close the writer
+            writer.close();
+
+        } catch (IOException e){
+            System.out.println("PATH NOT FOUND");
         }
-
-        String filename = String.format("Pref%d",prefNumber);
-
-        // create a writer
-        Writer writer = new FileWriter("trafficWeatherApp/savedData/preferences/" + filename + ".json");
-
-        // convert map to JSON File
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .serializeNulls()
-                .create();
-        gson.toJson(map, writer);
-
-        // close the writer
-        writer.close();
-
-
-
     }
 }
