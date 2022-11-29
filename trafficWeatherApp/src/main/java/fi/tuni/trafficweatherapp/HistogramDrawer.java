@@ -58,13 +58,14 @@ public class HistogramDrawer {
                 series.getData().forEach(seriesData -> {
                     StackPane node = (StackPane) data.getNode();
                     ImageView cloudImage = icon.getIcon();
-                    ImageView windPic       = new ImageView(new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/wind.png").toURI().toString()));
+                    ImageView windPic = new ImageView(new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/wind.png").toURI().toString()));
                     Text windText = new Text(windValue + " m/s");
                     
                     cloudImage.fitWidthProperty().bind(node.widthProperty().multiply(.5));
+                    cloudImage.fitHeightProperty().bind(node.heightProperty().multiply(.5));
                     cloudImage.setPreserveRatio(true);
                     
-                    windPic.fitWidthProperty().bind(node.widthProperty().multiply(.2));
+                    windPic.setFitWidth(17);
                     windPic.setPreserveRatio(true);
                     
                     node.getChildren().clear();
