@@ -1,11 +1,15 @@
 package fi.tuni.trafficweatherapp;
 
+import java.io.File;
 import javafx.scene.chart.*;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -19,6 +23,7 @@ public class HistogramDrawer {
     //private final NumberAxis yAxis = new NumberAxis();
     //private final BarChart barChart = new BarChart(xAxis, yAxis);
     XYChart.Series series = new XYChart.Series();
+    
 
     /**
      * @param rain getForecastRain list from DataInterface
@@ -52,13 +57,20 @@ public class HistogramDrawer {
             Platform.runLater(() -> {
                 series.getData().forEach(seriesData -> {
                     StackPane node = (StackPane) data.getNode();
-                    VBox vbox = new VBox();
-                    node.getChildren().add(vbox);
                     ImageView cloudImage = icon.getIcon();
-                    cloudImage.fitWidthProperty().bind(vbox.widthProperty().multiply(.5));
-                    cloudImage.setPreserveRatio(true);
+                    ImageView windPic       = new ImageView(new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/wind.png").toURI().toString()));
                     Text windText = new Text(windValue + " m/s");
-                    vbox.getChildren().add(windText);
+                    
+                    cloudImage.fitWidthProperty().bind(node.widthProperty().multiply(.5));
+                    cloudImage.setPreserveRatio(true);
+                    
+                    windPic.fitWidthProperty().bind(node.widthProperty().multiply(.2));
+                    windPic.setPreserveRatio(true);
+                    
+                    node.getChildren().clear();
+                    HBox hbox = new HBox(5, windPic, windText);
+                    hbox.setAlignment(Pos.TOP_CENTER);
+                    node.getChildren().add(hbox);
                     node.getChildren().add(cloudImage);
                 });
             });
