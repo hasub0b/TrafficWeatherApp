@@ -10,12 +10,17 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * @author Aleksi
+ */
 public class PieDrawer  {
 
     public PieChart pieChart;
 
-    public PieDrawer(String chosenTask) throws IOException, ParseException {
+    /**
+     * Create a new PieChart
+     */
+    public PieDrawer() {
 
         pieChart = new PieChart();
 
@@ -48,6 +53,7 @@ public class PieDrawer  {
         pieChart.setStartAngle(360);
     }
 
+    // return the current chart
     public PieChart getPieChart() {
         return pieChart;
     }
