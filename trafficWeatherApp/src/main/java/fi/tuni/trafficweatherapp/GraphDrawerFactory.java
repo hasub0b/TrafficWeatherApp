@@ -28,6 +28,7 @@ public class GraphDrawerFactory {
             }
             if (DataInterface.cloudSelected) {
                 createHistogram();
+                createIcons();
             }
             
         } catch (Exception e) {
@@ -178,11 +179,10 @@ public class GraphDrawerFactory {
     }
     
     
-    // HistogramDrawer / IconsDrawer
+    // HistogramDrawer
     // * returns histogram
     public XYChart.Series createHistogram() throws Exception {
         try {
-            List<Float> cloudiness = null;
             List<Float> rain = null;
             List<Float> dataset = null;
             int timeInterval = 30;
@@ -201,13 +201,47 @@ public class GraphDrawerFactory {
             }
             
             //HistogramDrawer barTest = new HistogramDrawer(rain, cloudiness, timeInterval);
-            HistogramDrawer hd = new HistogramDrawer(Arrays.asList(20f,40f,50f,60f), Arrays.asList(20f,40f,10f,20f), Arrays.asList(20f,40f,10f,20f), 1);
+            HistogramDrawer hd = new HistogramDrawer(Arrays.asList(20f,40f,50f,60f), 1);
             //return barTest.getChart();
             System.out.println("barTest");
             return hd.getChart();
         }
         catch (Exception e) {
             System.out.println("Error creating histogram: " + e);
+        }
+        return null;
+    }
+    
+    // IconsDrawer
+    // * returns icons
+    public XYChart.Series createIcons() throws Exception {
+        try {
+            List<Float> cloudiness = null;
+            List<Float> windiness = null;
+            List<Float> dataset = null;
+            int timeInterval = 30;
+            
+            // If it's a forecast
+            if (isObservation()) {
+                dataset = fetchData("weather", "forecast");
+            }
+            
+            // If it's an observation
+            else if (isForecast()) {
+                System.out.println("Sadly no forecast values for icons.");
+            }
+            else {
+                System.out.println("Error with radio booleans.");
+            }
+            
+            //IconsDrawer iconsTest = new IconsDrawer(cloudiness, windiness, timeInterval);
+            IconsDrawer id = new IconsDrawer(Arrays.asList(20f,40f,50f,60f), Arrays.asList(20f,40f,50f,60f), Arrays.asList(20f,40f,50f,60f), 1);
+            //return iconsTest.getIcons();
+            System.out.println("iconsTest");
+            return id.getIcons();
+        }
+        catch (Exception e) {
+            System.out.println("Error creating icons: " + e);
         }
         return null;
     }
