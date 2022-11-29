@@ -19,10 +19,15 @@ public class GraphDrawerFactory {
     
     public void update() {
         try {
-            createPlot();
-            createHistogram();
+            if (DataInterface.temperatureSelected) {
+                createPlot();
+            }
+            if (DataInterface.cloudSelected) {
+                createHistogram();
+            }
+            
         } catch (Exception e) {
-            System.out.println("Error @ Update(): \n" + e);
+            System.out.println("Error during update: \n" + e);
         }
     }
     
