@@ -47,6 +47,7 @@ public final class DataInterface {
     static boolean windSelected = false;
     static boolean temperatureSelected = false;
     static boolean cloudSelected = false;
+    static boolean rainSelected = false;
 
     // TrafficMenu
     static boolean maintenanceSelected = false;
@@ -134,6 +135,9 @@ public final class DataInterface {
 
     public static boolean isCloudSelected() {return cloudSelected;}
     public static void setCloudSelected(boolean selected) {cloudSelected = selected;}
+    
+    public static boolean isRainSelected() {return rainSelected;}
+    public static void setRainSelected(boolean selected) {rainSelected = selected;}
 
     public static boolean isMaintenanceSelected() {return maintenanceSelected;}
     public static void setMaintenanceSelected(boolean selected) {maintenanceSelected = selected;}

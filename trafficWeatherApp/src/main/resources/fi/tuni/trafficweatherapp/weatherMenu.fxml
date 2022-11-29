@@ -37,6 +37,11 @@
                         <Font name="Arial" size="19.0" />
                      </font>
                   </CheckBox>
+                  <CheckBox fx:id="rainBox" mnemonicParsing="false" onAction="#buttonPressed" text="Rain" textFill="WHITE" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Arial" size="19.0" />
+                     </font>
+                  </CheckBox>
                </children>
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -45,6 +50,7 @@
                   <RowConstraints vgrow="SOMETIMES" />
                   <RowConstraints vgrow="SOMETIMES" />
                   <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
          </children>
