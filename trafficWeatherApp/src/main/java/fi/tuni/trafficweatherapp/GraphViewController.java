@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.RadioButton;
@@ -66,6 +67,8 @@ public class GraphViewController {
     LineChart chartLine;
     @FXML
     BarChart chartHistogram;
+    @FXML
+    BarChart chartIcons;
     @FXML
     TextArea textAreaTrafficMessages;
     @FXML
@@ -128,12 +131,17 @@ public class GraphViewController {
         button6h.setOnAction(event -> this.forecastRadioButtonEvent(event));
         button12h.setOnAction(event -> this.forecastRadioButtonEvent(event));
 
-
+        
         chartHistogram.getData().add(graphFactory.createHistogram());
         chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
 
-
-        //chartHistogram.set
+        chartIcons.getData().add(graphFactory.createIcons());
+        chartIcons.getYAxis().setOpacity(0);
+        chartIcons.getXAxis().setOpacity(0);
+        for(Node n:chartIcons.lookupAll(".default-color0.chart-bar")) {
+            n.setStyle("-fx-bar-fill: transparent;");
+        }
+        
         chartLine.getData().add(graphFactory.createPlot());
         chartLine.getYAxis().setSide(Side.RIGHT);
 
