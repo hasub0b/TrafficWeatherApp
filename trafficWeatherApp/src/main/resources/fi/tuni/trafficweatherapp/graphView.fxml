@@ -24,7 +24,7 @@
             <children>
                 <VBox fx:id="vbox" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" HBox.hgrow="ALWAYS">
                     <children>
-                        <StackPane fx:id="stackPaneGraph" alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="NEVER">
+                        <StackPane fx:id="stackPaneGraph" alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
                             <VBox.margin>
                                 <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
                             </VBox.margin>
@@ -41,7 +41,7 @@
                                         <NumberAxis animated="false" lowerBound="5.0" minorTickCount="0" side="LEFT" />
                                     </yAxis>
                                     <StackPane.margin>
-                                        <Insets right="27.0" />
+                                        <Insets right="25.0" />
                                     </StackPane.margin>
                                 </BarChart>
                                 <LineChart fx:id="chartLine" animated="false" axisSortingPolicy="NONE" legendVisible="false" StackPane.alignment="CENTER_LEFT">
@@ -57,20 +57,20 @@
                                 </LineChart>
                             </children>
                         </StackPane>
-                        <GridPane minHeight="-Infinity" prefHeight="250.0" vgap="2.0">
+                        <GridPane hgap="5.0" minHeight="200.0" prefHeight="350.0" vgap="5.0" VBox.vgrow="SOMETIMES">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" percentWidth="40.0" prefWidth="100.0" />
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="150.0" percentWidth="60.0" prefWidth="100.0" />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints percentHeight="20.0" vgrow="SOMETIMES" />
-                                <RowConstraints percentHeight="10.0" />
-                                <RowConstraints minHeight="200.0" percentHeight="70.0" vgrow="SOMETIMES" />
+                                <RowConstraints percentHeight="15.0" vgrow="SOMETIMES" />
+                                <RowConstraints />
+                                <RowConstraints minHeight="200.0" percentHeight="75.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <PieChart fx:id="pieChartTaskTypes" legendVisible="false" title="Task types amount piechart" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                <TextArea fx:id="textAreaRoadConditionData" editable="false" prefHeight="200.0" prefWidth="200.0" promptText="Road condition data" GridPane.rowIndex="2" />
-                                <TextArea fx:id="textAreaTrafficMessages" editable="false" prefHeight="30.0" promptText="Traffic messages amount" text="Traffic messages amount:" GridPane.rowIndex="1">
+                                <TextArea fx:id="textAreaRoadConditionData" editable="false" prefHeight="168.0" prefWidth="251.0" promptText="Road condition data" text="Road condition data" GridPane.rowIndex="2" />
+                                <TextArea fx:id="textAreaTrafficMessages" editable="false" minHeight="25.0" prefHeight="30.0" promptText="Traffic messages amount" text="Traffic messages amount:" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets />
                                     </GridPane.margin>
@@ -78,7 +78,7 @@
                                         <Insets />
                                     </opaqueInsets>
                                 </TextArea>
-                                <TextArea fx:id="textAreaAvgMaintenanceTasks" editable="false" prefHeight="30.0" promptText="Average amount of tasks per day" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <TextArea fx:id="textAreaAvgMaintenanceTasks" editable="false" minHeight="25.0" prefHeight="30.0" promptText="Average amount of tasks per day" text="Average amount of tasks per day" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets />
                                     </GridPane.margin>
@@ -95,6 +95,9 @@
                            </GridPane.margin>
                                 </AnchorPane>
                             </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                     </VBox.margin>
                         </GridPane>
                     </children>
                 </VBox>
