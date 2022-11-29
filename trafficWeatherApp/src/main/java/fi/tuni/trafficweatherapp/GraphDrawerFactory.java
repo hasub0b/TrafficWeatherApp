@@ -46,6 +46,11 @@ public class GraphDrawerFactory {
             if (plotTemps != null) {
                 //gdf.createPlot(plotTemps);
             }
+
+            if (DataInterface.cloudSelected) {
+                createHistogram();
+                createIcons();
+            }
             //createPlot();
             
             //if (DataInterface.cloudSelected) {
@@ -202,10 +207,11 @@ public class GraphDrawerFactory {
     }
     
     
-    // HistogramDrawer / IconsDrawer
+    // HistogramDrawer
     // * returns histogram
     public static XYChart.Series createHistogram() throws Exception {
         try {
+
             Float wind = null;
             Float rain = null;
             Float cloud = null;
@@ -214,6 +220,11 @@ public class GraphDrawerFactory {
             List<Float> forecastRain = null;
             //int timeInterval = 30;
             HistogramDrawer hd = null;
+
+            //List<Float> rain = null;
+            List<Float> dataset = null;
+            int timeInterval = 30;
+
             
             
             if (DataInterface.isObservationSelected()) {
@@ -276,26 +287,62 @@ public class GraphDrawerFactory {
 
             // Observation
             if (DataInterface.isObservationSelected()) {
-                hd = new HistogramDrawer(Arrays.asList(rain), 
-                        Arrays.asList(cloud), Arrays.asList(wind), 1);
+                hd = new HistogramDrawer(Arrays.asList(rain), 1);
             }
             // Forecast
             // (no cloudiness forecast available)
             else if (!(DataInterface.isObservationSelected())) {
-                hd = new HistogramDrawer(forecastRain, 
-                        Arrays.asList(0f), forecastWind, 1);
+                hd = new HistogramDrawer(forecastRain, 1);
             }
             
             // Template for testing purposes
             //hd = new HistogramDrawer(forecastRain, Arrays.asList(20f,40f,10f,20f), forecastWind, 1);
             
             
+
+            //HistogramDrawer barTest = new HistogramDrawer(rain, cloudiness, timeInterval);
+            //HistogramDrawer hd = new HistogramDrawer(Arrays.asList(20f,40f,50f,60f), 1);
+
             //return barTest.getChart();
             System.out.println("barTest");
             return hd.getChart();
         }
         catch (Exception e) {
             System.out.println("Error creating histogram: " + e);
+        }
+        return null;
+    }
+    
+    // IconsDrawer
+    // * returns icons
+    public XYChart.Series createIcons() throws Exception {
+        try {
+            List<Float> cloudiness = null;
+            List<Float> windiness = null;
+            List<Float> dataset = null;
+            int timeInterval = 30;
+            
+            // If it's a forecast
+            if (isObservation()) {
+                //dataset = fetchData("weather", "forecast");
+            }
+            
+            // If it's an observation
+            else if (isForecast()) {
+                System.out.println("Sadly no forecast values for icons.");
+            }
+            else {
+                System.out.println("Error with radio booleans.");
+            }
+            
+            //IconsDrawer iconsTest = new IconsDrawer(cloudiness, windiness, timeInterval);
+            IconsDrawer id = new IconsDrawer(Arrays.asList(20f,40f,50f,60f), Arrays.asList(20f,40f,50f,60f), Arrays.asList(20f,40f,50f,60f), 1);
+            //return iconsTest.getIcons();
+            System.out.println("iconsTest");
+            return id.getIcons();
+        }
+        catch (Exception e) {
+            System.out.println("Error creating icons: " + e);
         }
         return null;
     }
