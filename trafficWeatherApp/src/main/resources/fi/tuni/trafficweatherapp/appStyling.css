@@ -181,8 +181,7 @@
     -fx-padding: 8 8 8 8;
 }
 .check-box .text {
-    -fx-font: inter;
-    -fx-font-size: 16px;
+    -fx-font: 16px "inter";
 }
 
 .check-box:selected .mark {
