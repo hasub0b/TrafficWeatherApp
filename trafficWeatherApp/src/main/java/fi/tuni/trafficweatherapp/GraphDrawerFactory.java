@@ -22,21 +22,40 @@ import javafx.scene.text.Text;
 public class GraphDrawerFactory {
     
     // Most probably will end up not being used
-    public void update() {
+    // Drawers will need to be called from a higher class
+    /*
+    public static void update() throws Exception {
         try {
+            GraphDrawerFactory gdf = new GraphDrawerFactory();
+            Double[] coordinates = DataInterface.getCoordinates();
+            Double[] plotTemps;
+            if (DataInterface.isObservationSelected()) {
+                plotTemps = new Double[]{DataInterface.getTemperature()};
+            }
+            else {
+                plotTemps = listFloatToDoubleArray(DataInterface.getForecastTemperature());
+            }
+            System.out.println("What coordinatesmenu returns: " 
+            + testValues[0] +" "+ testValues[1] +" "+ testValues[2] +" "+ testValues[3]);
+        
+            
             if (DataInterface.temperatureSelected) {
-                createPlot();
+                gdf.createPlot(plotTemps);
             }
-            if (DataInterface.cloudSelected) {
-                createHistogram();
+            
+            if (plotTemps != null) {
+                //gdf.createPlot(plotTemps);
             }
-            createMessages();
+            //createPlot();
+            
+            //if (DataInterface.cloudSelected) {
+            //gdf.createHistogram();  
             
         } catch (Exception e) {
             System.out.println("Error during update: \n" + e);
         }
     }
-    
+    */
     public boolean isForecast() {
         boolean forecastPressed = false;
         if (!(DataInterface.isObservationSelected()) == true &&
@@ -54,6 +73,7 @@ public class GraphDrawerFactory {
         return observationPressed;
     }
 
+    /*
     // Fetches data from DataInterface
     public List<Float> fetchData(String para1, String para2) throws Exception {
         // Old Objects
@@ -72,8 +92,9 @@ public class GraphDrawerFactory {
         // Double[] coordinates = coordinatesController.getCoordinates(); 
         // -> make it fetch from datainterface (when implemented)
         
-        CoordinatesMenuController cmc = new CoordinatesMenuController();
-        Double[] coordinates = cmc.getCoordinates();
+        //CoordinatesMenuController cmc = new CoordinatesMenuController();
+        //Double[] coordinates = cmc.getCoordinates();
+        Double[] coordinates = DataInterface.getCoordinates();
         
         // Test coordinates
         //Double[] coordinates = new Double[]{23.755090615, 23.791861827, 61.491086559, 61.509263332};
@@ -111,16 +132,16 @@ public class GraphDrawerFactory {
             return null;
         }
         
-        /* Segment by:
-        * para1
-        * >temp(fmi)/cloud(fmi)/wind(fmi) || TBA: /maintanancemap(dt)/messages(dt)
-        * para2:
-        * >forecast/observation
-        */
+        // Segment by:
+        //para1
+        // >temp(fmi)/cloud(fmi)/wind(fmi) || TBA: /maintanancemap(dt)/messages(dt)
+        // para2:
+        // >forecast/observation
+        
      
     return dataset;
     }
-
+*/
     public static Double[] listFloatToDoubleArray(List<Float> input) {
         if (input == null) {
             return null;
@@ -139,48 +160,37 @@ public class GraphDrawerFactory {
     
     // Linechart
     // * returns linechart
-    public XYChart.Series createPlot() throws Exception {
+    public static XYChart.Series createPlot() throws Exception {
         try {
             Double[] dataset = null;
-            List<Float> fetchset = null;
-            if (isForecast()) {
-                if (DataInterface.temperatureSelected) {
-                    fetchset = fetchData("temp", "fore");
-                    dataset = listFloatToDoubleArray(fetchset);
-                }
-                
+            Double temp = DataInterface.getTemperature();
+            Double[] foreTemp = listFloatToDoubleArray(DataInterface.getForecastTemperature());
+            System.out.println("Plotting");
+            //System.out.println("Forecast: " + !(DataInterface.isObservationSelected()) + " | " 
+            //        + "Observation: " + DataInterface.isObservationSelected());
+            // Checks for null/short arrays and values
+            if (temp != null) {
+                dataset = new Double[]{temp};
+                System.out.println("Obs Data fetched[0]: " + dataset[0]);
             }
-            else if (isObservation()) {
-                //DataInterface.getTemperature();
-                fetchset = fetchData("temp", "obs");
-                // Get the first (and only element from List<Float>)
-                Float fetchValue = fetchset.get(0);
-                // Convert and set it as current dataset
-                dataset = new Double[]{fetchValue.doubleValue()};
+            else if (foreTemp.length > 0) {
+                dataset = foreTemp;
+                System.out.println("Fore Data fetched[0]: " + dataset[0]);
             }
             else {
-                System.out.println("Error with booleans.");
+                System.out.println("No values to fetch!");
             }
-
-            //dataset = listFloatToDoubleArray(DataInterface.getForecastTemperature());
-            //PlotDrawer plotterTest = new PlotDrawer(dataset,1);
-            System.out.println("Plot Dataset: " + dataset);
-            //PlotDrawer plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
+            
             PlotDrawer plotterTest = null;
-            // If we receive data, then it can be utilized in chart
+            // If we receive data, then it can be utilized in chart,
+            // else it will draw from template
             if (dataset == null) {
                 plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
             }
             else {
+                System.out.println("Plot Dataset[0]: " + dataset[0]);
                 plotterTest = new PlotDrawer(dataset,1);
             }
-            //System.out.println("test");
-            
-            // Test
-            //TrafficMessagesDrawer testMessageDrawer = new TrafficMessagesDrawer();
-            //testMessageDrawer.test();
-            //DataFetcher testaus = new DataFetcher();
-            
             
             return plotterTest.getChart();
             
@@ -194,28 +204,66 @@ public class GraphDrawerFactory {
     
     // HistogramDrawer / IconsDrawer
     // * returns histogram
-    public XYChart.Series createHistogram() throws Exception {
+    public static XYChart.Series createHistogram() throws Exception {
         try {
-            List<Float> cloudiness = null;
-            List<Float> rain = null;
-            List<Float> dataset = null;
-            int timeInterval = 30;
+            Float wind = null;
+            Float rain = null;
+            Float cloud = null;
+            Double cloudtemp = null;
+            List<Float> forecastWind = null;
+            List<Float> forecastRain = null;
+            //int timeInterval = 30;
             
-            // If it's a forecast
-            if (isObservation()) {
-                dataset = fetchData("weather", "forecast");
-            }
             
-            // If it's an observation
-            else if (isForecast()) {
-                System.out.println("Sadly no forecast values for histogram.");
+            if (DataInterface.isObservationSelected()) {
+                // Cloud (obs)
+                if (DataInterface.getCloud() != null) {
+                    cloud = DataInterface.getCloud().floatValue();
+                    
+                }
+                else {
+                    System.out.println("Couldn't fetch cloud");
+                }
+                
+                // Rain (obs)
+                if (DataInterface.getRain() != null) {
+                    rain = DataInterface.getRain().floatValue();
+                }
+                else {
+                    System.out.println("Couldn't fetch rain");
+                }
+                
+                // Wind (obs)
+                if (DataInterface.getWind() != null) {
+                    wind = Float.valueOf(DataInterface.getWind()); 
+                }
+                else {
+                    System.out.println("Couldn't fetch wind");
+                }
+                
             }
             else {
-                System.out.println("Error with radio booleans.");
+                // Wind (fore)
+                if (DataInterface.getForecastWind().size() > 0
+                        && DataInterface.windSelected) {
+                    forecastWind = DataInterface.getForecastWind();
+                }
+                else {
+                    forecastWind = Arrays.asList(20f,40f,10f,20f);
+                }
+                
+                // Rain (fore)
+                if (DataInterface.getForecastRain().size() > 0) {
+                    forecastRain = DataInterface.getForecastRain();
+                }
+                else {
+                    forecastRain = Arrays.asList(20f,40f,50f,60f);
+                }
             }
             
+            
             //HistogramDrawer barTest = new HistogramDrawer(rain, cloudiness, timeInterval);
-            HistogramDrawer hd = new HistogramDrawer(Arrays.asList(20f,40f,50f,60f), Arrays.asList(20f,40f,10f,20f), Arrays.asList(20f,40f,10f,20f), 1);
+            HistogramDrawer hd = new HistogramDrawer(forecastRain, Arrays.asList(20f,40f,10f,20f), forecastWind, 1);
             //return barTest.getChart();
             System.out.println("barTest");
             return hd.getChart();

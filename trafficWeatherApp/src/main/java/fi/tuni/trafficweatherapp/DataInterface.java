@@ -56,7 +56,12 @@ public final class DataInterface {
     static boolean overallConditionSelected = false;
 
 
+    // CoordinatesMenu
+    private static Double[] coordinates;
+    
     // Accessors
+    public static void setCoordinates(Double[] newCoordinates) {coordinates = newCoordinates;}
+    public static Double[] getCoordinates() {return coordinates;}
 
     // DigiTraffic
 
