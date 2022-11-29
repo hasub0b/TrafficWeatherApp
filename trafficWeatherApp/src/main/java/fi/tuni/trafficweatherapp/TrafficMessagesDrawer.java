@@ -5,6 +5,8 @@
 package fi.tuni.trafficweatherapp;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javafx.scene.image.Image;
@@ -18,18 +20,35 @@ public class TrafficMessagesDrawer {
     
     private Text textOutput;
     
-    public Text messageTest (Map<String, List<String>> input) {
+    public Text directDraw (Map<String, List<String>> input) {
         textOutput.setText(mapConverter(input));
         return textOutput;
     }
     
+    public void test () {
+        Map<String, List<String>> testMessageMap = new HashMap<>();
+        List<String> alkioListaYksi = new ArrayList<>();
+        List<String> alkioListaKaksi = new ArrayList<>();
+        alkioListaYksi.add("alkio1.1");
+        alkioListaYksi.add("alkio1.2");
+        alkioListaYksi.add("alkio1.3");
+        alkioListaKaksi.add("alkio2.1");
+        alkioListaKaksi.add("alkio2.2");
+        alkioListaKaksi.add("alkio2.3");
+        testMessageMap.put("Avain 1", alkioListaYksi);
+        testMessageMap.put("Avain 2", alkioListaKaksi);
+        String convertedMap = mapConverter(testMessageMap);
+        System.out.println("Test map: " + convertedMap);
+        //return testMessageMap;
+    }
+    
     public String mapConverter(Map<String, List<String>> input) {
-        StringBuilder mapToString = new StringBuilder("");
+        StringBuilder mapToString = new StringBuilder("\n");
         for (String key : input.keySet()) {
-            mapToString.append(key + ":" + input.get(key) + "\n ");
+            mapToString.append(key + ": " + input.get(key) + "\n");
         }
         mapToString.delete(mapToString.length()-2, 
-                mapToString.length()).append("");
+                mapToString.length()).append("\n");
         String convertedMap = mapToString.toString();
         return convertedMap;
     }

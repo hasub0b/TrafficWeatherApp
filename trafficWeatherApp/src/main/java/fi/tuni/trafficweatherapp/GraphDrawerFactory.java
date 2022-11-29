@@ -163,6 +163,11 @@ public class GraphDrawerFactory {
             PlotDrawer plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
             //PlotDrawer plotterTest = new PlotDrawer(dataset,1);
             //System.out.println("test");
+            
+            // Test
+            //TrafficMessagesDrawer testMessageDrawer = new TrafficMessagesDrawer();
+            //testMessageDrawer.test();
+            
             return plotterTest.getChart();
             
         }
@@ -212,19 +217,13 @@ public class GraphDrawerFactory {
     public Text createMessages() {
         try {
             TrafficMessagesDrawer tmd = new TrafficMessagesDrawer();
-            
-            // Test
-            Map<String, List<String>> testMessageMap = new HashMap<>();
-            List<String> alkioLista = new ArrayList<>();
-            alkioLista.add("alkio1.1");
-            alkioLista.add("alkio1.2");
-            alkioLista.add("alkio1.3");
-            testMessageMap.put("avain1", alkioLista);
-            return tmd.messageTest(testMessageMap);
+            /*
+            *   Test
+            *   tmd.test();
+            */
             
             
-            
-            //return tmd.getText();
+            return tmd.getText();
         }
         catch (Exception e) {
             System.out.println("Error creating messages: " + e);
