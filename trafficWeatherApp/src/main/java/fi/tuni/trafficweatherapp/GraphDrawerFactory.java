@@ -21,6 +21,7 @@ import javafx.scene.text.Text;
  */
 public class GraphDrawerFactory {
     
+    // Most probably will end up not being used
     public void update() {
         try {
             if (DataInterface.temperatureSelected) {
@@ -29,6 +30,7 @@ public class GraphDrawerFactory {
             if (DataInterface.cloudSelected) {
                 createHistogram();
             }
+            createMessages();
             
         } catch (Exception e) {
             System.out.println("Error during update: \n" + e);
@@ -68,10 +70,13 @@ public class GraphDrawerFactory {
         // Variables
         Double x1, x2, y1, y2, x1x2, y1y2;
         // Double[] coordinates = coordinatesController.getCoordinates(); 
-        // -> make it fetch from datainterface
+        // -> make it fetch from datainterface (when implemented)
+        
+        CoordinatesMenuController cmc = new CoordinatesMenuController();
+        Double[] coordinates = cmc.getCoordinates();
         
         // Test coordinates
-        Double[] coordinates = new Double[]{23.755090615, 23.791861827, 61.491086559, 61.509263332};
+        //Double[] coordinates = new Double[]{23.755090615, 23.791861827, 61.491086559, 61.509263332};
         x1 = coordinates[0];
         x2 = coordinates[1];
         y1 = coordinates[2];
@@ -160,13 +165,22 @@ public class GraphDrawerFactory {
             //dataset = listFloatToDoubleArray(DataInterface.getForecastTemperature());
             //PlotDrawer plotterTest = new PlotDrawer(dataset,1);
             System.out.println("Plot Dataset: " + dataset);
-            PlotDrawer plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
-            //PlotDrawer plotterTest = new PlotDrawer(dataset,1);
+            //PlotDrawer plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
+            PlotDrawer plotterTest = null;
+            // If we receive data, then it can be utilized in chart
+            if (dataset == null) {
+                plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
+            }
+            else {
+                plotterTest = new PlotDrawer(dataset,1);
+            }
             //System.out.println("test");
             
             // Test
             //TrafficMessagesDrawer testMessageDrawer = new TrafficMessagesDrawer();
             //testMessageDrawer.test();
+            //DataFetcher testaus = new DataFetcher();
+            
             
             return plotterTest.getChart();
             
