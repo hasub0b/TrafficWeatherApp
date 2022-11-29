@@ -5,10 +5,8 @@
 package fi.tuni.trafficweatherapp;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.text.ParseException;
 import javax.xml.parsers.ParserConfigurationException;
-import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
 /**
@@ -28,16 +26,30 @@ class DataFetcher {
         y1y2 = (y1 + y2) / 2;
     }
 
-    public void fetchWeatherData() throws IOException, ParserConfigurationException, SAXException {
+    public void fetchWeatherData() {
 
-        WeatherDataApiFetcher.getForecastData(x1x2.toString(), y1y2.toString(), "60");
-        WeatherDataApiFetcher.getObservationData(x1.toString(), x2.toString(), y1.toString(), y2.toString(), "60");
+        try {
+            WeatherDataApiFetcher.getForecastData(x1x2.toString(), y1y2.toString(), "60");
+            WeatherDataApiFetcher.getObservationData(x1.toString(), x2.toString(), y1.toString(), y2.toString(), "60");
+        } catch (IOException ex) {
+            System.err.println("Error: Cannot get data from API");
+        } catch (ParserConfigurationException | SAXException ex) {
+            System.err.println("Error: Cannot parse data from fmi API");
+        }
+
     }
-    
-    public void fetchRoadData() throws IOException, MalformedURLException, ParseException {
-        RoadDataApiFetcher.getRoadConditions(x1.toString(), y1.toString(), x2.toString(), y2.toString());
-        RoadDataApiFetcher.getLatestTrafficMessages();
-        RoadDataApiFetcher.getRoadMaintenanceData(x1.toString(), y1.toString(), x2.toString(), y2.toString());
-        
+
+    public void fetchRoadData() {
+
+        try {
+            RoadDataApiFetcher.getRoadMaintenanceData(x1.toString(), y1.toString(), x2.toString(), y2.toString());
+            RoadDataApiFetcher.getRoadConditions(x1.toString(), y1.toString(), x2.toString(), y2.toString());
+            RoadDataApiFetcher.getLatestTrafficMessages();
+        } catch (IOException ex) {
+            System.err.println("Error: Cannot get data from Digitraffic API");
+        } catch (ParseException ex) {
+            System.err.println("Error: Cannot parse data from Digitraffic API");
+        }
+
     }
 }

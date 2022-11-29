@@ -43,13 +43,7 @@ public class RoadDataApiFetcher {
             + "traffic-message/v1/messages?inactiveHours=0&"
             + "includeAreaGeometry=false&situationType=<SITUATION_TYPE>";
 
-    /**
-     * The empty constructor.
-     */
-    public RoadDataApiFetcher() {
-
-    }
-
+    
     private static String localtimeToUrlTime() throws ParseException {
         DateTimeFormatter formatOfUrlTime
                 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH'%3A'mm'%3A'ss'Z'");
@@ -72,19 +66,19 @@ public class RoadDataApiFetcher {
         return formattedDate;
     }
 
-
+/*
     // TODO: remove main
     public static void main(String[] args) throws IOException, ParseException {
-        //JsonObject roadMaintenanceTasks = getRoadMaintenanceTasks();
+        JsonObject roadMaintenanceTasks = getRoadMaintenanceTasks();
         //System.out.println(roadMaintenanceTasks);
 
-        //getRoadConditions("21", "60", "23", "62");
+        getRoadConditions("21", "60", "23", "62");
 
-        //getRoadMaintenanceData("21", "61", "23", "63");
+        getRoadMaintenanceData("21", "61", "23", "63");
         getRoadMaintenanceDataAverage("21", "61", "23", "63");
-        //getLatestTrafficMessages();
+        getLatestTrafficMessages();
 
-    }
+    }*/
 
     /**
      * Gets the road maintenance tasks from the api.
@@ -118,7 +112,7 @@ public class RoadDataApiFetcher {
      * @hidden
      */
     private static HttpURLConnection getConnection(String urlString)
-            throws MalformedURLException, IOException {
+            throws IOException {
         System.out.println(urlString);
         var url = (new URL(urlString));
         HttpURLConnection urlConnection
