@@ -19,6 +19,8 @@ public class WeatherMenuController {
     @FXML
     CheckBox tempbox;
     /*@FXML
+    CheckBox rainbox;*/
+    /*@FXML
     private RadioButton forecastRadio;
     @FXML
     private RadioButton observationRadio;*/
@@ -30,6 +32,7 @@ public class WeatherMenuController {
     private boolean temp;
     private boolean wind;
     private boolean cloud;
+    //private boolean rain;
     //private boolean observation;
     //private boolean forecast;
     
@@ -78,40 +81,53 @@ public class WeatherMenuController {
             if (forecastPressed) {
                 cloudbox.setDisable(true);
                 cloudbox.setSelected(false);
+                rainbox.setDisable(true);
+                rainbox.setSelected(false);
             }
             else {
                 cloudbox.setDisable(false);
+                rainbox.setDisable(false);
             }
             
             // Temperature (obs&fore)
             if (tempbox.isSelected()) {
                 setTemp(true);
-                data.setTemperatureSelected(true);
+                DataInterface.setTemperatureSelected(true);
                 
             }
             else {
                 setTemp(false);
-                data.setTemperatureSelected(false);
+                DataInterface.setTemperatureSelected(false);
             }
             // Observed Wind (obs&fore)
             if (windbox.isSelected()) {
                 setWind(true);
-                data.setWindSelected(true);
+                DataInterface.setWindSelected(true);
             }
             else {
                 setWind(false);
-                data.setWindSelected(false);
+                DataInterface.setWindSelected(false);
             }
             // Observed Cloudiness (obs)
             if (cloudbox.isSelected()) {
                 setCloud(true);
-                data.setCloudSelected(true);
+                DataInterface.setCloudSelected(true);
             }
             else {
                 setCloud(false);
-                data.setCloudSelected(false);
+                DataInterface.setCloudSelected(false);
             }
-            
+            /*
+            // Rain (obs)
+            if (rainbox.isSelected()) {
+                setRain(true);
+                DataInterface.setRainSelected(true);
+            }
+            else {
+                setRain(false);
+                DataInterface.setRainSelected(false);
+            }
+            */
             // Call to update every time button is pressed
             //
             //System.out.println("Situation in datainterface (temp): " + data.getTempPressed());
@@ -145,6 +161,14 @@ public class WeatherMenuController {
         DataInterface.setCloudSelected(newCloud);
     }
     public boolean getCloud () {
+        return cloud;
+    }
+    // Rain
+    public void setRain (boolean newRain) {
+        rain = newRain;
+        DataInterface.setCloudSelected(newRain);
+    }
+    public boolean getRain () {
         return cloud;
     }
      
