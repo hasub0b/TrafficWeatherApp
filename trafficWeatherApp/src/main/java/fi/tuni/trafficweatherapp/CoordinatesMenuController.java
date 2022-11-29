@@ -1,13 +1,9 @@
 package fi.tuni.trafficweatherapp;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.text.ParseException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.control.Button;
@@ -19,8 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
 
 /**
  *
@@ -69,11 +63,11 @@ public class CoordinatesMenuController {
     Button buttonSetLocation;
 
     ContextMenu menuErrorMessage = new ContextMenu();
-    
 
-    // TODO: 
-    // update coordinates to Model
-    public void initialize() throws IOException {
+    /**
+     * Initializes coordinates menu elements.
+     */
+    public void initialize(){
 
         labelCoordinatesTitle.getStyleClass().add("title");
         labelCoordinatesTitle.getStyleClass().add("outlineTitle");
@@ -96,49 +90,35 @@ public class CoordinatesMenuController {
         buttonSetCoordinates.setDisable(true);
         buttonSetCoordinates.setOnAction(eh -> {
             coordinates = new Double[]{minX, maxX, minY, maxY};
+
             System.out.println("custom coordinates set!");
-            try {
-                setCoordinates();
-            } catch (IOException ex) {
-                //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParserConfigurationException ex) {
-                //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
-            }catch (SAXException ex) {
-                //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
-             catch (ParseException ex) {
-                //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            setCoordinates();
+
             buttonSetCoordinates.setDisable(true);
         });
         comboBoxSetLocation.setOnAction(eh -> {
             if (comboBoxSetLocation.getValue() != null) {
-               buttonSetLocation.setDisable(false);
+                buttonSetLocation.setDisable(false);
             }
         });
         buttonSetLocation.setOnAction(eh -> {
             if (comboBoxSetLocation.getValue() != null) {
                 String locationName = (String) comboBoxSetLocation.getValue();
                 coordinates = LOCATIONS.get(locationName);
+
                 System.out.println("preset coordinates set!");
-                try {
-                    setCoordinates();
-                } catch (IOException ex) {
-                    //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ParserConfigurationException ex) {
-                    //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SAXException ex) {
-                    //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ParseException ex) {
-                    //Logger.getLogger(CoordinatesMenuController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                setCoordinates();
+
                 buttonSetLocation.setDisable(true);
             }
         });
 
     }
 
+    /**
+     * Typing in a coordinate field event handler.
+     * @hidden 
+     */
     private void typingInField(TextField field, KeyEvent event) {
         menuErrorMessage.getItems().clear();
         menuErrorMessage.hide();
@@ -154,7 +134,11 @@ public class CoordinatesMenuController {
             setCoordinate(field);
         }
     }
-
+    
+    /**
+     * Setting coordinates if they are legal.
+     * @hidden
+     */
     private void setCoordinate(TextField field) {
         Double value = Double.valueOf(field.getText());
         if (field.equals(fieldMinX)) {
@@ -178,6 +162,10 @@ public class CoordinatesMenuController {
         }
     }
 
+    /**
+     * Creates error messages under the field.
+     * @hidden
+     */
     private void setErrorMessage(TextField field, String message) {
         MenuItem errorMessage = new MenuItem(message);
         menuErrorMessage.getItems().add(errorMessage);
@@ -186,9 +174,10 @@ public class CoordinatesMenuController {
         menuErrorMessage.show(field, Side.BOTTOM, 0, 0);
     }
 
-    /*
-    Checks if given coordinate input is legal.
-    xMin=19, yMin=59, xMax=32, yMax=72
+    //xMin=19, yMin=59, xMax=32, yMax=72
+    /**
+     * Checks if given coordinate input is legal.
+     * @hidden
      */
     private boolean isLegalInput(TextField field) {
         String input = field.getText();
@@ -219,7 +208,7 @@ public class CoordinatesMenuController {
                     return false;
                 }
                 return true;
-                
+
             } catch (NumberFormatException error) {
                 setErrorMessage(field, "Not a number!");
             }
@@ -227,10 +216,18 @@ public class CoordinatesMenuController {
         return false;
     }
 
+    /**
+     * Gets coordinates
+     * @return Double[] coordinates
+     */
     public Double[] getCoordinates() {
         return coordinates;
     }
-    public void setCoordinates() throws IOException, ParserConfigurationException, SAXException, MalformedURLException, ParseException {
+
+    /**
+     * Fetches data for datainterface with the coordinates.
+     */
+    public void setCoordinates() {
         // DataFetcher() ->update Datainterface
         DataFetcher dataFetcher = new DataFetcher(coordinates);
         dataFetcher.fetchRoadData();

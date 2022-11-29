@@ -10,8 +10,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 /**
- *
- * @author mikko
+ * Gets weather and road data for datainterface from the API fetchers.
+ * @author Mikko Moisio
  */
 class DataFetcher {
 
@@ -25,7 +25,10 @@ class DataFetcher {
         x1x2 = (x1 + x2) / 2;
         y1y2 = (y1 + y2) / 2;
     }
-
+    
+    /**
+     * Fetches weather data for datainterface.
+     */
     public void fetchWeatherData() {
 
         try {
@@ -39,6 +42,9 @@ class DataFetcher {
 
     }
 
+    /**
+     * Fetches road data for datainterface.
+     */
     public void fetchRoadData() {
 
         try {

@@ -96,7 +96,6 @@ public class RoadDataApiFetcher {
      */
     private static HttpURLConnection getConnection(String urlString)
             throws IOException {
-        System.out.println(urlString);
         var url = (new URL(urlString));
         HttpURLConnection urlConnection
                 = (HttpURLConnection) url.openConnection();
