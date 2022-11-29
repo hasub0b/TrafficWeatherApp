@@ -32,68 +32,67 @@ public class GraphDrawerFactory {
         }
         return observationPressed;
     }
-    
-    // Fetches most recent data into (JsonParsing, then) DataInterface 
-    public void fetchData(String para1, String para2) throws Exception {
-        // Objects
-        CoordinatesMenuController coordinatesController = new CoordinatesMenuController();
-        TrafficMenuController trafficController = new TrafficMenuController();
-        WeatherMenuController weatherController = new WeatherMenuController();
+
+    // Fetches data from DataInterface
+    public List<Float> fetchData(String para1, String para2) throws Exception {
+        // Old Objects
+        //CoordinatesMenuController coordinatesController = new CoordinatesMenuController();
+        //TrafficMenuController trafficController = new TrafficMenuController();
+        //WeatherMenuController weatherController = new WeatherMenuController();
+        
+        // Prepare return value
+        List<Float> dataset = null;
+        
+        // Object
+        DataInterface data = new DataInterface();
+        
         // Variables
         Double x1, x2, y1, y2, x1x2, y1y2;
-        Double[] coordinates = coordinatesController.getCoordinates();
+        // Double[] coordinates = coordinatesController.getCoordinates(); 
+        // -> make it fetch from datainterface
+        
         // Test coordinates
-        //Double[] coordinates = new Double[]{23.755090615, 23.791861827, 61.491086559, 61.509263332};
+        Double[] coordinates = new Double[]{23.755090615, 23.791861827, 61.491086559, 61.509263332};
         x1 = coordinates[0];
         x2 = coordinates[1];
         y1 = coordinates[2];
         y2 = coordinates[3];
         x1x2 = (x1 + x2) / 2;
         y1y2 = (y1 + y2) / 2;
-        String starttime, endtime, taskname;
-        starttime = "";
-        endtime = "";
-        taskname = "";
-        /*
-        if (para1 == "traffic") {
-            // type: TRAFFIC_ANNOUNCEMENT, EXEMPTED_TRANSPORT, WEIGHT_RESTRICTION or ROAD_WORK.
-            String type = null;
-            RoadDataApiFetcher.getRoadConditions(x1.toString(), 
-                    y1.toString(), x2.toString(), y2.toString());
-            
-            // api --> parser
-            // getRoadConditions() --> parseRoadConditions()
-            JsonObject roadData = RoadDataApiFetcher.getRoadConditions(x1.toString(), 
-                    y1.toString(), x2.toString(), y2.toString());
-            // getRoadMaintenanceData() --> parseTasks()
-            JsonObject maintenanceData = RoadDataApiFetcher.getRoadMaintenanceData(starttime, endtime, x1.toString(), 
-                    y1.toString(), x2.toString(), y2.toString(), taskname);
-            // getLatestTrafficMessages() --> parseTrafficData()
-            // type: TRAFFIC_ANNOUNCEMENT, EXEMPTED_TRANSPORT, WEIGHT_RESTRICTION or ROAD_WORK.
-            //JsonObject trafficMessages = RoadDataApiFetcher.getLatestTrafficMessages(type);
-        }
-        // Forecast
-        else if (para1 == "weather" && para2 == "forecast") {
-                WeatherDataApiFetcher.getForecastData(
-                        x1x2.toString(), y1y2.toString(), "30");
-                System.out.println("forecasting");
-        }
-        // Observation
-        else if (para1 == "weather" && para2 == "observation") {
-                WeatherDataApiFetcher.getObservationData(x1.toString(), 
-                                x2.toString(), y1.toString(),
-                                y2.toString(), "30");
-                
-                System.out.println("observing");
-        }
-        else {
-            System.out.println("Error with parameters");
-        }*/
         
+        if (para1 == "temp") {
+            if (para2 == "obs") {
+                dataset = data.getForecastTemperature();
+            }
+            else if (para2 == "fore") {
+                dataset.add(data.getTemperature().floatValue());
+            }
+        }
+        else if (para1 == "cloud") {
+            if (para2 == "obs") {
+                dataset.add(data.getCloud().floatValue());
+            }
+        }
+        else if (para1 == "rain") {
+            if (para2 == "obs") {
+                dataset.add(data.getRain().floatValue());
+            }
+        }
         
+        if (dataset == null) {
+            System.out.println("Sadly we couldn't fetch data succesfully.");
+            return null;
+        }
         
+        /* Segment by:
+        * para1
+        * >temp(fmi)/cloud(fmi)/wind(fmi) || TBA: /maintanancemap(dt)/messages(dt)
+        * para2:
+        * >forecast/observation
+        */
+        return dataset;
     }
-
+    
     public static Double[] listFloatToDoubleArray(List<Float> input) {
         if (input == null) {
             return null;
@@ -115,21 +114,26 @@ public class GraphDrawerFactory {
     public XYChart.Series createPlot() throws Exception {
         try {
             Double[] dataset = null;
+            List<Float> fetchset = null;
             if (isForecast()) {
-                fetchData("weather", "forecast");
-                dataset = listFloatToDoubleArray(DataInterface.getForecastTemperature());
+                fetchset = fetchData("weather", "forecast");
+                dataset = listFloatToDoubleArray(fetchset);
             }
             else if (isObservation()) {
-                fetchData("weather", "observation");
-                dataset = new Double[]{DataInterface.getTemperature()};
+                fetchset = fetchData("weather", "observation");
+                // Get the first (and only element from List<Float>)
+                Float fetchValue = fetchset.get(0);
+                // Convert and set it as current dataset
+                dataset = new Double[]{fetchValue.doubleValue()};
             }
             else {
-                System.out.println("Error with radio booleans.");
+                System.out.println("Error with booleans.");
             }
 
-            dataset = listFloatToDoubleArray(DataInterface.getForecastTemperature());
+            //dataset = listFloatToDoubleArray(DataInterface.getForecastTemperature());
             //PlotDrawer plotterTest = new PlotDrawer(dataset,1);
-            PlotDrawer plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
+            //PlotDrawer plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
+            PlotDrawer plotterTest = new PlotDrawer(dataset,1);
             //System.out.println("test");
             return plotterTest.getChart();
             
@@ -145,19 +149,18 @@ public class GraphDrawerFactory {
     // * returns histogram
     public XYChart.Series createHistogram() throws Exception {
         try {
+            
             List<Float> cloudiness = null;
             List<Float> rain = null;
+            List<Float> dataset = null;
             int timeInterval = 30;
             // If it's a forecast
-            if (isForecast()) {
-                // (?) no cloud/rain data in forecast
-                // TBD
-                fetchData("weather", "forecast");
+            if (isObservation()) {
+                dataset = fetchData("weather", "forecast");
             }
             // If it's an observation
-            else if (isObservation()) {
-                fetchData("weather","observation");
-                cloudiness.add(DataInterface.getCloud().floatValue());
+            else if (isForecast()) {
+                System.out.println("Sadly no forecast values for histogram.");
             }
             else {
                 System.out.println("Error with radio booleans.");
