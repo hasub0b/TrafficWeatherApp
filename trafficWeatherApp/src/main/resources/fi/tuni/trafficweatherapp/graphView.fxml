@@ -49,7 +49,7 @@
                             <CategoryAxis side="BOTTOM" fx:id="xAxis" />
                           </xAxis>
                           <yAxis>
-                            <NumberAxis side="LEFT" fx:id="yAxis" />
+                            <NumberAxis fx:id="yAxis" side="LEFT" />
                           </yAxis>
                            <StackPane.margin>
                               <Insets right="25.0" />
