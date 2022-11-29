@@ -81,12 +81,12 @@ public class WeatherMenuController {
             if (forecastPressed) {
                 cloudbox.setDisable(true);
                 cloudbox.setSelected(false);
-                rainbox.setDisable(true);
-                rainbox.setSelected(false);
+                //rainbox.setDisable(true);
+                //rainbox.setSelected(false);
             }
             else {
                 cloudbox.setDisable(false);
-                rainbox.setDisable(false);
+                //rainbox.setDisable(false);
             }
             
             // Temperature (obs&fore)
@@ -163,6 +163,7 @@ public class WeatherMenuController {
     public boolean getCloud () {
         return cloud;
     }
+    /*
     // Rain
     public void setRain (boolean newRain) {
         rain = newRain;
@@ -171,7 +172,7 @@ public class WeatherMenuController {
     public boolean getRain () {
         return cloud;
     }
-     
+    */
     
     
     public void status() {       

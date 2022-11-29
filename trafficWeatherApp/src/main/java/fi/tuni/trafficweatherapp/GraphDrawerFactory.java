@@ -4,12 +4,16 @@
  */
 package fi.tuni.trafficweatherapp;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextArea;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -163,7 +167,7 @@ public class GraphDrawerFactory {
             
         }
         catch (Exception e) {
-            System.out.println("Error: " + e);
+            System.out.println("Error creating plot: " + e);
         }
         return null;
     }
@@ -198,14 +202,33 @@ public class GraphDrawerFactory {
             return hd.getChart();
         }
         catch (Exception e) {
-            System.out.println("Error: " + e);
+            System.out.println("Error creating histogram: " + e);
         }
         return null;
     }
     
     // Road / traffic msgs
     // * returns trafi info
-    public TextArea createMessages() {
+    public Text createMessages() {
+        try {
+            TrafficMessagesDrawer tmd = new TrafficMessagesDrawer();
+            
+            // Test
+            Map<String, List<String>> testMessageMap = new HashMap<>();
+            List<String> alkioLista = new ArrayList<>();
+            alkioLista.add("alkio1.1");
+            alkioLista.add("alkio1.2");
+            alkioLista.add("alkio1.3");
+            testMessageMap.put("avain1", alkioLista);
+            return tmd.messageTest(testMessageMap);
+            
+            
+            
+            //return tmd.getText();
+        }
+        catch (Exception e) {
+            System.out.println("Error creating messages: " + e);
+        }
         return null;
     }
     
