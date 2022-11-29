@@ -43,20 +43,13 @@ public class RoadDataApiFetcher {
             + "traffic-message/v1/messages?inactiveHours=0&"
             + "includeAreaGeometry=false&situationType=<SITUATION_TYPE>";
 
-    /**
-     * The empty constructor.
-     */
-    public RoadDataApiFetcher() {
-
-    }
-
+    
     private static String localtimeToUrlTime() throws ParseException {
         DateTimeFormatter formatOfUrlTime
                 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH'%3A'mm'%3A'ss'Z'");
 
         // Adding max forecast hours (12).
         LocalDateTime now = LocalDateTime.now().plusHours(12);
-        System.out.println(formatOfUrlTime.format(now));
         String formattedDate = formatOfUrlTime.format(now);
         return formattedDate;
     }
@@ -67,23 +60,8 @@ public class RoadDataApiFetcher {
 
         // Adding max forecast hours (12).
         LocalDateTime now = LocalDateTime.now().minusDays(days);
-        System.out.println(formatOfUrlTime.format(now));
         String formattedDate = formatOfUrlTime.format(now);
         return formattedDate;
-    }
-
-
-    // TODO: remove main
-    public static void main(String[] args) throws IOException, ParseException {
-        //JsonObject roadMaintenanceTasks = getRoadMaintenanceTasks();
-        //System.out.println(roadMaintenanceTasks);
-
-        //getRoadConditions("21", "60", "23", "62");
-
-        //getRoadMaintenanceData("21", "61", "23", "63");
-        getRoadMaintenanceDataAverage("21", "61", "23", "63");
-        //getLatestTrafficMessages();
-
     }
 
     /**
@@ -103,7 +81,6 @@ public class RoadDataApiFetcher {
         // Fixing the wrong json format
         char quote = '"';
         content = "{" + quote + "features" + quote + " : " + content + "}";
-        System.out.println(content);
         JsonObject jsonObject = JsonParser.parseString(content).getAsJsonObject();
 
         JsonParsing.parseTasks(jsonObject);
@@ -118,8 +95,7 @@ public class RoadDataApiFetcher {
      * @hidden
      */
     private static HttpURLConnection getConnection(String urlString)
-            throws MalformedURLException, IOException {
-        System.out.println(urlString);
+            throws IOException {
         var url = (new URL(urlString));
         HttpURLConnection urlConnection
                 = (HttpURLConnection) url.openConnection();
@@ -139,13 +115,10 @@ public class RoadDataApiFetcher {
      * @param yMin minimum y coordinate of the query
      * @param xMax maximum x coordinate of the query
      * @param yMax maximum y coordinate of the query
-     * @return JsonObject of the road conditions data. Includes Current
-     * situation and forecast for 2h, 4h, 6h and 12h.
-     * @throws MalformedURLException if url is wrong.
      * @throws IOException if url doesn't return content.
      */
     public static void getRoadConditions(String xMin, String yMin,
-            String xMax, String yMax) throws MalformedURLException, IOException {
+            String xMax, String yMax) throws IOException {
         String urlString = urlRoadConditions
                 .replace("<X_MIN>", xMin)
                 .replace("<Y_MIN>", yMin)
@@ -153,8 +126,6 @@ public class RoadDataApiFetcher {
                 .replace("<Y_MAX>", yMax);
 
         HttpURLConnection urlConnection = getConnection(urlString);
-
-        System.out.println(urlConnection.getResponseCode());
 
         JsonReader reader = new JsonReader(new InputStreamReader(urlConnection
                 .getInputStream()));
@@ -167,21 +138,16 @@ public class RoadDataApiFetcher {
     /**
      * Fetches road conditions data from Digitraffic API as JsonObject
      *
-     * @param startTime the start time of the query
-     * @param endTime the end time of the query
      * @param xMin minimum x coordinate of the query
      * @param yMin minimum y coordinate of the query
      * @param xMax maximum x coordinate of the query
      * @param yMax maximum y coordinate of the query
-     * @param taskName the task name of the query
-     * @return JsonObject of the road conditions data. Includes Current
-     * situation and forecast for 2h, 4h, 6h and 12h.
-     * @throws MalformedURLException if url is wrong.
+     * @throws ParseException if cannot parse data.
      * @throws IOException if url doesn't return content.
      */
     public static void getRoadMaintenanceData(String xMin, String yMin,
             String xMax, String yMax)
-            throws MalformedURLException, IOException, ParseException {
+            throws IOException, ParseException {
 
         String urlString = urlRoadMaintenanceData
                 .replace("<START_TIME>", "")
@@ -193,8 +159,6 @@ public class RoadDataApiFetcher {
                 .replace("<TASK_NAME>", "");
 
         HttpURLConnection urlConnection = getConnection(urlString);
-
-        System.out.println(urlConnection.getResponseCode());
 
         JsonReader reader = new JsonReader(new InputStreamReader(urlConnection
                 .getInputStream()));
@@ -212,7 +176,6 @@ public class RoadDataApiFetcher {
 
         // get each day of past week
         for (int i = 0; i < 7; i++) {
-            System.out.println(i);
             String urlString = urlRoadMaintenanceData
                     .replace("<START_TIME>", localtimeToUrlTimeMinusDays(i+1))
                     .replace("<END_TIME>",localtimeToUrlTimeMinusDays(i) )
@@ -224,25 +187,18 @@ public class RoadDataApiFetcher {
 
             HttpURLConnection urlConnection = getConnection(urlString);
 
-            System.out.println(urlConnection.getResponseCode());
-
             JsonReader reader = new JsonReader(new InputStreamReader(urlConnection
                     .getInputStream()));
             JsonObject jsonObject = JsonParser.parseReader(reader)
                     .getAsJsonObject();
 
             JsonParsing.parseAverage(jsonObject);
-            System.out.println(i);
         }
     }
 
     /**
-     * Gets the latest traffic messages from the api.
+     * Gets the latest traffic messages from the API.
      *
-     * @param situationType the situation type for this query.
-     * TRAFFIC_ANNOUNCEMENT, EXEMPTED_TRANSPORT, WEIGHT_RESTRICTION or
-     * ROAD_WORK.
-     * @return JsonObject of the latest traffic messages.
      * @throws MalformedURLException if the url is illegal
      * @throws IOException if the url doesn't return content.
      */
@@ -256,7 +212,6 @@ public class RoadDataApiFetcher {
                     .replace("<SITUATION_TYPE>", situationType);
 
             HttpURLConnection urlConnection = getConnection(urlString);
-            System.out.println(urlConnection.getResponseCode());
 
             JsonReader reader = new JsonReader(new InputStreamReader(urlConnection
                     .getInputStream()));

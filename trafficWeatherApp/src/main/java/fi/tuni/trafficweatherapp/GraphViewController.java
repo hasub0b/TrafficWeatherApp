@@ -74,6 +74,10 @@ public class GraphViewController {
     TextArea textAreaAvgMaintenanceTasks;
     @FXML
     PieChart pieChartTaskTypes;
+    @FXML
+    TextField fieldCoordinates;
+    @FXML
+    Button buttonUpdateGraph;
 
     Tooltip tipSideMenu = new Tooltip("Graph settings");
 
@@ -91,7 +95,6 @@ public class GraphViewController {
 
         buttonForecast.setToggleGroup(groupTimeline);
         buttonObservation.setToggleGroup(groupTimeline);
-        
 
         button2h.setToggleGroup(groupForecastOptions);
         button4h.setToggleGroup(groupForecastOptions);
@@ -127,11 +130,11 @@ public class GraphViewController {
         button4h.setOnAction(event -> this.forecastRadioButtonEvent(event));
         button6h.setOnAction(event -> this.forecastRadioButtonEvent(event));
         button12h.setOnAction(event -> this.forecastRadioButtonEvent(event));
-
+        
+        buttonUpdateGraph.setOnAction(event -> updateGraphView());
 
         chartHistogram.getData().add(graphFactory.createHistogram());
         chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
-
 
         //chartHistogram.set
         chartLine.getData().add(graphFactory.createPlot());
@@ -177,5 +180,17 @@ public class GraphViewController {
                     = (RadioButton) groupForecastOptions.getSelectedToggle();
             return selectedRadioButton.getText();
         }
+    }
+
+    /**
+     * Updates the graph view
+     */
+    public void updateGraphView() {
+        Double[] coordinates = DataInterface.getCoordinates();
+        fieldCoordinates.setText(String.format("%s, %s, %s, %s",
+                coordinates[0].toString(),
+                coordinates[1].toString(),
+                coordinates[2].toString(),
+                coordinates[3].toString()));
     }
 }

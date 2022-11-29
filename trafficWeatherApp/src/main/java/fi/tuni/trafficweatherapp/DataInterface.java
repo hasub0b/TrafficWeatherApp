@@ -65,8 +65,10 @@ public final class DataInterface {
     private static Double[] coordinates;
     
     // Accessors
-    public static void setCoordinates(Double[] newCoordinates) {coordinates = newCoordinates;}
+
+    // Coordinates
     public static Double[] getCoordinates() {return coordinates;}
+    public static void setCoordinates(Double[] newCoordinates) {coordinates = newCoordinates;}
 
     // DigiTraffic
 
