@@ -13,11 +13,13 @@ import org.xml.sax.SAXException;
  * Gets weather and road data for datainterface from the API fetchers.
  * @author Mikko Moisio
  */
-class DataFetcher {
+public class DataFetcher {
 
     Double x1, x2, y1, y2, x1x2, y1y2;
 
     public DataFetcher(Double[] coordinates) {
+        DataInterface.setCoordinates(coordinates);
+        
         x1 = coordinates[0];
         x2 = coordinates[1];
         y1 = coordinates[2];

@@ -13,6 +13,8 @@ public final class DataInterface {
     //
     // Key Precipitation/OverallCondition/(WinterSlipperiness) and Value index 0,1,2,3,4 is Observation,2h,4h,6h,12h
     private static Map<String, List<String>> itemsOfInterest = new HashMap<>();
+    
+    private static Double[] coordinates;
 
     // Key maintenance type
     private static Map<String,Integer> maintenanceMap = new HashMap<>();
@@ -62,6 +64,10 @@ public final class DataInterface {
 
 
     // Accessors
+    
+    // Coordinates
+    public static Double[] getCoordinates() {return coordinates;}
+    public static void setCoordinates(Double[] newCoordinates) {coordinates = newCoordinates;}
 
     // DigiTraffic
 
