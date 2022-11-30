@@ -212,30 +212,11 @@ public class GraphDrawerFactory {
     public static XYChart.Series createHistogram() throws Exception {
         try {
 
-            //Float wind = null;
             Float rain = null;
-            //Float cloud = null;
-            Double cloudtemp = null;
-            List<Float> forecastWind = null;
             List<Float> forecastRain = null;
-            //int timeInterval = 30;
             HistogramDrawer hd = null;
-
-            //List<Float> rain = null;
-            List<Float> dataset = null;
-            int timeInterval = 30;
-
-            
             
             if (DataInterface.isObservationSelected()) {
-                /*// Cloud (obs)
-                if (DataInterface.getCloud() != null) {
-                    cloud = DataInterface.getCloud().floatValue();
-                    
-                }
-                else {
-                    System.out.println("Couldn't fetch cloud");
-                }*/
                 
                 // Rain (obs)
                 if (DataInterface.getRain() != null) {
@@ -243,26 +224,9 @@ public class GraphDrawerFactory {
                 }
                 else {
                     System.out.println("Couldn't fetch rain");
-                }
-                
-                /*// Wind (obs)
-                if (DataInterface.getWind() != null) {
-                    wind = Float.valueOf(DataInterface.getWind()); 
-                }
-                else {
-                    System.out.println("Couldn't fetch wind");
-                }*/
-                
+                }                
             }
             else {
-                /*// Wind (fore)
-                if (DataInterface.getForecastWind().size() > 0) {
-                    forecastWind = DataInterface.getForecastWind();
-                }
-                else {
-                    forecastWind = Arrays.asList(20f,40f,10f,20f);
-                }*/
-                
                 // Rain (fore)
                 if (DataInterface.getForecastRain().size() > 0) {
                     forecastRain = DataInterface.getForecastRain();
@@ -271,40 +235,25 @@ public class GraphDrawerFactory {
                     forecastRain = Arrays.asList(20f,40f,50f,60f);
                 }
             }
+            
             // Make checks for what data to display and what not to display
             // Make unselected booleans 0 in value (?)
-            /*if (!(DataInterface.isWindSelected())) {
-                forecastWind = Arrays.asList(0f);
-                wind = 0f;
-            }*/
             if (!(DataInterface.isRainSelected())) {
                 forecastRain = Arrays.asList(0f);
                 rain = 0f;
             }
-            /*if (!(DataInterface.isCloudSelected())) {
-                cloud = 0f;
-            }*/
 
             // Observation
             if (DataInterface.isObservationSelected()) {
                 hd = new HistogramDrawer(Arrays.asList(rain), 1);
             }
             // Forecast
-            // (no cloudiness forecast available)
             else if (!(DataInterface.isObservationSelected())) {
                 hd = new HistogramDrawer(forecastRain, 1);
             }
             
             // Template for testing purposes
-            //hd = new HistogramDrawer(forecastRain, 1);
-            
-            
-
-            //HistogramDrawer barTest = new HistogramDrawer(rain, cloudiness, timeInterval);
-            //hd = new HistogramDrawer(Arrays.asList(20f,40f,50f,60f), 1);
-
-            //return barTest.getChart();
-            System.out.println("barTest");
+            hd = new HistogramDrawer(Arrays.asList(20f,40f,50f,60f), 1);
             return hd.getChart();
         }
         catch (Exception e) {
@@ -317,28 +266,63 @@ public class GraphDrawerFactory {
     // * returns icons
     public XYChart.Series createIcons() throws Exception {
         try {
-            List<Float> cloudiness = null;
-            List<Float> windiness = null;
-            List<Float> dataset = null;
-            int timeInterval = 30;
+            Float wind = null;
+            Float cloud = null;
+            List<Float> forecastWind = null;
+            IconsDrawer id = null;
             
-            // If it's a forecast
-            if (isObservation()) {
-                //dataset = fetchData("weather", "forecast");
-            }
             
-            // If it's an observation
-            else if (isForecast()) {
-                System.out.println("Sadly no forecast values for icons.");
+            if (DataInterface.isObservationSelected()) {
+                // Cloud (obs)
+                if (DataInterface.getCloud() != null) {
+                    cloud = DataInterface.getCloud().floatValue();
+                    
+                }
+                else {
+                    System.out.println("Couldn't fetch cloud");
+                }
+                
+                // Wind (obs)
+                if (DataInterface.getWind() != null) {
+                    wind = Float.valueOf(DataInterface.getWind()); 
+                }
+                else {
+                    System.out.println("Couldn't fetch wind");
+                }
+                
             }
             else {
-                System.out.println("Error with radio booleans.");
+                // Wind (fore)
+                if (DataInterface.getForecastWind().size() > 0) {
+                    forecastWind = DataInterface.getForecastWind();
+                }
+                else {
+                    forecastWind = Arrays.asList(20f,40f,10f,20f);
+                }
             }
             
-            //IconsDrawer iconsTest = new IconsDrawer(cloudiness, windiness, timeInterval);
-            IconsDrawer id = new IconsDrawer(Arrays.asList(20f,40f,50f,60f), Arrays.asList(20f,40f,50f,60f), Arrays.asList(20f,40f,50f,60f), 1);
-            //return iconsTest.getIcons();
-            System.out.println("iconsTest");
+            // Make checks for what data to display and what not to display
+            // Make unselected booleans 0 in value (?)
+            if (!(DataInterface.isWindSelected())) {
+                forecastWind = Arrays.asList(0f);
+                wind = 0f;
+            }
+            if (!(DataInterface.isCloudSelected())) {
+                cloud = 0f;
+            }
+
+            // Observation
+            if (DataInterface.isObservationSelected()) {
+                id = new IconsDrawer(Arrays.asList(cloud), DataInterface.isCloudSelected(), Arrays.asList(wind), DataInterface.isWindSelected(), 1);
+            }
+            // Forecast
+            // (no cloudiness forecast available)
+            else if (!(DataInterface.isObservationSelected())) {
+                id = new IconsDrawer(Arrays.asList(0f), false, forecastWind, DataInterface.isWindSelected(), 1);
+            }
+            
+            // Template for testing purposes
+            id = new IconsDrawer(Arrays.asList(20f,40f,50f,70f), true, Arrays.asList(20f,40f,50f,60f), true, 1);
             return id.getIcons();
         }
         catch (Exception e) {
