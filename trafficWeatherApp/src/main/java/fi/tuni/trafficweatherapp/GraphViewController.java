@@ -138,9 +138,6 @@ public class GraphViewController {
 
         chartHistogram.getData().add(graphFactory.createHistogram());
         chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
-        
-        chartHistogram.getData().add(graphFactory.createHistogram());
-        chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
 
         chartIcons.getData().add(graphFactory.createIcons());
         chartIcons.getYAxis().setOpacity(0);
