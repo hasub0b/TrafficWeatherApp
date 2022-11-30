@@ -31,17 +31,17 @@ public class IconsDrawer {
     // halfCloudy.png <a href="https://www.flaticon.com/free-icons/cloud" title="cloud icons">Cloud icons created by Freepik - Flaticon</a>
     // cloudy.png <a href="https://www.flaticon.com/free-icons/clouds" title="clouds icons">Clouds icons created by Freepik - Flaticon</a>
     // sun.png <a href="https://www.flaticon.com/free-icons/sun" title="sun icons">Sun icons created by Freepik - Flaticon</a>
-    private final ImageView sunny       = new ImageView(new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/sunny.png").toURI().toString()));
-    private final ImageView halfCloudy  = new ImageView(new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/halfCloudy.png").toURI().toString()));
-    private final ImageView cloudy      = new ImageView(new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/cloudy.png").toURI().toString()));
+    private final Image sunny       = new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/sunny.png").toURI().toString());
+    private final Image halfCloudy  = new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/halfCloudy.png").toURI().toString());
+    private final Image cloudy      = new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/cloudy.png").toURI().toString());
     
     
-    public IconsDrawer(List<Float> rain, List<Float> cloudiness,
-            List<Float> windSpeed, int timeInterval) throws Exception {
+    public IconsDrawer(List<Float> cloudiness, boolean cloudSelected,
+            List<Float> windSpeed, boolean windSelected, int timeInterval) throws Exception {
 
         // Get current time for x axis
         LocalTime now = LocalTime.now();
-        for (int i = 0; i < rain.size(); i++) {
+        for (int i = 0; i < windSpeed.size(); i++) {
             XYChart.Data data = new XYChart.Data(
                     now.truncatedTo(ChronoUnit.HOURS).plusHours(
                             (long) timeInterval * i).toString(), 5);
@@ -52,11 +52,11 @@ public class IconsDrawer {
             ImageView image;
             
             if(cloudValue <= 33.3) {
-                image = sunny;
+                image = new ImageView(sunny);
             } else if(cloudValue <= 66.6) {
-                image = halfCloudy;
+                image = new ImageView(halfCloudy);
             } else {
-                image = cloudy;
+                image = new ImageView(cloudy);
             }
             
             Platform.runLater(() -> {
@@ -68,18 +68,25 @@ public class IconsDrawer {
                     Text windText = new Text(windValue + " m/s");
                     windText.setFont(Font.font(12));
                     
-                    //image.fitWidthProperty().bind(node.widthProperty().multiply(.5));
-                    //image.fitHeightProperty().bind(node.heightProperty().multiply(.5));
                     image.setFitHeight(30);
                     image.setPreserveRatio(true);
                     
                     windPic.setFitWidth(17);
                     windPic.setPreserveRatio(true);
                     
-                    
+                    HBox hbox = new HBox();
+                    VBox vbox = new VBox();
                     node.getChildren().clear();
-                    HBox hbox = new HBox(5, windPic, windText);
-                    VBox vbox = new VBox(5, hbox, image);
+                    
+                    if(windSelected){
+                        hbox = new HBox(5, windPic, windText);
+                    }
+                    if(cloudSelected) {
+                        vbox = new VBox(5, image, hbox);
+                    }
+                    if(!cloudSelected){
+                        vbox = new VBox(5, hbox);
+                    }
                     hbox.setAlignment(Pos.BOTTOM_CENTER);
                     node.getChildren().add(vbox);
                     vbox.setAlignment(Pos.BOTTOM_CENTER);
