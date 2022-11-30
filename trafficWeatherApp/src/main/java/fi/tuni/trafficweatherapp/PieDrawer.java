@@ -5,8 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Tooltip;
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +29,11 @@ public class PieDrawer  {
         }
         for (PieChart.Data dat:pieData) {
             dat.nameProperty().bind(Bindings.concat(String.format("%s - %.0f",dat.getName(), dat.pieValueProperty().getValue())));
+        }
+
+        // set default value in case of no data in datainterface
+        if (pieData.size() == 0){
+            pieData.add(new PieChart.Data("NO DATA",0));
         }
 
         ObservableList<PieChart.Data> oList = FXCollections.observableArrayList(pieData);
