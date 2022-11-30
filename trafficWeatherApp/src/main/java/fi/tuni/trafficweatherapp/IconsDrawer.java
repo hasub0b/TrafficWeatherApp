@@ -35,7 +35,15 @@ public class IconsDrawer {
     private final Image halfCloudy  = new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/halfCloudy.png").toURI().toString());
     private final Image cloudy      = new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/cloudy.png").toURI().toString());
     
-    
+    /**
+     * 
+     * @param cloudiness List of values for cloudiness from dataInterface
+     * @param cloudSelected boolean value wether cloudiness is selected in the UI
+     * @param windSpeed List of values for windSpeed from dataInterface
+     * @param windSelected boolean value wether wind speed is selected in the UI
+     * @param timeInterval time interval between data points
+     * @throws Exception 
+     */
     public IconsDrawer(List<Float> cloudiness, boolean cloudSelected,
             List<Float> windSpeed, boolean windSelected, int timeInterval) throws Exception {
 
