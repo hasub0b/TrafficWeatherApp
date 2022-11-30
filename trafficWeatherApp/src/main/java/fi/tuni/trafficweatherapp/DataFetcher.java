@@ -53,6 +53,7 @@ public class DataFetcher {
             RoadDataApiFetcher.getRoadMaintenanceData(x1.toString(), y1.toString(), x2.toString(), y2.toString());
             RoadDataApiFetcher.getRoadConditions(x1.toString(), y1.toString(), x2.toString(), y2.toString());
             RoadDataApiFetcher.getLatestTrafficMessages();
+            RoadDataApiFetcher.getRoadMaintenanceDataAverage(x1.toString(), y1.toString(), x2.toString(), y2.toString());
         } catch (IOException ex) {
             System.err.println("Error: Cannot get data from Digitraffic API");
         } catch (ParseException ex) {
