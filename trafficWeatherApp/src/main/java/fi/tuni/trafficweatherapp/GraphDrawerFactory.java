@@ -212,9 +212,9 @@ public class GraphDrawerFactory {
     public static XYChart.Series createHistogram() throws Exception {
         try {
 
-            Float wind = null;
+            //Float wind = null;
             Float rain = null;
-            Float cloud = null;
+            //Float cloud = null;
             Double cloudtemp = null;
             List<Float> forecastWind = null;
             List<Float> forecastRain = null;
@@ -228,14 +228,14 @@ public class GraphDrawerFactory {
             
             
             if (DataInterface.isObservationSelected()) {
-                // Cloud (obs)
+                /*// Cloud (obs)
                 if (DataInterface.getCloud() != null) {
                     cloud = DataInterface.getCloud().floatValue();
                     
                 }
                 else {
                     System.out.println("Couldn't fetch cloud");
-                }
+                }*/
                 
                 // Rain (obs)
                 if (DataInterface.getRain() != null) {
@@ -245,23 +245,23 @@ public class GraphDrawerFactory {
                     System.out.println("Couldn't fetch rain");
                 }
                 
-                // Wind (obs)
+                /*// Wind (obs)
                 if (DataInterface.getWind() != null) {
                     wind = Float.valueOf(DataInterface.getWind()); 
                 }
                 else {
                     System.out.println("Couldn't fetch wind");
-                }
+                }*/
                 
             }
             else {
-                // Wind (fore)
+                /*// Wind (fore)
                 if (DataInterface.getForecastWind().size() > 0) {
                     forecastWind = DataInterface.getForecastWind();
                 }
                 else {
                     forecastWind = Arrays.asList(20f,40f,10f,20f);
-                }
+                }*/
                 
                 // Rain (fore)
                 if (DataInterface.getForecastRain().size() > 0) {
@@ -273,17 +273,17 @@ public class GraphDrawerFactory {
             }
             // Make checks for what data to display and what not to display
             // Make unselected booleans 0 in value (?)
-            if (!(DataInterface.isWindSelected())) {
+            /*if (!(DataInterface.isWindSelected())) {
                 forecastWind = Arrays.asList(0f);
                 wind = 0f;
-            }
+            }*/
             if (!(DataInterface.isRainSelected())) {
                 forecastRain = Arrays.asList(0f);
                 rain = 0f;
             }
-            if (!(DataInterface.isCloudSelected())) {
+            /*if (!(DataInterface.isCloudSelected())) {
                 cloud = 0f;
-            }
+            }*/
 
             // Observation
             if (DataInterface.isObservationSelected()) {
@@ -296,12 +296,12 @@ public class GraphDrawerFactory {
             }
             
             // Template for testing purposes
-            //hd = new HistogramDrawer(forecastRain, Arrays.asList(20f,40f,10f,20f), forecastWind, 1);
+            //hd = new HistogramDrawer(forecastRain, 1);
             
             
 
             //HistogramDrawer barTest = new HistogramDrawer(rain, cloudiness, timeInterval);
-            //HistogramDrawer hd = new HistogramDrawer(Arrays.asList(20f,40f,50f,60f), 1);
+            //hd = new HistogramDrawer(Arrays.asList(20f,40f,50f,60f), 1);
 
             //return barTest.getChart();
             System.out.println("barTest");
