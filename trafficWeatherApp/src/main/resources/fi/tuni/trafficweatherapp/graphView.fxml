@@ -70,17 +70,6 @@
                                         <Insets right="25.0" top="5.0" />
                                     </StackPane.margin>
                                 </BarChart>
-                        <BarChart fx:id="chartIcons" alternativeRowFillVisible="false" animated="false" categoryGap="35.0" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false" StackPane.alignment="CENTER_LEFT">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" fx:id="xAxis" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis fx:id="yAxis" side="LEFT" />
-                          </yAxis>
-                           <StackPane.margin>
-                              <Insets right="25.0" />
-                           </StackPane.margin>
-                        </BarChart>
                                 <LineChart fx:id="chartLine" animated="false" axisSortingPolicy="NONE" legendVisible="false" StackPane.alignment="CENTER_LEFT">
                                     <xAxis>
                                         <CategoryAxis animated="false" side="BOTTOM" />
@@ -92,6 +81,17 @@
                                         <Insets top="5.0" />
                                     </StackPane.margin>
                                 </LineChart>
+                        <BarChart fx:id="chartIcons" alternativeRowFillVisible="false" animated="false" categoryGap="35.0" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false" StackPane.alignment="CENTER_LEFT">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis fx:id="yAxis" side="LEFT" />
+                          </yAxis>
+                           <StackPane.margin>
+                              <Insets right="25.0" />
+                           </StackPane.margin>
+                        </BarChart>
                             </children>
                         </StackPane>
                         <GridPane hgap="5.0" minHeight="200.0" prefHeight="350.0" vgap="5.0" VBox.vgrow="SOMETIMES">
