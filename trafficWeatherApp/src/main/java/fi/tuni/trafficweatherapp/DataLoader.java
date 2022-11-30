@@ -26,8 +26,6 @@ public class DataLoader {
         String file = "";
         try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
             for (Path path : stream) {
-                System.out.println(filename);
-                System.out.println(path.toString());
                 if(Objects.equals(filename, path.getFileName().toString())){
                     file = path.toString();
                 }

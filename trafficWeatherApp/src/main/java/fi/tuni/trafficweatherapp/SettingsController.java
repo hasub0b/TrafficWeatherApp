@@ -19,6 +19,8 @@ import java.nio.file.Paths;
 
 /**
  * Controller for the settings view fxml javafx elements.
+ * @author Mikko
+ * @author Aleksi
  */
 public class SettingsController {
 
@@ -66,32 +68,6 @@ public class SettingsController {
 
     }
 
-    private void updatePreferenceBox() {
-        comboBoxPreferences.getItems().clear();
-        Path dir = Paths.get("trafficWeatherApp/savedData/preferences/");
-        try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-            for (Path path : stream) {
-                comboBoxPreferences.getItems().add(path.getFileName().toString());
-            }
-            comboBoxPreferences.getSelectionModel().selectFirst();
-        } catch (IOException e){
-            System.out.println("ERROR WHILE UPDATING PREFERENCES");
-        }
-    }
-
-    private void updateDatasetBox(){
-        comboBoxDataset.getItems().clear();
-        Path dir = Paths.get("trafficWeatherApp/savedData/datasets/");
-        try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-            for (Path path : stream) {
-                comboBoxDataset.getItems().add(path.getFileName().toString());
-            }
-            comboBoxDataset.getSelectionModel().selectFirst();
-        } catch (IOException e){
-            System.out.println("ERROR WHILE UPDATING PREFERENCES");
-        }
-    }
-
     public void loadPreferences(ActionEvent actionEvent){
         PreferenceLoader preferenceLoader = new PreferenceLoader();
         if (!comboBoxPreferences.getSelectionModel().isEmpty()){
@@ -99,6 +75,31 @@ public class SettingsController {
         }
 
     }
+
+    private void updatePreferenceBox() {
+        comboBoxPreferences.getItems().clear();
+        Path dir = Paths.get("trafficWeatherApp/savedData/preferences/");
+        try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+            for (Path path : stream) {
+                // Check if the file is json
+                String name = path.getFileName().toString();
+                int lastIndexOf = name.lastIndexOf(".");
+                String extension = "";
+                if (lastIndexOf != -1) {
+                    extension = name.substring(lastIndexOf);
+                }
+                if(extension.equals(".json")){
+                    // add the file to comboBox
+                    comboBoxPreferences.getItems().add(path.getFileName().toString());
+                }
+
+            }
+            comboBoxPreferences.getSelectionModel().selectFirst();
+        } catch (IOException e){
+            System.out.println("ERROR WHILE UPDATING PREFERENCES");
+        }
+    }
+
 
     public void saveData(ActionEvent actionEvent) {
 
@@ -114,6 +115,31 @@ public class SettingsController {
         DataLoader dataLoader = new DataLoader();
         if (!comboBoxDataset.getSelectionModel().isEmpty()){
             dataLoader.load(comboBoxDataset.getValue().toString());
+        }
+    }
+
+    private void updateDatasetBox(){
+        comboBoxDataset.getItems().clear();
+        Path dir = Paths.get("trafficWeatherApp/savedData/datasets/");
+        try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+            for (Path path : stream) {
+
+                // Check if the file is json
+                String name = path.getFileName().toString();
+                int lastIndexOf = name.lastIndexOf(".");
+                String extension = "";
+                if (lastIndexOf != -1) {
+                    extension = name.substring(lastIndexOf);
+                }
+                if(extension.equals(".json")){
+                    // add the file to comboBox
+                    comboBoxDataset.getItems().add(path.getFileName().toString());
+                }
+            }
+            comboBoxDataset.getSelectionModel().selectFirst();
+
+        } catch (IOException e){
+            System.out.println("ERROR WHILE UPDATING Datasets");
         }
     }
 }
