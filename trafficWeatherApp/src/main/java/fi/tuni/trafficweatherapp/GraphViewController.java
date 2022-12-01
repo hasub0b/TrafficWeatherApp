@@ -178,8 +178,8 @@ public class GraphViewController {
         chartLine.getData().add(new XYChart.Series<>());
         chartHistogram.getData().add(new XYChart.Series<>());
         chartHistogram.getData().add(new XYChart.Series<>());
-        chartHistogram.setVisible(false);
-        chartLine.setVisible(false);
+        chartHistogram.setVisible(true);
+        chartLine.setVisible(true);
         chartIcons.setVisible(false);
     }
 
