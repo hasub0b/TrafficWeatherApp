@@ -152,26 +152,28 @@ public class GraphViewController {
             try {
                 updateGraphView();
             } catch (Exception ex) {
+                //Logger.getLogger(GraphViewController.class.getName()).log(Level.SEVERE, null, ex);
                 System.err.println("Error: Cannot update GraphView!");
             }
         });
 
         // CHARTS
-        // init icons chart
+        //chartIcons.getData().add(graphFactory.createIcons());
         chartIcons.getData().add(new XYChart.Series<>());
         chartIcons.getYAxis().setOpacity(0);
         chartIcons.getXAxis().setOpacity(0);
         for (Node n : chartIcons.lookupAll(".default-color0.chart-bar")) {
             n.setStyle("-fx-bar-fill: transparent;");
         }
-        
-        // init Line chart
+
+
+        //chartLine.getData().add(graphFactory.createPlot());
         chartLine.getYAxis().setSide(Side.RIGHT);
         chartLine.getYAxis().setLabel("Temperature (C\u00B0)");
         chartLine.getXAxis().setLabel("Time (hh:mm)");
         chartLine.getData().add(new XYChart.Series<>());
 
-        // init bar chart
+        //chartLine.getData().add(graphFactory.createHistogram());
         chartHistogram.getYAxis().setLabel("Rain amount (mm)");
         chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
         chartHistogram.getData().add(new XYChart.Series<>());
