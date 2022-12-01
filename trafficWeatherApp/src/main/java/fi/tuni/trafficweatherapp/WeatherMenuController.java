@@ -38,6 +38,9 @@ public class WeatherMenuController {
         labelForecast.getStyleClass().add("title");
         labelForecast.getStyleClass().add("outlineTitle");
 
+        // Temperature is selected
+        DataInterface.setTemperatureSelected(true);
+        
         /*// TBA (call to factory's update if needed)
        try {
         GraphViewController viewController = new GraphViewController();

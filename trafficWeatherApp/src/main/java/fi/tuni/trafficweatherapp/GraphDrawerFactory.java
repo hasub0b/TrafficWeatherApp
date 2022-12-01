@@ -83,11 +83,11 @@ public class GraphDrawerFactory {
             // Checks for null/short arrays and values
             if (temp != null && DataInterface.isObservationSelected()) {
                 dataset = new Double[]{temp};
-                System.out.println("Obs Data fetched[0]: " + dataset[0]);
+                System.out.println("Obs Data fetched[0]+[n-1]: [" + dataset[0] + "]+[" + dataset[dataset.length-1]+"]");
             }
             else if (foreTemp.length > 0 && !(DataInterface.isObservationSelected())) {
                 dataset = foreTemp;
-                System.out.println("Fore Data fetched[0]: " + dataset[0]);
+                System.out.println("Fore Data fetched[0]+[n-1]: [" + dataset[0] + "]+[" + dataset[dataset.length-1]+"]");
             }
             else {
                 System.out.println("No values to fetch!");
