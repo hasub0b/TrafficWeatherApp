@@ -27,6 +27,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -84,6 +85,8 @@ public class GraphViewController {
     TextField fieldCoordinates;
     @FXML
     Button buttonUpdateGraph;
+    @FXML
+    GridPane gridLower;
 
     ContextMenu menuErrorMessage = new ContextMenu();
 
@@ -249,9 +252,9 @@ public class GraphViewController {
             chartLine.setVisible(false);
             chartIcons.setVisible(false);
             
-            chartLine.getData().add(graphFactory.createPlot());
-            chartHistogram.getData().add(graphFactory.createHistogram());
-            chartHistogram.getData().add(graphFactory.createIcons());
+            chartLine.getData().addAll(graphFactory.createPlot());
+            chartHistogram.getData().addAll(graphFactory.createHistogram());
+            chartHistogram.getData().addAll(graphFactory.createIcons());
             // Weather 
             if (DataInterface.isWindSelected()) {
                 chartIcons.setVisible(true);
@@ -259,10 +262,8 @@ public class GraphViewController {
             if (DataInterface.isCloudSelected()) {
                 chartIcons.setVisible(true);
             }
-
             if (DataInterface.isRainSelected()) {
                 chartHistogram.setVisible(true);
-
             }
             if (DataInterface.isTemperatureSelected()) {
                 chartLine.setVisible(true);
@@ -279,7 +280,8 @@ public class GraphViewController {
             if (DataInterface.isSlipperinessSelected()) {
 
             }
-
+            //textAreaTrafficMessages.setText(graphFactory.createMessages());
+            
             // Messages
             if (DataInterface.isAnnouncementSelected()) {
 
