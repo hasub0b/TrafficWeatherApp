@@ -164,20 +164,19 @@ public class GraphViewController {
         for (Node n : chartIcons.lookupAll(".default-color0.chart-bar")) {
             n.setStyle("-fx-bar-fill: transparent;");
         }
+        chartIcons.getData().add(new XYChart.Series<>());
 
         //chartLine.getData().add(graphFactory.createPlot());
         chartLine.getYAxis().setSide(Side.RIGHT);
         chartLine.getYAxis().setLabel("Temperature (C\u00B0)");
         chartLine.getXAxis().setLabel("Time (hh:mm)");
+        chartLine.getData().add(new XYChart.Series<>());
 
         //chartLine.getData().add(graphFactory.createHistogram());
         chartHistogram.getYAxis().setLabel("Rain amount (mm)");
         chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
+        chartHistogram.getData().add(new XYChart.Series<>());
 
-        
-        chartLine.getData().add(new XYChart.Series<>());
-        chartHistogram.getData().add(new XYChart.Series<>());
-        chartHistogram.getData().add(new XYChart.Series<>());
         chartHistogram.setVisible(true);
         chartLine.setVisible(true);
         chartIcons.setVisible(false);
@@ -262,10 +261,11 @@ public class GraphViewController {
             chartHistogram.setVisible(false);
             chartLine.setVisible(false);
             chartIcons.setVisible(false);
-            
-            chartLine.getData().set(0,graphFactory.createPlot());
-            chartHistogram.getData().set(0,graphFactory.createHistogram());
-            chartHistogram.getData().set(0,graphFactory.createIcons());
+
+            chartLine.getData().set(0, graphFactory.createPlot());
+            chartHistogram.getData().set(0, graphFactory.createHistogram());
+            chartIcons.getData().set(0, graphFactory.createIcons());
+
             // Weather 
             if (DataInterface.isWindSelected()) {
                 chartIcons.setVisible(true);
@@ -292,7 +292,7 @@ public class GraphViewController {
 
             }
             //textAreaTrafficMessages.setText(graphFactory.createMessages());
-            
+
             // Messages
             if (DataInterface.isAnnouncementSelected()) {
 
@@ -313,29 +313,28 @@ public class GraphViewController {
 
                 // Setting data from DataInterface
                 List<PieChart.Data> pieData = new ArrayList<>();
-                for (String key: DataInterface.getMaintenanceMap().keySet()) {
+                for (String key : DataInterface.getMaintenanceMap().keySet()) {
                     pieData.add(new PieChart.Data(key, DataInterface.getMaintenanceMap().get(key)));
                 }
-                for (PieChart.Data dat:pieData) {
-                    dat.nameProperty().bind(Bindings.concat(String.format("%s - %.0f",dat.getName(), dat.pieValueProperty().getValue())));
+                for (PieChart.Data dat : pieData) {
+                    dat.nameProperty().bind(Bindings.concat(String.format("%s - %.0f", dat.getName(), dat.pieValueProperty().getValue())));
                 }
 
                 // set default value in case of no data in datainterface
-                if (pieData.size() == 0){
-                    pieData.add(new PieChart.Data("NO DATA",0));
+                if (pieData.size() == 0) {
+                    pieData.add(new PieChart.Data("NO DATA", 0));
                 }
 
                 ObservableList<PieChart.Data> oList = FXCollections.observableArrayList(pieData);
                 pieChartTaskTypes.setData(oList);
-
 
                 // Tooltip
                 pieChartTaskTypes.getData().stream().forEach(data -> {
                     Tooltip tooltip = new Tooltip();
                     tooltip.setText(data.getName());
                     Tooltip.install(data.getNode(), tooltip);
-                    data.pieValueProperty().addListener((observable, oldValue, newValue) ->
-                            tooltip.setText(data.getName()));
+                    data.pieValueProperty().addListener((observable, oldValue, newValue)
+                            -> tooltip.setText(data.getName()));
                 });
 
                 //Setting the other properties
@@ -356,5 +355,3 @@ public class GraphViewController {
         }
     }
 }
-
-
