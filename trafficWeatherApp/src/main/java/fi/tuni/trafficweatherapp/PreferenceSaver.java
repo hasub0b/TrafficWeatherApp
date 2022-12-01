@@ -2,9 +2,8 @@ package fi.tuni.trafficweatherapp;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+
+import java.io.*;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -63,6 +62,47 @@ public class PreferenceSaver {
 
 
         int prefNumber = 1;
+        try (InputStream in = getClass().getResource("preferences").openStream();
+             BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+            String resource;
+
+            while ((resource = br.readLine()) != null) {
+                // Check if the file is json
+                int lastIndexOf = resource.lastIndexOf(".");
+                String extension = "";
+                if (lastIndexOf != -1) {
+                    extension = resource.substring(lastIndexOf);
+                }
+                if(extension.equals(".json")){
+                    // add the file to comboBox
+                    prefNumber += 1;
+                }
+            }
+            String filename = String.format("Pref%d.json",prefNumber);
+            String targetPath = getClass().getResource("preferences").getPath();
+
+            try {
+                Writer fileWriter = new FileWriter(targetPath + "/" + filename);
+
+                Gson gson = new GsonBuilder()
+                        .setPrettyPrinting()
+                        .serializeNulls()
+                        .create();
+                gson.toJson(map, fileWriter);
+
+                fileWriter.close();
+                System.out.println("WROTE TO");
+            } catch (Exception e){
+                System.out.println("error");
+                System.out.println(e);
+            }
+
+        } catch (Exception e){
+            System.err.println("ERROR WHILE UPDATING DATASETS");
+            System.out.println(e);
+        }
+
+        /*
         Path dir = Paths.get("trafficWeatherApp/savedData/preferences/");
         try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
 
@@ -88,5 +128,7 @@ public class PreferenceSaver {
         } catch (IOException e){
             System.out.println("PATH NOT FOUND");
         }
+
+         */
     }
 }

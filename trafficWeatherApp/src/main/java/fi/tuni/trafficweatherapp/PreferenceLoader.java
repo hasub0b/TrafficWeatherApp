@@ -5,8 +5,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,21 +25,19 @@ public class PreferenceLoader {
      */
     public void load(String filename, Node node){
 
-        Path dir = Paths.get("trafficWeatherApp/savedData/preferences/");
-        String file = "";
-        try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-            for (Path path : stream) {
-                if(Objects.equals(filename, path.getFileName().toString())){
-                    file = path.toString();
+        try (InputStream in = getClass().getResource("preferences").openStream();
+             BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+            String resource;
+            while ((resource = br.readLine()) != null) {
+                // Check if the file is json
+                if(resource.equals(filename)){
+                    // add the file to comboBox
+                    JsonObject jsonObject = convertFileToJSON(resource);
+                    loadToGraphview(jsonObject,node);
                 }
             }
-            if (file.equals("")){
-                System.out.println("FILE NOT FOUND");
-            }
-            JsonObject jsonObject = convertFileToJSON(file);
-            loadToGraphview(jsonObject,node);
-        }catch (IOException e){
-            System.out.println("PATH NOT FOUND");
+        } catch (Exception e){
+            System.err.println("ERROR WHILE UPDATING DATASETS");
         }
     }
 
@@ -72,6 +70,7 @@ public class PreferenceLoader {
         // GraphView
         // timeline
         try{
+            System.out.println(jsonObject);
             String timeline = jsonObject.get("timeline").toString().replaceAll("\"","");
             if (Objects.equals(timeline, "observation")){
                 gc.buttonForecast.setSelected(false);
@@ -142,6 +141,7 @@ public class PreferenceLoader {
             rc.setPrecipitation(jsonObject.get("precipitation").getAsBoolean());
         }catch (Exception e){
             System.out.println("JSON FILE DOESN'T HAVE CORRECT FORMATTING");
+            System.out.println(e);
         }
     }
 
@@ -157,15 +157,12 @@ public class PreferenceLoader {
 
         try {
             JsonParser parser = new JsonParser();
-            JsonElement jsonElement = parser.parse(new FileReader(fileName));
+            JsonElement jsonElement = parser.parse(new FileReader(getClass().getResource("preferences/" + fileName).getFile()));
             jsonObject = jsonElement.getAsJsonObject();
         } catch (IOException e) {
             System.out.println("ERROR WHILE CONVERTING");
         }
 
-
         return jsonObject;
     }
-
-
 }
