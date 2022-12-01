@@ -198,7 +198,7 @@ public class GraphDrawerFactory {
     
     // IconsDrawer
     // * returns icons
-    public XYChart.Series createIcons() throws Exception {
+    public static XYChart.Series createIcons() throws Exception {
         try {
             Float wind = null;
             Float cloud = null;
