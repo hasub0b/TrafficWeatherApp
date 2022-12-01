@@ -21,6 +21,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.RadioButton;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -173,6 +174,10 @@ public class GraphViewController {
         chartHistogram.getYAxis().setLabel("Rain amount (mm)");
         chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
 
+        
+        chartLine.getData().add(new XYChart.Series<>());
+        chartHistogram.getData().add(new XYChart.Series<>());
+        chartHistogram.getData().add(new XYChart.Series<>());
         chartHistogram.setVisible(false);
         chartLine.setVisible(false);
         chartIcons.setVisible(false);
@@ -258,9 +263,9 @@ public class GraphViewController {
             chartLine.setVisible(false);
             chartIcons.setVisible(false);
             
-            chartLine.getData().addAll(graphFactory.createPlot());
-            chartHistogram.getData().addAll(graphFactory.createHistogram());
-            chartHistogram.getData().addAll(graphFactory.createIcons());
+            chartLine.getData().set(0,graphFactory.createPlot());
+            chartHistogram.getData().set(0,graphFactory.createHistogram());
+            chartHistogram.getData().set(0,graphFactory.createIcons());
             // Weather 
             if (DataInterface.isWindSelected()) {
                 chartIcons.setVisible(true);
