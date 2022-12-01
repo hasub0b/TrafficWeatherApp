@@ -25,8 +25,8 @@ public class GraphDrawerFactory {
         int timeWindow = 0;
         System.out.println("Fetched forecast (time): " + DataInterface.getSelectedForecast());
         if (DataInterface.getSelectedForecast() != "") {
-            if (DataInterface.getSelectedForecast().toString().contains("2h")) {
-                timeWindow = 2;
+            if (DataInterface.getSelectedForecast().toString().contains("12h")) {
+                timeWindow = 12;
             }
             else if (DataInterface.getSelectedForecast().toString().contains("4h")) {
                 timeWindow = 4;
@@ -34,8 +34,8 @@ public class GraphDrawerFactory {
             else if (DataInterface.getSelectedForecast().toString().contains("6h")) {
                 timeWindow = 6;
             }
-            else if (DataInterface.getSelectedForecast().toString().contains("12h")) {
-                timeWindow = 12;
+            else if (DataInterface.getSelectedForecast().toString().contains("2h")) {
+                timeWindow = 2;
             }
             else {
                 System.out.println("Couldn't find selected forecast");
@@ -47,7 +47,7 @@ public class GraphDrawerFactory {
             // if there's no selected forecast hour value
             timeWindow = 2;
         }
-        System.out.println("Forecast time: " + timeWindow);
+        //System.out.println("Forecast time: " + timeWindow);
         return timeWindow;
     }
     
