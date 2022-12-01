@@ -121,7 +121,10 @@ public class GraphDrawerFactory {
             // If we receive data, then it can be utilized in chart,
             // else it will draw from template
             if (dataset == null) {
-                plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
+                //plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
+                plotterTest = new PlotDrawer(new Double[]{0.0},1);
+                return plotterTest.getChart();
+                
             }
             else {
                 System.out.println("Plot Dataset[0]: " + dataset[0]);
@@ -162,9 +165,9 @@ public class GraphDrawerFactory {
                 if (DataInterface.getForecastRain().size() > 0) {
                     forecastRain = DataInterface.getForecastRain();
                 }
-                else {
+                /*else {
                     forecastRain = Arrays.asList(20f,40f,50f,60f);
-                }
+                }*/
             }
             
             // Make checks for what data to display and what not to display
@@ -184,7 +187,7 @@ public class GraphDrawerFactory {
             }
             
             // Template for testing purposes
-            hd = new HistogramDrawer(Arrays.asList(20f,40f,50f,60f), 1);
+            //hd = new HistogramDrawer(Arrays.asList(20f,40f,50f,60f), 1);
             return hd.getChart();
         }
         catch (Exception e) {
@@ -254,7 +257,7 @@ public class GraphDrawerFactory {
             
             // ! Template for testing purposes !
             // ---
-            id = new IconsDrawer(Arrays.asList(20f,40f,50f,70f), true, Arrays.asList(20f,40f,50f,60f), true, 1);
+            //id = new IconsDrawer(Arrays.asList(20f,40f,50f,70f), true, Arrays.asList(20f,40f,50f,60f), true, 1);
             // ---
             return id.getIcons();
         }
@@ -275,7 +278,7 @@ public class GraphDrawerFactory {
             */
             
             
-            return tmd.getMessageText();
+            return tmd.getRoadConditionData();
         }
         catch (Exception e) {
             System.out.println("Error creating messages: " + e);
