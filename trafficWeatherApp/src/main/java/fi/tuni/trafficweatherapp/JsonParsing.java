@@ -25,7 +25,7 @@ public class JsonParsing {
 
 
         if (!obj.has("features") || obj.get("features").getAsJsonArray().size() == 0){
-            System.err.println("No data received from DigiTraffic!");
+            System.err.println("No data received from DigiTraffic / parseTrafficData!");
             return;
         }
 
@@ -89,7 +89,7 @@ public class JsonParsing {
     public static void parseAverage(JsonObject obj){
 
         if (!obj.has("features") || obj.get("features").getAsJsonArray().size() == 0){
-            System.err.println("No data received from DigiTraffic!");
+            System.err.println("No data received from DigiTraffic! / parseAverage");
             return;
         }
 
@@ -134,7 +134,7 @@ public class JsonParsing {
     public static void parseTasks(JsonObject obj){
 
         if (!obj.has("features") || obj.get("features").getAsJsonArray().size() == 0){
-            System.err.println("No data received from DigiTraffic!");
+            System.err.println("No data received from DigiTraffic! / parseTasks");
             return;
         }
 
@@ -152,7 +152,7 @@ public class JsonParsing {
      */
     public static void parseRoadConditions(JsonObject obj){
         if (!obj.has("weatherData") || obj.get("weatherData").getAsJsonArray().size() == 0){
-            System.err.println("No data received from DigiTraffic!");
+            System.err.println("No data received from DigiTraffic! / parseRoadConditions");
             return;
         }
 
