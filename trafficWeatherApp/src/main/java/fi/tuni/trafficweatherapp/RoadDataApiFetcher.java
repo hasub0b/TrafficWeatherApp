@@ -30,7 +30,8 @@ public class RoadDataApiFetcher {
     static String urlRoadConditions = "https://tie.digitraffic.fi/api/v3/data/"
             + "road-conditions/<X_MIN>/<Y_MIN>/<X_MAX>/<Y_MAX>";
 
-    static String urlRoadMaintenanceData = "https://tie.digitraffic.fi/api/maintenance/v1/"
+    static String urlRoadMaintenanceData = 
+            "https://tie.digitraffic.fi/api/maintenance/v1/"
             + "tracking/routes?endFrom=<START_TIME>&endBefore=<END_TIME>&"
             + "xMin=<X_MIN>&yMin=<Y_MIN>&xMax=<X_MAX>&yMax=<Y_MAX>"
             + "&taskId=<TASK_NAME>&domain=state-roads";

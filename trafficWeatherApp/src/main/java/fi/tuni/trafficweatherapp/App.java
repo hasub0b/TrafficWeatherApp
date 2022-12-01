@@ -9,7 +9,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * JavaFX App
+ * Application for monitoring how weather affects road maintenance and 
+ * condition. The application fetches data from Digitraffic and 
+ * Ilmatieteenlaitos (FMI).
  */
 public class App extends Application {
 

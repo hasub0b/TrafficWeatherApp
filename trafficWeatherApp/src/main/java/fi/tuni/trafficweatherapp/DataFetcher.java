@@ -34,8 +34,10 @@ public class DataFetcher {
     public void fetchWeatherData() {
 
         try {
-            WeatherDataApiFetcher.getForecastData(x1x2.toString(), y1y2.toString(), "60");
-            WeatherDataApiFetcher.getObservationData(x1.toString(), x2.toString(), y1.toString(), y2.toString(), "60");
+            WeatherDataApiFetcher.getForecastData(x1x2.toString(), 
+                    y1y2.toString(), "60");
+            WeatherDataApiFetcher.getObservationData(x1.toString(), 
+                    x2.toString(), y1.toString(), y2.toString(), "60");
         } catch (IOException ex) {
             System.err.println("Error: Cannot get data from API");
         } catch (ParserConfigurationException | SAXException ex) {
@@ -50,10 +52,13 @@ public class DataFetcher {
     public void fetchRoadData() {
 
         try {
-            RoadDataApiFetcher.getRoadMaintenanceData(x1.toString(), y1.toString(), x2.toString(), y2.toString());
-            RoadDataApiFetcher.getRoadConditions(x1.toString(), y1.toString(), x2.toString(), y2.toString());
+            RoadDataApiFetcher.getRoadMaintenanceData(x1.toString(), 
+                    y1.toString(), x2.toString(), y2.toString());
+            RoadDataApiFetcher.getRoadConditions(x1.toString(), y1.toString(), 
+                    x2.toString(), y2.toString());
             RoadDataApiFetcher.getLatestTrafficMessages();
-            RoadDataApiFetcher.getRoadMaintenanceDataAverage(x1.toString(), y1.toString(), x2.toString(), y2.toString());
+            RoadDataApiFetcher.getRoadMaintenanceDataAverage(x1.toString(), 
+                    y1.toString(), x2.toString(), y2.toString());
         } catch (IOException ex) {
             System.err.println("Error: Cannot get data from Digitraffic API");
         } catch (ParseException ex) {

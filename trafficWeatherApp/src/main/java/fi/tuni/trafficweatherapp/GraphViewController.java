@@ -31,8 +31,8 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 /**
- *
- * @author mikko
+ * Controller for the Graph View's fxml javafx elements.
+ * @author Mikko Moisio
  */
 public class GraphViewController {
 
@@ -93,7 +93,11 @@ public class GraphViewController {
     FXMLLoader loaderSideMenuTitleBoxes = new FXMLLoader(
             getClass().getResource("sideMenuTitleBoxes.fxml"));
 
-    public void initialize() throws Exception {
+    /**
+     * Initializes graph view's elements.
+     * @throws Exception If cannot create graphs
+     */
+    public void initialize() throws Exception{
         sideMenu.getStyleClass().add("menu");
 
         buttonForecast.setToggleGroup(groupTimeline);
@@ -111,6 +115,7 @@ public class GraphViewController {
         }
         tipSideMenu.setShowDelay(Duration.seconds(0.3));
         Tooltip.install(sideMenu, tipSideMenu);
+        
         // Action Events
         sideMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             if (!anchorSideMenu.getChildren().isEmpty()) {
@@ -119,13 +124,6 @@ public class GraphViewController {
                 anchorSideMenu.getChildren().add(anchorSideMenuBoxes);
             }
         });
-
-        try {
-            //LineChart chart = graphFactory.createPlot();
-            //stackPaneGraph.getChildren().add(chart);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
 
         buttonForecast.setOnAction(event -> this.timelineRadioButtonEvent(event));
         buttonObservation.setOnAction(event -> this.timelineRadioButtonEvent(event));
@@ -136,6 +134,7 @@ public class GraphViewController {
         
         buttonUpdateGraph.setOnAction(event -> updateGraphView());
 
+        // CHARTS
         chartHistogram.getData().add(graphFactory.createHistogram());
         chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
 
@@ -151,6 +150,11 @@ public class GraphViewController {
 
     }
 
+    /**
+     * Controls timeline's radiobutton events.
+     * @param event itself
+     * @hidden 
+     */
     private void timelineRadioButtonEvent(ActionEvent event) {
         if (buttonForecast.isSelected()) {
             button2h.setDisable(false);
@@ -167,6 +171,11 @@ public class GraphViewController {
         }
     }
 
+    /**
+     * Controls forecast timeline button event
+     * @param event itself
+     * @hidden
+     */
     private void forecastRadioButtonEvent(ActionEvent event) {
         System.out.println(getForecastStatus());
         DataInterface.setSelectedForecast(getForecastStatus());
@@ -174,13 +183,17 @@ public class GraphViewController {
 
     /**
      * Gets the timeline observation status
-     *
+     * 
      * @return Is data observed or forecast.
      */
     public boolean getTimelineStatus() {
         return groupTimeline.getSelectedToggle() == buttonObservation;
     }
 
+    /**
+     * Checks what forecast timeline button is selected.
+     * @return String of what forecast timeline button is selected.
+     */
     public String getForecastStatus() {
         if (getTimelineStatus()) {
             return null;
