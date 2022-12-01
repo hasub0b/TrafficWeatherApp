@@ -32,9 +32,9 @@ public class IconsDrawer {
     // halfCloudy.png <a href="https://www.flaticon.com/free-icons/cloud" title="cloud icons">Cloud icons created by Freepik - Flaticon</a>
     // cloudy.png <a href="https://www.flaticon.com/free-icons/clouds" title="clouds icons">Clouds icons created by Freepik - Flaticon</a>
     // sun.png <a href="https://www.flaticon.com/free-icons/sun" title="sun icons">Sun icons created by Freepik - Flaticon</a>
-    private final Image sunny       = new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/sunny.png").toURI().toString());
-    private final Image halfCloudy  = new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/halfCloudy.png").toURI().toString());
-    private final Image cloudy      = new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/cloudy.png").toURI().toString());
+    private final Image sunny       = new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/pictures/sunny.png").toURI().toString());
+    private final Image halfCloudy  = new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/pictures/halfCloudy.png").toURI().toString());
+    private final Image cloudy      = new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/pictures/cloudy.png").toURI().toString());
     
     /**
      * 
@@ -73,7 +73,7 @@ public class IconsDrawer {
                     
                     StackPane node = (StackPane) data.getNode();
                     // wind.png <a href="https://www.flaticon.com/free-icons/wind" title="wind icons">Wind icons created by Freepik - Flaticon</a>
-                    ImageView windPic = new ImageView(new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/wind.png").toURI().toString()));
+                    ImageView windPic = new ImageView(new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/pictures/wind.png").toURI().toString()));
                     Text windText = new Text(windValue + " m/s");
                     windText.setFont(Font.font(12));
                     
