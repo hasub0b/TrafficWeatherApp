@@ -5,6 +5,7 @@
 package fi.tuni.trafficweatherapp;
 
 import java.io.IOException;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -18,6 +19,7 @@ import javafx.scene.shape.Rectangle;
 
 /**
  * Controller for the main view fxml javafx elements.
+ *
  * @author Mikko Moisio
  */
 public class MainViewController {
@@ -39,6 +41,8 @@ public class MainViewController {
     @FXML
     RadioButton buttonSettings;
     @FXML
+    RadioButton buttonQuit;
+    @FXML
     Rectangle shapeAppTitle;
     @FXML
     GridPane gridMenubar;
@@ -58,15 +62,18 @@ public class MainViewController {
      */
     public void initialize() {
         ToggleGroup groupMenu = new ToggleGroup();
-       
+
         buttonGraphView.setToggleGroup(groupMenu);
         buttonSettings.setToggleGroup(groupMenu);
-        
+        buttonQuit.setToggleGroup(groupMenu);
+
         buttonGraphView.getStyleClass().add("radioButtonMenuText");
         buttonGraphView.getStyleClass().add("radioButtonMenu");
         buttonSettings.getStyleClass().add("radioButtonMenuText");
         buttonSettings.getStyleClass().add("radioButtonMenu");
-        
+        buttonQuit.getStyleClass().add("radioButtonMenuText");
+        buttonQuit.getStyleClass().add("radioButtonMenu");
+
         labelAppTitle.getStyleClass().add("outlineMainTitle");
         labelAppTitle.getStyleClass().add("mainTitle");
 
@@ -76,10 +83,10 @@ public class MainViewController {
 
             AnchorPane.setLeftAnchor(anchorGraphView, 0.0);
             AnchorPane.setRightAnchor(anchorGraphView, 0.0);
-            
+
             AnchorPane.setLeftAnchor(anchorSettings, 0.0);
             AnchorPane.setRightAnchor(anchorSettings, 0.0);
-            
+
             // Set GraphView as default page.
             anchorContentArea.getChildren().add(anchorGraphView);
             buttonGraphView.setSelected(true);
@@ -100,19 +107,21 @@ public class MainViewController {
             anchorContentArea.getChildren().add(anchorSettings);
             anchorSettings.prefHeightProperty().bind(anchorContentArea.heightProperty().subtract(60));
         });
+        buttonQuit.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
+            Platform.exit();
+            System.exit(0);
+        });
 
-        //anchorMenubar.autosize();
-        //anchorContentArea.autosize();
         menuBar.widthProperty().bind(anchorMain.widthProperty());
 
         shapeMainBackground.widthProperty().bind(anchorMain.widthProperty());
         shapeMainBackground.heightProperty().bind(anchorMain.heightProperty());
-        
+
         anchorGraphView.prefHeightProperty().bind(anchorContentArea.heightProperty().subtract(60));
         anchorSettings.prefHeightProperty().bind(anchorContentArea.heightProperty().subtract(60));
     }
 
-    public FXMLLoader getLoaderGraphView(){
+    public FXMLLoader getLoaderGraphView() {
         return loaderGraphView;
     }
 }
