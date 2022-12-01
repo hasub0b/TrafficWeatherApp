@@ -23,7 +23,7 @@ public class GraphDrawerFactory {
     
     public int timeWindow() {
         int timeWindow = 0;
-        System.out.println("Fetched forecast (time): " + DataInterface.getSelectedForecast());
+        //System.out.println("Fetched forecast (time): " + DataInterface.getSelectedForecast());
         if (DataInterface.getSelectedForecast() != "") {
             if (DataInterface.getSelectedForecast().toString().contains("12h")) {
                 timeWindow = 12;
@@ -49,23 +49,6 @@ public class GraphDrawerFactory {
         }
         //System.out.println("Forecast time: " + timeWindow);
         return timeWindow;
-    }
-    
-    public boolean isForecast() {
-        boolean forecastPressed = false;
-        if (!(DataInterface.isObservationSelected()) == true &&
-                DataInterface.getForecastTemperature() != null) {
-            forecastPressed = true;
-        }
-        return forecastPressed;
-    }
-    
-    public boolean isObservation() {
-        boolean observationPressed = false;
-        if (DataInterface.isObservationSelected() == true) {
-            observationPressed = true;
-        }
-        return observationPressed;
     }
 
     public static Double[] listFloatToDoubleArray(List<Float> input) {
@@ -98,11 +81,11 @@ public class GraphDrawerFactory {
             System.out.println("Forecast: " + !(DataInterface.isObservationSelected()) + " | " 
                     + "Observation: " + DataInterface.isObservationSelected());
             // Checks for null/short arrays and values
-            if (temp != null) {
+            if (temp != null && DataInterface.isObservationSelected()) {
                 dataset = new Double[]{temp};
                 System.out.println("Obs Data fetched[0]: " + dataset[0]);
             }
-            else if (foreTemp.length > 0) {
+            else if (foreTemp.length > 0 && !(DataInterface.isObservationSelected())) {
                 dataset = foreTemp;
                 System.out.println("Fore Data fetched[0]: " + dataset[0]);
             }
