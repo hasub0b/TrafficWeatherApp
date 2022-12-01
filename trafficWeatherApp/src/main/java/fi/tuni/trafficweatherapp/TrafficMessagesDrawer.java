@@ -53,7 +53,19 @@ public class TrafficMessagesDrawer {
         return convertedMap;
     }
     
-    public Text getText() {
+    public Text getRoadConditionData() {
+        // what exactly should I fetch
+        //DataInterface.get
+        //getMessagesMap
+        //getMessagesMap
+        return getMessageText();
+    }
+    
+    public float getMessageSize() {    
+        return DataInterface.getMessagesMap().size();
+    }
+    
+    public Text getMessageText() {
         Map<String, List<String>> messageMap = DataInterface.getMessagesMap();
         textOutput.setText(mapConverter(messageMap));
         return textOutput;
