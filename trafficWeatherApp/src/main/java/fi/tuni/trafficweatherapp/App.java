@@ -20,7 +20,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException 
     {
-        scene = new Scene(loadFXML("fxmls/mainView"), 800, 600);
+        scene = new Scene(loadFXML("mainView"), 800, 600);
         scene.getStylesheets().add(getClass().getResource(("appStyling.css")).toExternalForm());
         stage.setMinWidth(800);
         stage.setMinHeight(500);

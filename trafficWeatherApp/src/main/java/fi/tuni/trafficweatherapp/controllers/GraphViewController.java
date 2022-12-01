@@ -63,17 +63,17 @@ public class GraphViewController {
     @FXML
     HBox hbox;
     @FXML
-    public RadioButton button2h;
+    RadioButton button2h;
     @FXML
-    public RadioButton button4h;
+    RadioButton button4h;
     @FXML
-    public RadioButton button6h;
+    RadioButton button6h;
     @FXML
-    public RadioButton button12h;
+    RadioButton button12h;
     @FXML
-    public RadioButton buttonForecast;
+    RadioButton buttonForecast;
     @FXML
-    public RadioButton buttonObservation;
+    RadioButton buttonObservation;
     //@FXML Rectangle shapeChartBackground;
     @FXML
     LineChart chartLine;
@@ -106,8 +106,8 @@ public class GraphViewController {
     ToggleGroup groupForecastOptions = new ToggleGroup();
 
     @FXML
-    public FXMLLoader loaderSideMenuTitleBoxes = new FXMLLoader(
-            getClass().getResource("fxmls/sideMenuTitleBoxes.fxml"));
+    FXMLLoader loaderSideMenuTitleBoxes = new FXMLLoader(
+            getClass().getResource("sideMenuTitleBoxes.fxml"));
 
     /**
      * Initializes graph view's elements.
