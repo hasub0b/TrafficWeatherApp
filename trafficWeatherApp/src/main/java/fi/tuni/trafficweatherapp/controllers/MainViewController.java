@@ -48,10 +48,10 @@ public class MainViewController {
     GridPane gridMenubar;
     @FXML
     FXMLLoader loaderGraphView = new FXMLLoader(
-            getClass().getResource("graphView.fxml"));
+            getClass().getResource("fxmls/graphView.fxml"));
     @FXML
     FXMLLoader loaderSettings = new FXMLLoader(
-            getClass().getResource("settings.fxml"));
+            getClass().getResource("fxmls/settings.fxml"));
 
     AnchorPane anchorGraphView = new AnchorPane();
     AnchorPane anchorSettings = new AnchorPane();
