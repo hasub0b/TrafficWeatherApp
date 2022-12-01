@@ -16,6 +16,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.control.RadioButton;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -32,6 +34,7 @@ import javafx.util.Duration;
 
 /**
  * Controller for the Graph View's fxml javafx elements.
+ *
  * @author Mikko Moisio
  */
 public class GraphViewController {
@@ -82,6 +85,8 @@ public class GraphViewController {
     @FXML
     Button buttonUpdateGraph;
 
+    ContextMenu menuErrorMessage = new ContextMenu();
+
     Tooltip tipSideMenu = new Tooltip("Graph settings");
 
     GraphDrawerFactory graphFactory = new GraphDrawerFactory();
@@ -95,9 +100,10 @@ public class GraphViewController {
 
     /**
      * Initializes graph view's elements.
+     *
      * @throws Exception If cannot create graphs
      */
-    public void initialize() throws Exception{
+    public void initialize() throws Exception {
         sideMenu.getStyleClass().add("menu");
 
         buttonForecast.setToggleGroup(groupTimeline);
@@ -115,7 +121,7 @@ public class GraphViewController {
         }
         tipSideMenu.setShowDelay(Duration.seconds(0.3));
         Tooltip.install(sideMenu, tipSideMenu);
-        
+
         // Action Events
         sideMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             if (!anchorSideMenu.getChildren().isEmpty()) {
@@ -131,29 +137,43 @@ public class GraphViewController {
         button4h.setOnAction(event -> this.forecastRadioButtonEvent(event));
         button6h.setOnAction(event -> this.forecastRadioButtonEvent(event));
         button12h.setOnAction(event -> this.forecastRadioButtonEvent(event));
-        
-        buttonUpdateGraph.setOnAction(event -> updateGraphView());
+
+        buttonUpdateGraph.setOnAction(event -> {
+            try {
+                updateGraphView();
+            } catch (Exception ex) {
+                //Logger.getLogger(GraphViewController.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println("Error: Cannot update GraphView!");
+            }
+        });
 
         // CHARTS
-        chartHistogram.getData().add(graphFactory.createHistogram());
-        chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
-
         chartIcons.getData().add(graphFactory.createIcons());
         chartIcons.getYAxis().setOpacity(0);
         chartIcons.getXAxis().setOpacity(0);
-        for(Node n:chartIcons.lookupAll(".default-color0.chart-bar")) {
+        for (Node n : chartIcons.lookupAll(".default-color0.chart-bar")) {
             n.setStyle("-fx-bar-fill: transparent;");
         }
-        
-        chartLine.getData().add(graphFactory.createPlot());
-        chartLine.getYAxis().setSide(Side.RIGHT);
 
+        //chartLine.getData().add(graphFactory.createPlot());
+        chartLine.getYAxis().setSide(Side.RIGHT);
+        chartLine.getYAxis().setLabel("Temperature (C\u00B0)");
+        chartLine.getXAxis().setLabel("Time (hh:mm)");
+
+        //chartLine.getData().add(graphFactory.createHistogram());
+        chartHistogram.getYAxis().setLabel("Rain amount (mm)");
+        chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
+
+        //chartHistogram.setVisible(false);
+        //chartLine.setVisible(false);
+        //chartIcons.setVisible(false);
     }
 
     /**
      * Controls timeline's radiobutton events.
+     *
      * @param event itself
-     * @hidden 
+     * @hidden
      */
     private void timelineRadioButtonEvent(ActionEvent event) {
         if (buttonForecast.isSelected()) {
@@ -173,6 +193,7 @@ public class GraphViewController {
 
     /**
      * Controls forecast timeline button event
+     *
      * @param event itself
      * @hidden
      */
@@ -183,18 +204,19 @@ public class GraphViewController {
 
     /**
      * Gets the timeline observation status
-     * 
+     *
      * @return Is data observed or forecast.
      */
-    public boolean getTimelineStatus() {
+    private boolean getTimelineStatus() {
         return groupTimeline.getSelectedToggle() == buttonObservation;
     }
 
     /**
      * Checks what forecast timeline button is selected.
+     *
      * @return String of what forecast timeline button is selected.
      */
-    public String getForecastStatus() {
+    private String getForecastStatus() {
         if (getTimelineStatus()) {
             return null;
         } else {
@@ -206,15 +228,81 @@ public class GraphViewController {
 
     /**
      * Updates the graph view
+     * @throws Exception if cannot create graph.
      */
-    public void updateGraphView() {
+    private void updateGraphView() throws Exception {
         Double[] coordinates = DataInterface.getCoordinates();
+
+        // Clear old error messages
+        menuErrorMessage.getItems().clear();
+        menuErrorMessage.hide();
+
         if (coordinates != null) {
             fieldCoordinates.setText(String.format("%s, %s, %s, %s",
                     coordinates[0].toString(),
                     coordinates[1].toString(),
                     coordinates[2].toString(),
                     coordinates[3].toString()));
+
+            // Weather 
+            if (DataInterface.isWindSelected()) {
+                chartIcons.setVisible(true);
+            }
+            if (DataInterface.isCloudSelected()) {
+                chartIcons.setVisible(true);
+            }
+
+            chartHistogram.getData().add(graphFactory.createIcons());
+
+
+            if (DataInterface.isRainSelected()) {
+                chartHistogram.setVisible(true);
+                chartHistogram.getData().add(graphFactory.createHistogram());
+            }
+            if (DataInterface.isTemperatureSelected()) {
+                chartLine.setVisible(true);
+                chartLine.getData().add(graphFactory.createPlot());
+            } else {
+                chartLine.setVisible(true);
+            }
+
+            // Road data
+            // Road condition
+            if (DataInterface.isPrecipitationSelected()) {
+
+            }
+            if (DataInterface.isOverallConditionSelected()) {
+
+            }
+            if (DataInterface.isSlipperinessSelected()) {
+
+            }
+
+            // Messages
+            if (DataInterface.isAnnouncementSelected()) {
+
+            }
+            if (DataInterface.isTransportSelected()) {
+
+            }
+            if (DataInterface.isWeightSelected()) {
+
+            }
+            if (DataInterface.isRoadworkSelected()) {
+
+            }
+            // Maintenance
+            if (DataInterface.isMaintenanceSelected()) {
+
+            }
+        } else {
+            MenuItem errorMessage = new MenuItem("Please select coordinates "
+                    + "first from the sidemenu on the right!");
+            menuErrorMessage.getItems().add(errorMessage);
+
+            buttonUpdateGraph.setContextMenu(menuErrorMessage);
+            menuErrorMessage.show(buttonUpdateGraph, Side.BOTTOM, 0, 0);
         }
+
     }
 }
