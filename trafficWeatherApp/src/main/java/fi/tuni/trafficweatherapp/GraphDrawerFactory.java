@@ -99,6 +99,9 @@ public class GraphDrawerFactory {
                     resizedDataset[i] = dataset[i];
                 }
             }
+            else {
+                System.out.println("Didn't resize temp array");
+            }
             
             PlotDrawer plotterTest = null;
             // If we receive data, then it can be utilized in chart,
@@ -152,10 +155,14 @@ public class GraphDrawerFactory {
                 if (DataInterface.getForecastRain().size() > 0) {
                     // Iterates and resizes the data to fit wanted time window
                     forecastRain = DataInterface.getForecastRain();
+                    System.out.println("Timewindow: "+ timeWindow());
                     for (int i = 0; i < timeWindow(); i++) {
                         resizedDataset.add(forecastRain.get(i));
                     }
                     forecastRain = resizedDataset;
+                }
+                else {
+                    System.out.println("Didn't resize rain array");
                 }
                 /*else {
                     forecastRain = Arrays.asList(20f,40f,50f,60f);
