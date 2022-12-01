@@ -102,7 +102,7 @@ public class GraphDrawerFactory {
                 }
             }
             else {
-                System.out.println("Didn't resize temp array");
+                //System.out.println("Didn't resize temp array");
             }
             
             PlotDrawer plotterTest = null;
@@ -150,7 +150,7 @@ public class GraphDrawerFactory {
                     System.out.println("Couldn't fetch rain");
                 }                
             }
-            else {
+            else if (!(DataInterface.isObservationSelected())) {
                 // Rain (fore)
                 if (DataInterface.getForecastRain().size() > 0) {
                     // Iterates and resizes the data to fit wanted time window
@@ -167,6 +167,9 @@ public class GraphDrawerFactory {
                 /*else {
                     forecastRain = Arrays.asList(20f,40f,50f,60f);
                 }*/
+            }
+            else {
+                System.out.println("Didn't fetch raindata.");
             }
             
             // Make checks for what data to display and what not to display
