@@ -159,12 +159,13 @@ public class GraphViewController {
 
         // CHARTS
         //chartIcons.getData().add(graphFactory.createIcons());
+        chartIcons.getData().add(new XYChart.Series<>());
         chartIcons.getYAxis().setOpacity(0);
         chartIcons.getXAxis().setOpacity(0);
         for (Node n : chartIcons.lookupAll(".default-color0.chart-bar")) {
             n.setStyle("-fx-bar-fill: transparent;");
         }
-        chartIcons.getData().add(new XYChart.Series<>());
+
 
         //chartLine.getData().add(graphFactory.createPlot());
         chartLine.getYAxis().setSide(Side.RIGHT);
