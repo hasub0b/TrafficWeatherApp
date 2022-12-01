@@ -33,13 +33,13 @@ public class SideMenuTitleBoxesController {
     @FXML
     AnchorPane anchorChildSideMenu;
     @FXML
-    public FXMLLoader loaderCoordinatesMenu = new FXMLLoader(
+    FXMLLoader loaderCoordinatesMenu = new FXMLLoader(
             getClass().getResource("coordinatesMenu.fxml"));
     @FXML
-    public FXMLLoader loaderTrafficMenu = new FXMLLoader(
+    FXMLLoader loaderTrafficMenu = new FXMLLoader(
             getClass().getResource("trafficMenu.fxml"));
     @FXML
-    public FXMLLoader loaderWeatherMenu = new FXMLLoader(
+    FXMLLoader loaderWeatherMenu = new FXMLLoader(
             getClass().getResource("weatherMenu.fxml"));
 
     AnchorPane anchorCoordinatesMenu;

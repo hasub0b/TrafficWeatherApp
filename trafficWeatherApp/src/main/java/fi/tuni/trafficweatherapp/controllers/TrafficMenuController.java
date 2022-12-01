@@ -25,13 +25,13 @@ public class TrafficMenuController {
     private ToggleGroup traffic;
 
     @FXML
-    public FXMLLoader loaderMaintenanceMenu = new FXMLLoader(
+    FXMLLoader loaderMaintenanceMenu = new FXMLLoader(
             getClass().getResource("maintenanceMenu.fxml"));
     @FXML
-    public FXMLLoader loaderConditionMenu = new FXMLLoader(
+    FXMLLoader loaderConditionMenu = new FXMLLoader(
             getClass().getResource("roadConditionMenu.fxml"));
     @FXML
-    public FXMLLoader loaderMessageMenu = new FXMLLoader(
+    FXMLLoader loaderMessageMenu = new FXMLLoader(
             getClass().getResource("messagesMenu.fxml"));
 
 

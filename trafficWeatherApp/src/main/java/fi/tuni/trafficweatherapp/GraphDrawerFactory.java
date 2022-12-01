@@ -14,9 +14,6 @@ import java.util.Map;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
-import fi.tuni.trafficweatherapp.drawers.*;
-import fi.tuni.trafficweatherapp.controllers.*;
-
 
 /**
  *
