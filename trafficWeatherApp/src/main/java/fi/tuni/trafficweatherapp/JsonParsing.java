@@ -298,8 +298,8 @@ public class JsonParsing {
                 List<Float> temperatureList = new ArrayList<>();
                 List<Float> windList = new ArrayList<>();
 
-                // Get next 24h forecast, assuming 30min steps
-                for (int i = 0; i < 48; i++) {
+                // Get next 24h forecast, assuming 60min steps
+                for (int i = 0; i < 24; i++) {
 
                     if (memberArray.get(i).getAsJsonObject().has("precipitationamount")){
                         Float rain = memberArray.get(i).getAsJsonObject().get("precipitationamount").getAsFloat();
