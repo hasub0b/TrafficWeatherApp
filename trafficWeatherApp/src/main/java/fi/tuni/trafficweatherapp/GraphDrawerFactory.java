@@ -21,46 +21,19 @@ import javafx.scene.text.Text;
  */
 public class GraphDrawerFactory {
     
-    // Most probably will end up not being used
-    // Drawers will need to be called from a higher class
-    /*
-    public static void update() throws Exception {
-        try {
-            GraphDrawerFactory gdf = new GraphDrawerFactory();
-            Double[] coordinates = DataInterface.getCoordinates();
-            Double[] plotTemps;
-            if (DataInterface.isObservationSelected()) {
-                plotTemps = new Double[]{DataInterface.getTemperature()};
-            }
-            else {
-                plotTemps = listFloatToDoubleArray(DataInterface.getForecastTemperature());
-            }
-            System.out.println("What coordinatesmenu returns: " 
-            + testValues[0] +" "+ testValues[1] +" "+ testValues[2] +" "+ testValues[3]);
-        
-            
-            if (DataInterface.temperatureSelected) {
-                gdf.createPlot(plotTemps);
-            }
-            
-            if (plotTemps != null) {
-                //gdf.createPlot(plotTemps);
-            }
-
-            if (DataInterface.cloudSelected) {
-                createHistogram();
-                createIcons();
-            }
-            //createPlot();
-            
-            //if (DataInterface.cloudSelected) {
-            //gdf.createHistogram();  
-            
-        } catch (Exception e) {
-            System.out.println("Error during update: \n" + e);
+    public static int timeWindow() {
+        int timeWindow = 0;
+        if (DataInterface.getSelectedForecast() != "") {
+            timeWindow = Integer.parseInt(DataInterface.getSelectedForecast());
         }
+        else {
+            // For now it'll return 2 as the expected time window,
+            // if there's no selected forecast hour value
+            return 2;
+        }
+        return timeWindow;
     }
-    */
+    
     public boolean isForecast() {
         boolean forecastPressed = false;
         if (!(DataInterface.isObservationSelected()) == true &&
@@ -101,6 +74,9 @@ public class GraphDrawerFactory {
             Double[] dataset = null;
             Double temp = DataInterface.getTemperature();
             Double[] foreTemp = listFloatToDoubleArray(DataInterface.getForecastTemperature());
+            // Resized dataset to take into account for forecast hours
+            Double[] resizedDataset = new Double[timeWindow()];
+            
             System.out.println("Plotting");
             System.out.println("Forecast: " + !(DataInterface.isObservationSelected()) + " | " 
                     + "Observation: " + DataInterface.isObservationSelected());
@@ -123,16 +99,19 @@ public class GraphDrawerFactory {
             if (dataset == null) {
                 //plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
                 plotterTest = new PlotDrawer(new Double[]{0.0},1);
-                return plotterTest.getChart();
-                
+                return plotterTest.getChart();               
             }
             else {
-                System.out.println("Plot Dataset[0]: " + dataset[0]);
-                plotterTest = new PlotDrawer(dataset,1);
+                // Limit the dataset size according to forecast hours
+                for (int i = 0; i < timeWindow(); i++) {
+                    resizedDataset[i] = dataset[0];
+                }
+                
+                //System.out.println("Plot Dataset[0]: " + dataset[0]);
+                plotterTest = new PlotDrawer(resizedDataset,1);
             }
             
             return plotterTest.getChart();
-            
         }
         catch (Exception e) {
             System.out.println("Error creating plot: " + e);
@@ -149,6 +128,8 @@ public class GraphDrawerFactory {
             Float rain = null;
             List<Float> forecastRain = null;
             HistogramDrawer hd = null;
+            // Resized dataset to take into account for forecast hours
+            List<Float> resizedDataset = new ArrayList<>(timeWindow());
             
             if (DataInterface.isObservationSelected()) {
                 
@@ -163,7 +144,12 @@ public class GraphDrawerFactory {
             else {
                 // Rain (fore)
                 if (DataInterface.getForecastRain().size() > 0) {
+                    // Iterates and resizes the data to fit wanted time window
                     forecastRain = DataInterface.getForecastRain();
+                    for (int i = 0; i < timeWindow(); i++) {
+                        resizedDataset.add(forecastRain.get(i));
+                    }
+                    forecastRain = resizedDataset;
                 }
                 /*else {
                     forecastRain = Arrays.asList(20f,40f,50f,60f);
@@ -204,6 +190,8 @@ public class GraphDrawerFactory {
             Float cloud = null;
             List<Float> forecastWind = null;
             IconsDrawer id = null;
+            // Resized dataset to take into account for forecast hours
+            List<Float> resizedDataset = new ArrayList<>(timeWindow());
             
             
             if (DataInterface.isObservationSelected()) {
@@ -229,6 +217,10 @@ public class GraphDrawerFactory {
                 // Wind (fore)
                 if (DataInterface.getForecastWind().size() > 0) {
                     forecastWind = DataInterface.getForecastWind();
+                    for (int i = 0; i < timeWindow(); i++) {
+                        resizedDataset.add(forecastWind.get(i));
+                    }
+                    forecastWind = resizedDataset;
                 }
                 else {
                     //System.out.println("Couldn't values for wind forecast");
