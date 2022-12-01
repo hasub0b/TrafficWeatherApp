@@ -11,4 +11,5 @@ module fi.tuni.trafficweatherapp {
     requires javafx.graphics;
     requires java.xml;
     requires javafx.graphicsEmpty;
+    requires java.desktop;
 }

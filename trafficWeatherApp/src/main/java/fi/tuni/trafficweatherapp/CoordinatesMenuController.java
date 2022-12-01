@@ -3,6 +3,8 @@ package fi.tuni.trafficweatherapp;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
@@ -15,6 +17,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+
+import javax.swing.*;
 
 /**
  * Controller for the coordinates menu fxml javafx elements.
@@ -229,8 +233,32 @@ public class CoordinatesMenuController {
      */
     public void setCoordinates() {
         // DataFetcher() ->update Datainterface
-        DataFetcher dataFetcher = new DataFetcher(coordinates);
-        dataFetcher.fetchRoadData();
-        dataFetcher.fetchWeatherData();
+
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
+            @Override
+            protected Void doInBackground() throws Exception {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        // Show LoadingScreen
+                        LoadingScreen loadingScreen = new LoadingScreen();
+
+                        DataFetcher dataFetcher = new DataFetcher(coordinates);
+                        dataFetcher.fetchRoadData();
+                        dataFetcher.fetchWeatherData();
+
+                        // Close the LoadingScreen
+                        loadingScreen.dispose();
+
+                    }
+                });
+                return null;
+            }
+        };
+        worker.execute();
+
+
+
     }
 }
