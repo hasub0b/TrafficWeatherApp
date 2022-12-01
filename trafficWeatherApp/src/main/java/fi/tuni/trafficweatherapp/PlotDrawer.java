@@ -9,7 +9,7 @@ import javafx.scene.chart.XYChart;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 /**
- *
+ * Creates chart data from temperature data.
  * @author Mikko Moisio
  */
 public class PlotDrawer {
@@ -22,6 +22,11 @@ public class PlotDrawer {
     XYChart.Series series = new XYChart.Series();
 
 
+    /**
+     * Creates the series data for chart.
+     * @param temperature list of temperature data.
+     * @param timeInterval of the temperature data.
+     */
     public PlotDrawer(Double[] temperature, int timeInterval) {
 
         //yAxis.setLabel("Temperature (C\u00B0)");
@@ -46,6 +51,10 @@ public class PlotDrawer {
         //chart.getStylesheets().addAll(getClass().getResource("chartStackedStyle.css").toExternalForm());
     }
 
+    /**
+     * Gets the chart data.
+     * @return XYChart.Series chart data.
+     */
     public XYChart.Series getChart() {
         return series;
     }

@@ -47,7 +47,7 @@ public class SideMenuTitleBoxesController {
     AnchorPane anchorWeatherMenu;
 
     /**
-     * 
+     * Initializes sidemenu's title boxes javafx elements.
      */
     public void initialize() {
         try {

@@ -62,7 +62,7 @@ public final class DataInterface {
 
 
     // CoordinatesMenu
-    private static Double[] coordinates;
+    private static Double[] coordinates = null;
     
     // Accessors
 
