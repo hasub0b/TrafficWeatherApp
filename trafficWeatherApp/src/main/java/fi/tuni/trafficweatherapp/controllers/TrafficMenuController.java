@@ -24,14 +24,14 @@ public class TrafficMenuController {
     private ToggleGroup traffic;
 
     @FXML
-    FXMLLoader loaderMaintenanceMenu = new FXMLLoader(
-            getClass().getResource("maintenanceMenu.fxml"));
+    public FXMLLoader loaderMaintenanceMenu = new FXMLLoader(
+            getClass().getResource("fxmls/maintenanceMenu.fxml"));
     @FXML
-    FXMLLoader loaderConditionMenu = new FXMLLoader(
-            getClass().getResource("roadConditionMenu.fxml"));
+    public FXMLLoader loaderConditionMenu = new FXMLLoader(
+            getClass().getResource("fxmls/roadConditionMenu.fxml"));
     @FXML
-    FXMLLoader loaderMessageMenu = new FXMLLoader(
-            getClass().getResource("messagesMenu.fxml"));
+    public FXMLLoader loaderMessageMenu = new FXMLLoader(
+            getClass().getResource("fxmls/messagesMenu.fxml"));
 
 
     AnchorPane gridMaintenance;

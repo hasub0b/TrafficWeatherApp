@@ -7,11 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 
 import java.io.*;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Objects;
+import fi.tuni.trafficweatherapp.controllers.*;
 
 /**
  * @author Aleksi
