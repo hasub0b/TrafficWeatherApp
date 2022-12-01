@@ -37,7 +37,7 @@ public class TrafficMenuController {
     AnchorPane gridMaintenance;
     AnchorPane gridCondition;
     AnchorPane gridMessage;
-
+    
     public void initialize() {
         labelTrafficMenu.getStyleClass().add("title");
         labelTrafficMenu.getStyleClass().add("outlineTitle");

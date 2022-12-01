@@ -64,6 +64,9 @@ public class TrafficMessagesDrawer {
     public float getMessageSize() {    
         return DataInterface.getMessagesMap().size();
     }
+    public String getMessageString() {    
+        return mapConverter(DataInterface.getMessagesMap());
+    }
     
     public Text getMessageText() {
         Map<String, List<String>> messageMap = DataInterface.getMessagesMap();

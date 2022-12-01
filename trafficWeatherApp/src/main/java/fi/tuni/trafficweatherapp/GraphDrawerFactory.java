@@ -21,10 +21,22 @@ import javafx.scene.text.Text;
  */
 public class GraphDrawerFactory {
     
-    public static int timeWindow() {
+    public int timeWindow() {
         int timeWindow = 0;
         if (DataInterface.getSelectedForecast() != "") {
-            timeWindow = Integer.parseInt(DataInterface.getSelectedForecast());
+            if (DataInterface.getSelectedForecast() == "2h") {
+                timeWindow = 2;
+            }
+            else if (DataInterface.getSelectedForecast() == "4h") {
+                timeWindow = 4;
+            }
+            else if (DataInterface.getSelectedForecast() == "6h") {
+                timeWindow = 6;
+            }
+            else if (DataInterface.getSelectedForecast() == "12h") {
+                timeWindow = 12;
+            }
+            //timeWindow = DataInterface.getSelectedForecast();
         }
         else {
             // For now it'll return 2 as the expected time window,
@@ -69,7 +81,7 @@ public class GraphDrawerFactory {
     
     // Linechart
     // * returns linechart
-    public static XYChart.Series createPlot() throws Exception {
+    public XYChart.Series createPlot() throws Exception {
         try {
             Double[] dataset = null;
             Double temp = DataInterface.getTemperature();
@@ -101,6 +113,7 @@ public class GraphDrawerFactory {
                 plotterTest = new PlotDrawer(new Double[]{0.0},1);
                 return plotterTest.getChart();               
             }
+            // If not null
             else {
                 // Limit the dataset size according to forecast hours
                 for (int i = 0; i < timeWindow(); i++) {
@@ -122,7 +135,7 @@ public class GraphDrawerFactory {
     
     // HistogramDrawer
     // * returns histogram
-    public static XYChart.Series createHistogram() throws Exception {
+    public XYChart.Series createHistogram() throws Exception {
         try {
 
             Float rain = null;
@@ -184,7 +197,7 @@ public class GraphDrawerFactory {
     
     // IconsDrawer
     // * returns icons
-    public static XYChart.Series createIcons() throws Exception {
+    public XYChart.Series createIcons() throws Exception {
         try {
             Float wind = null;
             Float cloud = null;
@@ -261,7 +274,7 @@ public class GraphDrawerFactory {
     
     // Road / traffic msgs
     // * returns trafi info
-    public static Text createMessages() {
+    public Text createMessages() {
         try {
             TrafficMessagesDrawer tmd = new TrafficMessagesDrawer();
             /*
