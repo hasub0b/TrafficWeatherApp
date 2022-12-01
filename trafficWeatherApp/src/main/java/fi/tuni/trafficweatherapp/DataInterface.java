@@ -41,7 +41,7 @@ public final class DataInterface {
     //GraphView
     static boolean observationSelected = false;
     // "2h","4h","6h","12h"
-    static String selectedForecast = "";
+    static String selectedForecast = "2h";
 
     // WeatherMenuController
     static boolean windSelected = false;
