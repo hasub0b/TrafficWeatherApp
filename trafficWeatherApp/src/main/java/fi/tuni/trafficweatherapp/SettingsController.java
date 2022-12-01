@@ -10,7 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import java.io.IOException;
+
+import java.io.*;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -47,7 +48,7 @@ public class SettingsController {
      * Initializes settings view's elements.
      */
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException {
         labelDatasets.getStyleClass().add("title");
         labelDatasets.getStyleClass().add("outlineTitle");
         labelPreferences.getStyleClass().add("title");
@@ -57,7 +58,7 @@ public class SettingsController {
         updateDatasetBox();
     }
 
-    public void savePreference(ActionEvent actionEvent) throws IOException {
+    public void savePreference(ActionEvent actionEvent){
 
         // save to json
         PreferenceSaver preferenceSaver = new PreferenceSaver();
@@ -78,30 +79,30 @@ public class SettingsController {
 
     private void updatePreferenceBox() {
         comboBoxPreferences.getItems().clear();
-        Path dir = Paths.get("trafficWeatherApp/savedData/preferences/");
-        try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-            for (Path path : stream) {
+        try (InputStream in = getClass().getResource("preferences").openStream();
+             BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+            String resource;
+
+            while ((resource = br.readLine()) != null) {
                 // Check if the file is json
-                String name = path.getFileName().toString();
-                int lastIndexOf = name.lastIndexOf(".");
+                int lastIndexOf = resource.lastIndexOf(".");
                 String extension = "";
                 if (lastIndexOf != -1) {
-                    extension = name.substring(lastIndexOf);
+                    extension = resource.substring(lastIndexOf);
                 }
                 if(extension.equals(".json")){
                     // add the file to comboBox
-                    comboBoxPreferences.getItems().add(path.getFileName().toString());
+                    comboBoxPreferences.getItems().add(resource);
                 }
-
             }
             comboBoxPreferences.getSelectionModel().selectFirst();
-        } catch (IOException e){
-            System.out.println("ERROR WHILE UPDATING PREFERENCES");
+        } catch (Exception e){
+            System.err.println("ERROR WHILE UPDATING PREFERENCES");
         }
     }
 
 
-    public void saveData(ActionEvent actionEvent) {
+    public void saveData(ActionEvent actionEvent){
 
         // Save to Json
         DataSaver dataSaver = new DataSaver();
@@ -120,6 +121,29 @@ public class SettingsController {
 
     private void updateDatasetBox(){
         comboBoxDataset.getItems().clear();
+
+        try (InputStream in = getClass().getResource("datasets").openStream();
+             BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+            String resource;
+
+            while ((resource = br.readLine()) != null) {
+                // Check if the file is json
+                int lastIndexOf = resource.lastIndexOf(".");
+                String extension = "";
+                if (lastIndexOf != -1) {
+                    extension = resource.substring(lastIndexOf);
+                }
+                if(extension.equals(".json")){
+                    // add the file to comboBox
+                    comboBoxDataset.getItems().add(resource);
+                }
+            }
+            comboBoxDataset.getSelectionModel().selectFirst();
+        } catch (Exception e){
+            System.err.println("ERROR WHILE UPDATING DATASETS");
+        }
+
+        /*
         Path dir = Paths.get("trafficWeatherApp/savedData/datasets/");
         try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
             for (Path path : stream) {
@@ -141,5 +165,8 @@ public class SettingsController {
         } catch (IOException e){
             System.out.println("ERROR WHILE UPDATING Datasets");
         }
+
+         */
+
     }
 }

@@ -2,13 +2,8 @@ package fi.tuni.trafficweatherapp;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +17,7 @@ public class DataSaver {
      * Save the fetched data from DataInterface to Json file
      */
     public void save(){
+
         Map<String, Object> map = new HashMap<>();
 
         map.put("ItemsOfInterest",DataInterface.getItemsOfInterest());
@@ -37,28 +33,44 @@ public class DataSaver {
         map.put("Average",DataInterface.getMaintenanceMapAverage());
 
         int dataNumber = 1;
-        Path dir = Paths.get("trafficWeatherApp/savedData/datasets/");
-        try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-            for (Path path : stream) {
-                dataNumber +=1;
+        try (InputStream in = getClass().getResource("datasets").openStream();
+             BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+            String resource;
+
+            while ((resource = br.readLine()) != null) {
+                // Check if the file is json
+                int lastIndexOf = resource.lastIndexOf(".");
+                String extension = "";
+                if (lastIndexOf != -1) {
+                    extension = resource.substring(lastIndexOf);
+                }
+                if(extension.equals(".json")){
+                    // add the file to comboBox
+                    dataNumber += 1;
+                }
             }
-            String filename = String.format("DataSet%d",dataNumber);
+            String filename = String.format("DataSet%d.json",dataNumber);
+            String targetPath = getClass().getResource("datasets").getPath();
 
-            // create a writer
-            Writer writer = new FileWriter("trafficWeatherApp/savedData/datasets/" + filename + ".json");
+            try {
+                Writer fileWriter = new FileWriter(targetPath + "/" + filename);
 
-            // convert map to JSON File
-            Gson gson = new GsonBuilder()
-                    .setPrettyPrinting()
-                    .serializeNulls()
-                    .create();
-            gson.toJson(map, writer);
+                Gson gson = new GsonBuilder()
+                        .setPrettyPrinting()
+                        .serializeNulls()
+                        .create();
+                gson.toJson(map, fileWriter);
 
-            // close the writer
-            writer.close();
+                fileWriter.close();
+                System.out.println("WROTE TO");
+            } catch (Exception e){
+                System.out.println("error");
+                System.out.println(e);
+            }
 
-        } catch (IOException e){
-            System.out.println("PATH NOT FOUND");
+        } catch (Exception e){
+            System.err.println("ERROR WHILE UPDATING DATASETS");
+            System.out.println(e);
         }
     }
 }

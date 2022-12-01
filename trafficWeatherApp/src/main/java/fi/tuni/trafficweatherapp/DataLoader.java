@@ -1,15 +1,11 @@
 package fi.tuni.trafficweatherapp;
 
 import com.google.gson.*;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
+
 
 /**
  * @author Aleksi
@@ -22,6 +18,21 @@ public class DataLoader {
      */
     public void load(String filename) {
 
+        try (InputStream in = getClass().getResource("datasets").openStream();
+             BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+            String resource;
+            while ((resource = br.readLine()) != null) {
+                // Check if the file is json
+                if(resource.equals(filename)){
+                    // add the file to comboBox
+                    JsonObject jsonObject = convertFileToJSON(resource);
+                    loadToDataInterface(jsonObject);
+                }
+            }
+        } catch (Exception e){
+            System.err.println("ERROR WHILE UPDATING DATASETS");
+        }
+        /*
         Path dir = Paths.get("trafficWeatherApp/savedData/datasets/");
         String file = "";
         try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
@@ -41,6 +52,7 @@ public class DataLoader {
             System.out.println("PATH NOT FOUND");
         }
 
+         */
     }
 
 
@@ -113,7 +125,7 @@ public class DataLoader {
 
         try {
             JsonParser parser = new JsonParser();
-            JsonElement jsonElement = parser.parse(new FileReader(fileName));
+            JsonElement jsonElement = parser.parse(new FileReader(getClass().getResource("datasets/" + fileName).getFile()));
             jsonObject = jsonElement.getAsJsonObject();
         } catch (IOException e) {
             System.out.println("ERROR WHILE CONVERTING");
