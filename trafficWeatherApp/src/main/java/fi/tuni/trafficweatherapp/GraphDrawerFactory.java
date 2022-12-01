@@ -93,6 +93,13 @@ public class GraphDrawerFactory {
                 System.out.println("No values to fetch!");
             }
             
+            // Limit the dataset size according to forecast hour
+            if (!(DataInterface.isObservationSelected())) {
+                for (int i = 0; i < timeWindow(); i++) {
+                    resizedDataset[i] = dataset[i];
+                }
+            }
+            
             PlotDrawer plotterTest = null;
             // If we receive data, then it can be utilized in chart,
             // else it will draw from template
@@ -103,13 +110,11 @@ public class GraphDrawerFactory {
             }
             // If not null
             else {
-                // Limit the dataset size according to forecast hours
-                for (int i = 0; i < timeWindow(); i++) {
-                    resizedDataset[i] = dataset[0];
-                }
+                
+                
                 
                 //System.out.println("Plot Dataset[0]: " + dataset[0]);
-                plotterTest = new PlotDrawer(resizedDataset,1);
+                plotterTest = new PlotDrawer(resizedDataset,1); 
             }
             
             return plotterTest.getChart();
