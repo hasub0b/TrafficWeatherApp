@@ -12,6 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+import fi.tuni.trafficweatherapp.drawers.*;
+import fi.tuni.trafficweatherapp.controllers.*;
 
 /**
  * @author Aleksi
