@@ -148,7 +148,7 @@ public class GraphViewController {
         });
 
         // CHARTS
-        chartIcons.getData().add(graphFactory.createIcons());
+        //chartIcons.getData().add(graphFactory.createIcons());
         chartIcons.getYAxis().setOpacity(0);
         chartIcons.getXAxis().setOpacity(0);
         for (Node n : chartIcons.lookupAll(".default-color0.chart-bar")) {
@@ -164,9 +164,9 @@ public class GraphViewController {
         chartHistogram.getYAxis().setLabel("Rain amount (mm)");
         chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
 
-        //chartHistogram.setVisible(false);
-        //chartLine.setVisible(false);
-        //chartIcons.setVisible(false);
+        chartHistogram.setVisible(false);
+        chartLine.setVisible(false);
+        chartIcons.setVisible(false);
     }
 
     /**
@@ -228,6 +228,7 @@ public class GraphViewController {
 
     /**
      * Updates the graph view
+     *
      * @throws Exception if cannot create graph.
      */
     private void updateGraphView() throws Exception {
@@ -244,6 +245,13 @@ public class GraphViewController {
                     coordinates[2].toString(),
                     coordinates[3].toString()));
 
+            chartHistogram.setVisible(false);
+            chartLine.setVisible(false);
+            chartIcons.setVisible(false);
+            
+            chartLine.getData().add(graphFactory.createPlot());
+            chartHistogram.getData().add(graphFactory.createHistogram());
+            chartHistogram.getData().add(graphFactory.createIcons());
             // Weather 
             if (DataInterface.isWindSelected()) {
                 chartIcons.setVisible(true);
@@ -252,17 +260,11 @@ public class GraphViewController {
                 chartIcons.setVisible(true);
             }
 
-            chartHistogram.getData().add(graphFactory.createIcons());
-
-
             if (DataInterface.isRainSelected()) {
                 chartHistogram.setVisible(true);
-                chartHistogram.getData().add(graphFactory.createHistogram());
+
             }
             if (DataInterface.isTemperatureSelected()) {
-                chartLine.setVisible(true);
-                chartLine.getData().add(graphFactory.createPlot());
-            } else {
                 chartLine.setVisible(true);
             }
 
