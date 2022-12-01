@@ -97,6 +97,8 @@ public class GraphDrawerFactory {
             if (!(DataInterface.isObservationSelected())) {
                 for (int i = 0; i < timeWindow(); i++) {
                     resizedDataset[i] = dataset[i];
+                    System.out.println("timewindow: " + timeWindow());
+                    System.out.println("array length: " + resizedDataset.length);
                 }
             }
             else {
@@ -109,13 +111,11 @@ public class GraphDrawerFactory {
             if (dataset == null) {
                 //plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
                 plotterTest = new PlotDrawer(new Double[]{0.0},1);
+                System.out.println("Dataset null");
                 return plotterTest.getChart();               
             }
             // If not null
             else {
-                
-                
-                
                 //System.out.println("Plot Dataset[0]: " + dataset[0]);
                 plotterTest = new PlotDrawer(resizedDataset,1); 
             }
