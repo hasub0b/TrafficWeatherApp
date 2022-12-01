@@ -6,6 +6,12 @@ package fi.tuni.trafficweatherapp;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -298,6 +304,41 @@ public class GraphViewController {
             // Maintenance
             if (DataInterface.isMaintenanceSelected()) {
 
+                pieChartTaskTypes.getData().clear();
+
+                // Setting data from DataInterface
+                List<PieChart.Data> pieData = new ArrayList<>();
+                for (String key: DataInterface.getMaintenanceMap().keySet()) {
+                    pieData.add(new PieChart.Data(key, DataInterface.getMaintenanceMap().get(key)));
+                }
+                for (PieChart.Data dat:pieData) {
+                    dat.nameProperty().bind(Bindings.concat(String.format("%s - %.0f",dat.getName(), dat.pieValueProperty().getValue())));
+                }
+
+                // set default value in case of no data in datainterface
+                if (pieData.size() == 0){
+                    pieData.add(new PieChart.Data("NO DATA",0));
+                }
+
+                ObservableList<PieChart.Data> oList = FXCollections.observableArrayList(pieData);
+                pieChartTaskTypes.setData(oList);
+
+
+                // Tooltip
+                pieChartTaskTypes.getData().stream().forEach(data -> {
+                    Tooltip tooltip = new Tooltip();
+                    tooltip.setText(data.getName());
+                    Tooltip.install(data.getNode(), tooltip);
+                    data.pieValueProperty().addListener((observable, oldValue, newValue) ->
+                            tooltip.setText(data.getName()));
+                });
+
+                //Setting the other properties
+                pieChartTaskTypes.setClockwise(true);
+                pieChartTaskTypes.setLabelLineLength(10);
+                pieChartTaskTypes.setLabelsVisible(true);
+                pieChartTaskTypes.setStartAngle(360);
+
             }
         } else {
             MenuItem errorMessage = new MenuItem("Please select coordinates "
@@ -306,7 +347,9 @@ public class GraphViewController {
 
             buttonUpdateGraph.setContextMenu(menuErrorMessage);
             menuErrorMessage.show(buttonUpdateGraph, Side.BOTTOM, 0, 0);
-        }
 
+        }
     }
 }
+
+
