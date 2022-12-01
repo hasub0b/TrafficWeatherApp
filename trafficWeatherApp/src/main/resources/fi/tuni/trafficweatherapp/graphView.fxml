@@ -143,7 +143,7 @@
         <AnchorPane fx:id="anchorSideMenu" prefHeight="190.0" prefWidth="215.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="120.0" />
         <ImageView fx:id="sideMenu" fitHeight="250.0" fitWidth="60.0" layoutX="60.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true" smooth="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
             <image>
-                <Image url="@../pictures/sidebar.png" />
+                <Image url="@sidebar.png" />
             </image>
         </ImageView>
     </children>

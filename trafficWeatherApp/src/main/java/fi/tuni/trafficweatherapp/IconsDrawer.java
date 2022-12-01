@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Other/File.java to edit this template
  */
-package fi.tuni.trafficweatherapp.drawers;
+package fi.tuni.trafficweatherapp;
 
 import java.io.File;
 import java.time.LocalTime;
@@ -19,7 +19,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import fi.tuni.trafficweatherapp.*;
 
 /**
  *
