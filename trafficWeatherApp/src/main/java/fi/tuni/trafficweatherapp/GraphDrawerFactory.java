@@ -36,13 +36,14 @@ public class GraphDrawerFactory {
             else if (DataInterface.getSelectedForecast() == "12h") {
                 timeWindow = 12;
             }
-            //timeWindow = DataInterface.getSelectedForecast();
+            //timeWindow = Integer.parseInt(DataInterface.getSelectedForecast());
         }
         else {
             // For now it'll return 2 as the expected time window,
             // if there's no selected forecast hour value
             return 2;
         }
+        System.out.println("Forecast time: " + timeWindow);
         return timeWindow;
     }
     
