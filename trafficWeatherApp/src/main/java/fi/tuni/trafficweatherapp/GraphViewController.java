@@ -196,10 +196,12 @@ public class GraphViewController {
      */
     public void updateGraphView() {
         Double[] coordinates = DataInterface.getCoordinates();
-        fieldCoordinates.setText(String.format("%s, %s, %s, %s",
-                coordinates[0].toString(),
-                coordinates[1].toString(),
-                coordinates[2].toString(),
-                coordinates[3].toString()));
+        if (coordinates != null) {
+            fieldCoordinates.setText(String.format("%s, %s, %s, %s",
+                    coordinates[0].toString(),
+                    coordinates[1].toString(),
+                    coordinates[2].toString(),
+                    coordinates[3].toString()));
+        }
     }
 }
