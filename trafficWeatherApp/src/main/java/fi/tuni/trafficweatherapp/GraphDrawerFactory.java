@@ -171,8 +171,8 @@ public class GraphDrawerFactory {
             Double temp = DataInterface.getTemperature();
             Double[] foreTemp = listFloatToDoubleArray(DataInterface.getForecastTemperature());
             System.out.println("Plotting");
-            //System.out.println("Forecast: " + !(DataInterface.isObservationSelected()) + " | " 
-            //        + "Observation: " + DataInterface.isObservationSelected());
+            System.out.println("Forecast: " + !(DataInterface.isObservationSelected()) + " | " 
+                    + "Observation: " + DataInterface.isObservationSelected());
             // Checks for null/short arrays and values
             if (temp != null) {
                 dataset = new Double[]{temp};
@@ -297,7 +297,7 @@ public class GraphDrawerFactory {
                     forecastWind = DataInterface.getForecastWind();
                 }
                 else {
-                    forecastWind = Arrays.asList(20f,40f,10f,20f);
+                    //System.out.println("Couldn't values for wind forecast");
                 }
             }
             
@@ -321,8 +321,10 @@ public class GraphDrawerFactory {
                 id = new IconsDrawer(Arrays.asList(0f), false, forecastWind, DataInterface.isWindSelected(), 1);
             }
             
-            // Template for testing purposes
+            // ! Template for testing purposes !
+            // ---
             id = new IconsDrawer(Arrays.asList(20f,40f,50f,70f), true, Arrays.asList(20f,40f,50f,60f), true, 1);
+            // ---
             return id.getIcons();
         }
         catch (Exception e) {
@@ -342,7 +344,7 @@ public class GraphDrawerFactory {
             */
             
             
-            return tmd.getText();
+            return tmd.getMessageText();
         }
         catch (Exception e) {
             System.out.println("Error creating messages: " + e);
