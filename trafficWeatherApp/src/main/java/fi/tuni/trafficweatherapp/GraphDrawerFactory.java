@@ -51,27 +51,6 @@ public class GraphDrawerFactory {
         //System.out.println("Forecast time: " + timeWindow);
         return timeWindow;
     }
-
-    /**
-    * Used for float list's onversion to Double[].
-    * @param input for the convertable List<Float>
-    * @return returns converted series of values or null, if the output was null
-    */
-    public static Double[] listFloatToDoubleArray(List<Float> input) {
-        if (input == null) {
-            return null;
-        }
-        // First convert float into array
-        Double[] inputArray = new Double[input.size()];
-        for (int j = 0; j < input.size(); j++) inputArray[j] = Double.valueOf(input.get(j));
-
-        // Then convert float to double
-        Double[] output = new Double[inputArray.length];
-        for (int i = 0; i < inputArray.length; i++) {
-            output[i] = inputArray[i];
-        }
-        return output;
-    }
     
     /**
     * Calls the PlotDrawer to draw a linechart with DataInterface data, 
@@ -97,11 +76,9 @@ public class GraphDrawerFactory {
             // Checks for null/short arrays and values
             if (temp != null && DataInterface.isObservationSelected()) {
                 dataset = new Double[]{temp};
-                //System.out.println("Obs Data fetched[0]+[n-1]: [" + dataset[0] + "]+[" + dataset[dataset.length-1]+"]");
             }
             else if (foreTemp.length > 0 && !(DataInterface.isObservationSelected())) {
                 dataset = foreTemp;
-                //System.out.println("Fore Data fetched[0]+[n-1]: [" + dataset[0] + "]+[" + dataset[dataset.length-1]+"]");
             }
             else {
                 System.out.println("No values to fetch!");
@@ -243,11 +220,10 @@ public class GraphDrawerFactory {
             else {
                 // Wind (fore)
                 if (DataInterface.getForecastWind().size() > 0) {
-                    //System.out.println("Fetched forecastwind: " + DataInterface.getForecastWind());
                     forecastWind = DataInterface.getForecastWind();
                     
                     for (int i = 0; i < timeWindow(); i++) {
-                        resizedDatasetWind.add(forecastWind.get(i))/*.toString())*/;
+                        resizedDatasetWind.add(forecastWind.get(i));
 
                     }
                     forecastWind = resizedDatasetWind;
@@ -258,7 +234,6 @@ public class GraphDrawerFactory {
                 
                 // Cloud (fore)
                 if (DataInterface.getForecastCloud().size() > 0) {
-                    //System.out.println("Fetched forecastcloud: " + DataInterface.getForecastCloud());
                     forecastCloud = DataInterface.getForecastCloud();
                     for (int i = 0; i < timeWindow(); i++) {
                         resizedDatasetCloud.add(forecastCloud.get(i));
