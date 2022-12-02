@@ -42,6 +42,7 @@ public class PreferenceSaver {
         map.put("temperature", DataInterface.isTemperatureSelected());
         map.put("wind", DataInterface.isWindSelected());
         map.put("cloud", DataInterface.isCloudSelected());
+        map.put("rain", DataInterface.isRainSelected());
 
         // Get parameters from CoordinatesMenuController
         // map.put("coordinates", cc.getCoordinates());

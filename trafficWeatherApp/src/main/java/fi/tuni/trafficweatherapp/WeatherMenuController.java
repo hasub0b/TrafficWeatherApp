@@ -135,6 +135,7 @@ public class WeatherMenuController {
     // Temp
     public void setTemp(boolean newTemp) {
         //DataInterface.setTempPressed(true);
+        tempbox.setSelected(newTemp);
         temp = newTemp;
         DataInterface.setTemperatureSelected(newTemp);
     }
@@ -145,6 +146,7 @@ public class WeatherMenuController {
 
     // Wind
     public void setWind(boolean newWind) {
+        windbox.setSelected(newWind);
         wind = newWind;
         DataInterface.setWindSelected(newWind);
     }
@@ -155,6 +157,7 @@ public class WeatherMenuController {
 
     // Cloud
     public void setCloud(boolean newCloud) {
+        cloudbox.setSelected(newCloud);
         cloud = newCloud;
         DataInterface.setCloudSelected(newCloud);
     }
@@ -165,6 +168,7 @@ public class WeatherMenuController {
 
     // Rain
     public void setRain (boolean newRain) {
+        rainBox.setSelected(newRain);
         rain = newRain;
         DataInterface.setRainSelected(rain);
     }

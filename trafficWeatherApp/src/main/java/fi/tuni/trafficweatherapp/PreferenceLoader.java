@@ -37,7 +37,7 @@ public class PreferenceLoader {
                 }
             }
         } catch (Exception e){
-            System.err.println("ERROR WHILE UPDATING DATASETS");
+            System.err.println("ERROR WHILE UPDATING");
         }
     }
 
@@ -53,10 +53,10 @@ public class PreferenceLoader {
             node = node.getParent();
         } while (controller == null && node != null);
 
+
         // Get all the controllers
         MainViewController pc = (MainViewController) controller;
-        FXMLLoader graphLoader = pc.getLoaderGraphView();
-        GraphViewController gc = graphLoader.getController();
+        GraphViewController gc = pc.loaderGraphView.getController();
         SideMenuTitleBoxesController sc = gc.loaderSideMenuTitleBoxes.getController();
         WeatherMenuController wc = sc.loaderWeatherMenu.getController();
         CoordinatesMenuController cc = sc.loaderCoordinatesMenu.getController();
@@ -64,13 +64,11 @@ public class PreferenceLoader {
         MaintenanceMenuController mc = tc.loaderMaintenanceMenu.getController();
         MessagesMenuController msg = tc.loaderMessageMenu.getController();
         RoadConditionController rc = tc.loaderConditionMenu.getController();
-
         // Set values from JsonObject
 
         // GraphView
         // timeline
         try{
-            System.out.println(jsonObject);
             String timeline = jsonObject.get("timeline").toString().replaceAll("\"","");
             if (Objects.equals(timeline, "observation")){
                 gc.buttonForecast.setSelected(false);
@@ -122,9 +120,11 @@ public class PreferenceLoader {
             }
 
             // WeatherMenu
+
             wc.setWind(jsonObject.get("wind").getAsBoolean());
             wc.setCloud(jsonObject.get("cloud").getAsBoolean());
             wc.setTemp(jsonObject.get("temperature").getAsBoolean());
+            wc.setRain(jsonObject.get("rain").getAsBoolean());
 
             // TrafficMenu
             // MaintenanceMenu
@@ -139,6 +139,8 @@ public class PreferenceLoader {
             rc.setSlipperiness(jsonObject.get("slipperiness").getAsBoolean());
             rc.setCondition(jsonObject.get("overallCondition").getAsBoolean());
             rc.setPrecipitation(jsonObject.get("precipitation").getAsBoolean());
+
+
         }catch (Exception e){
             System.out.println("JSON FILE DOESN'T HAVE CORRECT FORMATTING");
             System.out.println(e);
