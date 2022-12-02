@@ -251,7 +251,7 @@ public class GraphDrawerFactory {
             else {
                 // Wind (fore)
                 if (DataInterface.getForecastWind().size() > 0) {
-                    System.out.println("Fetched forecastcloud: " + DataInterface.getForecastWind());
+                    System.out.println("Fetched forecastwind: " + DataInterface.getForecastWind());
                     forecastWind = DataInterface.getForecastWind();
                     
                     for (int i = 0; i < timeWindow(); i++) {
@@ -278,16 +278,6 @@ public class GraphDrawerFactory {
                 }
             }
             
-            // Make checks for what data to display and what not to display
-            // Make unselected booleans 0 in value (?)
-            if (!(DataInterface.isWindSelected())) {
-                forecastWind = Arrays.asList(0f);
-                wind = 0f;
-            }
-            if (!(DataInterface.isCloudSelected())) {
-                cloud = 0f;
-            }
-
             // Observation
             if (DataInterface.isObservationSelected()) {
                 id = new IconsDrawer(Arrays.asList(cloud), DataInterface.isCloudSelected(), Arrays.asList(wind), DataInterface.isWindSelected(), 1);
