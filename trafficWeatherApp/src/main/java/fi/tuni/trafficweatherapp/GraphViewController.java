@@ -372,14 +372,14 @@ public class GraphViewController {
                         System.out.println(amount);
                         amount += DataInterface.getMaintenanceMapAverage().get(key);
                     }
-                    textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the past week: %d",task,amount/7));
+                    textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the 3 days: %d",task,amount/3));
                 }
 
                 else {
                     if (DataInterface.getMaintenanceMapAverage().containsKey(task)){
-                        textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the past week: %d",task,DataInterface.getMaintenanceMapAverage().get(task)/7));
+                        textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the past 3 days: %d",task,DataInterface.getMaintenanceMapAverage().get(task)/7));
                     } else {
-                        textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the past week: %d",task,0));
+                        textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the past 3 days: %d",task,0));
                     }
                 }
 
