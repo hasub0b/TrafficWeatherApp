@@ -94,7 +94,7 @@ public class DataLoader {
             for (String str:forecastRain) {
                 rains.add(Float.valueOf(str));
             }
-            DataInterface.setForecastWind(rains);
+            DataInterface.setForecastRain(rains);
 
             Double[] coordinates = new Gson().fromJson(jsonObject.get("coordinates").getAsJsonArray(), Double[].class);
             DataInterface.setCoordinates(coordinates);
@@ -110,9 +110,10 @@ public class DataLoader {
                 DataInterface.setWind(jsonObject.get("Wind").toString().replaceAll("\"", ""));
             }
             if (jsonObject.get("Rain").toString().replaceAll("\"", "").equals("null")){
-                DataInterface.setRain(null);
+                DataInterface.setRain(0.0);
             } else {
                 DataInterface.setRain(jsonObject.get("Rain").getAsDouble());
+                System.out.println("RAIN :" + DataInterface.getRain());
             }
             if (jsonObject.get("Cloud").toString().replaceAll("\"", "").equals("null")){
                 DataInterface.setCloud(null);
