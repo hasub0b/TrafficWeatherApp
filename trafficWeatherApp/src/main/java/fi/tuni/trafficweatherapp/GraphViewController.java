@@ -359,9 +359,12 @@ public class GraphViewController {
                 pieChartTaskTypes.setStartAngle(360);
 
 
+
                 // create average tasks TextArea
                 String task = DataInterface.getSelectedMaintenance();
                 int amount = 0;
+
+                textAreaAvgMaintenanceTasks.setStyle("-fx-font-size: 12;");
 
                 if (Objects.equals(task, "ALL")){
                     for (String key:DataInterface.getMaintenanceMapAverage().keySet()) {
