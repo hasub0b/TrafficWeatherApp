@@ -2,10 +2,8 @@ package fi.tuni.trafficweatherapp;
 
 import com.google.gson.*;
 import org.json.JSONObject;
-import java.io.IOException;
 import java.util.*;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
+
 
 
 /**
@@ -66,7 +64,6 @@ public class JsonParsing {
                     }
                 }
             }
-
 
             if (isMessage){
                 if (!Objects.equals(taskType, "")){
@@ -271,9 +268,7 @@ public class JsonParsing {
                     newElement.addProperty(name, value);
 
                 }
-
             }
-
 
             /*   Add observation values to dataInterface, choose last element to get the latest observation
              *   - observed temperatures (t2m)
@@ -283,31 +278,58 @@ public class JsonParsing {
              */
             if (observation){
 
-                if (memberArray.get(memberArray.size()-1).getAsJsonObject().has("r_1h")){
+                if(Objects.equals(memberArray.get(memberArray.size() - 1).getAsJsonObject().get("r_1h").toString(), "NaN")){
+                    DataInterface.setRain(0.0);
+                } else {
                     DataInterface.setRain(memberArray.get(memberArray.size()-1).getAsJsonObject().get("r_1h").getAsDouble());
                 }
+                if (memberArray.get(memberArray.size()-1).getAsJsonObject().get("t2m").toString() == "NaN"){
+                    DataInterface.setTemperature(0.0);
+                } else {
+                    DataInterface.setTemperature(memberArray.get(memberArray.size()-1).getAsJsonObject().get("t2m").getAsDouble());
+                }
+                if (memberArray.get(memberArray.size()-1).getAsJsonObject().get("n_man").toString() == "NaN"){
+                    DataInterface.setCloud(0.0);
+                } else {
+                    DataInterface.setCloud(memberArray.get(memberArray.size()-1).getAsJsonObject().get("n_man").getAsDouble());
+                }
 
-                DataInterface.setTemperature(memberArray.get(memberArray.size()-1).getAsJsonObject().get("t2m").getAsDouble());
                 DataInterface.setWind(memberArray.get(memberArray.size()-1).getAsJsonObject().get("ws_10min").toString());
-                DataInterface.setCloud(memberArray.get(memberArray.size()-1).getAsJsonObject().get("n_man").getAsDouble());
 
             } else {
                 // forecast
 
                 List<Float> rainList = new ArrayList<>();
-                List<Float> temperatureList = new ArrayList<>();
+                List<Double> temperatureList = new ArrayList<>();
                 List<Float> windList = new ArrayList<>();
                 List<Float> cloudList = new ArrayList<>();
 
                 // Get next 24h forecast, assuming 60min steps
                 for (int i = 0; i < 24; i++) {
-
-
-
-                    Float rain = memberArray.get(i).getAsJsonObject().get("precipitationamount").getAsFloat();
-                    Float temp = memberArray.get(i).getAsJsonObject().get("temperature").getAsFloat();
-                    Float wind = memberArray.get(i).getAsJsonObject().get("windspeedms").getAsFloat();
-                    Float cloud = memberArray.get(i).getAsJsonObject().get("TotalCloudCover").getAsFloat();
+                    Float rain;
+                    Double temp;
+                    Float wind;
+                    Float cloud;
+                    if (Objects.equals(memberArray.get(i).getAsJsonObject().get("precipitationamount").toString(), "NaN")){
+                        rain = 0.0f;
+                    } else {
+                        rain = memberArray.get(i).getAsJsonObject().get("precipitationamount").getAsFloat();
+                    }
+                    if (Objects.equals(memberArray.get(i).getAsJsonObject().get("temperature").toString(), "NaN")){
+                        temp = 0.0;
+                    } else {
+                        temp = memberArray.get(i).getAsJsonObject().get("temperature").getAsDouble();
+                    }
+                    if (Objects.equals(memberArray.get(i).getAsJsonObject().get("windspeedms").toString(), "NaN")){
+                        wind = 0.0f;
+                    } else {
+                        wind = memberArray.get(i).getAsJsonObject().get("windspeedms").getAsFloat();
+                    }
+                    if (Objects.equals(memberArray.get(i).getAsJsonObject().get("TotalCloudCover").toString(), "NaN")){
+                        cloud = 0.0f;
+                    } else {
+                        cloud = memberArray.get(i).getAsJsonObject().get("TotalCloudCover").getAsFloat();
+                    }
 
                     rainList.add(rain);
                     temperatureList.add(temp);
@@ -324,6 +346,5 @@ public class JsonParsing {
         }catch (Exception e){
             System.err.println("Error while reading FMI data, some values may not have been set correctly");
         }
-
     }
 }

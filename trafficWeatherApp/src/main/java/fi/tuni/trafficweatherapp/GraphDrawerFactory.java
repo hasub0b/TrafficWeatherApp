@@ -16,14 +16,16 @@ import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 
 /**
- *
+ * 
  * @author Arttu Lehtola
  */
 public class GraphDrawerFactory {
-    
+    /**
+     * Is used for checking forecast time values
+     * @return returns selected forecast timewindow 2h, 4h, 6h or 12h
+     */
     public int timeWindow() {
         int timeWindow = 0;
-        //System.out.println("Fetched forecast (time): " + DataInterface.getSelectedForecast());
         if (!DataInterface.isObservationSelected()) {
             if (DataInterface.getSelectedForecast().toString().contains("12h")) {
                 timeWindow = 12;
@@ -40,7 +42,6 @@ public class GraphDrawerFactory {
             else {
                 System.out.println("Couldn't find selected forecast");
             }
-            //timeWindow = Integer.parseInt(DataInterface.getSelectedForecast());
         }
         else {
             // For now it'll return 2 as the expected time window,
@@ -50,81 +51,53 @@ public class GraphDrawerFactory {
         //System.out.println("Forecast time: " + timeWindow);
         return timeWindow;
     }
-
-    public static Double[] listFloatToDoubleArray(List<Float> input) {
-        if (input == null) {
-            return null;
-        }
-        // First convert float into array
-        Double[] inputArray = new Double[input.size()];
-        for (int j = 0; j < input.size(); j++) inputArray[j] = Double.valueOf(input.get(j));
-
-        // Then convert float to double
-        Double[] output = new Double[inputArray.length];
-        for (int i = 0; i < inputArray.length; i++) {
-            output[i] = inputArray[i];
-        }
-        return output;
-    }
     
-    // Linechart
-    // * returns linechart
+    /**
+    * Calls the PlotDrawer to draw a linechart with DataInterface data, 
+    * then returns it to GraphViewController for use. 
+    * The method has basic logic applied to it.
+    * @return returns either a populated series or a null value
+    * @throws Exception Exception, if there's problem with type or data indexing
+    */
     public XYChart.Series createPlot() throws Exception {
         try {
             
             Double[] dataset = null;
             Double temp = DataInterface.getTemperature();
-
-            Double[] foreTemp = listFloatToDoubleArray(DataInterface.getForecastTemperature());
+            Double[] foreTemp = new Double[DataInterface.getForecastTemperature().size()];
+            for (int i = 0; i < foreTemp.length; i++) {
+                foreTemp[i] = DataInterface.getForecastTemperature().get(i);  // java 1.4 style
+                // or:
+                foreTemp[i] = DataInterface.getForecastTemperature().get(i);                // java 1.5+ style (outboxing)
+            }
             // Resized dataset to take into account for forecast hours
             Double[] resizedDataset = new Double[timeWindow()];
 
-            
-            //System.out.println("Plotting");
-            /*System.out.println("Forecast: " + !(DataInterface.isObservationSelected()) + " | " 
-                    + "Observation: " + DataInterface.isObservationSelected());*/
             // Checks for null/short arrays and values
             if (temp != null && DataInterface.isObservationSelected()) {
                 dataset = new Double[]{temp};
-                //System.out.println("Obs Data fetched[0]+[n-1]: [" + dataset[0] + "]+[" + dataset[dataset.length-1]+"]");
             }
             else if (foreTemp.length > 0 && !(DataInterface.isObservationSelected())) {
                 dataset = foreTemp;
-                //System.out.println("Fore Data fetched[0]+[n-1]: [" + dataset[0] + "]+[" + dataset[dataset.length-1]+"]");
             }
             else {
                 System.out.println("No values to fetch!");
             }
-            
-            // Limit the dataset size according to forecast hour
-            /*if (!(DataInterface.isObservationSelected())) {
-                for (int i = 0; i < timeWindow(); i++) {
-                    resizedDataset[i] = dataset[i];
-                    //System.out.println("timewindow: " + timeWindow());
-                    //System.out.println("array length: " + resizedDataset.length);
-                }
-            }
-            else {
-                //System.out.println("Didn't resize temp array");
-            }*/
+
             for (int i = 0; i < timeWindow(); i++) {
                 resizedDataset[i] = dataset[i];
-                //System.out.println("timewindow: " + timeWindow());
-                //System.out.println("array length: " + resizedDataset.length);
             }
             
             PlotDrawer plotterTest = null;
             // If we receive data, then it can be utilized in chart,
             // else it will draw from template
             if (dataset == null) {
-                //plotterTest = new PlotDrawer(new Double[]{2.0,4.0,1.0,2.7},1);
                 plotterTest = new PlotDrawer(new Double[]{0.0},1);
                 System.out.println("Dataset null");
                 return plotterTest.getChart();               
             }
             // If not null
             else {
-                //System.out.println("Plot Dataset[0]: " + dataset[0]);
                 plotterTest = new PlotDrawer(resizedDataset,1); 
             }
             
@@ -137,8 +110,12 @@ public class GraphDrawerFactory {
     }
     
     
-    // HistogramDrawer
-    // * returns histogram
+    /**
+    * Calls the HistogramDrawer to draw a histogram, then returns it to
+    * GraphViewController for use. The method has basic logic applied to it.
+    * @return           returns either a populated series or a null value
+    * @throws Exception Exception, if there's problem with type or data indexing
+    */
     public XYChart.Series createHistogram() throws Exception {
         try {
 
@@ -152,7 +129,7 @@ public class GraphDrawerFactory {
                 
                 // Rain (obs)
                 if (DataInterface.getRain() != null) {
-                    rain = DataInterface.getRain().floatValue();
+                    rain = Float.valueOf(DataInterface.getRain().toString());
                 }
                 else {
                     System.out.println("Couldn't fetch rain");
@@ -163,7 +140,6 @@ public class GraphDrawerFactory {
                 if (DataInterface.getForecastRain().size() > 0) {
                     // Iterates and resizes the data to fit wanted time window
                     forecastRain = DataInterface.getForecastRain();
-                    //System.out.println("Timewindow: "+ timeWindow());
                     for (int i = 0; i < timeWindow(); i++) {
                         resizedDataset.add(forecastRain.get(i));
                     }
@@ -172,9 +148,7 @@ public class GraphDrawerFactory {
                 else {
                     System.out.println("Didn't resize rain array");
                 }
-                /*else {
-                    forecastRain = Arrays.asList(20f,40f,50f,60f);
-                }*/
+
             }
             else {
                 System.out.println("Didn't fetch raindata.");
@@ -186,6 +160,9 @@ public class GraphDrawerFactory {
                 forecastRain = Arrays.asList(0f);
                 rain = 0f;
             }
+            else {
+                rain = DataInterface.getRain().floatValue();
+            }
 
             // Observation
             if (DataInterface.isObservationSelected()) {
@@ -196,8 +173,6 @@ public class GraphDrawerFactory {
                 hd = new HistogramDrawer(forecastRain, 1);
             }
             
-            // Template for testing purposes
-            //hd = new HistogramDrawer(Arrays.asList(20f,40f,50f,60f), 1);
             return hd.getChart();
         }
         catch (Exception e) {
@@ -206,8 +181,12 @@ public class GraphDrawerFactory {
         }
     }
     
-    // IconsDrawer
-    // * returns icons
+    /**
+     * Calls the HistogramDrawer to draw a histogram, then returns it to
+     * GraphViewController for use. The method has basic logic applied to it.       
+     * @return returns either a populated series or a null value
+     * @throws Exception Exception, if there's problem with type or data indexing
+     */
     public XYChart.Series createIcons() throws Exception {
         try {
             Float wind = null;
@@ -215,7 +194,7 @@ public class GraphDrawerFactory {
             List<Float> forecastWind = null;
             List<Float> forecastCloud = null;
             IconsDrawer id = null;
-            // Resized dataset to take into account for forecast hours
+            // Resized dataset to take into account the dynamic forecast hours
             List<Float> resizedDatasetWind = new ArrayList<>(timeWindow());
             List<Float> resizedDatasetCloud = new ArrayList<>(timeWindow());
             
@@ -223,19 +202,18 @@ public class GraphDrawerFactory {
             if (DataInterface.isObservationSelected()) {
                 // Cloud (obs)
                 if (DataInterface.getCloud() != null) {
-                    cloud = DataInterface.getCloud().floatValue();
-                    
+                    cloud = Float.valueOf(DataInterface.getCloud().toString());
                 }
                 else {
-                    System.out.println("Couldn't fetch cloud");
+                    System.out.println("Couldn't fetch cloud!");
                 }
                 
                 // Wind (obs)
                 if (DataInterface.getWind() != null) {
-                    wind = Float.valueOf(DataInterface.getWind()); 
+                    wind = Float.valueOf(DataInterface.getWind());
                 }
                 else {
-                    System.out.println("Couldn't fetch wind");
+                    System.out.println("Couldn't fetch wind!");
                 }
                 
             }
@@ -243,13 +221,15 @@ public class GraphDrawerFactory {
                 // Wind (fore)
                 if (DataInterface.getForecastWind().size() > 0) {
                     forecastWind = DataInterface.getForecastWind();
+                    
                     for (int i = 0; i < timeWindow(); i++) {
                         resizedDatasetWind.add(forecastWind.get(i));
+
                     }
                     forecastWind = resizedDatasetWind;
                 }
                 else {
-                    //System.out.println("Couldn't values for wind forecast");
+                    System.out.println("Couldn't values for wind forecast!");
                 }
                 
                 // Cloud (fore)
@@ -261,20 +241,10 @@ public class GraphDrawerFactory {
                     forecastCloud = resizedDatasetCloud;
                 }
                 else {
-                    //System.out.println("Couldn't values for wind forecast");
+                    System.out.println("Couldn't values for cloud forecast!");
                 }
             }
             
-            // Make checks for what data to display and what not to display
-            // Make unselected booleans 0 in value (?)
-            if (!(DataInterface.isWindSelected())) {
-                forecastWind = Arrays.asList(0f);
-                wind = 0f;
-            }
-            if (!(DataInterface.isCloudSelected())) {
-                cloud = 0f;
-            }
-
             // Observation
             if (DataInterface.isObservationSelected()) {
                 id = new IconsDrawer(Arrays.asList(cloud), DataInterface.isCloudSelected(), Arrays.asList(wind), DataInterface.isWindSelected(), 1);
@@ -285,10 +255,6 @@ public class GraphDrawerFactory {
                 id = new IconsDrawer(forecastCloud, DataInterface.isCloudSelected(), forecastWind, DataInterface.isWindSelected(), 1);
             }
             
-            // ! Template for testing purposes !
-            // ---
-            //id = new IconsDrawer(Arrays.asList(20f,40f,50f,70f), true, Arrays.asList(20f,40f,50f,60f), true, 1);
-            // ---
             return id.getIcons();
         }
         catch (Exception e) {

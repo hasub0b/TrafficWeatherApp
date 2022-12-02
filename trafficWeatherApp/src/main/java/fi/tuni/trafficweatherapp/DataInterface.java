@@ -1,10 +1,10 @@
 package fi.tuni.trafficweatherapp;
 
-import javafx.scene.chart.XYChart;
-
 import java.util.*;
 
 /**
+ * Class used to store fetched/loaded data
+ *
  * @author Aleksi
  */
 public final class DataInterface {
@@ -27,7 +27,7 @@ public final class DataInterface {
     // Values from FMI
     //
     // forecast lists have next 24h in 30min steps --- 48 elements -> index 0 next xx:30 or xx:00 and 48th element is 24h from index 0's time
-    private static List<Float> forecastTemperature = new ArrayList<>();
+    private static List<Double> forecastTemperature = new ArrayList<>();
     private static List<Float> forecastRain = new ArrayList<>();
     private static List<Float> forecastWind = new ArrayList<>();
     private static List<Float> forecastCloud = new ArrayList<>();
@@ -61,7 +61,6 @@ public final class DataInterface {
     static boolean slipperinessSelected = false;
     static boolean overallConditionSelected = false;
 
-
     // CoordinatesMenu
     private static Double[] coordinates = null;
     
@@ -82,8 +81,7 @@ public final class DataInterface {
 
     public static Map<String, List<String>> getMessagesMap() {return messagesMap;}
     public static void setMessagesMap(Map<String, List<String>> messagesMap) {DataInterface.messagesMap = messagesMap;}
-    public static void addMessageList(String key, List<String> value) {
-        messagesMap.put(key, value);}
+    public static void addMessageList(String key, List<String> value) {messagesMap.put(key, value);}
 
     public static Map<String, Integer> getMaintenanceMap() {return maintenanceMap;}
     public static void setMaintenanceMap(Map<String, Integer> maintenanceMap) {DataInterface.maintenanceMap = maintenanceMap;}
@@ -100,9 +98,9 @@ public final class DataInterface {
 
     // FMI
 
-    public static List<Float> getForecastTemperature() {return forecastTemperature;}
-    public static void setForecastTemperature(List<Float> newForecastTemperature) {forecastTemperature = newForecastTemperature;}
-    public static void addForecastTemperature(Float newForecastTemperature) {forecastTemperature.add(newForecastTemperature);}
+    public static List<Double> getForecastTemperature() {return forecastTemperature;}
+    public static void setForecastTemperature(List<Double> newForecastTemperature) {forecastTemperature = newForecastTemperature;}
+    public static void addForecastTemperature(Double newForecastTemperature) {forecastTemperature.add(newForecastTemperature);}
 
     public static Double getTemperature() {return temperature;}
     public static void setTemperature(Double newTemperature) {temperature = newTemperature;}
@@ -127,11 +125,8 @@ public final class DataInterface {
     public static List<Float> getForecastCloud() {return forecastCloud;}
     public static void setForecastCloud(List<Float> forecastCloud) {DataInterface.forecastCloud = forecastCloud;}
 
-
-
     public static List<String> getAllTaskTypes() {return allTaskTypes;}
     public static void setAllTaskTypes(List<String> allTaskTypes) {DataInterface.allTaskTypes = allTaskTypes;}
-
 
     public static boolean isObservationSelected() {return observationSelected;}
     public static void setObservationSelected(boolean selectedd) {observationSelected = selectedd;}
@@ -178,17 +173,4 @@ public final class DataInterface {
     public static boolean isOverallConditionSelected() {return overallConditionSelected;}
     public static void setOverallConditionSelected(boolean selected) {overallConditionSelected = selected;}
 
-
-    // Get all values for testing
-    /*
-    public static String getAll() {
-        String stringTraffic = "DigiTraffic data: \nconditionForecast: " + getConditionForecast() + "\nitems of interest: " + getItemsOfInterest() + "\nmaintenance: " + getMaintenance()
-                + "\nmessages: " + getMessages();
-
-        String stringFmi = "FMI data:\nforecastTemperature: " + getForecastTemperature() + "\n forecastWind: " + getForecastWind() + "\n forecastRain: " + getForecastRain()
-                + "\n temperature: " + getTemperature() + "\n wind: " + getWind() + "\n rain: " + getRain() + "\n cloud: " +getCloud();
-        return stringTraffic + "\n" + stringFmi;
-    }
-
-     */
 }

@@ -22,7 +22,7 @@
          <children>
             <GridPane fx:id="boxGrid1" alignment="CENTER" layoutY="5.0" prefHeight="141.0" prefWidth="143.0">
                <children>
-                  <CheckBox fx:id="tempbox" mnemonicParsing="false" onAction="#buttonPressed" selected="true" text="Temperature" textFill="WHITE">
+                  <CheckBox fx:id="tempbox" disable="true" mnemonicParsing="false" onAction="#buttonPressed" selected="true" text="Temperature" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="19.0" />
                      </font>

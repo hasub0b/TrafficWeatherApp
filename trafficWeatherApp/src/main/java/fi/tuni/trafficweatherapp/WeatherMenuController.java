@@ -6,6 +6,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 
 /**
+ * 
  * @author Arttu Lehtola
  */
 public class WeatherMenuController {
@@ -19,10 +20,6 @@ public class WeatherMenuController {
     CheckBox tempbox;
     @FXML
     CheckBox rainBox;
- /*@FXML
-    private RadioButton forecastRadio;
-    @FXML
-    private RadioButton observationRadio;*/
     @FXML
     Label labelForecast;
 
@@ -31,37 +28,17 @@ public class WeatherMenuController {
     private boolean wind;
     private boolean cloud;
     private boolean rain;
-    //private boolean observation;
-    //private boolean forecast;
 
+    /**
+     * Sets styles and default values 
+     * @throws Exception Exception, if there's problem with type or data indexing
+     */
     public void initialize() throws Exception {
         labelForecast.getStyleClass().add("title");
         labelForecast.getStyleClass().add("outlineTitle");
 
         // Temperature is selected
         DataInterface.setTemperatureSelected(true);
-        
-        /*// TBA (call to factory's update if needed)
-       try {
-        GraphViewController viewController = new GraphViewController();
-        boolean forecastPressed = false;
-        if (viewController.buttonForecast != null 
-                && viewController.buttonForecast.isPressed() == true) {
-            forecastPressed = true;
-        }
- 
-
-        if (forecastPressed) {
-            windbox.setVisible(false);
-            windbox.setSelected(false);
-        }
-        else {
-            windbox.setVisible(true);
-        }
-       }
-       catch (Error e) {
-           System.out.println("Error: " + e);
-       }  */
     }
 
     @FXML
@@ -80,11 +57,8 @@ public class WeatherMenuController {
             if (forecastPressed) {
                 cloudbox.setDisable(true);
                 cloudbox.setSelected(false);
-                //rainbox.setDisable(true);
-                //rainbox.setSelected(false);
             } else {
                 cloudbox.setDisable(false);
-                //rainbox.setDisable(false);
             }
 
             // Temperature (obs&fore)
@@ -122,19 +96,16 @@ public class WeatherMenuController {
                 setRain(false);
                 DataInterface.setRainSelected(false);
             }
-
-            // Call to update every time button is pressed
-            //
-            //System.out.println("Situation in datainterface (temp): " + data.getTempPressed());
-            //drawerFactory.update();
         } catch (Error e) {
             System.out.println("Error: " + e);
         }
     }
 
+    
+    // Accessors
     // Temp
     public void setTemp(boolean newTemp) {
-        //DataInterface.setTempPressed(true);
+        tempbox.setSelected(newTemp);
         temp = newTemp;
         DataInterface.setTemperatureSelected(newTemp);
     }
@@ -145,6 +116,7 @@ public class WeatherMenuController {
 
     // Wind
     public void setWind(boolean newWind) {
+        windbox.setSelected(newWind);
         wind = newWind;
         DataInterface.setWindSelected(newWind);
     }
@@ -155,6 +127,7 @@ public class WeatherMenuController {
 
     // Cloud
     public void setCloud(boolean newCloud) {
+        cloudbox.setSelected(newCloud);
         cloud = newCloud;
         DataInterface.setCloudSelected(newCloud);
     }
@@ -165,6 +138,7 @@ public class WeatherMenuController {
 
     // Rain
     public void setRain (boolean newRain) {
+        rainBox.setSelected(newRain);
         rain = newRain;
         DataInterface.setRainSelected(rain);
     }
@@ -172,13 +146,14 @@ public class WeatherMenuController {
         return rain;
     }
 
+    /**
+     * Reports boolean status of some checkboxes
+     */
     public void status() {
         System.out.println("---Status---");
         System.out.println("Temp: " + tempbox.isPressed());
         System.out.println("Wind: " + windbox.isPressed());
         System.out.println("Cloud: " + cloudbox.isPressed());
-        //System.out.println("Forecast Radio: " + forecastRadio.isSelected());
-        //System.out.println("Observation Radio: " + observationRadio.isSelected());
     }
 
 }

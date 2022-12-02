@@ -6,6 +6,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 
 /**
+ * Controller for the messages menu fxml javafx elements.
  * @author Aleksi
  */
 public class MessagesMenuController {
@@ -25,13 +26,20 @@ public class MessagesMenuController {
     private boolean transport;
     private boolean weightRes;
     private boolean roadWork;
-    
+
+    /**
+     * Initializes maintenance menu's elements.
+     */
     public void initialize() {
         labelMessagesMenu.getStyleClass().add("title");
         labelMessagesMenu.getStyleClass().add("outlineTitle");
     }
 
 
+    /**
+     * checkbox event handler.
+     * @hidden
+     */
     public void checkBoxSelected(ActionEvent actionEvent) {
         setAnnouncement(checkBoxAnnouncement.isSelected());
         DataInterface.setAnnouncementSelected(announcement);
@@ -43,6 +51,8 @@ public class MessagesMenuController {
         DataInterface.setRoadworkSelected(roadWork);
 
     }
+
+    // Basic getters/setters
 
     public boolean isAnnouncement() {
         return announcement;

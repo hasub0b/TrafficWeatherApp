@@ -39,10 +39,10 @@ public class CoordinatesMenuController {
         {
             put("Hervanta", new Double[]{
                 23.823851106, 23.883117728, 61.439102891, 61.461094956});
-            put("The city center of Tampere", new Double[]{
-                23.755090615, 23.791861827, 61.491086559, 61.509263332});
-            put("Kaleva", new Double[]{
-                23.791861827, 23.829465010, 61.491643025, 61.502932821});
+            put("Rovaniemi", new Double[]{
+                25.625783754, 25.793732120, 66.485785029, 66.528515011});
+            put("Kokkola", new Double[]{
+                22.924080888, 23.320209865, 63.770231699, 63.906950358});
             put("Tampere region", new Double[]{
                 23.427829283, 24.200473208, 61.284686787, 61.603632612});
             put("Lielahti", new Double[]{
@@ -100,7 +100,6 @@ public class CoordinatesMenuController {
         buttonSetCoordinates.setOnAction(eh -> {
             coordinates = new Double[]{minX, maxX, minY, maxY};
 
-            System.out.println("custom coordinates set!");
             setCoordinates();
 
             buttonSetCoordinates.setDisable(true);
@@ -115,7 +114,6 @@ public class CoordinatesMenuController {
                 String locationName = (String) comboBoxSetLocation.getValue();
                 coordinates = LOCATIONS.get(locationName);
 
-                System.out.println("preset coordinates set!");
                 setCoordinates();
 
                 buttonSetLocation.setDisable(true);

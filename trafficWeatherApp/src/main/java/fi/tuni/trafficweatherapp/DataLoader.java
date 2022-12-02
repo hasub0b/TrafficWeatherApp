@@ -1,10 +1,8 @@
 package fi.tuni.trafficweatherapp;
 
 import com.google.gson.*;
-
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,29 +32,7 @@ public class DataLoader {
         } catch (Exception e){
             System.err.println("ERROR WHILE UPDATING DATASETS");
         }
-        /*
-        Path dir = Paths.get("trafficWeatherApp/savedData/datasets/");
-        String file = "";
-        try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-            for (Path path : stream) {
-                if(Objects.equals(filename, path.getFileName().toString())){
-                    file = path.toString();
-                }
-            }
-            if (file.equals("")){
-                System.out.println("FILE NOT FOUND");
-            } else {
-                JsonObject jsonObject = convertFileToJSON(file);
-                loadToDataInterface(jsonObject);
-            }
-
-        }catch (IOException e){
-            System.out.println("PATH NOT FOUND");
-        }
-
-         */
     }
-
 
     /**
      * Add the values from JsonObject to DataInterface
@@ -79,14 +55,22 @@ public class DataLoader {
             HashMap<String, Integer> maintenances = new Gson().fromJson(jsonObject.get("MaintenanceMap").getAsJsonObject(), HashMap.class);
             DataInterface.setMaintenanceMap(maintenances);
 
-            List<Float> forecastTemp = new Gson().fromJson(jsonObject.get("ForecastTemp").getAsJsonArray(), List.class);
+            List<Double> forecastTemp = new Gson().fromJson(jsonObject.get("ForecastTemp").getAsJsonArray(), List.class);
             DataInterface.setForecastTemperature(forecastTemp);
 
-            List<Float> forecastWind = new Gson().fromJson(jsonObject.get("ForecastWind").getAsJsonArray(), List.class);
-            DataInterface.setForecastWind(forecastWind);
+            List<String> forecastWind = new Gson().fromJson(jsonObject.get("ForecastWind").getAsJsonArray(), List.class);
+            List<Float> wind = new ArrayList<>();
+            for (String str:forecastWind) {
+                wind.add(Float.valueOf(str));
+            }
+            DataInterface.setForecastWind(wind);
 
-            List<Float> forecastRain = new Gson().fromJson(jsonObject.get("ForecastRain").getAsJsonArray(), List.class);
-            DataInterface.setForecastWind(forecastRain);
+            List<String> forecastRain = new Gson().fromJson(jsonObject.get("ForecastRain").getAsJsonArray(), List.class);
+            List<Float> rains = new ArrayList<>();
+            for (String str:forecastRain) {
+                rains.add(Float.valueOf(str));
+            }
+            DataInterface.setForecastRain(rains);
 
             Double[] coordinates = new Gson().fromJson(jsonObject.get("coordinates").getAsJsonArray(), Double[].class);
             DataInterface.setCoordinates(coordinates);
@@ -99,10 +83,10 @@ public class DataLoader {
             if (jsonObject.get("Wind").toString().replaceAll("\"", "").equals("null")){
                 DataInterface.setWind(null);
             } else {
-                DataInterface.setWind(jsonObject.get("Wind").toString());
+                DataInterface.setWind(jsonObject.get("Wind").toString().replaceAll("\"", ""));
             }
             if (jsonObject.get("Rain").toString().replaceAll("\"", "").equals("null")){
-                DataInterface.setRain(null);
+                DataInterface.setRain(0.0);
             } else {
                 DataInterface.setRain(jsonObject.get("Rain").getAsDouble());
             }
@@ -113,8 +97,8 @@ public class DataLoader {
             }
 
         }catch (Exception e){
-            System.out.println(e);
-            System.out.println("JSON FILE DOESN'T HAVE CORRECT FORMATTING");
+            System.err.println(e);
+            System.err.println("JSON FILE DOESN'T HAVE CORRECT FORMATTING");
         }
     }
 
@@ -133,7 +117,7 @@ public class DataLoader {
             JsonElement jsonElement = parser.parse(new FileReader(getClass().getResource("datasets/" + fileName).getFile()));
             jsonObject = jsonElement.getAsJsonObject();
         } catch (IOException e) {
-            System.out.println("ERROR WHILE CONVERTING");
+            System.err.println("ERROR WHILE CONVERTING");
         }
 
         return jsonObject;
