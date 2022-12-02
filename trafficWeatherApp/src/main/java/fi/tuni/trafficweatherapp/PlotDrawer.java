@@ -28,21 +28,15 @@ public class PlotDrawer {
      * @param timeInterval of the temperature data.
      */
     public PlotDrawer(Double[] temperature, int timeInterval) {
-
-        //yAxis.setLabel("Temperature (C\u00B0)");
-        //xAxis.setLabel("Time (hh:mm)");
-        //yAxis.setSide(Side.RIGHT);
-
-        //XYChart.Series series = new XYChart.Series();
-        //chart.setTitle("GraphView");
-
+        
+        System.out.println(temperature[0]);
         // Get current time for x axis
         // credit: Aleksi
         LocalTime now = LocalTime.now();
         for (int i = 0; i < temperature.length; ++i) {
             series.getData().add(new XYChart.Data(
                     now.truncatedTo(ChronoUnit.HOURS)
-                            .plusHours((long) timeInterval * i).toString(),
+                            .plusHours((long) timeInterval * i + 1).toString(),
                     temperature[i]));
         }
         //chart.getData().add(series);

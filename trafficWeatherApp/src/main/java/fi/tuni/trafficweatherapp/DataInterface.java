@@ -39,7 +39,7 @@ public final class DataInterface {
     // parameters for user selections
 
     //GraphView
-    static boolean observationSelected = false;
+    static boolean observationSelected = true;
     // "2h","4h","6h","12h"
     static String selectedForecast = "2h";
 

@@ -24,7 +24,7 @@ public class GraphDrawerFactory {
     public int timeWindow() {
         int timeWindow = 0;
         //System.out.println("Fetched forecast (time): " + DataInterface.getSelectedForecast());
-        if (DataInterface.getSelectedForecast() != "") {
+        if (!DataInterface.isObservationSelected()) {
             if (DataInterface.getSelectedForecast().toString().contains("12h")) {
                 timeWindow = 12;
             }
@@ -45,7 +45,7 @@ public class GraphDrawerFactory {
         else {
             // For now it'll return 2 as the expected time window,
             // if there's no selected forecast hour value
-            timeWindow = 2;
+            timeWindow = 1;
         }
         //System.out.println("Forecast time: " + timeWindow);
         return timeWindow;
@@ -71,16 +71,14 @@ public class GraphDrawerFactory {
     // * returns linechart
     public XYChart.Series createPlot() throws Exception {
         try {
-            /* Testing msgdrwr */
-            TrafficMessagesDrawer tmd = new TrafficMessagesDrawer();
-            System.out.println("Road Condition String: " + tmd.getRoadConditionString());
-            //System.out.println("Message size: " + tmd.getMessageSize());
             
             Double[] dataset = null;
             Double temp = DataInterface.getTemperature();
+
             Double[] foreTemp = listFloatToDoubleArray(DataInterface.getForecastTemperature());
             // Resized dataset to take into account for forecast hours
             Double[] resizedDataset = new Double[timeWindow()];
+
             
             //System.out.println("Plotting");
             /*System.out.println("Forecast: " + !(DataInterface.isObservationSelected()) + " | " 
@@ -99,7 +97,7 @@ public class GraphDrawerFactory {
             }
             
             // Limit the dataset size according to forecast hour
-            if (!(DataInterface.isObservationSelected())) {
+            /*if (!(DataInterface.isObservationSelected())) {
                 for (int i = 0; i < timeWindow(); i++) {
                     resizedDataset[i] = dataset[i];
                     //System.out.println("timewindow: " + timeWindow());
@@ -108,6 +106,11 @@ public class GraphDrawerFactory {
             }
             else {
                 //System.out.println("Didn't resize temp array");
+            }*/
+            for (int i = 0; i < timeWindow(); i++) {
+                resizedDataset[i] = dataset[i];
+                //System.out.println("timewindow: " + timeWindow());
+                //System.out.println("array length: " + resizedDataset.length);
             }
             
             PlotDrawer plotterTest = null;
