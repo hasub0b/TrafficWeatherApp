@@ -15,9 +15,6 @@ import javafx.scene.chart.XYChart;
  */
 public class PlotDrawer {
 
-    //private final CategoryAxis xAxis = new CategoryAxis();
-    //private final NumberAxis yAxis = new NumberAxis();
-    //private final LineChart<String, Number> chart = new LineChart<>(xAxis, yAxis);
     XYChart.Series series = new XYChart.Series();
 
     /**
@@ -27,9 +24,9 @@ public class PlotDrawer {
      * @param timeInterval of the temperature data.
      */
     public PlotDrawer(Double[] temperature, int timeInterval) {
-
-        System.out.println(temperature[0]);
+        
         // Get current time for x axis
+        // checks if forecast or observation, different starttime by +1hour.
         // credit: Aleksi for localtime x-axis
         LocalTime now = LocalTime.now();
         if (DataInterface.isObservationSelected()) {
@@ -47,10 +44,6 @@ public class PlotDrawer {
                         temperature[i]));
             }
         }
-        //chart.getData().add(series);
-
-        //chart.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
-        //chart.getStylesheets().addAll(getClass().getResource("chartStackedStyle.css").toExternalForm());
     }
 
     /**

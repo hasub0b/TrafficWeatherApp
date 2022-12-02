@@ -142,31 +142,5 @@ public class SettingsController {
         } catch (Exception e){
             System.err.println("ERROR WHILE UPDATING DATASETS");
         }
-
-        /*
-        Path dir = Paths.get("trafficWeatherApp/savedData/datasets/");
-        try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-            for (Path path : stream) {
-
-                // Check if the file is json
-                String name = path.getFileName().toString();
-                int lastIndexOf = name.lastIndexOf(".");
-                String extension = "";
-                if (lastIndexOf != -1) {
-                    extension = name.substring(lastIndexOf);
-                }
-                if(extension.equals(".json")){
-                    // add the file to comboBox
-                    comboBoxDataset.getItems().add(path.getFileName().toString());
-                }
-            }
-            comboBoxDataset.getSelectionModel().selectFirst();
-
-        } catch (IOException e){
-            System.out.println("ERROR WHILE UPDATING Datasets");
-        }
-
-         */
-
     }
 }

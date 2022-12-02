@@ -4,7 +4,6 @@
  */
 package fi.tuni.trafficweatherapp;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,6 @@ import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
-import javafx.scene.control.RadioButton;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -31,7 +29,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -74,7 +71,6 @@ public class GraphViewController {
     RadioButton buttonForecast;
     @FXML
     RadioButton buttonObservation;
-    //@FXML Rectangle shapeChartBackground;
     @FXML
     LineChart chartLine;
     @FXML
@@ -131,7 +127,7 @@ public class GraphViewController {
         try {
             anchorSideMenuBoxes = loaderSideMenuTitleBoxes.load();
         } catch (IOException e) {
-            System.out.println(e);
+            System.err.println("Error: cannot load sidemenu!");
         }
         tipSideMenu.setShowDelay(Duration.seconds(0.3));
         Tooltip.install(sideMenu, tipSideMenu);
@@ -218,7 +214,6 @@ public class GraphViewController {
      * @hidden
      */
     private void forecastRadioButtonEvent(ActionEvent event) {
-        System.out.println(getForecastStatus());
         DataInterface.setSelectedForecast(getForecastStatus());
     }
 
@@ -379,7 +374,6 @@ public class GraphViewController {
 
                 if (Objects.equals(task, "ALL")) {
                     for (String key : DataInterface.getMaintenanceMapAverage().keySet()) {
-                        System.out.println(amount);
                         amount += DataInterface.getMaintenanceMapAverage().get(key);
                     }
                     textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the 3 days: %d",task,amount/3));
