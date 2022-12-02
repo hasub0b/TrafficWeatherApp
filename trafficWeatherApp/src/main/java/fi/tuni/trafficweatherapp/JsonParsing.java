@@ -2,10 +2,8 @@ package fi.tuni.trafficweatherapp;
 
 import com.google.gson.*;
 import org.json.JSONObject;
-import java.io.IOException;
 import java.util.*;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
+
 
 
 /**
@@ -66,7 +64,6 @@ public class JsonParsing {
                     }
                 }
             }
-
 
             if (isMessage){
                 if (!Objects.equals(taskType, "")){
@@ -271,9 +268,7 @@ public class JsonParsing {
                     newElement.addProperty(name, value);
 
                 }
-
             }
-
 
             /*   Add observation values to dataInterface, choose last element to get the latest observation
              *   - observed temperatures (t2m)
@@ -300,7 +295,6 @@ public class JsonParsing {
                 }
 
                 DataInterface.setWind(memberArray.get(memberArray.size()-1).getAsJsonObject().get("ws_10min").toString());
-
 
             } else {
                 // forecast
@@ -337,9 +331,6 @@ public class JsonParsing {
                         cloud = memberArray.get(i).getAsJsonObject().get("TotalCloudCover").getAsFloat();
                     }
 
-
-
-
                     rainList.add(rain);
                     temperatureList.add(temp);
                     windList.add(wind);
@@ -355,6 +346,5 @@ public class JsonParsing {
         }catch (Exception e){
             System.err.println("Error while reading FMI data, some values may not have been set correctly");
         }
-
     }
 }

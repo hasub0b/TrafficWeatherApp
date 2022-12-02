@@ -10,12 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-
 import java.io.*;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 
 
 /**
@@ -58,6 +54,10 @@ public class SettingsController {
         updateDatasetBox();
     }
 
+    /**
+     * Save preference button event handler
+     * @hidden
+     */
     public void savePreference(ActionEvent actionEvent){
 
         // save to json
@@ -69,14 +69,20 @@ public class SettingsController {
 
     }
 
+    /**
+     * Load preference button event handler
+     * @hidden
+     */
     public void loadPreferences(ActionEvent actionEvent){
         PreferenceLoader preferenceLoader = new PreferenceLoader();
         if (!comboBoxPreferences.getSelectionModel().isEmpty()){
             preferenceLoader.load(comboBoxPreferences.getValue().toString(),settingsAnchor.getScene().getRoot());
         }
-
     }
 
+    /**
+     * Update combobox when new file is saved
+     */
     private void updatePreferenceBox() {
         comboBoxPreferences.getItems().clear();
         try (InputStream in = getClass().getResource("preferences").openStream();
@@ -101,7 +107,10 @@ public class SettingsController {
         }
     }
 
-
+    /**
+     * Save Data Set button event handler
+     * @hidden
+     */
     public void saveData(ActionEvent actionEvent){
 
         // Save to Json
@@ -112,6 +121,10 @@ public class SettingsController {
         updateDatasetBox();
     }
 
+    /**
+     * Load Data Set button event handler
+     * @hidden
+     */
     public void loadData(ActionEvent actionEvent) {
         DataLoader dataLoader = new DataLoader();
         if (!comboBoxDataset.getSelectionModel().isEmpty()){
@@ -119,6 +132,9 @@ public class SettingsController {
         }
     }
 
+    /**
+     * Update combobox when new file is saved
+     */
     private void updateDatasetBox(){
         comboBoxDataset.getItems().clear();
 
@@ -142,31 +158,5 @@ public class SettingsController {
         } catch (Exception e){
             System.err.println("ERROR WHILE UPDATING DATASETS");
         }
-
-        /*
-        Path dir = Paths.get("trafficWeatherApp/savedData/datasets/");
-        try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-            for (Path path : stream) {
-
-                // Check if the file is json
-                String name = path.getFileName().toString();
-                int lastIndexOf = name.lastIndexOf(".");
-                String extension = "";
-                if (lastIndexOf != -1) {
-                    extension = name.substring(lastIndexOf);
-                }
-                if(extension.equals(".json")){
-                    // add the file to comboBox
-                    comboBoxDataset.getItems().add(path.getFileName().toString());
-                }
-            }
-            comboBoxDataset.getSelectionModel().selectFirst();
-
-        } catch (IOException e){
-            System.out.println("ERROR WHILE UPDATING Datasets");
-        }
-
-         */
-
     }
 }

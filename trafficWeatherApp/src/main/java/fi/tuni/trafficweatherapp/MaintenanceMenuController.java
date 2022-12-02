@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
+ * Controller for the maintenance menu fxml javafx elements.
  * @author Aleksi
  */
 public class MaintenanceMenuController implements Initializable {
@@ -24,6 +25,9 @@ public class MaintenanceMenuController implements Initializable {
     private String selectedTask;
     private boolean show = false;
 
+    /**
+     * Initializes maintenance menu's elements.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -36,6 +40,11 @@ public class MaintenanceMenuController implements Initializable {
         comboBoxSetMaintenance.getItems().add(0,"ALL");
         comboBoxSetMaintenance.getSelectionModel().select(0);
     }
+
+    /**
+     * checkbox event handler.
+     * @hidden
+     */
     public void checkBoxPressed(ActionEvent actionEvent) {
         setShow(checkBoxShowMaintenance.isSelected());
         DataInterface.setMaintenanceSelected(checkBoxShowMaintenance.isSelected());
@@ -43,16 +52,37 @@ public class MaintenanceMenuController implements Initializable {
         DataInterface.setSelectedMaintenance(getSelectedTask());
     }
 
-
+    /**
+     * combobox  event handler
+     * @hidden
+     */
     public void maintenanceSelected(ActionEvent actionEvent) {
         setSelectedTask(comboBoxSetMaintenance.getValue().toString());
         DataInterface.setSelectedMaintenance(selectedTask);
     }
 
+    /**
+     * Get selected task
+     * @return String selected task
+     */
     public String getSelectedTask() {return selectedTask;}
+
+    /**
+     * Set selected task
+     * @param selectedTask String selected task
+     */
     public void setSelectedTask(String selectedTask) {this.selectedTask = selectedTask;}
 
+    /**
+     * Check if checkbox is selected
+     * @return boolean selection type
+     */
     public boolean isShow() {return show;}
+
+    /**
+     * Set checkbox as selected
+     * @param show
+     */
     public void setShow(boolean show) {
         this.show = show;
         checkBoxShowMaintenance.setSelected(show);

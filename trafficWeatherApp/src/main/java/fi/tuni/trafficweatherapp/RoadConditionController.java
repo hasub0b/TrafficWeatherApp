@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /**
+ * Controller for the road condition menu fxml javafx elements.
  * @author Aleksi
  */
 public class RoadConditionController {
@@ -23,6 +24,18 @@ public class RoadConditionController {
     private boolean Slipperiness;
     private boolean Condition;
 
+    /**
+     * Initializes maintenance menu's elements.
+     */
+    public void initialize() {
+        labelRoadConditionMenu.getStyleClass().add("title");
+        labelRoadConditionMenu.getStyleClass().add("outlineTitle");
+    }
+
+    /**
+     * checkbox event handler.
+     * @hidden
+     */
     public void checkBoxPressed(ActionEvent actionEvent) {
         // Set boolean
         setPrecipitation(checkBoxPrecipitation.isSelected());
@@ -32,6 +45,8 @@ public class RoadConditionController {
         setCondition(checkBoxRoadCond.isSelected());
         DataInterface.setOverallConditionSelected(checkBoxRoadCond.isSelected());
     }
+
+    // Basic getters/setters
 
     public boolean isPrecipitation() {return Precipitation;}
     public void setPrecipitation(boolean precipitation) {
@@ -48,10 +63,6 @@ public class RoadConditionController {
     public void setCondition(boolean condition) {
         Condition = condition;
         checkBoxRoadCond.setSelected(condition);
-    }
-    public void initialize() {
-        labelRoadConditionMenu.getStyleClass().add("title");
-        labelRoadConditionMenu.getStyleClass().add("outlineTitle");
     }
 
 }
