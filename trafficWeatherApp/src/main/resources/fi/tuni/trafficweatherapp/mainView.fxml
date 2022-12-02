@@ -17,48 +17,48 @@
         <AnchorPane fx:id="anchorMenubar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
             <children>
                 <Rectangle fx:id="menuBar" fill="#495c83" height="60.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.5" width="800.0" />
-            <HBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <GridPane fx:id="gridMenubar" hgap="10.0" maxHeight="60.0" minHeight="60.0" prefHeight="60.0" style="-fx-background-color: #495c83;" HBox.hgrow="ALWAYS">
-                    <columnConstraints>
-                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="22.0" />
-                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="15.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="30.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="19.0" />
-                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="17.5" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Rectangle fx:id="shapeAppTitle" arcHeight="15.0" arcWidth="15.0" fill="#7a86b6" height="60.0" stroke="#7a86b6" strokeType="INSIDE" strokeWidth="0.0" width="220.0" x="2.0" GridPane.columnIndex="2" />
-                            <RadioButton fx:id="buttonSettings" mnemonicParsing="false" text="Settings" textFill="#c8b6e2" GridPane.columnIndex="3">
-                                <font>
-                                    <Font name="Arial" size="20.0" />
-                                </font>
-                            </RadioButton>
-                            <RadioButton fx:id="buttonGraphView" mnemonicParsing="false" text="Graph View" textFill="#c8b6e2">
-                                <font>
-                                    <Font name="Arial" size="20.0" />
-                                </font>
-                            </RadioButton>
-                        <Label fx:id="labelAppTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="223.0" text="TWApp" textFill="#c8b6e2" GridPane.columnIndex="2">
-                           <font>
-                              <Font size="40.0" />
-                           </font>
-                        </Label>
-                        <RadioButton fx:id="buttonQuit" mnemonicParsing="false" text="Quit" textFill="#c8b6e2" GridPane.columnIndex="4">
-                           <font>
-                              <Font name="Arial" size="20.0" />
-                           </font>
-                        </RadioButton>
-                     </children>
-                     <HBox.margin>
-                        <Insets left="20.0" right="20.0" />
-                     </HBox.margin>
-                  </GridPane>
-               </children>
-            </HBox>
+                <HBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <GridPane fx:id="gridMenubar" hgap="10.0" maxHeight="60.0" minHeight="60.0" prefHeight="60.0" style="-fx-background-color: #495c83;" HBox.hgrow="ALWAYS">
+                            <columnConstraints>
+                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="22.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="15.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="30.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="19.0" />
+                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="17.5" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Rectangle fx:id="shapeAppTitle" arcHeight="15.0" arcWidth="15.0" fill="#7a86b6" height="60.0" stroke="#7a86b6" strokeType="INSIDE" strokeWidth="0.0" width="220.0" x="2.0" GridPane.columnIndex="2" />
+                                <RadioButton fx:id="buttonSettings" mnemonicParsing="false" text="Settings" textFill="#c8b6e2" GridPane.columnIndex="3">
+                                    <font>
+                                        <Font name="Arial" size="20.0" />
+                                    </font>
+                                </RadioButton>
+                                <RadioButton fx:id="buttonGraphView" mnemonicParsing="false" text="Graph View" textFill="#c8b6e2">
+                                    <font>
+                                        <Font name="Arial" size="20.0" />
+                                    </font>
+                                </RadioButton>
+                                <Label fx:id="labelAppTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="223.0" text="TWApp" textFill="#c8b6e2" GridPane.columnIndex="2">
+                                    <font>
+                                        <Font size="40.0" />
+                                    </font>
+                                </Label>
+                                <RadioButton fx:id="buttonQuit" mnemonicParsing="false" text="Quit" textFill="#c8b6e2" GridPane.columnIndex="4">
+                                    <font>
+                                        <Font name="Arial" size="20.0" />
+                                    </font>
+                                </RadioButton>
+                            </children>
+                            <HBox.margin>
+                                <Insets left="20.0" right="20.0" />
+                            </HBox.margin>
+                        </GridPane>
+                    </children>
+                </HBox>
             </children>
         </AnchorPane>
         <AnchorPane fx:id="anchorContentArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" VBox.vgrow="ALWAYS">
@@ -67,4 +67,8 @@
             </children>
         </AnchorPane>
     </children>
+    <userData>
+        <fx:reference source="controller" />
+    </userData>
+
 </VBox>
