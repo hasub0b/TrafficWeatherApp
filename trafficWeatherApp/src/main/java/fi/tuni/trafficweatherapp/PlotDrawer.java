@@ -10,34 +10,42 @@ import javafx.scene.chart.XYChart;
  */
 /**
  * Creates chart data from temperature data.
+ *
  * @author Mikko Moisio
  */
 public class PlotDrawer {
 
-
     //private final CategoryAxis xAxis = new CategoryAxis();
     //private final NumberAxis yAxis = new NumberAxis();
     //private final LineChart<String, Number> chart = new LineChart<>(xAxis, yAxis);
-    
     XYChart.Series series = new XYChart.Series();
-
 
     /**
      * Creates the series data for chart.
+     *
      * @param temperature list of temperature data.
      * @param timeInterval of the temperature data.
      */
     public PlotDrawer(Double[] temperature, int timeInterval) {
-        
+
         System.out.println(temperature[0]);
         // Get current time for x axis
-        // credit: Aleksi
+        // credit: Aleksi for localtime x-axis
         LocalTime now = LocalTime.now();
-        for (int i = 0; i < temperature.length; ++i) {
-            series.getData().add(new XYChart.Data(
-                    now.truncatedTo(ChronoUnit.HOURS)
-                            .plusHours((long) timeInterval * i + 1).toString(),
-                    temperature[i]));
+        if (DataInterface.isObservationSelected()) {
+            for (int i = 0; i < temperature.length; ++i) {
+                series.getData().add(new XYChart.Data(
+                        now.truncatedTo(ChronoUnit.HOURS)
+                                .plusHours((long) timeInterval * i).toString(),
+                        temperature[i]));
+            }
+        } else {
+            for (int i = 0; i < temperature.length; ++i) {
+                series.getData().add(new XYChart.Data(
+                        now.truncatedTo(ChronoUnit.HOURS)
+                                .plusHours((long) timeInterval * i + 1).toString(),
+                        temperature[i]));
+            }
         }
         //chart.getData().add(series);
 
@@ -47,6 +55,7 @@ public class PlotDrawer {
 
     /**
      * Gets the chart data.
+     *
      * @return XYChart.Series chart data.
      */
     public XYChart.Series getChart() {
