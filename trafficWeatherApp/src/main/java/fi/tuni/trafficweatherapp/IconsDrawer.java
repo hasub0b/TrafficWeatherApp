@@ -113,6 +113,10 @@ public class IconsDrawer {
         }
     }
 
+    /**
+     * 
+     * @return XYChart.Series which contains the icons
+     */
     public XYChart.Series getIcons() {
         return series;
     }
