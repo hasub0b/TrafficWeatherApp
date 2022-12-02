@@ -3,6 +3,8 @@ package fi.tuni.trafficweatherapp;
 import com.google.gson.*;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -85,6 +87,9 @@ public class DataLoader {
 
             List<Float> forecastRain = new Gson().fromJson(jsonObject.get("ForecastRain").getAsJsonArray(), List.class);
             DataInterface.setForecastWind(forecastRain);
+
+            Double[] coordinates = new Gson().fromJson(jsonObject.get("coordinates").getAsJsonArray(), Double[].class);
+            DataInterface.setCoordinates(coordinates);
 
             if (jsonObject.get("Temp").toString().replaceAll("\"", "").equals("null")){
                 DataInterface.setTemperature(null);
