@@ -100,7 +100,6 @@ public class CoordinatesMenuController {
         buttonSetCoordinates.setOnAction(eh -> {
             coordinates = new Double[]{minX, maxX, minY, maxY};
 
-            System.out.println("custom coordinates set!");
             setCoordinates();
 
             buttonSetCoordinates.setDisable(true);
@@ -115,7 +114,6 @@ public class CoordinatesMenuController {
                 String locationName = (String) comboBoxSetLocation.getValue();
                 coordinates = LOCATIONS.get(locationName);
 
-                System.out.println("preset coordinates set!");
                 setCoordinates();
 
                 buttonSetLocation.setDisable(true);

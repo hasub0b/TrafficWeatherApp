@@ -62,7 +62,6 @@ public class TrafficMenuController {
     public void handleRadioButtonEvent(ActionEvent actionEvent) {
 
         RadioButton toggle = (RadioButton) traffic.getSelectedToggle();
-        System.out.println(toggle);
 
         switch (toggle.getText()) {
             case "Maintenance":
