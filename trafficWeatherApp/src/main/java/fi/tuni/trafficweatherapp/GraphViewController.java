@@ -374,7 +374,6 @@ public class GraphViewController {
                 String task = DataInterface.getSelectedMaintenance();
                 int amount = 0;
 
-                textAreaAvgMaintenanceTasks.setStyle("-fx-font-size: 12;");
 
                 if (Objects.equals(task, "ALL")) {
                     for (String key : DataInterface.getMaintenanceMapAverage().keySet()) {
@@ -386,7 +385,7 @@ public class GraphViewController {
 
                 else {
                     if (DataInterface.getMaintenanceMapAverage().containsKey(task)){
-                        textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the past 3 days: %d",task,DataInterface.getMaintenanceMapAverage().get(task)/7));
+                        textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the past 3 days: %d",task,DataInterface.getMaintenanceMapAverage().get(task)/3));
                     } else {
                         textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the past 3 days: %d",task,0));
                     }
