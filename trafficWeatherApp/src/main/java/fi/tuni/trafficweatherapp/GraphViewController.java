@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -321,8 +322,9 @@ public class GraphViewController {
                 textAreaAvgMaintenanceTasks.setVisible(true);
                 pieChartTaskTypes.setVisible(true);
 
-                pieChartTaskTypes.getData().clear();
+                // create pie chart
 
+                pieChartTaskTypes.getData().clear();
                 // Setting data from DataInterface
                 List<PieChart.Data> pieData = new ArrayList<>();
                 for (String key : DataInterface.getMaintenanceMap().keySet()) {
@@ -355,6 +357,27 @@ public class GraphViewController {
                 pieChartTaskTypes.setLabelLineLength(10);
                 pieChartTaskTypes.setLabelsVisible(true);
                 pieChartTaskTypes.setStartAngle(360);
+
+
+                // create average tasks TextArea
+                String task = DataInterface.getSelectedMaintenance();
+                int amount = 0;
+
+                if (Objects.equals(task, "ALL")){
+                    for (String key:DataInterface.getMaintenanceMapAverage().keySet()) {
+                        System.out.println(amount);
+                        amount += DataInterface.getMaintenanceMapAverage().get(key);
+                    }
+                    textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the past week: %d",task,amount/7));
+                }
+
+                else {
+                    if (DataInterface.getMaintenanceMapAverage().containsKey(task)){
+                        textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the past week: %d",task,DataInterface.getMaintenanceMapAverage().get(task)/7));
+                    } else {
+                        textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the past week: %d",task,0));
+                    }
+                }
 
             }
         } else {
