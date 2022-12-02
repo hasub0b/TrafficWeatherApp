@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
 /**
+ * Controller for the traffic menu fxml javafx elements.
  * @author Aleksi
  */
 public class TrafficMenuController {
@@ -33,11 +34,13 @@ public class TrafficMenuController {
     FXMLLoader loaderMessageMenu = new FXMLLoader(
             getClass().getResource("messagesMenu.fxml"));
 
-
     AnchorPane gridMaintenance;
     AnchorPane gridCondition;
     AnchorPane gridMessage;
-    
+
+    /**
+     * Initializes maintenance menu's elements.
+     */
     public void initialize() {
         labelTrafficMenu.getStyleClass().add("title");
         labelTrafficMenu.getStyleClass().add("outlineTitle");
@@ -47,28 +50,15 @@ public class TrafficMenuController {
             gridCondition = loaderConditionMenu.load();
             gridMessage = loaderMessageMenu.load();
 
-            childAnchorPane.addEventHandler(ActionEvent.ACTION, event -> {
-
-                System.out.println("------------------Traffic Menu Status------------------");
-
-                System.out.println("Show: " + DataInterface.isMaintenanceSelected() + " Selected Maintenance: " + DataInterface.getSelectedMaintenance());
-
-                System.out.println("Road Conditions:\nOverall condition: " + DataInterface.isOverallConditionSelected() +
-                        " Precipitation: " + DataInterface.isPrecipitationSelected() +" Slipperiness: " + DataInterface.isSlipperinessSelected());
-
-                System.out.println("Messages Selected:\n" + "Announcement: " + DataInterface.isAnnouncementSelected() + " / Transport: " + DataInterface.isTransportSelected()
-                        + " / Weight res: " + DataInterface.isWeightSelected() + " / Road Work: " + DataInterface.isRoadworkSelected());
-
-                System.out.println("------------------------------------------------------");
-
-            });
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Open correct menu from corresponding radiobutton
+    /**
+     * Open correct menu from corresponding radiobutton
+     * @hidden
+     */
     public void handleRadioButtonEvent(ActionEvent actionEvent) {
 
         RadioButton toggle = (RadioButton) traffic.getSelectedToggle();

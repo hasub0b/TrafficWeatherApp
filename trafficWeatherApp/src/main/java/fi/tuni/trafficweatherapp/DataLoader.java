@@ -1,10 +1,8 @@
 package fi.tuni.trafficweatherapp;
 
 import com.google.gson.*;
-
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,29 +32,7 @@ public class DataLoader {
         } catch (Exception e){
             System.err.println("ERROR WHILE UPDATING DATASETS");
         }
-        /*
-        Path dir = Paths.get("trafficWeatherApp/savedData/datasets/");
-        String file = "";
-        try ( DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-            for (Path path : stream) {
-                if(Objects.equals(filename, path.getFileName().toString())){
-                    file = path.toString();
-                }
-            }
-            if (file.equals("")){
-                System.out.println("FILE NOT FOUND");
-            } else {
-                JsonObject jsonObject = convertFileToJSON(file);
-                loadToDataInterface(jsonObject);
-            }
-
-        }catch (IOException e){
-            System.out.println("PATH NOT FOUND");
-        }
-
-         */
     }
-
 
     /**
      * Add the values from JsonObject to DataInterface
@@ -121,8 +97,8 @@ public class DataLoader {
             }
 
         }catch (Exception e){
-            System.out.println(e);
-            System.out.println("JSON FILE DOESN'T HAVE CORRECT FORMATTING");
+            System.err.println(e);
+            System.err.println("JSON FILE DOESN'T HAVE CORRECT FORMATTING");
         }
     }
 
@@ -141,7 +117,7 @@ public class DataLoader {
             JsonElement jsonElement = parser.parse(new FileReader(getClass().getResource("datasets/" + fileName).getFile()));
             jsonObject = jsonElement.getAsJsonObject();
         } catch (IOException e) {
-            System.out.println("ERROR WHILE CONVERTING");
+            System.err.println("ERROR WHILE CONVERTING");
         }
 
         return jsonObject;

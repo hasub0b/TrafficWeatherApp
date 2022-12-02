@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 /**
+ * Load data from file to DataInterface
  * @author Aleksi
  */
 public class PreferenceLoader {
@@ -53,7 +54,6 @@ public class PreferenceLoader {
             node = node.getParent();
         } while (controller == null && node != null);
 
-
         // Get all the controllers
         MainViewController pc = (MainViewController) controller;
         GraphViewController gc = pc.loaderGraphView.getController();
@@ -64,11 +64,11 @@ public class PreferenceLoader {
         MaintenanceMenuController mc = tc.loaderMaintenanceMenu.getController();
         MessagesMenuController msg = tc.loaderMessageMenu.getController();
         RoadConditionController rc = tc.loaderConditionMenu.getController();
-        // Set values from JsonObject
 
-        // GraphView
-        // timeline
+        // Set values from JsonObject
         try{
+            // GraphView
+            // timeline
             String timeline = jsonObject.get("timeline").toString().replaceAll("\"","");
             if (Objects.equals(timeline, "observation")){
                 gc.buttonForecast.setSelected(false);
@@ -120,7 +120,6 @@ public class PreferenceLoader {
             }
 
             // WeatherMenu
-
             wc.setWind(jsonObject.get("wind").getAsBoolean());
             wc.setCloud(jsonObject.get("cloud").getAsBoolean());
             wc.setTemp(jsonObject.get("temperature").getAsBoolean());
@@ -140,10 +139,9 @@ public class PreferenceLoader {
             rc.setCondition(jsonObject.get("overallCondition").getAsBoolean());
             rc.setPrecipitation(jsonObject.get("precipitation").getAsBoolean());
 
-
         }catch (Exception e){
-            System.out.println("JSON FILE DOESN'T HAVE CORRECT FORMATTING");
-            System.out.println(e);
+            System.err.println("JSON FILE DOESN'T HAVE CORRECT FORMATTING");
+            System.err.println(e);
         }
     }
 
@@ -162,9 +160,9 @@ public class PreferenceLoader {
             JsonElement jsonElement = parser.parse(new FileReader(getClass().getResource("preferences/" + fileName).getFile()));
             jsonObject = jsonElement.getAsJsonObject();
         } catch (IOException e) {
-            System.out.println("ERROR WHILE CONVERTING");
+            System.err.println("ERROR WHILE CONVERTING");
+            System.err.println(e);
         }
-
         return jsonObject;
     }
 }

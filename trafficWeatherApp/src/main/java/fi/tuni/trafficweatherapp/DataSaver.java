@@ -2,7 +2,6 @@ package fi.tuni.trafficweatherapp;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +25,7 @@ public class DataSaver {
         map.put("MessagesMap",DataInterface.getMessagesMap());
         map.put("MaintenanceMap",DataInterface.getItemsOfInterest());
 
+        // for wind and rain, convert first to string to possible problems with conversions
         List<String> winds = new ArrayList<>();
         for (Float fl:DataInterface.getForecastWind()) {
             winds.add(fl.toString());
@@ -67,8 +67,8 @@ public class DataSaver {
             String targetPath = getClass().getResource("datasets").getPath();
 
             try {
-                Writer fileWriter = new FileWriter(targetPath + "/" + filename);
 
+                Writer fileWriter = new FileWriter(targetPath + "/" + filename);
                 Gson gson = new GsonBuilder()
                         .setPrettyPrinting()
                         .serializeNulls()
@@ -76,13 +76,14 @@ public class DataSaver {
                 gson.toJson(map, fileWriter);
 
                 fileWriter.close();
+
             } catch (Exception e){
-                System.out.println(e);
+                System.err.println(e);
             }
 
         } catch (Exception e){
             System.err.println("ERROR WHILE UPDATING DATASETS");
-            System.out.println(e);
+            System.err.println(e);
         }
     }
 }

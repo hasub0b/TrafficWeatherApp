@@ -56,7 +56,10 @@ public class PieDrawer  {
         pieChart.setStartAngle(360);
     }
 
-    // return the current chart
+    /**
+     * Get the current pie chart
+     * @return PieChart current PieChart
+     */
     public PieChart getPieChart() {
         return pieChart;
     }
