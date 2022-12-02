@@ -30,6 +30,7 @@ public final class DataInterface {
     private static List<Float> forecastTemperature = new ArrayList<>();
     private static List<Float> forecastRain = new ArrayList<>();
     private static List<Float> forecastWind = new ArrayList<>();
+    private static List<Float> forecastCloud = new ArrayList<>();
     // Observed data
     private static Double temperature;
     private static String wind;
@@ -122,6 +123,10 @@ public final class DataInterface {
 
     public static Double getCloud() {return cloud;}
     public static void setCloud(Double newCloud) {cloud = newCloud;}
+
+    public static List<Float> getForecastCloud() {return forecastCloud;}
+    public static void setForecastCloud(List<Float> forecastCloud) {DataInterface.forecastCloud = forecastCloud;}
+
 
 
     public static List<String> getAllTaskTypes() {return allTaskTypes;}

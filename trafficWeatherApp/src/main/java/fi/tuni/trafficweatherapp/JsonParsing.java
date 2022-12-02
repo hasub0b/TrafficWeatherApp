@@ -297,25 +297,28 @@ public class JsonParsing {
                 List<Float> rainList = new ArrayList<>();
                 List<Float> temperatureList = new ArrayList<>();
                 List<Float> windList = new ArrayList<>();
+                List<Float> cloudList = new ArrayList<>();
 
                 // Get next 24h forecast, assuming 60min steps
                 for (int i = 0; i < 24; i++) {
 
-                    if (memberArray.get(i).getAsJsonObject().has("precipitationamount")){
-                        Float rain = memberArray.get(i).getAsJsonObject().get("precipitationamount").getAsFloat();
-                        rainList.add(rain);
-                    }
 
+
+                    Float rain = memberArray.get(i).getAsJsonObject().get("precipitationamount").getAsFloat();
                     Float temp = memberArray.get(i).getAsJsonObject().get("temperature").getAsFloat();
                     Float wind = memberArray.get(i).getAsJsonObject().get("windspeedms").getAsFloat();
+                    Float cloud = memberArray.get(i).getAsJsonObject().get("TotalCloudCover").getAsFloat();
 
+                    rainList.add(rain);
                     temperatureList.add(temp);
                     windList.add(wind);
+                    cloudList.add(cloud);
 
                 }
                 DataInterface.setForecastTemperature(temperatureList);
                 DataInterface.setForecastWind(windList);
                 DataInterface.setForecastRain(rainList);
+                DataInterface.setForecastCloud(cloudList);
             }
 
         }catch (Exception e){
