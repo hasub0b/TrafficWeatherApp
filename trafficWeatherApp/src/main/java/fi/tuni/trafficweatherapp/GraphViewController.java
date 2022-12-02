@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -177,8 +178,8 @@ public class GraphViewController {
         chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
         chartHistogram.getData().add(new XYChart.Series<>());
 
-        chartHistogram.setVisible(true);
-        chartLine.setVisible(true);
+        chartHistogram.setVisible(false);
+        chartLine.setVisible(false);
         chartIcons.setVisible(false);
         textAreaTrafficMessages.setVisible(false);
         textAreaRoadConditionData.setVisible(false);
@@ -262,7 +263,6 @@ public class GraphViewController {
                     coordinates[2].toString(),
                     coordinates[3].toString()));
 
-            
             // Default visibility
             chartHistogram.setVisible(false);
             chartLine.setVisible(false);
@@ -271,6 +271,13 @@ public class GraphViewController {
             textAreaRoadConditionData.setVisible(false);
             textAreaAvgMaintenanceTasks.setVisible(false);
             pieChartTaskTypes.setVisible(false);
+            
+            chartHistogram.lookup(".chart-plot-background")
+                    .setStyle("-fx-background-color: transparent;");
+            chartLine.lookup(".chart-plot-background")
+                    .setStyle("-fx-background-color: transparent;");
+            chartIcons.lookup(".chart-plot-background")
+                    .setStyle("-fx-background-color: transparent;");
 
             chartLine.getData().set(0, graphFactory.createPlot());
             chartHistogram.getData().set(0, graphFactory.createHistogram());
@@ -288,6 +295,15 @@ public class GraphViewController {
             }
             if (DataInterface.isRainSelected()) {
                 chartHistogram.setVisible(true);
+                chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
+            } // Checking for background in charts
+            else {
+                if (DataInterface.isTemperatureSelected()) {
+                    chartLine.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
+                } else {
+                    chartIcons.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
+                }
+
             }
             if (DataInterface.isTemperatureSelected()) {
                 chartLine.setVisible(true);
@@ -297,32 +313,29 @@ public class GraphViewController {
             // Road condition
             textAreaRoadConditionData.setText(tmd.getRoadConditionString());
 
-            if (DataInterface.isPrecipitationSelected() | 
-                    DataInterface.isOverallConditionSelected() | 
-                    DataInterface.isSlipperinessSelected()) 
-            {
+            if (DataInterface.isPrecipitationSelected()
+                    | DataInterface.isOverallConditionSelected()
+                    | DataInterface.isSlipperinessSelected()) {
                 textAreaRoadConditionData.setVisible(true);
             }
-            
+
             // Messages
             textAreaTrafficMessages.setText(tmd.messageCounter());
 
-            if (DataInterface.isAnnouncementSelected() | 
-                    DataInterface.isTransportSelected() | 
-                    DataInterface.isWeightSelected() | 
-                    DataInterface.isRoadworkSelected()) 
-            {
+            if (DataInterface.isAnnouncementSelected()
+                    | DataInterface.isTransportSelected()
+                    | DataInterface.isWeightSelected()
+                    | DataInterface.isRoadworkSelected()) {
                 textAreaTrafficMessages.setVisible(true);
             }
 
             // Maintenance
-            if (DataInterface.isMaintenanceSelected()) 
-            {
+            if (DataInterface.isMaintenanceSelected()) {
                 textAreaAvgMaintenanceTasks.setVisible(true);
                 pieChartTaskTypes.setVisible(true);
 
+                // create pie chart
                 pieChartTaskTypes.getData().clear();
-
                 // Setting data from DataInterface
                 List<PieChart.Data> pieData = new ArrayList<>();
                 for (String key : DataInterface.getMaintenanceMap().keySet()) {
@@ -344,6 +357,7 @@ public class GraphViewController {
                 // Tooltip
                 pieChartTaskTypes.getData().stream().forEach(data -> {
                     Tooltip tooltip = new Tooltip();
+                    tooltip.setShowDelay(Duration.ZERO);
                     tooltip.setText(data.getName());
                     Tooltip.install(data.getNode(), tooltip);
                     data.pieValueProperty().addListener((observable, oldValue, newValue)
@@ -355,6 +369,28 @@ public class GraphViewController {
                 pieChartTaskTypes.setLabelLineLength(10);
                 pieChartTaskTypes.setLabelsVisible(true);
                 pieChartTaskTypes.setStartAngle(360);
+
+                // create average tasks TextArea
+                String task = DataInterface.getSelectedMaintenance();
+                int amount = 0;
+
+                textAreaAvgMaintenanceTasks.setStyle("-fx-font-size: 12;");
+
+                if (Objects.equals(task, "ALL")) {
+                    for (String key : DataInterface.getMaintenanceMapAverage().keySet()) {
+                        System.out.println(amount);
+                        amount += DataInterface.getMaintenanceMapAverage().get(key);
+                    }
+                    textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the 3 days: %d",task,amount/3));
+                }
+
+                else {
+                    if (DataInterface.getMaintenanceMapAverage().containsKey(task)){
+                        textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the past 3 days: %d",task,DataInterface.getMaintenanceMapAverage().get(task)/7));
+                    } else {
+                        textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the past 3 days: %d",task,0));
+                    }
+                }
 
             }
         } else {

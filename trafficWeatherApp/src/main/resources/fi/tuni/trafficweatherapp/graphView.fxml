@@ -101,12 +101,18 @@
                             </columnConstraints>
                             <rowConstraints>
                                 <RowConstraints percentHeight="15.0" vgrow="SOMETIMES" />
-                                <RowConstraints />
-                                <RowConstraints minHeight="200.0" percentHeight="75.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="25.0" percentHeight="10.0" />
+                                <RowConstraints minHeight="200.0" percentHeight="75.0" vgrow="ALWAYS" />
                             </rowConstraints>
                             <children>
-                                <PieChart fx:id="pieChartTaskTypes" legendVisible="false" title="Task types amount piechart" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                <TextArea fx:id="textAreaRoadConditionData" editable="false" prefHeight="168.0" prefWidth="251.0" promptText="Road condition data" text="Road condition data" GridPane.rowIndex="2" />
+                                <PieChart fx:id="pieChartTaskTypes" legendVisible="false" style="-fx-background-color: C8B6E2; -fx-border-width: 1; -fx-border-color: lightgrey;" title="Tasks today" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin></PieChart>
+                                <TextArea fx:id="textAreaRoadConditionData" editable="false" promptText="Road condition data" text="Road condition data" GridPane.rowIndex="2" />
                                 <TextArea fx:id="textAreaTrafficMessages" editable="false" minHeight="25.0" prefHeight="30.0" promptText="Traffic messages amount" text="Traffic messages amount:" GridPane.rowIndex="1">
                                     <GridPane.margin>
                                         <Insets />
