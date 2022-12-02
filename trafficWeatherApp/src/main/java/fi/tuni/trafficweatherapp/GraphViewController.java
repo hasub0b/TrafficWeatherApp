@@ -176,7 +176,7 @@ public class GraphViewController {
         chartHistogram.getYAxis().setLabel("Rain amount (mm)");
         chartHistogram.lookup(".chart-plot-background").setStyle("-fx-background-color: #C8B6E2;");
         chartHistogram.getData().add(new XYChart.Series<>());
-        
+
         chartHistogram.setVisible(true);
         chartLine.setVisible(true);
         chartIcons.setVisible(false);
@@ -261,11 +261,14 @@ public class GraphViewController {
             chartHistogram.setVisible(false);
             chartLine.setVisible(false);
             chartIcons.setVisible(false);
-            
+
             chartLine.getData().set(0, graphFactory.createPlot());
             chartHistogram.getData().set(0, graphFactory.createHistogram());
             chartIcons.getData().set(0, graphFactory.createIcons());
-            
+            for (Node n : chartIcons.lookupAll(".default-color0.chart-bar")) {
+                n.setStyle("-fx-bar-fill: transparent;");
+            }
+
             // Weather 
             if (DataInterface.isWindSelected()) {
                 chartIcons.setVisible(true);
@@ -283,7 +286,7 @@ public class GraphViewController {
             // Road data
             // Road condition
             textAreaRoadConditionData.setText(tmd.getRoadConditionString());
-            
+
             if (DataInterface.isPrecipitationSelected()) {
 
             }
@@ -293,10 +296,10 @@ public class GraphViewController {
             if (DataInterface.isSlipperinessSelected()) {
 
             }
-            
+
             // Messages
             textAreaTrafficMessages.setText(tmd.messageCounter());
-            
+
             if (DataInterface.isAnnouncementSelected()) {
 
             }
@@ -320,7 +323,7 @@ public class GraphViewController {
                     pieData.add(new PieChart.Data(key, DataInterface.getMaintenanceMap().get(key)));
                 }
                 for (PieChart.Data dat : pieData) {
-                    dat.nameProperty().bind(Bindings.concat(String.format("%s - %.0f", 
+                    dat.nameProperty().bind(Bindings.concat(String.format("%s - %.0f",
                             dat.getName(), dat.pieValueProperty().getValue())));
                 }
 
@@ -337,7 +340,7 @@ public class GraphViewController {
                     Tooltip tooltip = new Tooltip();
                     tooltip.setText(data.getName());
                     Tooltip.install(data.getNode(), tooltip);
-                    data.pieValueProperty().addListener((observable, oldValue, newValue) 
+                    data.pieValueProperty().addListener((observable, oldValue, newValue)
                             -> tooltip.setText(data.getName()));
                 });
 

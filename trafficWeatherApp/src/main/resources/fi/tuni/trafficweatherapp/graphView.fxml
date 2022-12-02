@@ -89,7 +89,7 @@
                             <NumberAxis fx:id="yAxis" side="LEFT" />
                           </yAxis>
                            <StackPane.margin>
-                              <Insets right="25.0" />
+                              <Insets bottom="60.0" right="25.0" />
                            </StackPane.margin>
                         </BarChart>
                             </children>
