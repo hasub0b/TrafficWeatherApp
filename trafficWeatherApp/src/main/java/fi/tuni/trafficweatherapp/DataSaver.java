@@ -76,9 +76,7 @@ public class DataSaver {
                 gson.toJson(map, fileWriter);
 
                 fileWriter.close();
-                System.out.println("WROTE TO");
             } catch (Exception e){
-                System.out.println("error");
                 System.out.println(e);
             }
 

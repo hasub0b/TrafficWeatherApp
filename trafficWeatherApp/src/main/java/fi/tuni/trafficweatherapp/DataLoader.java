@@ -113,7 +113,6 @@ public class DataLoader {
                 DataInterface.setRain(0.0);
             } else {
                 DataInterface.setRain(jsonObject.get("Rain").getAsDouble());
-                System.out.println("RAIN :" + DataInterface.getRain());
             }
             if (jsonObject.get("Cloud").toString().replaceAll("\"", "").equals("null")){
                 DataInterface.setCloud(null);

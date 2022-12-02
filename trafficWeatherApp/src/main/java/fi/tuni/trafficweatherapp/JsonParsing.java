@@ -283,13 +283,24 @@ public class JsonParsing {
              */
             if (observation){
 
-                if (memberArray.get(memberArray.size()-1).getAsJsonObject().has("r_1h")){
+                if(Objects.equals(memberArray.get(memberArray.size() - 1).getAsJsonObject().get("r_1h").toString(), "NaN")){
+                    DataInterface.setRain(0.0);
+                } else {
                     DataInterface.setRain(memberArray.get(memberArray.size()-1).getAsJsonObject().get("r_1h").getAsDouble());
                 }
+                if (memberArray.get(memberArray.size()-1).getAsJsonObject().get("t2m").toString() == "NaN"){
+                    DataInterface.setTemperature(0.0);
+                } else {
+                    DataInterface.setTemperature(memberArray.get(memberArray.size()-1).getAsJsonObject().get("t2m").getAsDouble());
+                }
+                if (memberArray.get(memberArray.size()-1).getAsJsonObject().get("n_man").toString() == "NaN"){
+                    DataInterface.setCloud(0.0);
+                } else {
+                    DataInterface.setCloud(memberArray.get(memberArray.size()-1).getAsJsonObject().get("n_man").getAsDouble());
+                }
 
-                DataInterface.setTemperature(memberArray.get(memberArray.size()-1).getAsJsonObject().get("t2m").getAsDouble());
                 DataInterface.setWind(memberArray.get(memberArray.size()-1).getAsJsonObject().get("ws_10min").toString());
-                DataInterface.setCloud(memberArray.get(memberArray.size()-1).getAsJsonObject().get("n_man").getAsDouble());
+
 
             } else {
                 // forecast
