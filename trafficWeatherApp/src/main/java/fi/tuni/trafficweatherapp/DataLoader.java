@@ -99,7 +99,7 @@ public class DataLoader {
             if (jsonObject.get("Wind").toString().replaceAll("\"", "").equals("null")){
                 DataInterface.setWind(null);
             } else {
-                DataInterface.setWind(jsonObject.get("Wind").toString());
+                DataInterface.setWind(jsonObject.get("Wind").toString().replaceAll("\"", ""));
             }
             if (jsonObject.get("Rain").toString().replaceAll("\"", "").equals("null")){
                 DataInterface.setRain(null);
