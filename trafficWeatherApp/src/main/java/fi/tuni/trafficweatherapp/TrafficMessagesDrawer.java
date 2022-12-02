@@ -131,22 +131,22 @@ public class TrafficMessagesDrawer {
             // If there's road work selected
             if (DataInterface.isRoadworkSelected()) {
                 count += input.get("ROAD_WORK").size();
-                System.out.println("RW Size: " + input.get("ROAD_WORK").size());
+                //System.out.println("RW Size: " + input.get("ROAD_WORK").size());
             }
             // If there's weight restrictions selected
             if (DataInterface.isWeightSelected()) {
                 count += input.get("WEIGHT_RESTRICTION").size();
-                System.out.println("WR Size: " + input.get("WEIGHT_RESTRICTION").size());
+                //System.out.println("WR Size: " + input.get("WEIGHT_RESTRICTION").size());
             }
             // If there's exempted transport selected
             if (DataInterface.isTransportSelected()) {
                 count += input.get("EXEMPTED_TRANSPORT").size();
-                System.out.println("ET Size: " + input.get("EXEMPTED_TRANSPORT").size());
+                //System.out.println("ET Size: " + input.get("EXEMPTED_TRANSPORT").size());
             }
             // If there's traffic announcements selected
             if (DataInterface.isAnnouncementSelected()) {
                 count += input.get("TRAFFIC_ANNOUNCEMENT").size();
-                System.out.println("TA Size: " + input.get("TRAFFIC_ANNOUNCEMENT").size());
+                //System.out.println("TA Size: " + input.get("TRAFFIC_ANNOUNCEMENT").size());
             }
         }
         else {

@@ -251,7 +251,7 @@ public class GraphDrawerFactory {
             else {
                 // Wind (fore)
                 if (DataInterface.getForecastWind().size() > 0) {
-                    System.out.println("Fetched forecastwind: " + DataInterface.getForecastWind());
+                    //System.out.println("Fetched forecastwind: " + DataInterface.getForecastWind());
                     forecastWind = DataInterface.getForecastWind();
                     
                     for (int i = 0; i < timeWindow(); i++) {
@@ -266,7 +266,7 @@ public class GraphDrawerFactory {
                 
                 // Cloud (fore)
                 if (DataInterface.getForecastCloud().size() > 0) {
-                    System.out.println("Fetched forecastcloud: " + DataInterface.getForecastCloud());
+                    //System.out.println("Fetched forecastcloud: " + DataInterface.getForecastCloud());
                     forecastCloud = DataInterface.getForecastCloud();
                     for (int i = 0; i < timeWindow(); i++) {
                         resizedDatasetCloud.add(forecastCloud.get(i));
@@ -285,7 +285,7 @@ public class GraphDrawerFactory {
             // Forecast
             // (no cloudiness forecast available)
             else if (!(DataInterface.isObservationSelected())) {
-                System.out.println("Inserted forecast values: \n" + "foreCloud: " + forecastCloud + "\n" + "foreWind: " + forecastWind);
+                //System.out.println("Inserted forecast values: \n" + "foreCloud: " + forecastCloud + "\n" + "foreWind: " + forecastWind);
                 id = new IconsDrawer(forecastCloud, DataInterface.isCloudSelected(), forecastWind, DataInterface.isWindSelected(), 1);
             }
             
