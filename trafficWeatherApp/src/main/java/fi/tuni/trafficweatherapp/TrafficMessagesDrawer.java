@@ -17,14 +17,14 @@ import javafx.scene.text.Text;
  * @author Arttu Lehtola
  */
 public class TrafficMessagesDrawer {
-    /*
-    Can output:
-    - Maintenance
-    - Road conditions
-    - Messages
-    */
+    
     private Text textOutput;
     
+    /**
+     * Builds a message string
+     * @param input input map, where strings are fetched from
+     * @return returns a formatted string with all wanted values
+     */
     public String messageBuilder(Map<String, List<String>> input) {
         StringBuilder mapToString = new StringBuilder("\n");
         try {
@@ -57,6 +57,11 @@ public class TrafficMessagesDrawer {
         return mapToString.toString();
     }
     
+    /**
+     * Creates string from road condition datamap 
+     * @param input input map where data is extracted from to a string
+     * @return returns a full structured string ready for use
+     */
     public String conditionBuilder(Map<String, List<String>> input) {
         StringBuilder mapToString = new StringBuilder("");
         List<String> inputElement = null;
@@ -110,18 +115,27 @@ public class TrafficMessagesDrawer {
         return mapToString.toString();
     }
     
-    
+    /**
+     * Fetches a message string from builder
+     * @return returns a string parsed by the messageBuilder
+     */
     public String getMessageString() {
         return messageBuilder(DataInterface.getMessagesMap());
         //return mapConverter(DataInterface.getMessagesMap());
     }
 
-    // Builds road_condition string for use
-    // conditionBuilder does the parsing
+    /**
+     * Fetches a road conditions string for use
+     * @return returns a fully structured string with road data
+     */
     public String getRoadConditionString() {
         return conditionBuilder(DataInterface.getItemsOfInterest());
     }
     
+    /**
+     * Counts the number of messages in a map
+     * @return returns count, integer for the number of messages counted
+     */
     public String messageCounter() {
         Map<String, List<String>> input = DataInterface.getMessagesMap();
         StringBuilder strBuild = new StringBuilder("");
@@ -131,22 +145,18 @@ public class TrafficMessagesDrawer {
             // If there's road work selected
             if (DataInterface.isRoadworkSelected()) {
                 count += input.get("ROAD_WORK").size();
-                //System.out.println("RW Size: " + input.get("ROAD_WORK").size());
             }
             // If there's weight restrictions selected
             if (DataInterface.isWeightSelected()) {
                 count += input.get("WEIGHT_RESTRICTION").size();
-                //System.out.println("WR Size: " + input.get("WEIGHT_RESTRICTION").size());
             }
             // If there's exempted transport selected
             if (DataInterface.isTransportSelected()) {
                 count += input.get("EXEMPTED_TRANSPORT").size();
-                //System.out.println("ET Size: " + input.get("EXEMPTED_TRANSPORT").size());
             }
             // If there's traffic announcements selected
             if (DataInterface.isAnnouncementSelected()) {
                 count += input.get("TRAFFIC_ANNOUNCEMENT").size();
-                //System.out.println("TA Size: " + input.get("TRAFFIC_ANNOUNCEMENT").size());
             }
         }
         else {
@@ -156,23 +166,5 @@ public class TrafficMessagesDrawer {
 
         strBuild.append("Traffic Messages Amount: " + count);
         return strBuild.toString();
-    }
-    
-    // Counts the elements from a hashmap
-    public int getMessageSize() {
-        int count = 0;
-        try {
-            Map<String, List<String>> input = DataInterface.getMessagesMap();
-            //return DataInterface.getMessagesMap().size();
-            for (List<String> values : input.values()){
-                count =+ values.size();
-                //System.out.println(values.size());
-            }
-            return count;
-        }
-        catch (Exception e) {
-            System.out.println("Error during message measuring: " + e);
-            return 0;
-        }
     }
 }

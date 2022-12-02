@@ -4,8 +4,6 @@
  */
 package fi.tuni.trafficweatherapp;
 
-
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,7 +18,8 @@ import org.xml.sax.SAXException;
 
 
 /**
- * @author Arttu
+ * 
+ * @author Arttu Lehtola
  */
 
 public class WeatherDataApiFetcher {  
@@ -40,8 +39,7 @@ public class WeatherDataApiFetcher {
             + "=getFeature&version=2.0.0&storedquery_id"
             + "=fmi::observations::weather::simple&bbox=<X1>,<Y1>,<X2>,<Y2>&timestep"
             + "=<TS>&parameters=t2m,ws_10min,n_man,r_1h";
-    
-    
+
     /* 
     * We want to fetch: 
     *   - temperatures (temperature)
@@ -52,43 +50,12 @@ public class WeatherDataApiFetcher {
             + "=<Y>,<X>&timestep=<TS>&parameters"
             + "=temperature,windspeedms,precipitationamount,TotalCloudCover";
     
-    /* ! Forecast by default 24h  ! */
-    // observations vs. forecast - <OFT>
-    // co-ordinates - <X1><X2>, <Y1><Y2>
-    // forecast co-ordinates - <X>, <Y>
-    // timestep (minutes) - <TS>
-    // parameters 
-    
-    // OBS: https://opendata.fmi.fi/wfs?request=getFeature&version=2.0.0&storedquery_id=fmi::observations::weather::simple&bbox=23,61,24,62&timestep=30&parameters=t2m,ws_10min,n_man
-    // FC: https://opendata.fmi.fi/wfs?request=getFeature&version=2.0.0&storedquery_id=fmi::observations::weather::hourly::simple&bbox=23,61,24,62&starttime=2021-01-19T09:00:00Z&endtime=2021-01-19T14:00:00Z&parameters=TA_PT1H_AVG,TA_PT1H_MAX,TA_PT1H_MIN
-    
-    // JSONObject -variable & accessors
-    private JSONObject forecastObject = null;
-    private JSONObject observationsObject = null;
-    
-    public JSONObject getFCO() {
-        return forecastObject;
-    }
-    public void setFCO(JSONObject newFCO) {
-        forecastObject = newFCO;
-    }
-    
-    public JSONObject getOO() {
-        return observationsObject;
-    }
-    public void setOO(JSONObject newOO) {
-        observationsObject = newOO;
-    }
-    
-    public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
-        
-        // getForecastData("23.78712", "61.49911", "30");
-        //System.out.println("Forecast: " + forecastResults);
-        
-        //JSONObject observationResults = getObservationData("23", "61", "24", "62", "30");
-        //System.out.println("Observation: " + observationResults);
-    }
-    
+    /**
+    * Makes connection to the API
+    * @param url URL used for the API source
+    * @throws IOException IOException on read/write errors
+    * @throws MalformedURLException MalformedURLException, on URL issue(s)
+    */
     private static HttpURLConnection connectToApi(String urlParameter) throws MalformedURLException, 
             IOException {
         var url = (new URL(urlParameter));
@@ -99,7 +66,16 @@ public class WeatherDataApiFetcher {
         return urlConnection;
     }
     
-
+    /**
+    * Fetches forecast data from the API and then passes it to parser.
+    * @param x          x-coordinate used in the fetch
+    * @param y          y-coordinate used in the fetch
+    * @param timestep   timestep is the chosen time frequency of the data
+    * @throws MalformedURLException MalformedURLException, on URL issue(s)
+    * @throws IOException IOException on read/write errors
+    * @throws ParserConfigurationException ParserConfigurationException on parser issues
+    * @throws SAXException SAXException problems faced while parsing a XML file
+    */
     public static void getForecastData(String x, String y, String timestep) throws MalformedURLException,
             IOException, 
             ParserConfigurationException, 
@@ -129,6 +105,19 @@ public class WeatherDataApiFetcher {
         //return jso;
     }
     
+    /**
+    * Fetches observation data from the API and then passes it to parser.
+    * The four coordinates can be used to form a rectangle, an area of sorts
+    * @param x1          first x-coordinate used in the fetch
+    * @param y1          first y-coordinate used in the fetch
+    * @param x2          second x-coordinate used in the fetch
+    * @param y2          second y-coordinate used in the fetch
+    * @param timestep   timestep is the chosen time frequency of the data
+    * @throws MalformedURLException MalformedURLException, on URL issue(s)
+    * @throws IOException IOException on read/write errors
+    * @throws ParserConfigurationException ParserConfigurationException on parser issues
+    * @throws SAXException SAXException problems faced while parsing a XML file
+    */
     public static void getObservationData(String x1, String y1, String x2, 
             String y2, String timestep) throws MalformedURLException,
             IOException, 
