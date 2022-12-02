@@ -15,7 +15,10 @@ import java.net.HttpURLConnection;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Fetches data as JsonObject from Digitraffic API.
@@ -220,6 +223,11 @@ public class RoadDataApiFetcher {
                     .getInputStream()));
             JsonObject jsonObject = JsonParser.parseReader(reader)
                     .getAsJsonObject();
+
+            // default value when no data given
+            List<String> list = new ArrayList<>();
+            list.add("NO DATA");
+            DataInterface.addMessageList(situationType, list);
 
             JsonParsing.parseTrafficData(jsonObject);
         }
