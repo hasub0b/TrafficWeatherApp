@@ -226,7 +226,6 @@ public class RoadDataApiFetcher {
 
             // default value when no data given
             List<String> list = new ArrayList<>();
-            list.add("NO DATA");
             DataInterface.addMessageList(situationType, list);
 
             JsonParsing.parseTrafficData(jsonObject);
