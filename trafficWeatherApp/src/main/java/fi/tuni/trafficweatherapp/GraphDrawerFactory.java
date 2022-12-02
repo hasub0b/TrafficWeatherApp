@@ -71,23 +71,29 @@ public class GraphDrawerFactory {
     // * returns linechart
     public XYChart.Series createPlot() throws Exception {
         try {
+            /* Testing msgdrwr */
+            TrafficMessagesDrawer tmd = new TrafficMessagesDrawer();
+            System.out.println("TMD Message String: " + tmd.getMessageString());
+            System.out.println("Road Condition String: " + tmd.getRoadConditionString());
+            System.out.println("Message size: " + tmd.getMessageSize());
+            
             Double[] dataset = null;
             Double temp = DataInterface.getTemperature();
             Double[] foreTemp = listFloatToDoubleArray(DataInterface.getForecastTemperature());
             // Resized dataset to take into account for forecast hours
             Double[] resizedDataset = new Double[timeWindow()];
             
-            System.out.println("Plotting");
-            System.out.println("Forecast: " + !(DataInterface.isObservationSelected()) + " | " 
-                    + "Observation: " + DataInterface.isObservationSelected());
+            //System.out.println("Plotting");
+            /*System.out.println("Forecast: " + !(DataInterface.isObservationSelected()) + " | " 
+                    + "Observation: " + DataInterface.isObservationSelected());*/
             // Checks for null/short arrays and values
             if (temp != null && DataInterface.isObservationSelected()) {
                 dataset = new Double[]{temp};
-                System.out.println("Obs Data fetched[0]+[n-1]: [" + dataset[0] + "]+[" + dataset[dataset.length-1]+"]");
+                //System.out.println("Obs Data fetched[0]+[n-1]: [" + dataset[0] + "]+[" + dataset[dataset.length-1]+"]");
             }
             else if (foreTemp.length > 0 && !(DataInterface.isObservationSelected())) {
                 dataset = foreTemp;
-                System.out.println("Fore Data fetched[0]+[n-1]: [" + dataset[0] + "]+[" + dataset[dataset.length-1]+"]");
+                //System.out.println("Fore Data fetched[0]+[n-1]: [" + dataset[0] + "]+[" + dataset[dataset.length-1]+"]");
             }
             else {
                 System.out.println("No values to fetch!");
@@ -97,8 +103,8 @@ public class GraphDrawerFactory {
             if (!(DataInterface.isObservationSelected())) {
                 for (int i = 0; i < timeWindow(); i++) {
                     resizedDataset[i] = dataset[i];
-                    System.out.println("timewindow: " + timeWindow());
-                    System.out.println("array length: " + resizedDataset.length);
+                    //System.out.println("timewindow: " + timeWindow());
+                    //System.out.println("array length: " + resizedDataset.length);
                 }
             }
             else {
@@ -124,8 +130,8 @@ public class GraphDrawerFactory {
         }
         catch (Exception e) {
             System.out.println("Error creating plot: " + e);
+            return null;
         }
-        return null;
     }
     
     
@@ -155,7 +161,7 @@ public class GraphDrawerFactory {
                 if (DataInterface.getForecastRain().size() > 0) {
                     // Iterates and resizes the data to fit wanted time window
                     forecastRain = DataInterface.getForecastRain();
-                    System.out.println("Timewindow: "+ timeWindow());
+                    //System.out.println("Timewindow: "+ timeWindow());
                     for (int i = 0; i < timeWindow(); i++) {
                         resizedDataset.add(forecastRain.get(i));
                     }
@@ -194,8 +200,8 @@ public class GraphDrawerFactory {
         }
         catch (Exception e) {
             System.out.println("Error creating histogram: " + e);
+            return null;
         }
-        return null;
     }
     
     // IconsDrawer
@@ -271,27 +277,26 @@ public class GraphDrawerFactory {
         }
         catch (Exception e) {
             System.out.println("Error creating icons: " + e);
+            return null;
         }
-        return null;
     }
     
     // Road / traffic msgs
+    // Moved to viewer
     // * returns trafi info
+    /*
     public Text createMessages() {
         try {
-            TrafficMessagesDrawer tmd = new TrafficMessagesDrawer();
-            /*
-            *   Test
-            *   tmd.test();
-            */
+            //TrafficMessagesDrawer tmd = new TrafficMessagesDrawer();
+            
             
             
             return tmd.getRoadConditionData();
         }
         catch (Exception e) {
             System.out.println("Error creating messages: " + e);
+            return null;
         }
-        return null;
     }
-    
+    */
 }
