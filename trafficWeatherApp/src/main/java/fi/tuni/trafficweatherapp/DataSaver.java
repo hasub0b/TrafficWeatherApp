@@ -31,6 +31,7 @@ public class DataSaver {
         map.put("Rain",DataInterface.getRain());
         map.put("Cloud",DataInterface.getCloud());
         map.put("Average",DataInterface.getMaintenanceMapAverage());
+        map.put("coordinates",DataInterface.getCoordinates());
 
         int dataNumber = 1;
         try (InputStream in = getClass().getResource("datasets").openStream();
