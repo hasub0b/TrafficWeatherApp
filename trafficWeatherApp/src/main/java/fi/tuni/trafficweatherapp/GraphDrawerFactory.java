@@ -73,9 +73,8 @@ public class GraphDrawerFactory {
         try {
             /* Testing msgdrwr */
             TrafficMessagesDrawer tmd = new TrafficMessagesDrawer();
-            System.out.println("TMD Message String: " + tmd.getMessageString());
             System.out.println("Road Condition String: " + tmd.getRoadConditionString());
-            System.out.println("Message size: " + tmd.getMessageSize());
+            //System.out.println("Message size: " + tmd.getMessageSize());
             
             Double[] dataset = null;
             Double temp = DataInterface.getTemperature();

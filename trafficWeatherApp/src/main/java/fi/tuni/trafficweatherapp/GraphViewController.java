@@ -100,6 +100,7 @@ public class GraphViewController {
     Tooltip tipSideMenu = new Tooltip("Graph settings");
 
     GraphDrawerFactory graphFactory = new GraphDrawerFactory();
+    TrafficMessagesDrawer tmd = new TrafficMessagesDrawer();
 
     ToggleGroup groupTimeline = new ToggleGroup();
     ToggleGroup groupForecastOptions = new ToggleGroup();
@@ -281,6 +282,8 @@ public class GraphViewController {
 
             // Road data
             // Road condition
+            textAreaRoadConditionData.setText(tmd.getRoadConditionString());
+            
             if (DataInterface.isPrecipitationSelected()) {
 
             }
@@ -290,9 +293,10 @@ public class GraphViewController {
             if (DataInterface.isSlipperinessSelected()) {
 
             }
-            //textAreaTrafficMessages.setText(graphFactory.createMessages());
             
             // Messages
+            textAreaTrafficMessages.setText(tmd.messageCounter());
+            
             if (DataInterface.isAnnouncementSelected()) {
 
             }

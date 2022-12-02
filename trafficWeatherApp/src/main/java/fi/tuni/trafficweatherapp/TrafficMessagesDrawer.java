@@ -108,7 +108,7 @@ public class TrafficMessagesDrawer {
     }
     
     public String conditionBuilder(Map<String, List<String>> input) {
-        StringBuilder mapToString = new StringBuilder("\n");
+        StringBuilder mapToString = new StringBuilder("");
         List<String> inputElement = null;
         // Value index 0,1,2,3,4 is Observation,2h,4h,6h,12h
         int index = 0;
@@ -170,6 +170,42 @@ public class TrafficMessagesDrawer {
     // conditionBuilder does the parsing
     public String getRoadConditionString() {
         return conditionBuilder(DataInterface.getItemsOfInterest());
+    }
+    
+    public String messageCounter() {
+        Map<String, List<String>> input = DataInterface.getMessagesMap();
+        StringBuilder strBuild = new StringBuilder("");
+        int count = 0;
+        
+        if (input != null) {
+            // If there's road work selected
+            if (DataInterface.isRoadworkSelected()) {
+                count += input.get("ROAD_WORK").size();
+                System.out.println("RW Size: " + input.get("ROAD_WORK").size());
+            }
+            // If there's weight restrictions selected
+            if (DataInterface.isWeightSelected()) {
+                count += input.get("WEIGHT_RESTRICTION").size();
+                System.out.println("WR Size: " + input.get("WEIGHT_RESTRICTION").size());
+            }
+            // If there's exempted transport selected
+            if (DataInterface.isTransportSelected()) {
+                count += input.get("EXEMPTED_TRANSPORT").size();
+                System.out.println("ET Size: " + input.get("EXEMPTED_TRANSPORT").size());
+            }
+            // If there's traffic announcements selected
+            if (DataInterface.isAnnouncementSelected()) {
+                count += input.get("TRAFFIC_ANNOUNCEMENT").size();
+                System.out.println("TA Size: " + input.get("TRAFFIC_ANNOUNCEMENT").size());
+            }
+        }
+        else {
+            System.out.println("Message counter received an empty map.");
+            return null;
+        }
+
+        strBuild.append("Traffic Messages Amount: " + count);
+        return strBuild.toString();
     }
     
     // Counts the elements from a hashmap
