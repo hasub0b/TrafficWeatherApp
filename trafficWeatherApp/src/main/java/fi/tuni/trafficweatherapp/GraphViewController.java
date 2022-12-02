@@ -116,6 +116,8 @@ public class GraphViewController {
      * @throws Exception If cannot create graphs
      */
     public void initialize() throws Exception {
+        DataInterface.setObservationSelected(true);
+        
         sideMenu.getStyleClass().add("menu");
 
         buttonForecast.setToggleGroup(groupTimeline);

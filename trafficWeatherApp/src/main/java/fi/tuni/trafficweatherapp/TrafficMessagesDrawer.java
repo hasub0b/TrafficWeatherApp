@@ -91,12 +91,12 @@ public class TrafficMessagesDrawer {
                 // If there's weight restrictions selected
                 if (DataInterface.isOverallConditionSelected()) {
                     inputElement = input.get("OverallCondition");
-                    mapToString.append("OverallCondition:\n" + inputElement.get(index)+"\n");
+                    mapToString.append("Overall Condition:\n" + inputElement.get(index)+"\n");
                 }
                 // If there's exempted transport selected
                 if (DataInterface.isSlipperinessSelected()) {
                     inputElement = input.get("WinterSlipperiness");
-                    mapToString.append("WinterSlipperiness:\n" + inputElement.get(index)+"\n");
+                    mapToString.append("Winter Slipperiness:\n" + inputElement.get(index)+"\n");
                 }
             }
             else {
