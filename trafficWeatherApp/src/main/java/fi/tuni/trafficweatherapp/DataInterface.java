@@ -27,7 +27,7 @@ public final class DataInterface {
     // Values from FMI
     //
     // forecast lists have next 24h in 30min steps --- 48 elements -> index 0 next xx:30 or xx:00 and 48th element is 24h from index 0's time
-    private static List<Float> forecastTemperature = new ArrayList<>();
+    private static List<Double> forecastTemperature = new ArrayList<>();
     private static List<Float> forecastRain = new ArrayList<>();
     private static List<Float> forecastWind = new ArrayList<>();
     private static List<Float> forecastCloud = new ArrayList<>();
@@ -100,9 +100,9 @@ public final class DataInterface {
 
     // FMI
 
-    public static List<Float> getForecastTemperature() {return forecastTemperature;}
-    public static void setForecastTemperature(List<Float> newForecastTemperature) {forecastTemperature = newForecastTemperature;}
-    public static void addForecastTemperature(Float newForecastTemperature) {forecastTemperature.add(newForecastTemperature);}
+    public static List<Double> getForecastTemperature() {return forecastTemperature;}
+    public static void setForecastTemperature(List<Double> newForecastTemperature) {forecastTemperature = newForecastTemperature;}
+    public static void addForecastTemperature(Double newForecastTemperature) {forecastTemperature.add(newForecastTemperature);}
 
     public static Double getTemperature() {return temperature;}
     public static void setTemperature(Double newTemperature) {temperature = newTemperature;}

@@ -295,7 +295,7 @@ public class JsonParsing {
                 // forecast
 
                 List<Float> rainList = new ArrayList<>();
-                List<Float> temperatureList = new ArrayList<>();
+                List<Double> temperatureList = new ArrayList<>();
                 List<Float> windList = new ArrayList<>();
                 List<Float> cloudList = new ArrayList<>();
 
@@ -305,7 +305,7 @@ public class JsonParsing {
 
 
                     Float rain = memberArray.get(i).getAsJsonObject().get("precipitationamount").getAsFloat();
-                    Float temp = memberArray.get(i).getAsJsonObject().get("temperature").getAsFloat();
+                    Double temp = memberArray.get(i).getAsJsonObject().get("temperature").getAsDouble();
                     Float wind = memberArray.get(i).getAsJsonObject().get("windspeedms").getAsFloat();
                     Float cloud = memberArray.get(i).getAsJsonObject().get("TotalCloudCover").getAsFloat();
 

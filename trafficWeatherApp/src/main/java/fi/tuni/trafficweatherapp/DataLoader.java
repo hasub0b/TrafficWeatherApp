@@ -79,14 +79,22 @@ public class DataLoader {
             HashMap<String, Integer> maintenances = new Gson().fromJson(jsonObject.get("MaintenanceMap").getAsJsonObject(), HashMap.class);
             DataInterface.setMaintenanceMap(maintenances);
 
-            List<Float> forecastTemp = new Gson().fromJson(jsonObject.get("ForecastTemp").getAsJsonArray(), List.class);
+            List<Double> forecastTemp = new Gson().fromJson(jsonObject.get("ForecastTemp").getAsJsonArray(), List.class);
             DataInterface.setForecastTemperature(forecastTemp);
 
-            List<Float> forecastWind = new Gson().fromJson(jsonObject.get("ForecastWind").getAsJsonArray(), List.class);
-            DataInterface.setForecastWind(forecastWind);
+            List<String> forecastWind = new Gson().fromJson(jsonObject.get("ForecastWind").getAsJsonArray(), List.class);
+            List<Float> wind = new ArrayList<>();
+            for (String str:forecastWind) {
+                wind.add(Float.valueOf(str));
+            }
+            DataInterface.setForecastWind(wind);
 
-            List<Float> forecastRain = new Gson().fromJson(jsonObject.get("ForecastRain").getAsJsonArray(), List.class);
-            DataInterface.setForecastWind(forecastRain);
+            List<String> forecastRain = new Gson().fromJson(jsonObject.get("ForecastRain").getAsJsonArray(), List.class);
+            List<Float> rains = new ArrayList<>();
+            for (String str:forecastRain) {
+                rains.add(Float.valueOf(str));
+            }
+            DataInterface.setForecastWind(rains);
 
             Double[] coordinates = new Gson().fromJson(jsonObject.get("coordinates").getAsJsonArray(), Double[].class);
             DataInterface.setCoordinates(coordinates);
