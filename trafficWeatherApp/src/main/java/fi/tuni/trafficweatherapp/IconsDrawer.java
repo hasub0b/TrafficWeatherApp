@@ -94,7 +94,7 @@ public class IconsDrawer {
                     node.getChildren().clear();
 
                     if (windSelected) {
-                        textbox = new VBox(5, windPic, windText);
+                        textbox = new VBox(windPic, windText);
                     }
                     if (cloudSelected) {
                         image.setFitHeight(20);
@@ -102,7 +102,7 @@ public class IconsDrawer {
                         vbox = new VBox(5, image, textbox);
                     }
                     if (!cloudSelected) {
-                        vbox = new VBox(5, textbox);
+                        vbox = new VBox(textbox);
                     }
                     textbox.setAlignment(Pos.BOTTOM_CENTER);
                     node.getChildren().add(vbox);
