@@ -180,6 +180,10 @@ public class GraphViewController {
         chartHistogram.setVisible(true);
         chartLine.setVisible(true);
         chartIcons.setVisible(false);
+        textAreaTrafficMessages.setVisible(false);
+        textAreaRoadConditionData.setVisible(false);
+        textAreaAvgMaintenanceTasks.setVisible(false);
+        pieChartTaskTypes.setVisible(false);
     }
 
     /**
@@ -258,9 +262,15 @@ public class GraphViewController {
                     coordinates[2].toString(),
                     coordinates[3].toString()));
 
+            
+            // Default visibility
             chartHistogram.setVisible(false);
             chartLine.setVisible(false);
             chartIcons.setVisible(false);
+            textAreaTrafficMessages.setVisible(false);
+            textAreaRoadConditionData.setVisible(false);
+            textAreaAvgMaintenanceTasks.setVisible(false);
+            pieChartTaskTypes.setVisible(false);
 
             chartLine.getData().set(0, graphFactory.createPlot());
             chartHistogram.getData().set(0, graphFactory.createHistogram());
@@ -287,33 +297,29 @@ public class GraphViewController {
             // Road condition
             textAreaRoadConditionData.setText(tmd.getRoadConditionString());
 
-            if (DataInterface.isPrecipitationSelected()) {
-
+            if (DataInterface.isPrecipitationSelected() | 
+                    DataInterface.isOverallConditionSelected() | 
+                    DataInterface.isSlipperinessSelected()) 
+            {
+                textAreaRoadConditionData.setVisible(true);
             }
-            if (DataInterface.isOverallConditionSelected()) {
-
-            }
-            if (DataInterface.isSlipperinessSelected()) {
-
-            }
-
+            
             // Messages
             textAreaTrafficMessages.setText(tmd.messageCounter());
 
-            if (DataInterface.isAnnouncementSelected()) {
-
+            if (DataInterface.isAnnouncementSelected() | 
+                    DataInterface.isTransportSelected() | 
+                    DataInterface.isWeightSelected() | 
+                    DataInterface.isRoadworkSelected()) 
+            {
+                textAreaTrafficMessages.setVisible(true);
             }
-            if (DataInterface.isTransportSelected()) {
 
-            }
-            if (DataInterface.isWeightSelected()) {
-
-            }
-            if (DataInterface.isRoadworkSelected()) {
-
-            }
             // Maintenance
-            if (DataInterface.isMaintenanceSelected()) {
+            if (DataInterface.isMaintenanceSelected()) 
+            {
+                textAreaAvgMaintenanceTasks.setVisible(true);
+                pieChartTaskTypes.setVisible(true);
 
                 pieChartTaskTypes.getData().clear();
 
