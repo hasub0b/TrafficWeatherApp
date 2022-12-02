@@ -346,6 +346,7 @@ public class GraphViewController {
                 // Tooltip
                 pieChartTaskTypes.getData().stream().forEach(data -> {
                     Tooltip tooltip = new Tooltip();
+                    tooltip.setShowDelay(Duration.ZERO);
                     tooltip.setText(data.getName());
                     Tooltip.install(data.getNode(), tooltip);
                     data.pieValueProperty().addListener((observable, oldValue, newValue)
