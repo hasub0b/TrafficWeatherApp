@@ -50,7 +50,7 @@ public class WeatherDataApiFetcher {
     static String dynamicWeatherForecastDataString = "https://opendata.fmi.fi/wfs?request"
             + "=getFeature&version=2.0.0&storedquery_id=fmi::forecast::harmonie::surface::point::simple&latlon"
             + "=<Y>,<X>&timestep=<TS>&parameters"
-            + "=temperature,windspeedms,precipitationamount";
+            + "=temperature,windspeedms,precipitationamount,TotalCloudCover";
     
     /* ! Forecast by default 24h  ! */
     // observations vs. forecast - <OFT>
@@ -80,9 +80,9 @@ public class WeatherDataApiFetcher {
         observationsObject = newOO;
     }
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
         
-        //JSONObject forecastResults = getForecastData("23.78712", "61.49911", "30");
+        // getForecastData("23.78712", "61.49911", "30");
         //System.out.println("Forecast: " + forecastResults);
         
         //JSONObject observationResults = getObservationData("23", "61", "24", "62", "30");
@@ -121,7 +121,7 @@ public class WeatherDataApiFetcher {
         
         // Convert XML to JSON (duty of parser)
         JSONObject jso = XML.toJSONObject(bufferedreader);
-   
+
         // Disconnect the connection
         urlConnection.disconnect();
         
