@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 /**
  *
- * @author Arttu
+ * @author Arttu Lehtola
  */
 public class TrafficMessagesDrawer {
     /*
@@ -24,57 +24,7 @@ public class TrafficMessagesDrawer {
     - Messages
     */
     private Text textOutput;
-    /*
-    public Text directDraw (Map<String, List<String>> input) {
-        textOutput.setText(mapConverter(input));
-        return textOutput;
-    }
     
-    public void test () {
-        Map<String, List<String>> testMessageMap = new HashMap<>();
-        List<String> alkioListaYksi = new ArrayList<>();
-        List<String> alkioListaKaksi = new ArrayList<>();
-        alkioListaYksi.add("alkio1.1");
-        alkioListaYksi.add("alkio1.2");
-        alkioListaYksi.add("alkio1.3");
-        alkioListaKaksi.add("alkio2.1");
-        alkioListaKaksi.add("alkio2.2");
-        alkioListaKaksi.add("alkio2.3");
-        testMessageMap.put("Avain 1", alkioListaYksi);
-        testMessageMap.put("Avain 2", alkioListaKaksi);
-        String convertedMap = mapConverter(testMessageMap);
-        System.out.println("Test map: " + convertedMap);
-        //return testMessageMap;
-    }
-    
-    public String mapConverter(Map<String, List<String>> input) {
-        if (input != null) {
-            StringBuilder mapToString = new StringBuilder("\n");
-            for (String key : input.keySet()) {
-                mapToString.append(key + ": " + input.get(key) + "\n");
-            }
-            mapToString.delete(mapToString.length()-2, 
-                    mapToString.length()).append("\n");
-            String convertedMap = mapToString.toString();
-            return convertedMap;
-        }
-        return null;
-    }
-    
-    public String intMapConverter(Map<String, Integer> input) {
-        if (input != null) {
-            StringBuilder mapToString = new StringBuilder("\n");
-            for (String key : input.keySet()) {
-                mapToString.append(key + ": " + input.get(key) + "\n");
-            }
-            mapToString.delete(mapToString.length()-2, 
-                    mapToString.length()).append("\n");
-            String convertedIntMap = mapToString.toString();
-            return convertedIntMap;
-        }
-        return null;
-    }
-    */
     public String messageBuilder(Map<String, List<String>> input) {
         StringBuilder mapToString = new StringBuilder("\n");
         try {

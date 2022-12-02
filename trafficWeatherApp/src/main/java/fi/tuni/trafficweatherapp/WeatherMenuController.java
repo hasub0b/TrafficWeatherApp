@@ -6,7 +6,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 
 /**
- * @author Arttu
+ * @author Arttu Lehtola
  */
 public class WeatherMenuController {
 

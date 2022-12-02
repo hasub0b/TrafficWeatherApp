@@ -17,7 +17,7 @@ import javafx.scene.text.Text;
 
 /**
  *
- * @author Arttu
+ * @author Arttu Lehtola
  */
 public class GraphDrawerFactory {
     
@@ -279,23 +279,5 @@ public class GraphDrawerFactory {
             return null;
         }
     }
-    
-    // Road / traffic msgs
-    // Moved to viewer
-    // * returns trafi info
-    /*
-    public Text createMessages() {
-        try {
-            //TrafficMessagesDrawer tmd = new TrafficMessagesDrawer();
-            
-            
-            
-            return tmd.getRoadConditionData();
-        }
-        catch (Exception e) {
-            System.out.println("Error creating messages: " + e);
-            return null;
-        }
-    }
-    */
+   
 }
