@@ -21,43 +21,6 @@ public class TrafficMessagesDrawer {
     private Text textOutput;
     
     /**
-     * Builds a message string
-     * @param input input map, where strings are fetched from
-     * @return returns a formatted string with all wanted values
-     */
-    public String messageBuilder(Map<String, List<String>> input) {
-        StringBuilder mapToString = new StringBuilder("\n");
-        try {
-        if (input != null) {
-            // If there's road work selected
-            if (DataInterface.isRoadworkSelected()) {
-                mapToString.append("ROAD_WORK:\n" + input.get("ROAD_WORK")+"\n");
-            }
-            // If there's weight restrictions selected
-            if (DataInterface.isWeightSelected()) {
-                mapToString.append("WEIGHT_RESTRICTION:\n" + input.get("WEIGHT_RESTRICTION")+"\n");
-            }
-            // If there's exempted transport selected
-            if (DataInterface.isTransportSelected()) {
-                mapToString.append("EXEMPTED_TRANSPORT:\n" + input.get("EXEMPTED_TRANSPORT")+"\n");
-            }
-            // If there's traffic announcements selected
-            if (DataInterface.isAnnouncementSelected()) {
-                mapToString.append("TRAFFIC_ANNOUNCEMENT:\n" + input.get("TRAFFIC_ANNOUNCEMENT")+"\n");
-            }
-        }
-        else {
-            return null;
-        }
-        
-        } catch (Exception e) {
-            System.out.println("Error when building message: " + e);
-            return null;
-        }
-        return mapToString.toString();
-    }
-    
-    /**
      * Creates string from road condition datamap 
      * @param input input map where data is extracted from to a string
      * @return returns a full structured string ready for use
@@ -113,15 +76,6 @@ public class TrafficMessagesDrawer {
             return null;
         }
         return mapToString.toString();
-    }
-    
-    /**
-     * Fetches a message string from builder
-     * @return returns a string parsed by the messageBuilder
-     */
-    public String getMessageString() {
-        return messageBuilder(DataInterface.getMessagesMap());
-        //return mapConverter(DataInterface.getMessagesMap());
     }
 
     /**
