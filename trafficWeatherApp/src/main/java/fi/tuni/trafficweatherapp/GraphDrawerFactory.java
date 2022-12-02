@@ -213,9 +213,11 @@ public class GraphDrawerFactory {
             Float wind = null;
             Float cloud = null;
             List<Float> forecastWind = null;
+            List<Float> forecastCloud = null;
             IconsDrawer id = null;
             // Resized dataset to take into account for forecast hours
-            List<Float> resizedDataset = new ArrayList<>(timeWindow());
+            List<Float> resizedDatasetWind = new ArrayList<>(timeWindow());
+            List<Float> resizedDatasetCloud = new ArrayList<>(timeWindow());
             
             
             if (DataInterface.isObservationSelected()) {
@@ -242,9 +244,21 @@ public class GraphDrawerFactory {
                 if (DataInterface.getForecastWind().size() > 0) {
                     forecastWind = DataInterface.getForecastWind();
                     for (int i = 0; i < timeWindow(); i++) {
-                        resizedDataset.add(forecastWind.get(i));
+                        resizedDatasetWind.add(forecastWind.get(i));
                     }
-                    forecastWind = resizedDataset;
+                    forecastWind = resizedDatasetWind;
+                }
+                else {
+                    //System.out.println("Couldn't values for wind forecast");
+                }
+                
+                // Cloud (fore)
+                if (DataInterface.getForecastCloud().size() > 0) {
+                    forecastCloud = DataInterface.getForecastCloud();
+                    for (int i = 0; i < timeWindow(); i++) {
+                        resizedDatasetCloud.add(forecastCloud.get(i));
+                    }
+                    forecastCloud = resizedDatasetCloud;
                 }
                 else {
                     //System.out.println("Couldn't values for wind forecast");
@@ -268,7 +282,7 @@ public class GraphDrawerFactory {
             // Forecast
             // (no cloudiness forecast available)
             else if (!(DataInterface.isObservationSelected())) {
-                id = new IconsDrawer(Arrays.asList(0f), false, forecastWind, DataInterface.isWindSelected(), 1);
+                id = new IconsDrawer(forecastCloud, DataInterface.isCloudSelected(), forecastWind, DataInterface.isWindSelected(), 1);
             }
             
             // ! Template for testing purposes !
