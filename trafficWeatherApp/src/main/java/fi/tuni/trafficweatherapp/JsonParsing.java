@@ -312,13 +312,33 @@ public class JsonParsing {
 
                 // Get next 24h forecast, assuming 60min steps
                 for (int i = 0; i < 24; i++) {
+                    Float rain;
+                    Double temp;
+                    Float wind;
+                    Float cloud;
+                    if (Objects.equals(memberArray.get(i).getAsJsonObject().get("precipitationamount").toString(), "NaN")){
+                        rain = 0.0f;
+                    } else {
+                        rain = memberArray.get(i).getAsJsonObject().get("precipitationamount").getAsFloat();
+                    }
+                    if (Objects.equals(memberArray.get(i).getAsJsonObject().get("temperature").toString(), "NaN")){
+                        temp = 0.0;
+                    } else {
+                        temp = memberArray.get(i).getAsJsonObject().get("temperature").getAsDouble();
+                    }
+                    if (Objects.equals(memberArray.get(i).getAsJsonObject().get("windspeedms").toString(), "NaN")){
+                        wind = 0.0f;
+                    } else {
+                        wind = memberArray.get(i).getAsJsonObject().get("windspeedms").getAsFloat();
+                    }
+                    if (Objects.equals(memberArray.get(i).getAsJsonObject().get("TotalCloudCover").toString(), "NaN")){
+                        cloud = 0.0f;
+                    } else {
+                        cloud = memberArray.get(i).getAsJsonObject().get("TotalCloudCover").getAsFloat();
+                    }
 
 
 
-                    Float rain = memberArray.get(i).getAsJsonObject().get("precipitationamount").getAsFloat();
-                    Double temp = memberArray.get(i).getAsJsonObject().get("temperature").getAsDouble();
-                    Float wind = memberArray.get(i).getAsJsonObject().get("windspeedms").getAsFloat();
-                    Float cloud = memberArray.get(i).getAsJsonObject().get("TotalCloudCover").getAsFloat();
 
                     rainList.add(rain);
                     temperatureList.add(temp);
