@@ -16,7 +16,7 @@ public final class DataInterface {
 
     // Key maintenance type
     private static Map<String,Integer> maintenanceMap = new HashMap<>();
-    // MUST DIVIDE VALUE BY 7 FOR AVERAGE
+    // MUST DIVIDE VALUE BY 3 FOR AVERAGE
     private static Map<String,Integer> maintenanceMapAverage = new HashMap<>();
     // Key "TRAFFIC_ANNOUNCEMENT", "EXEMPTED_TRANSPORT", "WEIGHT_RESTRICTION", "ROAD_WORK"
     private static Map<String, List<String>> messagesMap = new HashMap<>();

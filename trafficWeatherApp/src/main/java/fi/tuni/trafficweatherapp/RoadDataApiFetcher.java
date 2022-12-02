@@ -175,8 +175,8 @@ public class RoadDataApiFetcher {
         // clear map of previous values
         DataInterface.setMaintenanceMapAverage(new HashMap<>());
 
-        // get each day of past week
-        for (int i = 0; i < 7; i++) {
+        // get each day of past 2
+        for (int i = 0; i < 3; i++) {
             String urlString = urlRoadMaintenanceData
                     .replace("<START_TIME>", localtimeToUrlTimeMinusDays(i+1))
                     .replace("<END_TIME>",localtimeToUrlTimeMinusDays(i) )
@@ -194,7 +194,9 @@ public class RoadDataApiFetcher {
                     .getAsJsonObject();
 
             JsonParsing.parseAverage(jsonObject);
+
         }
+
     }
 
     /**
