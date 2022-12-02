@@ -55,7 +55,7 @@
                                 <Insets bottom="10.0" left="50.0" right="50.0" top="-5.0" />
                             </VBox.margin>
                             <children>
-                                <BarChart fx:id="chartHistogram" alternativeRowFillVisible="false" animated="false" categoryGap="35.0" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false" StackPane.alignment="CENTER_LEFT">
+                                <BarChart fx:id="chartHistogram" alternativeRowFillVisible="false" animated="false" barGap="5.0" categoryGap="0.0" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false" StackPane.alignment="CENTER_LEFT">
                                     <xAxis>
                                         <CategoryAxis animated="false" opacity="0.0">
                                             <opaqueInsets>
@@ -67,7 +67,7 @@
                                         <NumberAxis animated="false" lowerBound="5.0" minorTickCount="0" side="LEFT" />
                                     </yAxis>
                                     <StackPane.margin>
-                                        <Insets bottom="25.0" right="55.0" top="5.0" />
+                                        <Insets bottom="19.0" right="50.0" top="5.0" />
                                     </StackPane.margin>
                                 </BarChart>
                                 <LineChart fx:id="chartLine" animated="false" axisSortingPolicy="NONE" legendVisible="false" StackPane.alignment="CENTER_LEFT">
@@ -78,10 +78,10 @@
                                         <NumberAxis animated="false" side="LEFT" />
                                     </yAxis>
                                     <StackPane.margin>
-                                        <Insets top="5.0" />
+                                        <Insets left="50.0" top="5.0" />
                                     </StackPane.margin>
                                 </LineChart>
-                        <BarChart fx:id="chartIcons" alternativeRowFillVisible="false" animated="false" categoryGap="35.0" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false" StackPane.alignment="CENTER_LEFT">
+                        <BarChart fx:id="chartIcons" alternativeRowFillVisible="false" animated="false" barGap="3.0" categoryGap="0.0" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false" StackPane.alignment="CENTER_LEFT">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" fx:id="xAxis" />
                           </xAxis>
@@ -89,7 +89,7 @@
                             <NumberAxis fx:id="yAxis" side="LEFT" />
                           </yAxis>
                            <StackPane.margin>
-                              <Insets bottom="60.0" right="25.0" />
+                              <Insets bottom="40.0" />
                            </StackPane.margin>
                         </BarChart>
                             </children>
