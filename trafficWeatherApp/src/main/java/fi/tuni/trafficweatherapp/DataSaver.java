@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -23,11 +25,22 @@ public class DataSaver {
         map.put("ItemsOfInterest",DataInterface.getItemsOfInterest());
         map.put("MessagesMap",DataInterface.getMessagesMap());
         map.put("MaintenanceMap",DataInterface.getItemsOfInterest());
+
+        List<String> winds = new ArrayList<>();
+        for (Float fl:DataInterface.getForecastWind()) {
+            winds.add(fl.toString());
+        }
+        map.put("ForecastWind",winds);
+
+        List<String> rains = new ArrayList<>();
+        for (Float fl:DataInterface.getForecastRain()) {
+            rains.add(fl.toString());
+        }
+        map.put("ForecastRain",rains);
+
         map.put("ForecastTemp",DataInterface.getForecastTemperature());
         map.put("Temp",DataInterface.getTemperature());
-        map.put("ForecastWind",DataInterface.getForecastWind());
         map.put("Wind",DataInterface.getWind());
-        map.put("ForecastRain",DataInterface.getForecastRain());
         map.put("Rain",DataInterface.getRain());
         map.put("Cloud",DataInterface.getCloud());
         map.put("Average",DataInterface.getMaintenanceMapAverage());

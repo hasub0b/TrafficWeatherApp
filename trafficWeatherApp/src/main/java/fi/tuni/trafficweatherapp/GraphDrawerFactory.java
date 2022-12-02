@@ -75,7 +75,14 @@ public class GraphDrawerFactory {
             Double[] dataset = null;
             Double temp = DataInterface.getTemperature();
 
-            Double[] foreTemp = listFloatToDoubleArray(DataInterface.getForecastTemperature());
+            //Double[] foreTemp = listFloatToDoubleArray(DataInterface.getForecastTemperature());
+
+            Double[] foreTemp = new Double[DataInterface.getForecastTemperature().size()];
+            for (int i = 0; i < foreTemp.length; i++) {
+                foreTemp[i] = DataInterface.getForecastTemperature().get(i);  // java 1.4 style
+                // or:
+                foreTemp[i] = DataInterface.getForecastTemperature().get(i);                // java 1.5+ style (outboxing)
+            }
             // Resized dataset to take into account for forecast hours
             Double[] resizedDataset = new Double[timeWindow()];
 
@@ -152,7 +159,7 @@ public class GraphDrawerFactory {
                 
                 // Rain (obs)
                 if (DataInterface.getRain() != null) {
-                    rain = DataInterface.getRain().floatValue();
+                    rain = Float.valueOf(DataInterface.getRain().toString());
                 }
                 else {
                     System.out.println("Couldn't fetch rain");
@@ -223,8 +230,7 @@ public class GraphDrawerFactory {
             if (DataInterface.isObservationSelected()) {
                 // Cloud (obs)
                 if (DataInterface.getCloud() != null) {
-                    cloud = DataInterface.getCloud().floatValue();
-                    
+                    cloud = Float.valueOf(DataInterface.getCloud().toString());
                 }
                 else {
                     System.out.println("Couldn't fetch cloud");
@@ -232,7 +238,7 @@ public class GraphDrawerFactory {
                 
                 // Wind (obs)
                 if (DataInterface.getWind() != null) {
-                    wind = Float.valueOf(DataInterface.getWind()); 
+                    wind = Float.valueOf(DataInterface.getWind());
                 }
                 else {
                     System.out.println("Couldn't fetch wind");
@@ -242,9 +248,11 @@ public class GraphDrawerFactory {
             else {
                 // Wind (fore)
                 if (DataInterface.getForecastWind().size() > 0) {
+
                     forecastWind = DataInterface.getForecastWind();
                     for (int i = 0; i < timeWindow(); i++) {
-                        resizedDatasetWind.add(forecastWind.get(i));
+                        //resizedDatasetWind.add(Float.valueOf(forecastWind.get(i).toString()));
+
                     }
                     forecastWind = resizedDatasetWind;
                 }
@@ -256,7 +264,7 @@ public class GraphDrawerFactory {
                 if (DataInterface.getForecastCloud().size() > 0) {
                     forecastCloud = DataInterface.getForecastCloud();
                     for (int i = 0; i < timeWindow(); i++) {
-                        resizedDatasetCloud.add(forecastCloud.get(i));
+                        resizedDatasetCloud.add(Float.valueOf(forecastCloud.get(i)));
                     }
                     forecastCloud = resizedDatasetCloud;
                 }
