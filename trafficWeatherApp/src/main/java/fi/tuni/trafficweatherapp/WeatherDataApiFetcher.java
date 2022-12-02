@@ -82,7 +82,7 @@ public class WeatherDataApiFetcher {
     
     public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
         
-        getForecastData("23.78712", "61.49911", "30");
+        // getForecastData("23.78712", "61.49911", "30");
         //System.out.println("Forecast: " + forecastResults);
         
         //JSONObject observationResults = getObservationData("23", "61", "24", "62", "30");
@@ -122,8 +122,6 @@ public class WeatherDataApiFetcher {
         // Convert XML to JSON (duty of parser)
         JSONObject jso = XML.toJSONObject(bufferedreader);
 
-        System.out.println(jso);
-   
         // Disconnect the connection
         urlConnection.disconnect();
         

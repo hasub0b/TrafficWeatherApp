@@ -386,7 +386,7 @@ public class GraphViewController {
 
                 else {
                     if (DataInterface.getMaintenanceMapAverage().containsKey(task)){
-                        textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the past 3 days: %d",task,DataInterface.getMaintenanceMapAverage().get(task)/7));
+                        textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the past 3 days: %d",task,DataInterface.getMaintenanceMapAverage().get(task)/3));
                     } else {
                         textAreaAvgMaintenanceTasks.setText(String.format("%s tasks per day for the past 3 days: %d",task,0));
                     }
