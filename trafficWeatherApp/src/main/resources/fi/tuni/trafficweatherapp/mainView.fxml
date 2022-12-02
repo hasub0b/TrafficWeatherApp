@@ -42,7 +42,7 @@
                                     <Font name="Arial" size="20.0" />
                                 </font>
                             </RadioButton>
-                        <Label fx:id="labelAppTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="223.0" text="Traffic App" textFill="#c8b6e2" GridPane.columnIndex="2">
+                        <Label fx:id="labelAppTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="223.0" text="TWApp" textFill="#c8b6e2" GridPane.columnIndex="2">
                            <font>
                               <Font size="40.0" />
                            </font>
@@ -67,7 +67,4 @@
             </children>
         </AnchorPane>
     </children>
-    <userData>
-        <fx:reference source="controller" />
-    </userData>
 </VBox>
