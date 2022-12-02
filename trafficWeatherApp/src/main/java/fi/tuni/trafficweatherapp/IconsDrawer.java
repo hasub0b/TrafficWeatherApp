@@ -84,27 +84,27 @@ public class IconsDrawer {
                     // wind.png <a href="https://www.flaticon.com/free-icons/wind" title="wind icons">Wind icons created by Freepik - Flaticon</a>
                     ImageView windPic = new ImageView(new Image(new File("src/main/resources/fi/tuni/trafficweatherapp/wind.png").toURI().toString()));
 
-                    windText.setFont(Font.font(12));
+                    windText.setFont(Font.font(10));
 
-                    windPic.setFitWidth(17);
+                    windPic.setFitWidth(15);
                     windPic.setPreserveRatio(true);
 
-                    HBox hbox = new HBox();
+                    VBox textbox = new VBox();
                     VBox vbox = new VBox();
                     node.getChildren().clear();
 
                     if (windSelected) {
-                        hbox = new HBox(5, windPic, windText);
+                        textbox = new VBox(windPic, windText);
                     }
                     if (cloudSelected) {
-                        image.setFitHeight(30);
+                        image.setFitHeight(20);
                         image.setPreserveRatio(true);
-                        vbox = new VBox(5, image, hbox);
+                        vbox = new VBox(5, image, textbox);
                     }
                     if (!cloudSelected) {
-                        vbox = new VBox(5, hbox);
+                        vbox = new VBox(textbox);
                     }
-                    hbox.setAlignment(Pos.BOTTOM_CENTER);
+                    textbox.setAlignment(Pos.BOTTOM_CENTER);
                     node.getChildren().add(vbox);
                     vbox.setAlignment(Pos.BOTTOM_CENTER);
                     node.setAlignment(Pos.BOTTOM_CENTER);
